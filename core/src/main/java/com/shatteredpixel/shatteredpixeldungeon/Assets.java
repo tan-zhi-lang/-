@@ -276,6 +276,7 @@ public class Assets {
 		public static final String 攻击箭= "sounds/hit/攻击箭.mp3";
 		public static final String 日炎链刃    = "sounds/hit/日炎链刃.mp3";
 		public static final String 死神镰刀    = "sounds/hit/死神镰刀.mp3";
+		public static final String 卡牌    = "sounds/hit/卡牌.mp3";
 
 		public static final String 攻击灵箭= "sounds/hit/攻击灵箭.mp3";
 		public static final String 攻击弩= "sounds/hit/攻击弩.mp3";
@@ -420,6 +421,7 @@ public class Assets {
 				叶子,
 				日炎链刃,
 				死神镰刀,
+				卡牌,
 				生命水晶,
 				星之果实,
 				魔力水晶,

@@ -568,12 +568,7 @@ public class 物品表 {
     public static final int 圣剑=WEP_TIER52+22;
     public static final int 黑暗剑=WEP_TIER52+23;
 
-    public static final int 种子吹管=WEP_TIER52+24;
-
-    public static final int 自然之力=WEP_TIER52+25;
-    public static final int 冰结短弓=WEP_TIER52+26;
-    public static final int 暗裔短弓=WEP_TIER52+27;
-    public static final int 圣银十字弩=WEP_TIER52+28;
+    public static final int 大王=WEP_TIER52+24;
 
     static{
         assignItemRect(联合盾,15);
@@ -600,23 +595,28 @@ public class 物品表 {
         assignItemRect(龙牙锤,16);
         assignItemRect(圣剑,16);
         assignItemRect(黑暗剑,16);
+        assignItemRect(大王,9,12);
 
-        assignItemRect(种子吹管,16,14);
-
-        assignItemRect(自然之力,16);
-        assignItemRect(冰结短弓,16);
-        assignItemRect(暗裔短弓,16);
-        assignItemRect(圣银十字弩,16);
 
     }
     //endregion
     
     //region 特殊武器
     public static final int 特殊武器 = xy(0, 12);  //16 slots
-    public static final int 特殊武器1 = 特殊武器+0;
+    public static final int 种子吹管 = 特殊武器+0;
+
+    public static final int 自然之力=特殊武器+1;
+    public static final int 冰结短弓=特殊武器+2;
+    public static final int 暗裔短弓=特殊武器+3;
+    public static final int 圣银十字弩=特殊武器+4;
     
     static {
-//            assignItemRect(i, 15);
+        assignItemRect(种子吹管,16,14);
+
+        assignItemRect(自然之力,16);
+        assignItemRect(冰结短弓,16);
+        assignItemRect(暗裔短弓,16);
+        assignItemRect(圣银十字弩,16);
     }
     //endregion
 
@@ -933,6 +933,7 @@ public class 物品表 {
     public static final int 断魂佛珠=禁忌物+17;
     public static final int 皇室佩剑=禁忌物+18;
     public static final int 黑桃印记=禁忌物+19;
+    public static final int 红色高跟=禁忌物+20;
     static {
         
         assignItemRect(血腥生肉,15,11);
@@ -955,6 +956,7 @@ public class 物品表 {
         assignItemRect(断魂佛珠,16,15);
         assignItemRect(皇室佩剑,15);
         assignItemRect(黑桃印记,13,15);
+        assignItemRect(红色高跟,12,10);
     }
     
     //endregion

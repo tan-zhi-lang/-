@@ -157,6 +157,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		if (curAnim == null || curAnim != die) {
 			if(SPDSettings.加快()>1) {
 				if (anim == idle||anim == run) {
+
 				} else if(anim == attack||anim == zap){
 					anim.delay = 1f / SPDSettings.加快();
 				}else {

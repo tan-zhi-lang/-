@@ -315,6 +315,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.真正护符;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.破损短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.神圣之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.紫色心情;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.红色高跟;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.虚无透纱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.遗失符石;
@@ -4441,6 +4442,7 @@ public class Hero extends Char {
         }
         if(天赋(Talent.以攻为守))
             x+=增加攻击()*(天赋点数(Talent.以攻为守,0.1f));
+
         if(符文("花岗岩护盾"))x+=GameMath.百分之内(0.1f,根据护甲(),0.9f);
         if(符文("坚定风采"))x+=残血()?0.4f:0.2f;
         if(符文("进攻是最好的防御"))x+=增加攻击();
@@ -4465,6 +4467,7 @@ public class Hero extends Char {
             x+=天赋点数(Talent.砂之守护,0.1f)*墙体数量;
         }
         x-=虚无透纱.减少();
+
         if(符文("魔抗转防御"))
         x+=1/元素之戒.抗性(this,Dungeon.class);
 
@@ -4512,8 +4515,8 @@ public class Hero extends Char {
 
         if(belongings.技能(防御力.class)) x*=1.05f+0.05f*belongings.技能等级(防御力.class);
         if(符文("爬楼"))x*=1+Dungeon.depth*0.5f;
-        最大护甲*=水晶碎块.防御();
-        最大护甲*=妖精粉尘.减少();
+        x*=水晶碎块.防御();
+        x*=妖精粉尘.减少();
         return x;
     }
     
@@ -4832,6 +4835,8 @@ public class Hero extends Char {
         //region x
         speed*=移速;
         speed*=世界时表.移速();
+        if(女人())
+        speed*=红色高跟.移速();
 
 //            if(垂直移动||水平移动)speed*=2;
             if(符文("人皇步")&&!垂直移动&&!水平移动)speed*=2;
@@ -7874,6 +7879,10 @@ public class Hero extends Char {
         if(enemy!=null)
         damage=蛇皮走位(enemy,damage);
 
+        if(女人())
+        if(红色高跟.概率()>0&&enemy!=null&&Random.Int(7)<=红色高跟.概率()){
+            Buff.施加(enemy,Charm.class,红色高跟.概率());
+        }
         if(enemy!=null&&符文("踢踏舞")&&hasbuff(战斗状态.class)){
             Buff.施加(this,踢踏舞.class).set(攻击效果());
         }

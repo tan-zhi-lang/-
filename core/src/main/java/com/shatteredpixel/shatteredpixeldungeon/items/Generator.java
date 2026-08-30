@@ -152,6 +152,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.神圣之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.精神支柱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.紫色心情;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.红色高跟;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.虚无透纱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
@@ -181,6 +182,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.焰浪法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Joker大王;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.三叉戟;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
@@ -637,7 +639,7 @@ public class Generator {
 
 					雷神锤.class,//0.7
 					骨刀.class,//0.8
-					星云拳套.class,//0.5
+					星云拳套.class,//1
 					疯狂斧.class,//1.3
 
 					//9
@@ -663,6 +665,7 @@ public class Generator {
 
 					圣剑.class,//0.8
 					黑暗剑.class,//0.8
+					Joker大王.class,//0.7
 			};
 			WEP_T5.defaultProbs = new float[]{
 					//1
@@ -683,7 +686,7 @@ public class Generator {
 					2,2,2,2,
 					//12
 					2,2,2,2,
-					2,2,
+					2,2,2,
 											   };
 			WEP_T5.probs = WEP_T5.defaultProbs.clone();
 			
@@ -866,6 +869,8 @@ public class Generator {
 					暗影飞刀.class,
 					桃木剑.class,
 					黑桃印记.class,
+
+					红色高跟.class,
 			};
 			TRINKET.defaultProbs = new float[]{
 					0,0,0,
@@ -886,6 +891,8 @@ public class Generator {
 												1,1,1,1,
 												1,1,1,1,
 												1,1,1,1,
+												1,
+
 
 												};
 			TRINKET.probs = TRINKET.defaultProbs.clone();

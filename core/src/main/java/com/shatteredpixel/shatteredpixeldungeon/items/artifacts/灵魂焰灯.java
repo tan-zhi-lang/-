@@ -80,7 +80,7 @@ public class 灵魂焰灯 extends Artifact {
 		charge--;
 		hero.sprite.operate( hero.pos );
 		hero.busy();
-		hero.spend(Actor.TICK);
+
 
 
 		Catalog.countUse(getClass());

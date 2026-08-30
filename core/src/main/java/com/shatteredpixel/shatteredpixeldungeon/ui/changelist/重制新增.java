@@ -75,6 +75,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.磨刀石;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.神圣之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.精神支柱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.紫色心情;
+import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.红色高跟;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.虚无透纱;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.角斗链枷;
@@ -91,6 +92,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.潮霆法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Joker大王;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.下界合金剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.半月刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
@@ -315,6 +317,7 @@ public class 重制新增{
 		changes = new ChangeInfo("5阶", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new Joker大王()));
 		changes.addButton(new ChangeButton(new 黑暗剑()));
 		changes.addButton(new ChangeButton(new 圣剑()));
 		changes.addButton(new ChangeButton(new 龙牙锤()));
@@ -453,6 +456,7 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 宝石肛塞()));
 		changes.addButton(new ChangeButton(new 紫色心情()));
 		changes.addButton(new ChangeButton(new 黑桃印记()));
+		changes.addButton(new ChangeButton(new 红色高跟()));
 
 	}
 

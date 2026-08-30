@@ -19,11 +19,13 @@ public class 黑暗剑 extends Weapon{
 	}
 	@Override
 	public float 攻击时(Char attacker,Char defender,float damage){
-
+		if(attacker!=null){
+			damage+=35f/attacker.视野范围();
+		}
 		if(Dungeon.level!=null){
-			damage*=Dungeon.区域()/2f;
+			damage*=1+Dungeon.区域()/3f;
 		}else{
-			damage*=1/2f;
+			damage*=1+1/3f;
 		}
 		return super.攻击时(attacker,defender,damage);
 	}

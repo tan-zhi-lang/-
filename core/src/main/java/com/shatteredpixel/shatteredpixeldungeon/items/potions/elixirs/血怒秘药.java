@@ -24,7 +24,7 @@ public class 血怒秘药 extends Elixir {
 
 	@Override
 	public void apply( Hero hero ) {
-		hero.吸血成长+=0.01f;
+		hero.吸血成长+=0.005f;
 		hero.暴伤成长+=0.15f;
 	}
 

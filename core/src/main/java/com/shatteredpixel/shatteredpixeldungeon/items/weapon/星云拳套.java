@@ -13,6 +13,8 @@ public class 星云拳套 extends Weapon{
 		image = 物品表.星云拳套;
 		hitSound = Assets.Sounds.攻击棍;
 		技能=new 连击();
+		伤害=1;
+		魔法=0.15f;
 		延迟= 0.5f;
 		特别=true;
 		粉色=true;

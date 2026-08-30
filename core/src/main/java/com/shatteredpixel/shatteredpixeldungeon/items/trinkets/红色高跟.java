@@ -7,10 +7,10 @@ import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class 骸骨左轮 extends Trinket {
+public class 红色高跟 extends Trinket {
 
 	{
-		image = 物品表.骸骨左轮;
+		image = 物品表.红色高跟;
 	}
 
 	@Override
@@ -18,45 +18,43 @@ public class 骸骨左轮 extends Trinket {
 		//6 -> 8(14) -> 10(24) -> 12(36)
 		return 6+2* 等级();
 	}
-
 	@Override
 	public String statsDesc() {
 		if (已鉴定()){
 			return Messages.get(this,"stats_desc",
-								kw2(伤害()*100),
-									kw2(减少()*100)
+								kw2(概率()),
+								kw2(移速())
 							   );
 		} else {
 			return Messages.get(this,"stats_desc",
-
-								kw2(伤害(0)*100),
-									kw2(减少(0)*100)
+								kw2(概率(0)),
+								kw2(移速(0))
 							   );
 		}
 	}
 
-	public static float 伤害(){
-		return 伤害(trinketLevel(骸骨左轮.class));
+
+	public static int 概率(){
+		return 概率(trinketLevel(红色高跟.class));
 	}
 
-	public static float 伤害(int level){
+	public static int 概率(int level){
 		if (level < 0){
 			return 0;
 		} else {
-			return 0.06f+0.03f*level;
+			return 1+level;
 		}
 	}
 
-	public static float 减少(){
-		return 减少(trinketLevel(骸骨左轮.class));
+	public static float 移速(){
+		return 移速(trinketLevel(红色高跟.class));
 	}
 
-	public static float 减少(int level){
+	public static float 移速(int level){
 		if (level < 0){
-			return 0;
+			return 1;
 		} else {
-			return 0.03f-0.01f*level;
+			return 0.98f-0.02f*level;
 		}
 	}
-
 }

@@ -193,13 +193,11 @@ public class 多面手施法 extends Buff implements ActionIndicator.Action {
 								   bolt.collisionPos,
 								   callback);
 		Sample.INSTANCE.play( Assets.Sounds.ZAP );
-		Sample.INSTANCE.play( Assets.Sounds.ZAP );
 	}
 	public static void wandUsed(Hero hero) {
 
 		hero.sprite.operate( hero.pos );
 		hero.busy();
-		hero.spend(Actor.TICK);
 
 		Invisibility.notimedispel();
 

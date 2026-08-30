@@ -260,7 +260,6 @@ public class 粘咕 extends Mob {
 		}
 
 		boolean bleeding = (生命 *2 <= 最大生命);
-		super.受伤时(dmg,来源);
 		if ((生命 *2 <= 最大生命) && !bleeding){
 			BossHealthBar.bleed(true);
 			sprite.showStatus(CharSprite.警告橙,Messages.get(this,"enraged"));
@@ -272,6 +271,7 @@ public class 粘咕 extends Mob {
 			if (Dungeon.isChallenged(Challenges.STRONGER_BOSSES))   lock.addTime(dmg);
 			else                                                    lock.addTime(dmg*1.5f);
 		}
+		super.受伤时(dmg,来源);
 	}
 
 	@Override

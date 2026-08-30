@@ -257,7 +257,7 @@ public class WndHero extends WndTabbed {
 					}
 					pos+=GAP;
 					statSlot("==攻击伤害/攻击==",kw2((hero.攻击时(null,1)))+"倍/"+kw2(hero.最小攻击())+"~"+kw2(hero.最大攻击()));
-					statSlot("++物理抗性/防御++",Math.round((1-(hero.防御时(null,100))/100f)*100f)+"%/"+kw2(hero.最小防御())+"~"+kw2(hero.最大防御()));
+					statSlot("++物理抗性/防御++",Math.round((1-(hero.防御时(null,100))))+"%/"+kw2(hero.最小防御())+"~"+kw2(hero.最大防御()));
 
 					statSlot("@@元素抗性/魔抗@@",Math.round(100*(1-(元素之戒.抗性(hero))))+"%/"+kw2(hero.最小魔抗())+"~"+kw2(hero.最大魔抗()));
 

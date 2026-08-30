@@ -56,6 +56,10 @@
 		<activity
 			android:name=".AndroidMissingNativesHandler">
 		</activity>
+		<activity
+			android:name=".CustomErrorActivity"
+			android:exported="false"
+			android:process=":error_activity" />
 	</application>
 
 </manifest>

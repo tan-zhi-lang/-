@@ -36,7 +36,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LifeLink;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSleep;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Ooze;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
@@ -66,6 +65,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.战斗状态
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.被发现;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.极速;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.潜伏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -113,7 +113,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfAggression;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.StoneOfShock;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.FerretTuft;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.投机之剑;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.紫色心情;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.重力场球;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.黑桃印记;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
@@ -924,7 +923,7 @@ public abstract class Char extends Actor {
 	public float 攻击时(final Char enemy, float damage ) {
 
 		if(enemy!=null&&黑桃印记.回合()>0&&算法.概率学(15))
-			Buff.施加(enemy,Charm.class,紫色心情.回合());
+			Buff.施加(enemy,Charm.class,黑桃印记.回合());
 
 		if(enemy!=null)
 		第x次攻击++;

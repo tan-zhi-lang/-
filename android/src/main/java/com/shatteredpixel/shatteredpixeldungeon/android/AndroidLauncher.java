@@ -33,6 +33,8 @@ import com.watabou.input.KeyEvent;
 import com.watabou.noosa.Game;
 import com.watabou.utils.FileUtils;
 
+import cat.ereza.customactivityoncrash.config.CaocConfig;
+
 public class AndroidLauncher extends AndroidApplication {
 	
 	public static AndroidApplication instance;
@@ -43,6 +45,11 @@ public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		//崩溃界面换成自定义中文界面
+		CaocConfig.Builder.create()
+				.errorActivity(CustomErrorActivity.class)
+				.apply();
 
 
 		try {

@@ -63,7 +63,7 @@ public class 矮人传送魔法阵 extends SpecialRoom {
 
 		@Override
 		public String desc(int tileX, int tileY) {
-			return "需要消耗1个矮人徽章来传送";
+			return "需要消耗1个矮人徽章来传送至18层";
 		}
 	}
 	public static class 传送魔法阵18 extends CustomTilemap{
@@ -90,7 +90,7 @@ public class 矮人传送魔法阵 extends SpecialRoom {
 
 		@Override
 		public String desc(int tileX, int tileY) {
-			return "";
+			return "需要消耗1个矮人徽章来传送至11层";
 		}
 	}
 }

@@ -298,6 +298,7 @@ public class InventoryPane extends Component {
 		equipped.get(7).item(stuff.misc8 == null ? new WndBag.Placeholder(物品表.ITEM) : stuff.misc8);
 		equipped.get(8).item(stuff.misc9 == null ? new WndBag.Placeholder(物品表.ITEM) : stuff.misc9);
 
+		if(Dungeon.hero.男人())
 		equipped.get(9).item(stuff.misc10==null? new WndBag.Placeholder(物品表.ITEM):stuff.misc10);
 
 		ArrayList<Item> items = (ArrayList<Item>) lastBag.items.clone();

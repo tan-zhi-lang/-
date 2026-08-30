@@ -456,9 +456,10 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 伏击(){
 		float 伏击=super.伏击();
-		if(Dungeon.hero()&&hasEnchant(诡秘.class)) 伏击+=0.2f
-														 *Enchantment.genericProcChanceMultiplier(Dungeon.hero)
-														 *Dungeon.hero.enchantmentlevel(诡秘.class);
+		if(Dungeon.hero()&&hasEnchant(诡秘.class))
+			伏击+=0.2f*Enchantment.genericProcChanceMultiplier(Dungeon.hero)
+				*Dungeon.hero.enchantmentlevel(诡秘.class);
+
 		if(匕首()||镖())伏击+=0.15f;
 		return 伏击;
 	}
@@ -1670,7 +1671,7 @@ abstract public class Weapon extends KindOfWeapon {
 		public static float genericProcChanceMultiplier( Char attacker ){
 			float multi = 奥术之戒.enchantPowerMultiplier(attacker);
 			if(attacker instanceof Hero hero){
-				if(hero.belongings.weapon() instanceof 符文之刃){
+				if(hero.belongings.weapon(符文之刃.class)){
 					multi+=0.5f;
 				}
 				multi*=1+hero.天赋点数(Talent.附魔打击,0.25f);

@@ -85,7 +85,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 			protected void select(boolean value) {
 				super.select(value);
 				游戏设置.visible = 游戏设置.active = value;
-				if (value) last_index = 2;
+				if (value) last_index = 1;
 			}
 		});
 
@@ -106,7 +106,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 				protected void select(boolean value) {
 					super.select(value);
 					input.visible = input.active = value;
-					if (value) last_index = 3;
+					if (value) last_index = 2;
 				}
 			});
 		}
@@ -135,7 +135,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 			protected void select(boolean value) {
 				super.select(value);
 				audio.visible = audio.active = value;
-				if (value) last_index = 4;
+				if (value) last_index = 3;
 			}
 		});
 
@@ -173,12 +173,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 		layoutTabs();
 
 //		if (tabs.size() == 4 && last_index >= 3){
-		if (tabs.size() == 3 && last_index >= 2){
+		int index = last_index;
+		if (tabs.size() == 3 && index >= 2){
 			//input tab isn't visible
-			select(last_index-1);
-		} else {
-			select(last_index);
+			index--;
 		}
+		if (index >= tabs.size()){
+			//防止旧版本残留的last_index越界
+			index = tabs.size()-1;
+		}
+		select(index);
 
 	}
 

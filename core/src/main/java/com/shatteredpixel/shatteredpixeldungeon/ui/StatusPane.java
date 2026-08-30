@@ -453,7 +453,7 @@ public class StatusPane extends Component {
 		if(Dungeon.hero.hasbuff(Hunger.class)){
 			if(Dungeon.hero.buff(Hunger.class).isStarving()){
 				血量变化-=Dungeon.hero.buff(Hunger.class).饥饿伤害();
-			}else if(!Dungeon.hero.满血()){
+			}else if(!Dungeon.hero.满血()&&Dungeon.hero.hasbuff(再生.class)){
 				血量变化+=Dungeon.hero.buff(再生.class).再生生命();
 			}
 		}

@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -116,7 +118,7 @@ public class 九龙拉管 extends Artifact {
 		charge--;
 		damage=hero.物理受伤(damage,this);
 		damage=hero.护甲伤害(damage);
-		hero.力量+=0.3f+等级()*0.03f;
+		hero.力量+=0.06f+等级()*0.03f;
 		if(hero.符文("极限剂量")){
 			hero.生命成长+=hero.已损失生命(0.1f);
 			
@@ -174,7 +176,7 @@ public class 九龙拉管 extends Artifact {
 	@Override
 	public String desc() {
 		return Messages.get(this, "desc",
-							(等级()+1)*3f,0.3f+(1+等级())*0.03f)+stas();
+							kw2((等级()+1)*3f),kw2(0.06f+(1+等级())*0.03f))+stas();
 	}
 
 	public class 力量 extends ArtifactBuff {

@@ -1248,7 +1248,7 @@ public class Badges {
 		displayBadge( badge );
 	}
 	
-	private static void displayBadge( Badge badge ) {
+	public static void displayBadge(Badge badge) {
 
 		if (badge == null ||badge.type == BadgeType.JOURNAL
 //							  && !Dungeon.customSeedText.isEmpty()

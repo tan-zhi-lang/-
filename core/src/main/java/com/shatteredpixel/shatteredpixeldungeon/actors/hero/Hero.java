@@ -5243,12 +5243,12 @@ public class Hero extends Char {
 
             if(算法.彩蛋("解锁全部英雄")){
                 Badges.validateMageUnlock();
-                Badges.validateRogueUnlock();
-                Badges.validateHuntressUnlock();
-                Badges.validateDuelistUnlock();
+                Badges.displayBadge(Badges.Badge.解锁盗贼);
+                Badges.displayBadge(Badges.Badge.UNLOCK_HUNTRESS);
+                Badges.displayBadge(Badges.Badge.UNLOCK_DUELIST);
                 Badges.validateClericUnlock();
                 Badges.解锁巫女();
-                Badges.解锁重武();
+                Badges.displayBadge(Badges.Badge.解锁重武);
                 Badges.解锁镜魔();
                 Badges.解锁道士();
                 Badges.解锁行僧();

@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
@@ -26,12 +27,10 @@ public class 毒气宝箱怪 extends Mimic {
 
 	@Override
 	public void 受伤时(float dmg, Object 来源) {
-		if(来源 instanceof ToxicGas){
+		if(来源 instanceof ToxicGas||来源 instanceof Poison){
 			dmg=最大生命;
-		}else{
-			dmg=0;
+			super.受伤时(dmg,来源);
 		}
-		super.受伤时(dmg,来源);
 	}
 	@Override
 	public boolean interact(Char c) {

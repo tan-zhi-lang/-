@@ -2,9 +2,11 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
-import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.stones.Runestone;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
+
+import java.util.ArrayList;
 
 public class 激泥酞酶 extends Item {
 
@@ -24,18 +26,44 @@ public class 激泥酞酶 extends Item {
 		return 15*数量();
 	}
 
-	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {
+	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe {
 
-		{
-			inputs =  new Class[]{Scroll.PlaceHolder.class,
-					Runestone.PlaceHolder.class,};
-			inQuantity = new int[]{1,1};
+		@Override
+		public boolean testIngredients(ArrayList<Item> ingredients) {
+			boolean scroll = false;
+			boolean stone = false;
 
-			cost = 1;
+			for (Item i : ingredients){
+				if (i instanceof Runestone){
+					stone = true;
+					//if it is a regular or exotic potion
+				} else if (ExoticScroll.regToExo.containsKey(i.getClass())
+						   ||ExoticScroll.regToExo.containsValue(i.getClass())) {
+					scroll = true;
+				}
+			}
 
-			output = 激泥酞酶.class;
-			outQuantity = 1;
+			return scroll && stone;
 		}
 
+		@Override
+		public int cost(ArrayList<Item> ingredients) {
+			return 1;
+		}
+
+		@Override
+		public Item brew(ArrayList<Item> ingredients) {
+
+			for (Item i : ingredients){
+				i.数量减();
+			}
+
+			return sampleOutput(null);
+		}
+
+		@Override
+		public Item sampleOutput(ArrayList<Item> ingredients) {
+			return new 激泥酞酶();
+		}
 	}
 }

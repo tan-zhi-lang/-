@@ -51,7 +51,7 @@ public class Shopkeeper extends NPC {
 		属性表.add(Property.IMMOVABLE);
 	}
 
-	public static int MAX_BUYBACK_HISTORY = 6;
+	public static int MAX_BUYBACK_HISTORY = 5;
 	public ArrayList<Item> buybackItems = new ArrayList<>();
 
 	private int turnsSinceHarmed = -1;

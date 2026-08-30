@@ -1430,14 +1430,14 @@ _-_ 改变的有以下：
 								""",6);
                 desc.setRect( 0, 0, 120, 12 );
                 add(desc);
-                int 幸运值=Dungeon.幸运值;
-                optChals = new OptionSlider("幸运值", "1", "9", 1, 9) {
+
+                optChals = new OptionSlider("幸运值", "0", "7", 0, 6) {
                     @Override
                     protected void onChange() {
-                        Dungeon.幸运值=optChals.getSelectedValue();
+                        SPDSettings.幸运值(optChals.getSelectedValue());
                     }
                 };
-                optChals.setSelectedValue(幸运值);
+                optChals.setSelectedValue(SPDSettings.幸运值());
                 optChals.setRect(0, 59, 120, 22);
                 add(optChals);
 

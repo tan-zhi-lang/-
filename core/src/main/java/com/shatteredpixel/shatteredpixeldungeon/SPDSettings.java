@@ -48,6 +48,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 受伤打断x = "受伤打断";
 	public static final String 数值显示x = "数值显示";
 	public static final String 获取显示x = "获取显示";
+	public static final String 安全行走x = "安全行走";
 	public static final String 物品命名x = "物品命名";
 	public static final String 打断英雄x= "打断英雄";
 	public static final String 战斗快速x = "战斗快速";
@@ -242,6 +243,13 @@ public class SPDSettings extends GameSettings {
 	public static boolean 物品命名() {
 		return getBoolean( 物品命名x, false);
 	}
+	public static void 安全行走( boolean value ) {
+		put( 安全行走x, value );
+
+	}
+	public static boolean 安全行走() {
+		return getBoolean( 安全行走x, false);
+	}
 	public static void 打断英雄(boolean value) {
 		put(打断英雄x,value);
 		
@@ -422,6 +430,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 系统x	= "系统";
 	public static final String 派对x	= "派对";
 	public static final String 赛季x= "赛季";
+	public static final String 幸运值x= "幸运值";
 	public static final String KEY_CUSTOM_SEED	= "custom_seed";
 	public static final String KEY_LAST_DAILY	= "last_daily";
 	public static final String KEY_INTRO		= "intro";
@@ -494,6 +503,13 @@ public class SPDSettings extends GameSettings {
 
 	public static int 赛季() {
 		return getInt(赛季x,0,0,赛季设置.MAX_VALUE);
+	}
+	public static void 幸运值(int value) {
+		put(幸运值x,value);
+	}
+
+	public static int 幸运值() {
+		return getInt(幸运值x,0,0,6);
 	}
 
 	public static void customSeed( String value ){

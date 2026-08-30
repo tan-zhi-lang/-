@@ -719,32 +719,22 @@ public class Item implements Bundlable {
 		if(超级等级)return 10086;
 		return 等级;
 	}
-	public static int 转移等级(Item 物品1给2,Item i2,int 最大等级,int 当前等级){
+	public static int 转移等级(Item 物品1给2,int 最大等级,int 当前等级){
 		int 转移量=最大等级-当前等级;
-		if(转移量>0){
-			if(物品1给2.真等级()>0){
-				int 转移=0;
-				int 剩余转移=物品1给2.真等级()-转移量;
-				if(剩余转移>0){
-					转移=物品1给2.真等级();
-					物品1给2.等级(剩余转移);
-					return 转移;
-				}else if(剩余转移==0){
-
-					转移=物品1给2.真等级();
-					物品1给2.等级(0);
-					return 转移;
-				}else{
-					GLog.绿("无转移等级！");
-					return 0;
-				}
-			}else{
-				GLog.橙("物品等级为0！");
-				return 0;
+		int 剩余转移=物品1给2.真等级();
+		int 转移=当前等级;
+		if(剩余转移<=0||转移量<=0){
+			GLog.绿("无转移等级！");
+			return 转移;
+		}
+		for(int x=1;x<=转移量;x++){
+			if(剩余转移-->=0){
+				int 改变=物品1给2.真等级()-1;
+				物品1给2.等级(改变);
+				转移++;
 			}
-		}//无转移等级
-		GLog.橙("转移等级已满级！");
-		return 0;
+		}
+		return 转移;
 	}
 	//returns the level of the item, after it may have been modified by temporary boosts/reductions
 	//note that not all item properties should care about buffs/debuffs! (e.g. str requirement)
@@ -1485,6 +1475,7 @@ public class Item implements Bundlable {
 		user.busy();
 
 		Char enemy = Actor.findChar( cell );
+		if(enemy == user)enemy=null;//不能对自己
 		QuickSlotButton.target(enemy);
 
 		if(this instanceof 枪械.子弹 子弹&&子弹.子弹 instanceof 枪弹){
@@ -1505,6 +1496,7 @@ public class Item implements Bundlable {
 			a.pos = cell;
 		}
 		if (enemy != null) {
+			Char finalEnemy=enemy;
 			((MissileSprite) user.sprite.parent.recycle(MissileSprite.class)).
 					reset(user.sprite,
 							enemy.sprite,
@@ -1527,15 +1519,17 @@ public class Item implements Bundlable {
 
 							if (i != null) i.onThrow(cell);
 
-							if(user.符文("重扔")&&enemy.isAlive())enemy.受伤时(user.力量()/2f,Item.this);
+							if(user.符文("重扔")&&finalEnemy.isAlive())
+								finalEnemy.受伤时(user.力量()/2f,Item.this);
 
-							if(!(Item.this instanceof Weapon)&&enemy.isAlive()){
-								enemy.受伤时(user.空手伤害(),Item.this);
+							if(!(Item.this instanceof Weapon)
+							   &&finalEnemy.isAlive()){
+								finalEnemy.受伤时(user.空手伤害(),Item.this);
 							}
 							if(user.符文("王炸"))new Bomb().explode(cell);
 							if(user.符文("这太几把黄了"))
 							if(Item.this instanceof LiquidMetal){
-								if(enemy instanceof Succubus){
+								if(finalEnemy instanceof Succubus){
 									Buff.施加(user,Charm.class,Charm.DURATION);
 									new LiquidMetal().数量(2).放背包();
 								}

@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.rings;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -17,15 +19,15 @@ public class 汲取之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   0.005f*soloBuffedBonus());
+									   kw2(0.005f*100*soloBuffedBonus()));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-											  0.005f*combinedBuffedBonus(Dungeon.hero));
+											  kw2(0.005f*100*combinedBuffedBonus(Dungeon.hero)));
 			}
 			return info;
 		} else {
 			return Messages.get(this, "stats",
-								0.005f);
+								kw2(0.005f*100));
 		}
 	}
 

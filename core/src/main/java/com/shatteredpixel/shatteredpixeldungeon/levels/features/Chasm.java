@@ -41,9 +41,9 @@ public class Chasm implements Hero.Doom {
 	private static int heroPos;
 	
 	public static void heroJump( final Hero hero ) {
-		if(Dungeon.赛季(赛季设置.地牢塔防)){
+		if(Dungeon.赛季(赛季设置.地牢塔防))
 			return;
-		}
+
 		heroPos = hero.pos;
 		Game.runOnRenderThread(new Callback() {
 			@Override

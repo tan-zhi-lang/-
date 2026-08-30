@@ -76,7 +76,7 @@ public class 算法 {
 	//endregion
 
     public static String 日期(){
-        return "8.29/17:12";
+        return "8.30/8:32";
     }
 
     public static float 金额=5;
@@ -287,6 +287,10 @@ public class 算法 {
     public static boolean 彩蛋(){
         String seed = SPDSettings.customSeed();
         if(
+            seed.contains("解锁全部英雄")||
+            seed.contains("欧皇")||
+            seed.contains("非酋")||
+
             seed.contains("更小")||
             seed.contains("更大")
            ){
@@ -295,14 +299,14 @@ public class 算法 {
         return false;
     }
     public static boolean isDebug(){
-//        Game.version.contains("INDEV")
-        String seed = SPDSettings.customSeed();
-        if (seed.contains("调试")) {
+        //        Game.version.contains("INDEV")
+        String seed=SPDSettings.customSeed();
+        if(seed.contains("调试")){
             return true;
         }
-
         return false;
     }
+
     public static boolean 概率学(int x){
         return Random.Int(1,100)<= x+ (x == 33 ? 1 : 0);
     }

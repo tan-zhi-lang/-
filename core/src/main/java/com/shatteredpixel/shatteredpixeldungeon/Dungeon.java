@@ -204,7 +204,6 @@ public class Dungeon {
 	public static int 地牢寿命;
 	public static int 地牢天数;
 	public static float 叠钢=0;
-	public static int 幸运值=1;
 	public static int 难度=2;
 	public static boolean 老鼠蝙蝠=false;
 	public static boolean 神英=false;
@@ -341,7 +340,9 @@ public class Dungeon {
 			customSeedText = format.format(new Date(SPDSettings.lastDaily()));
 		} else if (!SPDSettings.customSeed().isEmpty()){
 			customSeedText = SPDSettings.customSeed();
-			if(算法.物品()!=null||算法.isDebug()||算法.彩蛋()){
+			if(算法.物品()!=null
+			   ||算法.isDebug()
+			   ||算法.彩蛋()){
 				customSeedText = "";
 				seed = DungeonSeed.randomSeed();
 			}else{
@@ -1077,7 +1078,6 @@ public class Dungeon {
 	private static final String 系统x	= "系统";
 	private static final String 派对x	= "派对";
 	private static final String 赛季x	= "赛季";
-	private static final String 幸运值x	= "幸运值";
 	private static final String 难度x	= "难度";
 	private static final String 叠钢x	= "叠钢";
 	private static final String 地牢时间x= "地牢时间";
@@ -1123,7 +1123,6 @@ public class Dungeon {
 			bundle.put( 系统x, 系统 );
 			bundle.put(派对x,派对);
 			bundle.put(赛季x,赛季);
-			bundle.put( 幸运值x, 幸运值 );
 			bundle.put( 难度x, 难度 );
 			bundle.put( 叠钢x, 叠钢 );
 			bundle.put(地牢时间x,地牢时间);
@@ -1259,7 +1258,6 @@ public class Dungeon {
 		Dungeon.系统 = bundle.getInt( 系统x );
 		Dungeon.派对= bundle.getInt(派对x);
 		Dungeon.赛季= bundle.getInt(赛季x);
-		Dungeon.幸运值 = bundle.getInt( 幸运值x );
 		Dungeon.难度 = bundle.getInt( 难度x );
 		Dungeon.叠钢 = bundle.getFloat( 叠钢x );
 		Dungeon.地牢时间= bundle.getFloat(地牢时间x);

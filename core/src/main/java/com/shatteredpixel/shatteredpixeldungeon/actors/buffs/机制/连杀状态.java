@@ -23,7 +23,7 @@ public class 连杀状态 extends FlavourBuff{
         return count+super.name();
     }@Override
     	public String iconTextDisplay() {
-    		return count+"";
+    		return (int)(count)+"";
     	}
 
     public float count = 0;

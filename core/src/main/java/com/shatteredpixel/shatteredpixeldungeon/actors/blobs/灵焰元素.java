@@ -13,9 +13,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.灵焰粒子;
 import com.shatteredpixel.shatteredpixeldungeon.levels.rooms.special.魔法冰霜房间;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Firebloom;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Icecap;
-import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 
 public class 灵焰元素 extends Fire {
@@ -39,7 +36,7 @@ public class 灵焰元素 extends Fire {
 					fire = cur[cell] - 1;
 					if (fire <= 0 && flamable[cell]) {
 
-						Dungeon.level.destroy( cell );
+
 
 						observe = true;
 						GameScene.updateMap( cell );
@@ -77,12 +74,7 @@ public class 灵焰元素 extends Fire {
 		if (魔法冰霜 != null && 魔法冰霜.volume > 0) {
 			魔法冰霜.clear( pos );
 		}
-		Plant plant = Dungeon.level.plants.get( pos );
-		if (plant != null){
-			if(plant instanceof Firebloom)return;
-			if(plant instanceof Icecap)return;
-			plant.wither();
-		}
+
 	}
 	
 	@Override

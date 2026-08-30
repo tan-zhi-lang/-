@@ -3,6 +3,8 @@
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -15,8 +17,11 @@ public class Wnd选择主属性 extends Window {
 
 	private static final int MARGIN  = 2;
 
+	static  Wnd选择主属性 INSTANCE;
 	public Wnd选择主属性(Hero hero){
 		super();
+
+		INSTANCE=this;
 
 		int width =  WIDTH_P;
 
@@ -34,9 +39,22 @@ public class Wnd选择主属性 extends Window {
 			protected void onClick(){
 				super.onClick();
 
-				hero.力量+=(算法.isDebug()?10:1);
-				
-				hide();
+				GameScene.show(new WndOptions(
+						Messages.titleCase("选择属性"),
+						"你确定选择这个属性？",
+						"是",
+						"否"){
+					@Override
+					protected void onSelect(int index) {
+						hide();
+						if (index == 0){
+
+							hero.力量+=(算法.isDebug()?10:1);
+
+							INSTANCE.hide();
+						}
+					}
+				});
 			}
 		};
 		moveBtn.leftJustify=true;
@@ -52,9 +70,22 @@ public class Wnd选择主属性 extends Window {
 			protected void onClick(){
 				super.onClick();
 
-				hero.敏捷+=(算法.isDebug()?10:1);
-				
-				hide();
+				GameScene.show(new WndOptions(
+						Messages.titleCase("选择属性"),
+						"你确定选择这个属性？",
+						"是",
+						"否"){
+					@Override
+					protected void onSelect(int index) {
+						hide();
+						if (index == 0){
+
+							hero.敏捷+=(算法.isDebug()?10:1);
+
+							INSTANCE.hide();
+						}
+					}
+				});
 			}
 		};
 		moveBtn2.leftJustify=true;
@@ -69,9 +100,22 @@ public class Wnd选择主属性 extends Window {
 			protected void onClick(){
 				super.onClick();
 
-				hero.魔力+=(算法.isDebug()?10:1);
+				GameScene.show(new WndOptions(
+						Messages.titleCase("选择属性"),
+						"你确定选择这个属性？",
+						"是",
+						"否"){
+					@Override
+					protected void onSelect(int index) {
+						hide();
+						if (index == 0){
 
-				hide();
+							hero.魔力+=(算法.isDebug()?10:1);
+
+							INSTANCE.hide();
+						}
+					}
+				});
 			}
 		};
 		moveBtn3.leftJustify=true;

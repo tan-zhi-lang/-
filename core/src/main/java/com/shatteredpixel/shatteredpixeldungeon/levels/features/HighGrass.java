@@ -43,326 +43,173 @@ public class HighGrass {
 			x*=Dungeon.hero.幸运机制();
 		}
 		return x;
+	}public static void tramplehero(Level level, int pos) {
+		trampleInternal(level, pos, Dungeon.hero, false);
 	}
-	public static void tramplehero( Level level, int pos ) {
 
-		if (level.map[pos] == Terrain.FURROWED_GRASS){
-			if (Dungeon.hero()&& Dungeon.hero.heroClass(HeroClass.HUNTRESS)){
-				//Do nothing
-				freezeTrample = true;
-			} else {
-				Level.set(pos, Terrain.GRASS);
-			}
-
-		} else{
-			if(Dungeon.hero()&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)){
-				Level.set(pos,Terrain.FURROWED_GRASS);
-				freezeTrample=true;
-			}else{
-				Level.set(pos,Terrain.GRASS);
-			}
-		}
-	trample( level, pos );
+	public static void trample(Level level, int pos) {
+		trampleInternal(level, pos, Actor.findChar(pos), false);
 	}
-	public static void trample( Level level, int pos ) {
 
+	public static void trample3(Level level, int pos) {
+		trampleInternal(level, pos, Actor.findChar(pos), true);
+	}
+
+	private static void trampleInternal(Level level, int pos, Char ch, boolean 三倍) {
 		if (freezeTrample) return;
-		
-		Char ch = Actor.findChar(pos);
-		
-		if (level.map[pos] == Terrain.FURROWED_GRASS){
-			if (ch instanceof Hero hero&& hero.heroClass(HeroClass.HUNTRESS)){
-				//Do nothing
+
+		// 处理草地变化
+		if (level.map[pos] == Terrain.FURROWED_GRASS) {
+			if (ch instanceof Hero hero && hero.heroClass(HeroClass.HUNTRESS)) {
 				freezeTrample = true;
+				// 不改变地形
 			} else {
 				Level.set(pos, Terrain.GRASS);
 			}
-			
 		} else {
-			if (ch instanceof Hero hero&&hero.heroClass(HeroClass.HUNTRESS)){
+			if (ch instanceof Hero hero && hero.heroClass(HeroClass.HUNTRESS)) {
 				Level.set(pos, Terrain.FURROWED_GRASS);
 				freezeTrample = true;
 			} else {
 				Level.set(pos, Terrain.GRASS);
 			}
 
-			int 自然层 = 0;
-			
-			if (ch != null) {
-				SandalsOfNature.Naturalism naturalism = ch.buff( SandalsOfNature.Naturalism.class );
-				if (naturalism != null) {
-					自然层 = naturalism.itemLevel() + 1;
-					naturalism.charge();
-				}
-
-//				//berries try to drop on floors 2/3/4/6/7/8, to a max of 4/6
-//				if (ch instanceof Hero ){
-//					int berriesAvailable = 2 + 2;
-//
-//					Talent.NatureBerriesDropped dropped = Buff.施加(ch, Talent.NatureBerriesDropped.class);
-//					berriesAvailable -= dropped.count;
-//
-//					if (berriesAvailable > 0) {
-//						int targetFloor = 2 + 2;
-//						targetFloor -= berriesAvailable;
-//						targetFloor += (targetFloor >= 5) ? 3 : 2;
-//
-//						//If we're behind: 1/10, if we're on page: 1/30, if we're ahead: 1/90
-//						boolean droppingBerry = false;
-//						if (Dungeon.depth > targetFloor) droppingBerry = Random.Int(10) == 0;
-//						else if (Dungeon.depth == targetFloor) droppingBerry = Random.Int(30) == 0;
-//						else if (Dungeon.depth < targetFloor) droppingBerry = Random.Int(90) == 0;
-//
-//						if (droppingBerry) {
-//							dropped.set(1);
-//							level.drop(new 地牢浆果(), pos).sprite().drop();
-//						}
-//					}
-//
-//				}
-			}
-
-			//grass gives 1/3 the normal amount of loot in fungi level
-			if (Dungeon.level instanceof MiningLevel
-					&& Blacksmith.Quest.Type() == Blacksmith.Quest.FUNGI
-					&& Random.Int(3) != 0){
-				自然层 = -1;
-			}
-
-			//grass gives no loot in vault tester area
-			if (Dungeon.level instanceof VaultLevel){
-				自然层 = -1;
-			}
-
-			if(Dungeon.符文("升级自然之履"))
-			自然层+=2;
-
-			if (自然层 >= 0) {
-				// Seed, scales from 1/25 to 1/9
-				float 概率 = 1/(25f - 自然层 *4f);
-				
-//				float 概率 = 1/(9f + 自然层 *4f);
-				// absolute max drop rate is ~1/6.5 with footwear of nature, ~1/18 without
-				概率 *= 概率();
-				概率 *= PetrifiedSeed.grassLootMultiplier();
-				if(Holiday.getCurrentHoliday()==Holiday.植树节){
-					概率 *=2;
-				}
-				if (Random.Float() < 概率) {
-					if (Random.Float() < PetrifiedSeed.stoneInsteadOfSeedChance()) {
-						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite().drop();
-					} else {
-						level.drop(Generator.random(Generator.Category.SEED), pos).sprite().drop();
-					}
-				}
-				
-				if (Dungeon.符文("灵感咕力咕力咕力灵感菇")||Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
-					if(Dungeon.白天())
-					level.drop(Random.oneOf(new 红蘑菇()),pos).sprite().drop();
-					else if(Dungeon.黄昏())
-						level.drop(Random.oneOf(new 绿蘑菇()),pos).sprite().drop();
-					else if(Dungeon.夜晚())
-							level.drop(Random.oneOf(new 蓝蘑菇()),pos).sprite().drop();
-				}
-				
-				// Dew, scales from 1/6 to 1/4
-				概率 = 1/(6f - 自然层 /2f);
-				概率*=概率();
-				//grassy levels spawn half as much dew
-				if (Dungeon.level != null && Dungeon.level.feeling == Level.Feeling.GRASS){
-					概率 /= 2;
-				}
-				if (Random.Float() < 概率) {
-					level.drop(new Dewdrop(), pos).sprite().drop();
-				}
-				if(Dungeon.符文("繁花的宠爱"))
-					level.drop(new Sungrass.Seed(),pos).sprite().drop();
-
-				if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.元素掌控))//元素掌控木
-					Dungeon.hero.生命成长+=Dungeon.hero.天赋点数(Talent.元素掌控,0.025f)*概率();
-
-				if (Random.Float() < 1/300f*概率()&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
-					Dungeon.LimitedDrops.生命果.count++;
-					level.drop(new 生命果(),pos).sprite().drop();
-				}
-				if (Random.Float() < 1f/(24*60)*概率()&&Dungeon.LimitedDrops.丛林玫瑰.count<1) {
-					Dungeon.LimitedDrops.丛林玫瑰.count++;
-					level.drop(new 丛林玫瑰(),pos).sprite().drop();
-				}
-				if (Random.Float() < 1/300f*概率()&&Dungeon.符文("海克斯获取:收获")) {
-					level.drop(new 海克斯秘卷(true),pos).sprite().drop();
-				}
-				
-			}
-
-			if (ch instanceof Hero) {
-				迷彩.activate(ch,ch.glyphLevel(迷彩.class));
-			}
-			
+			真踩踏(level,pos,ch,三倍);
 		}
-		
+
 		freezeTrample = false;
-		
+
+		// 更新场景
 		if (ShatteredPixelDungeon.scene() instanceof GameScene) {
 			GameScene.updateMap(pos);
-			
 			CellEmitter.get(pos).burst(LeafParticle.LEVEL_SPECIFIC, 4);
 			if (Dungeon.level.heroFOV[pos]) Dungeon.observe();
 		}
 	}
-	public static void trample3( Level level, int pos ) {
-		
-		if (freezeTrample) return;
-		
-		Char ch = Actor.findChar(pos);
-		
-		if (level.map[pos] == Terrain.FURROWED_GRASS){
-			if (ch instanceof Hero hero&&hero.heroClass(HeroClass.HUNTRESS)){
-				//Do nothing
-				freezeTrample = true;
-			} else {
-				Level.set(pos, Terrain.GRASS);
-			}
-			
-		} else {
-			if (ch instanceof Hero hero&&hero.heroClass(HeroClass.HUNTRESS)){
-				Level.set(pos, Terrain.FURROWED_GRASS);
-				freezeTrample = true;
-			} else {
-				Level.set(pos, Terrain.GRASS);
-			}
 
-			int 自然层 = 0;
-			
-			if (ch != null) {
-				SandalsOfNature.Naturalism naturalism = ch.buff( SandalsOfNature.Naturalism.class );
-				if (naturalism != null) {
-					自然层 = naturalism.itemLevel() + 1;
-					naturalism.charge();
-				}
+	private static void 真踩踏(Level level,int pos,Char ch,boolean 三倍){
+		int 自然层 = 0;
 
-//				//berries try to drop on floors 2/3/4/6/7/8, to a max of 4/6
-//				if (ch instanceof Hero ){
-//					int berriesAvailable = 2 + 2;
-//
-//					Talent.NatureBerriesDropped dropped = Buff.施加(ch, Talent.NatureBerriesDropped.class);
-//					berriesAvailable -= dropped.count;
-//
-//					if (berriesAvailable > 0) {
-//						int targetFloor = 2 + 2;
-//						targetFloor -= berriesAvailable;
-//						targetFloor += (targetFloor >= 5) ? 3 : 2;
-//
-//						//If we're behind: 1/10, if we're on page: 1/30, if we're ahead: 1/90
-//						boolean droppingBerry = false;
-//						if (Dungeon.depth > targetFloor) droppingBerry = Random.Int(10) == 0;
-//						else if (Dungeon.depth == targetFloor) droppingBerry = Random.Int(30) == 0;
-//						else if (Dungeon.depth < targetFloor) droppingBerry = Random.Int(90) == 0;
-//
-//						if (droppingBerry) {
-//							dropped.set(1);
-//							level.drop(new 地牢浆果(), pos).sprite().drop();
-//						}
-//					}
-//
-//				}
+		// 获取自然之履 buff
+		if (ch!=null) {
+			SandalsOfNature.Naturalism naturalism = ch.buff(SandalsOfNature.Naturalism.class);
+			if (naturalism != null) {
+				自然层 = naturalism.itemLevel() + 1;
+				naturalism.charge();
 			}
+		}
 
-			//grass gives 1/3 the normal amount of loot in fungi level
-			if (Dungeon.level instanceof MiningLevel
-					&& Blacksmith.Quest.Type() == Blacksmith.Quest.FUNGI
-					&& Random.Int(3) != 0){
-				自然层 = -1;
+		// 特殊关卡减益
+		if (Dungeon.level instanceof MiningLevel
+			&& Blacksmith.Quest.Type() == Blacksmith.Quest.FUNGI
+			&& Random.Int(3) != 0) {
+			自然层 = -1;
+		}
+		if (Dungeon.level instanceof VaultLevel) {
+			自然层 = -1;
+		}
+		if (Dungeon.符文("升级自然之履")) {
+			自然层 += 2;
+		}
+
+		if (自然层 >= 0) {
+			// ---- 种子掉落 ----
+			float 概率 = 1 / (25f - 自然层 * 4f);
+			概率 *= 概率();
+			概率 *= PetrifiedSeed.grassLootMultiplier();
+			if (Holiday.getCurrentHoliday() == Holiday.植树节) {
+				概率 *= 2;
 			}
-
-			//grass gives no loot in vault tester area
-			if (Dungeon.level instanceof VaultLevel){
-				自然层 = -1;
+			// 如果是 三倍，概率乘以3，并掉落3份
+			if (三倍) {
+				概率 *= 3;
 			}
-			if(Dungeon.符文("升级自然之履"))
-				自然层+=2;
-
-			if (自然层 >= 0) {
-				// Seed, scales from 1/25 to 1/9
-				float 概率 = 1/(25f - 自然层 *4f);
-				
-//				float 概率 = 1/(9f + 自然层 *4f);
-				// absolute max drop rate is ~1/6.5 with footwear of nature, ~1/18 without
-				概率 *= PetrifiedSeed.grassLootMultiplier();
-				if(Holiday.getCurrentHoliday()==Holiday.植树节){
-					概率 *=2;
-				}
-				概率*=概率();
-				概率*=3;
+			for (int i = 0; i < (三倍? 3 : 1); i++) {
 				if (Random.Float() < 概率) {
 					if (Random.Float() < PetrifiedSeed.stoneInsteadOfSeedChance()) {
-						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite().drop();
-						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite().drop();
-						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE), pos).sprite().drop();
+						level.drop(Generator.randomUsingDefaults(Generator.Category.STONE),pos).sprite().drop();
 					} else {
-						level.drop(Generator.random(Generator.Category.SEED), pos).sprite().drop();
-						level.drop(Generator.random(Generator.Category.SEED), pos).sprite().drop();
-						level.drop(Generator.random(Generator.Category.SEED), pos).sprite().drop();
+						level.drop(Generator.random(Generator.Category.SEED),pos).sprite().drop();
 					}
 				}
-				
-				if (Dungeon.符文("灵感咕力咕力咕力灵感菇")||Random.Float() < 概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS)) {
+			}
+
+			// 蘑菇（特殊）
+			for (int i = 0; i < (三倍? 3 : 1); i++){
+				if(Dungeon.符文("灵感咕力咕力咕力灵感菇")||(Random.Float()<概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS))){
 					if(Dungeon.白天())
 						level.drop(Random.oneOf(new 红蘑菇()),pos).sprite().drop();
 					else if(Dungeon.黄昏())
 						level.drop(Random.oneOf(new 绿蘑菇()),pos).sprite().drop();
 					else if(Dungeon.夜晚())
-							level.drop(Random.oneOf(new 蓝蘑菇()),pos).sprite().drop();
+						level.drop(Random.oneOf(new 蓝蘑菇()),pos).sprite().drop();
 				}
-				// Dew, scales from 1/6 to 1/4
-				概率 = 1/(6f - 自然层 /2f);
-//				概率 = 1/(4f + 自然层 /2f);
-				//grassy levels spawn half as much dew
-				if (Dungeon.level != null && Dungeon.level.feeling == Level.Feeling.GRASS){
-					概率 /= 2;
-				}
-				概率*=3;
-				概率*=概率();
-
+			}
+			// ---- 露珠掉落 ----
+			概率 = 1 / (6f - 自然层 / 2f);
+			if (Dungeon.level != null && Dungeon.level.feeling == Level.Feeling.GRASS) {
+				概率 /= 2;
+			}
+			if (三倍) {
+				概率 *= 3;
+			}
+			概率 *= 概率();
+			for (int i = 0; i < (三倍? 3 : 1); i++) {
 				if (Random.Float() < 概率) {
-					level.drop(new Dewdrop(), pos).sprite().drop();
-					level.drop(new Dewdrop(), pos).sprite().drop();
-					level.drop(new Dewdrop(), pos).sprite().drop();
+					level.drop(new Dewdrop(),pos).sprite().drop();
 				}
-				if(Dungeon.符文("繁花的宠爱"))
-					level.drop(new Sungrass.Seed(),pos).sprite().drop();
+			}
 
-				if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.元素掌控))//元素掌控木
-					Dungeon.hero.生命成长+=Dungeon.hero.天赋点数(Talent.元素掌控,0.025f)*3*概率();
+			// 繁花宠爱
+			if (Dungeon.符文("繁花的宠爱")) {
+				level.drop(new Sungrass.Seed(),pos).sprite().drop();
+			}
 
-				if (Random.Float() < 1/100f*概率()&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?20:1)) {
+			// 元素掌控天赋
+			if (Dungeon.hero() && Dungeon.hero.天赋(Talent.元素掌控)) {
+				float 额外 = Dungeon.hero.天赋点数(Talent.元素掌控, 0.025f);
+				if (三倍) 额外 *= 3;
+				Dungeon.hero.生命成长 += 额外;
+			}
+
+			// 生命果
+			for (int i = 0; i < (三倍? 3 : 1); i++){
+				if(Random.Float()<(三倍?
+										   1/100f:
+										   1/300f)*概率()&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?
+																									  20:
+																									  1)){
 					Dungeon.LimitedDrops.生命果.count++;
 					level.drop(new 生命果(),pos).sprite().drop();
 				}
+			}
 
-				if (Random.Float() < 1f/(24*60)*3*概率()&&Dungeon.LimitedDrops.丛林玫瑰.count<1) {
+			// 丛林玫瑰
+			for (int i = 0; i < (三倍? 3 : 1); i++){
+				if(Random.Float()<(三倍?
+										   1f/(24*20):
+										   1f/(24*60))*概率()&&Dungeon.LimitedDrops.丛林玫瑰.count<1){
 					Dungeon.LimitedDrops.丛林玫瑰.count++;
 					level.drop(new 丛林玫瑰(),pos).sprite().drop();
 				}
-				if (Random.Float() < 1/100f*概率()&&Dungeon.符文("海克斯获取:收获")) {
-					level.drop(new 海克斯秘卷(true),pos).sprite().drop();
-				}
-				
 			}
 
-			if (ch instanceof Hero) {
+			// 海克斯秘卷
+			for (int i = 0; i < (三倍? 3 : 1); i++){
+				if(Random.Float()<(三倍?
+										   1/100f:
+										   1/300f)*概率()&&Dungeon.符文("海克斯获取:收获")){
+					level.drop(new 海克斯秘卷(true),pos).sprite().drop();
+				}
+			}
+		}
+
+		// 迷彩激活
+
+		for (int i = 0; i < (三倍? 3 : 1); i++){
+			if(ch instanceof Hero){
 				迷彩.activate(ch,ch.glyphLevel(迷彩.class));
 			}
-			
-		}
-		
-		freezeTrample = false;
-		
-		if (ShatteredPixelDungeon.scene() instanceof GameScene) {
-			GameScene.updateMap(pos);
-			
-			CellEmitter.get(pos).burst(LeafParticle.LEVEL_SPECIFIC, 4);
-			if (Dungeon.level.heroFOV[pos]) Dungeon.observe();
 		}
 	}
 }

@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -45,7 +47,7 @@ public class 心之钢 extends Artifact {
 		float 生命=伤害*(0.004f+等级()*0.002f);
 		if(Dungeon.派对(派对设置.钢门联盟))生命*=2;
 		if(Dungeon.符文("钢化你心"))生命*=3;
-		return Messages.get(this, "desc",伤害,生命)+stas();
+		return Messages.get(this, "desc",kw2(伤害),kw2(生命))+stas();
 	}
 
 	@Override

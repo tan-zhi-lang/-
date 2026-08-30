@@ -375,7 +375,8 @@ public class QuickRecipe extends Component {
 
 				return result;
 			case 3:
-				result.add(new QuickRecipe(new 精纯药液.Recipe()));
+				result.add(new QuickRecipe(new 精纯药液.Recipe(), new ArrayList<>(Arrays.asList(new Plant.Seed.PlaceHolder(), new Potion.PlaceHolder())), new 精纯药液()));
+
 				result.add(new QuickRecipe(new 血药.Recipe()));
 				result.add(null);
 				result.add(new QuickRecipe(new 净化药剂.Recipe()));
@@ -390,7 +391,8 @@ public class QuickRecipe extends Component {
 				}
 				return result;
 			case 4:
-				result.add(new QuickRecipe( new 激泥酞酶.Recipe()));
+				result.add(new QuickRecipe(new 激泥酞酶.Recipe(), new ArrayList<>(Arrays.asList(new Scroll.PlaceHolder(), new  Runestone.PlaceHolder())), new 激泥酞酶()));
+
 				result.add(new QuickRecipe(new 封禁卷轴.Recipe()));
 				result.add(null);
 				result.add(new QuickRecipe(new 祛邪卷轴.Recipe()));

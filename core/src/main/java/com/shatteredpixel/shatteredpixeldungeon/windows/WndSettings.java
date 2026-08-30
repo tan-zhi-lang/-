@@ -738,6 +738,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 				protected void onClick() {
 					ShatteredPixelDungeon.scene().addToFront(new Window(){
 
+						CheckBox 安全行走;
 						CheckBox 物品命名;
 						CheckBox 打断英雄;
 						CheckBox 自动拾取;
@@ -751,6 +752,16 @@ public class WndSettings extends WndTabbed {//WndSettings
 						CheckBox 隐藏细节;
 						{
 							
+							安全行走 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "安全行走")){
+								@Override
+								protected void onClick() {
+									super.onClick();
+									SPDSettings.安全行走(checked());
+								}
+							};
+							安全行走.checked(SPDSettings.安全行走());
+							add(安全行走);
+
 							物品命名 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "物品命名")){
 								@Override
 								protected void onClick() {
@@ -760,7 +771,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							物品命名.checked(SPDSettings.物品命名());
 							add(物品命名);
-							
+
 							打断英雄= new CheckBox(Messages.get(WndSettings.游戏设置.this,"打断英雄")){
 								@Override
 								protected void onClick() {
@@ -844,11 +855,11 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 							
 							resize(WIDTH_P, 0);
-							
-							物品命名.setRect(0,  GAP, width, BTN_HEIGHT);
 
+							安全行走.setRect(0,  GAP, width, BTN_HEIGHT);
+							物品命名.setRect(0,安全行走.bottom()+GAP,width,BTN_HEIGHT);
 							打断英雄.setRect(0,物品命名.bottom()+GAP,width,BTN_HEIGHT);
-							
+
 							自动拾取.setRect(0,  打断英雄.bottom()+GAP, width, BTN_HEIGHT);
 							自动拾取str.maxWidth(width);
 							自动拾取str.setPos(0, 自动拾取.bottom()+1);

@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.时间;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Bones;
@@ -68,8 +69,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicalSight;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.Momentum;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PhysicalEmpower;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
@@ -80,6 +79,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.TimeStasis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WarpBeaconTracker;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WellFed;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Chill;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Frost;
@@ -88,9 +88,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.圣盾;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.多面手施法;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.幽灵保护;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.征服;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.怒气;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.不灭之握冷却;
@@ -120,10 +118,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.量子计算
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.鬼刀;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.麒麟骨;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.黑暗收割冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.时间能力;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.替身保护;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.WarpBeaconTracker;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.伤害;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告15秒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告复活冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.开局属性更新;
@@ -137,6 +132,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.死舞;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵魂标记;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.老婆保护;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.Momentum;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.MonkEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.多面手施法;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.征服;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.时间能力;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.连击;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
@@ -511,6 +511,7 @@ public class Hero extends Char {
     public String 名字="";
     public boolean 第1层天赋 = false;
     public boolean 第2层天赋 = false;
+    public float 幸运值 = 1;
     //region 海克斯
     public HashMap<String, Integer> 海克斯表 = new HashMap<>();
 
@@ -3069,8 +3070,8 @@ public class Hero extends Char {
         return 幸运机制();
     }
     public float 幸运机制(){
-        float 幸运=Dungeon.幸运值;
-
+        float 幸运=幸运值;
+            幸运+=SPDSettings.幸运值();
 //        if(Rankings.INSTANCE.totalNumber<=1)幸运++;
 //        if(Dungeon.daily&&!Dungeon.dailyReplay)幸运++;
 
@@ -3144,6 +3145,8 @@ public class Hero extends Char {
         if(Dungeon.派对(派对设置.幸运转世))
             幸运++;
 
+        if(算法.彩蛋("非酋"))幸运--;
+        if(算法.彩蛋("欧皇"))幸运++;
         if(幸运>1)幸运=1+幸运*0.25f;
         if(幸运<1)幸运=1+幸运*0.25f;
         return 幸运;
@@ -3811,6 +3814,7 @@ public class Hero extends Char {
     private static final String 名字x = "名字";
     private static final String 第1层天赋x = "第1层天赋";
     private static final String 第2层天赋x = "第2层天赋";
+    private static final String 幸运值x = "幸运值";
     private static final String 科学狂人x= "科学狂人";
     private static final String 重生怪物x = "重生怪物";
     private static final String 种族天赋x = "种族天赋";
@@ -3904,6 +3908,7 @@ public class Hero extends Char {
         bundle.put(名字x, 名字);
         bundle.put(第1层天赋x, 第1层天赋);
         bundle.put(第2层天赋x, 第2层天赋);
+        bundle.put(幸运值x, 幸运值);
         bundle.put(科学狂人x,科学狂人);
         bundle.put(重生怪物x, 重生怪物);
         bundle.put(种族天赋x, 种族天赋);
@@ -4004,6 +4009,7 @@ public class Hero extends Char {
         名字 = bundle.getString(名字x);
         第1层天赋 = bundle.getBoolean(第1层天赋x);
         第2层天赋 = bundle.getBoolean(第2层天赋x);
+        幸运值 = bundle.getFloat(幸运值x);
         科学狂人= bundle.getFloat(科学狂人x);
         重生怪物 = bundle.getString(重生怪物x);
         种族天赋 = bundle.getString(种族天赋x);
@@ -5234,7 +5240,33 @@ public class Hero extends Char {
 
 
         if(hasbuff(开局属性更新.class)){
+
+            if(算法.彩蛋("解锁全部英雄")){
+                Badges.validateMageUnlock();
+                Badges.validateRogueUnlock();
+                Badges.validateHuntressUnlock();
+                Badges.validateDuelistUnlock();
+                Badges.validateClericUnlock();
+                Badges.解锁巫女();
+                Badges.解锁重武();
+                Badges.解锁镜魔();
+                Badges.解锁道士();
+                Badges.解锁行僧();
+                Badges.解锁近卫();
+                Badges.解锁兽灵();
+                Badges.解锁机器();
+                Badges.解锁女忍();
+                Badges.解锁戒老();
+                Badges.解锁逐姝();
+                Badges.解锁罗兰();
+                Badges.解锁学士();
+                Badges.解锁灵猫();
+                Badges.解锁鼠弟();
+                Badges.解锁凌云();
+                Badges.解锁血鬼();
+            }
             更新数据();
+
             回血(最大生命);
             护甲(最大护甲);
 
@@ -5326,7 +5358,8 @@ public class Hero extends Char {
         if(符文("回力OK标")&&视野敌人()&&nobuff(回力OK标冷却.class)){
             if(视野敌人(0)!=null){
                 扔出(视野敌人(0).pos,new 回旋镖(),()->{
-                    Buff.施加(视野敌人(0),伤害.class).level(0.5f*最大攻击());
+                    if (Actor.hasfindChar(pos)&&Actor.findChar(pos).isAlive())
+                    Actor.findChar(pos).受伤时(0.5f*最大攻击(),this);
                 });
                 Buff.施加(this,回力OK标冷却.class,10/能量之戒.artifactChargeMultiplier(this));
             }
@@ -8037,7 +8070,8 @@ public class Hero extends Char {
 
         if(enemy!=null&&enemy.isAlive()&&符文("魄罗爆破手")){
             扔出(enemy.pos,new 魄罗(),()->{
-                    Buff.施加(enemy,伤害.class).level(0.015f);
+                if (enemy.isAlive())
+                    enemy.受伤时(enemy.最大生命(0.015f));
             });
         }
         if(enemy instanceof Mob m&&m.第x次防御==1&&符文("拿来吧你")){
@@ -8110,13 +8144,15 @@ public class Hero extends Char {
         if(enemy!=null&&符文("台风")){
             float finalDamage=damage;
             扔出(enemy.pos,new 魔法箭矢(),()->{
-                Buff.施加(enemy,伤害.class).level(finalDamage*0.3f);
+                if (enemy.isAlive())
+                    enemy.受伤时(finalDamage*0.3f);
             });
         }
         if(enemy!=null&&符文("双刀流")){
             float finalDamage=damage;
             扔出(enemy.pos,new 魔法箭矢(),()->{
-                Buff.施加(enemy,伤害.class).level(finalDamage*0.4f);
+                if (enemy.isAlive())
+                    enemy.受伤时(finalDamage*0.4f);
             });
         }
         if(enemy!=null&&符文("选牌")){
@@ -8608,6 +8644,12 @@ public class Hero extends Char {
         if(男人())
         damage+=男人国徽章.受伤();
 
+        if (hasbuff(战斗状态.class)&&heroClass(HeroClass.WARRIOR)) {
+            damage--;
+        }
+        if(nobuff(战斗状态.class)&&heroClass(HeroClass.近卫)){
+            damage-=3f;
+        }
         if(符文("未知防御"))damage-=幸运机制()*10;
 
         if(enemy!=null&&重生怪物.equals("史莱姆"))
@@ -8975,15 +9017,17 @@ public class Hero extends Char {
             if(target!=null&&target.alignment==Alignment.ENEMY&&target.isAlive()){
 //                AttackIndicator.updateState();
 
+                Mob finalTarget=target;
                 if(符文("天狗的宠爱")){
-                    Mob finalTarget=target;
                     扔出(target.pos,new 魔法箭矢(),()->{
-                        Buff.施加(finalTarget,伤害.class).level(最大攻击()*0.5f);
+                        if (finalTarget.isAlive())
+                            finalTarget.受伤时(最大攻击()*0.5f);
                     });
                 }
 
                 if(天赋(Talent.绝望安息))
-                    Buff.施加(target,伤害.class).level(最大攻击()*天赋点数(Talent.绝望安息,0.25f));
+                    if (finalTarget.isAlive())
+                        finalTarget.受伤时(最大攻击()*天赋点数(Talent.绝望安息,0.25f));
 
 
                 if(符文("阿玛特拉斯"))
@@ -9078,6 +9122,12 @@ public class Hero extends Char {
 //            }else{
 //                sprite.parent.add(new TargetedCell(target,0x44FF44));
 //            }
+        }
+        if(SPDSettings.安全行走())
+        if(Dungeon.level.在陷阱(target)||Dungeon.level.在深渊(target)){
+            interrupt();
+            GLog.橙("你差点走到深渊和陷阱了！");
+            return false;
         }
 
         if (subClass == HeroSubClass.时间刺客&&hasbuff(时光沙漏.timeFreeze.class)&&天赋(Talent.穿越零界)) {

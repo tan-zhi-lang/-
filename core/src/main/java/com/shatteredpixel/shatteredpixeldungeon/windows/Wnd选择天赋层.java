@@ -4,6 +4,8 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
@@ -16,9 +18,10 @@ public class Wnd选择天赋层 extends Window {
 
 	private static final int MARGIN  = 2;
 
+	static  Wnd选择天赋层 INSTANCE;
 	public Wnd选择天赋层(Hero hero){
 		super();
-
+		INSTANCE=this;
 		int width =  WIDTH_P;
 
 		float pos = MARGIN;
@@ -34,9 +37,22 @@ public class Wnd选择天赋层 extends Window {
 			@Override
 			protected void onClick(){
 				super.onClick();
-				hero.天赋[1]=true;
-				Sample.INSTANCE.play(Assets.Sounds.LEVELUP,0.7f,1.2f);
-				hide();
+				GameScene.show(new WndOptions(
+						Messages.titleCase("选择天赋层"),
+						"你确定选择这个天赋层？",
+						"是",
+						"否"){
+					@Override
+					protected void onSelect(int index) {
+						hide();
+						if (index == 0){
+
+							hero.天赋[1]=true;
+							Sample.INSTANCE.play(Assets.Sounds.LEVELUP,0.7f,1.2f);
+							INSTANCE.hide();
+						}
+					}
+				});
 			}
 		};
 		moveBtn.leftJustify=true;
@@ -51,9 +67,22 @@ public class Wnd选择天赋层 extends Window {
 			@Override
 			protected void onClick(){
 				super.onClick();
-				hero.天赋[2]=true;
-				Sample.INSTANCE.play(Assets.Sounds.LEVELUP, 0.7f, 1.2f);
-				hide();
+				GameScene.show(new WndOptions(
+						Messages.titleCase("选择天赋层"),
+						"你确定选择这个天赋层？",
+						"是",
+						"否"){
+					@Override
+					protected void onSelect(int index) {
+						hide();
+						if (index == 0){
+
+							hero.天赋[2]=true;
+							Sample.INSTANCE.play(Assets.Sounds.LEVELUP, 0.7f, 1.2f);
+							INSTANCE.hide();
+						}
+					}
+				});
 			}
 		};
 		moveBtn2.leftJustify=true;
@@ -68,9 +97,22 @@ public class Wnd选择天赋层 extends Window {
 			@Override
 			protected void onClick(){
 				super.onClick();
-				hero.天赋[3]=true;
-				Sample.INSTANCE.play(Assets.Sounds.LEVELUP, 0.7f, 1.2f);
-				hide();
+				GameScene.show(new WndOptions(
+						Messages.titleCase("选择天赋层"),
+						"你确定选择这个天赋层？",
+						"是",
+						"否"){
+					@Override
+					protected void onSelect(int index) {
+						hide();
+						if (index == 0){
+
+							hero.天赋[3]=true;
+							Sample.INSTANCE.play(Assets.Sounds.LEVELUP, 0.7f, 1.2f);
+							INSTANCE.hide();
+						}
+					}
+				});
 			}
 		};
 		moveBtn3.leftJustify=true;

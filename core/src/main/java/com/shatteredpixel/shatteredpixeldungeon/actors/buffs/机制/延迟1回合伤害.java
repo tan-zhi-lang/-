@@ -5,7 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.watabou.utils.Bundle;
 
-public class 伤害 extends Buff{
+public class 延迟1回合伤害 extends Buff{
 	
 	public float level;
 	private static final String LEVEL	= "level";

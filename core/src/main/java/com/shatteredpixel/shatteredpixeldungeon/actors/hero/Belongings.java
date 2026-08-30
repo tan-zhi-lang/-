@@ -179,8 +179,6 @@ public class Belongings implements Iterable<Item> {
 
 			if(weapon1()!=null)item=weapon1();
 
-			if(weapon2()!=null)item=weapon2();
-
 			if(weapon1()!=null&&weapon2()!=null){
 				if(weapon2().DPS()>weapon1().DPS()){
 					item=weapon2();

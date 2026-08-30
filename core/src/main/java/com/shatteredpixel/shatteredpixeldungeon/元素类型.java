@@ -47,7 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eye;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Shaman;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Warlock;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.YogFist;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.伤害;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.延迟1回合伤害;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.荆棘;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.ArcaneBomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.神圣炸弹;
@@ -275,7 +275,7 @@ public class 元素类型{
 
 		魔法伤害.add(ArcaneBomb.class);
 		魔法伤害.add(Dungeon.class);
-		魔法伤害.add(伤害.class);
+		魔法伤害.add(延迟1回合伤害.class);
 
 	}
 	public static final HashSet<Class> RESISTS = new HashSet<>();

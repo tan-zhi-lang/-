@@ -158,8 +158,8 @@ public class Pasty extends Food {
 			case 端午节:
 				break;
 			case 七夕节:
-				hero.力量+=0.1f;
-				hero.生命成长+=2f;
+				hero.力量+=0.3f;
+				hero.生命成长+=5f;
 				hero.sprite.showStatusWithIcon(CharSprite.增强绿,"0.1",FloatingText.力量数值);
 				hero.sprite.showStatusWithIcon(CharSprite.增强绿,"10",FloatingText.回血数值);
 				GLog.绿(Messages.get(潜力药剂.class,"msg"));

@@ -8,10 +8,8 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.伤害;
 import com.shatteredpixel.shatteredpixeldungeon.effects.MagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.神圣长枪;
@@ -56,7 +54,8 @@ public class 圣光 extends TargetedClericSpell {
 				Char ch = Actor.findChar( aim.collisionPos );
 				if (ch != null) {
 					if(hero.天赋(Talent.神圣长枪))hero.扔出(ch.pos,new 神圣长枪(),()->{
-						Buff.施加(ch,伤害.class).level(hero.魔力天赋点数(Talent.神圣之触,0.25f));
+						if (ch.isAlive())
+							ch.受伤时(hero.魔力天赋点数(Talent.神圣之触,0.25f),this);
 					} );
 					if(ch.恶魔亡灵()){
 						ch.受伤时(hero.魔力(this,1*(1+hero.天赋点数(Talent.神圣之触,0.25f))),圣光.this);

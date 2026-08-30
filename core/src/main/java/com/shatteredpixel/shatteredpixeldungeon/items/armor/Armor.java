@@ -494,7 +494,9 @@ public class Armor extends EquipableItem {
 //			}
 
 			荣誉纹章 detaching =荣誉纹章;
-			detaching.等级(Item.转移等级(this,detaching,detaching.最大等级(),detaching.等级()));
+
+			if(真等级()>0)
+			荣誉纹章.等级(Item.转移等级(this,荣誉纹章.最大等级(),荣誉纹章.等级()));
 
 			荣誉纹章= null;
 			if (detaching.canTransferGlyph()){
@@ -593,11 +595,11 @@ public class Armor extends EquipableItem {
 			}
 		}
 
-		if (荣誉纹章!=null&&荣誉纹章.等级()<荣誉纹章.最大等级()) {
-			荣誉纹章.额外升级();//优先纹章
-		}else{
+//		if (荣誉纹章!=null&&荣誉纹章.等级()<荣誉纹章.最大等级()) {
+//			荣誉纹章.额外升级();//优先纹章
+//		}else{
 			super.额外升级();
-		}
+//		}
 
 		return this;
 	}
@@ -610,11 +612,11 @@ public class Armor extends EquipableItem {
 			}
 		}
 
-		if (荣誉纹章!=null&&荣誉纹章.等级()<荣誉纹章.最大等级()) {
-			荣誉纹章.升级();//优先纹章
-		}else{
+//		if (荣誉纹章!=null&&荣誉纹章.等级()<荣誉纹章.最大等级()) {
+//			荣誉纹章.升级();//优先纹章
+//		}else{
 			super.升级();
-		}
+//		}
 
 		return this;
 	}

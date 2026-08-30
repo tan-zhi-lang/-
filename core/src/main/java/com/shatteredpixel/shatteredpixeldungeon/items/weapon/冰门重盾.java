@@ -104,7 +104,9 @@ public class 冰门重盾 extends Weapon{
 	}
 
 	public void 转移等级(Item w){
-		转移=Item.转移等级(w,this,最大转移(),等级());
+
+		if(w.真等级()>0)
+		转移=Item.转移等级(w,最大转移(),等级());
 	}
 
 

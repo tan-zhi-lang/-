@@ -482,7 +482,7 @@ public class 重制改动{
 										   "移除反伤距离限制。"));
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.WAND_HOLDER), "法杖",
-										   "诅咒随机施法->魔力收益减半\n" +
+										   "诅咒随机施法->魔力收益减60%\n" +
 										   "14x14贴图->16x16\n" +
 										   "恢复充能时播放音效\n" +
 										   "升级25%概率祛邪->不祛邪\n" +
@@ -803,14 +803,14 @@ public class 重制改动{
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.AUDIO), "声音",
 											"主题曲我的三体《夜航星》。\n" +
-											"开门音效用原版，区域门音效采用MC，关门也有音效。\n" +
+											"开门音效用原版，区域门音效采用MC。\n" +
 											"一些武器音效。\n" +
 											"一些物品音效。\n" +
 											"一些怪物音效。\n" +
 											"一些杂项音效。" ));
 		changes.addButton( new ChangeButton(new ShopkeeperSprite(),"商人房",
 											"4区将是商士而不是商人，3区将是商机而不是商人，1区将是商鼠。\n" +
-											"最大回购3->6。\n" +
+											"最大回购3->5。\n" +
 											"神器法杖戒指中随机卖一样，如果斗不卖默认奥术刻印笔->神器法杖戒指中随机卖一样，并且必卖奥术刻印笔。\n" +
 											"炼金菱晶商店不卖。\n" +
 											"1区域3层也有商店，但是卖的东西更少。",

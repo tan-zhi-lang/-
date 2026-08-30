@@ -21,21 +21,31 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Charm;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Corruption;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.击杀累计;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.机体解构层数;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.罪恶快感;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Dread;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MindVision;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Recharging;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Sleep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Terror;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.怒气;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.生化特性;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.虚空裂隙;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.虚空裂隙冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.魔法箭矢冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.黑暗收割冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.战斗状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.连杀状态;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.潜伏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.灵魂标记;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.MonkEnergy;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.潜伏;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -51,17 +61,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.DirectableAlly;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.NPC;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.刺青结晶;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.造能结晶;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.伤害;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.击杀累计;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.战斗状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.机体解构层数;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.生化特性;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Count.无名.罪恶快感;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.虚空裂隙;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.虚空裂隙冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.连杀状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.魔法箭矢冷却;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.黑暗收割冷却;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Surprise;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Wound;
@@ -1027,7 +1026,8 @@ public abstract class Mob extends Char{
 		}
 		if(Dungeon.符文("魔法箭矢")&&nobuff(魔法箭矢冷却.class))
 			Dungeon.hero.扔出(pos,new 魔法箭矢(),()->{
-					Buff.施加(this,伤害.class).level(最大生命(Math.min(0.09f,0.015f*距离(Dungeon.hero))));
+				if (isAlive())
+					受伤时(最大生命(Math.min(0.09f,0.015f*距离(Dungeon.hero))));
 					Buff.施加(this,魔法箭矢冷却.class,2);
 			});
 
@@ -1765,7 +1765,7 @@ public abstract class Mob extends Char{
 					  +kw2(最大闪避(null)*Dungeon.难度闪避(this));
 				desc+="\n";
 				desc+="攻速/移速 :"+kw2(1f/攻击延迟())+"/"+kw2(移速())+"\n\n";//(水平移动||垂直移动)?移速()/2f:
-				desc+="_暴击率/暴击伤害_ :"+Math.round(暴击率()*100)+"/"+Math.round(暴击伤害()*100)+"%\n";
+				desc+="_暴击率/暴击伤害_ :"+kw2(暴击率()*100)+"/"+kw2(暴击伤害()*100)+"%\n";
 				desc+="_击杀经验_ :"+Math.round(经验*Dungeon.难度经验(this))+"\n";
 				desc+="你大于此等级无经验和战利品 :"+(最大等级+2)+"\n";
 

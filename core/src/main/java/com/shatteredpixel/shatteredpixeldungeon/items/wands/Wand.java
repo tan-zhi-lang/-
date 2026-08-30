@@ -140,8 +140,8 @@ public abstract class Wand extends Item {
 		魔力收益+=x;
 		等收益+=x;
 		if(cursed){
-			魔力收益/=2f;
-			等收益/=2f;
+			魔力收益*=1-0.6f;
+			等收益*=1-0.6f;
 		}
 		if(Dungeon.hero())
 		return Dungeon.hero.魔力(魔力收益+等收益*等级);

@@ -2020,12 +2020,13 @@ public abstract class Char extends Actor {
 		return 生命力()*x;
 	}
 	public void 护甲(float x){
-		if(x>最大护甲(SPDSettings.数值显示()*0.025f))
-			sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.护盾护甲数值);
+		if(sprite!=null){
+			if(x>最大护甲(SPDSettings.数值显示()*0.025f))
+				sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.护盾护甲数值);
 
-		if(x<-最大护甲(SPDSettings.数值显示()*0.025f))
-			sprite.showStatusWithIcon(CharSprite.削弱红,kw2(x),FloatingText.护盾护甲数值);
-
+			if(x<-最大护甲(SPDSettings.数值显示()*0.025f))
+				sprite.showStatusWithIcon(CharSprite.削弱红,kw2(x),FloatingText.护盾护甲数值);
+		}
 		护甲=Math.min(Math.max(护甲+x,0),最大护甲);
 	}
 	public float 最大护甲(float x){
@@ -2144,6 +2145,7 @@ public abstract class Char extends Actor {
 		if(x>0){
 			生命=Math.min(生命+x,最大生命);
 
+			if(sprite!=null)
 			if (pos!=-1&&Dungeon.level!=null&&Dungeon.level.heroFOV[pos]){
 				if(x>最大生命(SPDSettings.数值显示()*0.025f)&&sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
 					sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.回血数值);

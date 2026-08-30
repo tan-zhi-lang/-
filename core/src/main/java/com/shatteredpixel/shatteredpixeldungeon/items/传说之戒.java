@@ -60,8 +60,8 @@ public class 传说之戒 extends Item {
 	}
 
 	@Override
-	public int 强化等级(){
-		return super.强化等级()+转移;
+	public int 等级(){
+		return super.等级()+转移;
 	}
 	@Override
 	public void execute(Hero hero,String action){
@@ -83,11 +83,13 @@ public class 传说之戒 extends Item {
 
 				@Override
 				public void onSelect(Item item) {
-					item.升级(转移);
-					转移=0;
-					hero.sprite.operate(hero.pos);
-					hero.spend(1f);
-					hero.busy();
+					if(item!=null){
+						item.升级(转移);
+						转移=0;
+						hero.sprite.operate(hero.pos);
+						hero.spend(1f);
+						hero.busy();
+					}
 				}
 			});
 			else

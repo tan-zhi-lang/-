@@ -7031,8 +7031,8 @@ public class Hero extends Char {
             delay=belongings.投掷武器().delayFactor(this);
         }else{
             if(belongings.weapon()!=null){
-                delay=belongings.weapon().augment.delayFactor(delay);
-                if(belongings.weapon().拳套())delay*=2;
+                delay=belongings.weapon().delayFactor(this);
+
             }
         }
 
@@ -9475,6 +9475,7 @@ public class Hero extends Char {
     public void 回血(float x){
 
         if(subClass(HeroSubClass.剑魔)&&职业精通())x*=1.6f;
+
         if(x>0){
 
             if(符文("死亡之环"))
@@ -9492,6 +9493,7 @@ public class Hero extends Char {
                 Dungeon.gold(Math.round(x));
         }
         super.回血(x);
+
         if(x!=0)
         更新生命();
     }

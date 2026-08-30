@@ -109,6 +109,8 @@ public class BuffIndicator extends Component {
 	public static final int HOLY_WEAPON = CHALLENGE+4;
 	public static final int SPELL_FOOD  = CHALLENGE+5;
 	public static final int PROT_AURA= CHALLENGE+6;
+	public static final int 白天= CHALLENGE+7;
+	public static final int 夜晚= CHALLENGE+8;
 
 
 	public static final int SIZE_SMALL  = 7;

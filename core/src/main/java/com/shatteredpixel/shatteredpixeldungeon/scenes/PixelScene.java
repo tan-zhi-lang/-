@@ -34,7 +34,9 @@ import com.watabou.noosa.ui.Component;
 import com.watabou.noosa.ui.Cursor;
 import com.watabou.utils.Callback;
 import com.watabou.utils.DeviceCompat;
+import com.watabou.utils.PlatformSupport;
 import com.watabou.utils.PointF;
+import com.watabou.utils.RectF;
 import com.watabou.utils.Reflection;
 import com.watabou.utils.Signal;
 
@@ -43,12 +45,12 @@ import java.util.ArrayList;
 public class PixelScene extends Scene {
 
 	// Minimum virtual display size for mobile portrait orientation
-	public static final float MIN_WIDTH_P = 240;
-	public static final float MIN_HEIGHT_P = 500;
+	public static final float MIN_WIDTH_P = 500;
+	public static final float MIN_HEIGHT_P = 1000;
 
 	// Minimum virtual display size for mobile landscape orientation
-	public static final float MIN_WIDTH_L = 500;
-	public static final float MIN_HEIGHT_L = 240;
+	public static final float MIN_WIDTH_L = 1000;
+	public static final float MIN_HEIGHT_L = 500;
 
 
 	public static int defaultZoom = 0;
@@ -90,11 +92,16 @@ public class PixelScene extends Scene {
 			minWidth = MIN_WIDTH_P;
 			minHeight = MIN_HEIGHT_P;
 		}
-		maxDefaultZoom = (int)Math.min(Game.width/minWidth, Game.height/minHeight)+1;
-		maxScreenZoom = (int)Math.min(Game.dispWidth/minWidth, Game.dispHeight/minHeight);
+		//TODO all insets? or just blockers?
+		RectF insets = Game.platform.getSafeInsets(PlatformSupport.INSET_ALL);
+
+		float w = Game.width - insets.left - insets.right;
+		float h = Game.height - insets.top - insets.bottom;
+		maxDefaultZoom = (int)Math.min(w/minWidth, h/minHeight);
+		maxDefaultZoom = Math.max(2, maxDefaultZoom);
 
 		if(DeviceCompat.isDesktop()){
-			defaultZoom=4+SPDSettings.scale();
+			defaultZoom=5+SPDSettings.scale();
 		}
 		if(DeviceCompat.isAndroid()){
 			defaultZoom=SPDSettings.scale();

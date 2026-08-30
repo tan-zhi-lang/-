@@ -369,7 +369,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int scale() {
-		return getInt( KEY_SCALE, 5 );
+		return getInt( KEY_SCALE, 7 );
 	}
 
 	public static void quickSwapper(boolean value ){ put( KEY_QUICK_SWAP, value ); }

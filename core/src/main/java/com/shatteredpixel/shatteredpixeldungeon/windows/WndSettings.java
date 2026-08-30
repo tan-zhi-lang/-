@@ -514,10 +514,10 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(新手提示);
 
 								optUIScale = new OptionSlider("界面尺寸",
-															  2+ "X",
-															  5+ "X",
-															  2,
-															  5 ) {
+															  (PixelScene.横屏()?3:5)+ "X",
+															  (PixelScene.横屏()?5:7)+ "X",
+															  (PixelScene.横屏()?3:5),
+															  (PixelScene.横屏()?5:7) ) {
 									@Override
 									protected void onChange() {
 										if (getSelectedValue() != SPDSettings.scale()) {
@@ -660,9 +660,9 @@ public class WndSettings extends WndTabbed {//WndSettings
 						SPDSettings.landscape(checked());
 
 						if(SPDSettings.landscape())
-							SPDSettings.scale(3);
+							SPDSettings.scale(5);
 						else
-							SPDSettings.scale(4);
+							SPDSettings.scale(7);
 
 						ShatteredPixelDungeon.seamlessResetScene();
 					}

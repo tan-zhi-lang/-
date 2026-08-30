@@ -2144,6 +2144,7 @@ public abstract class Char extends Actor {
 	}
 	public void 回血(float x){
 		x*=治疗护盾();
+
 		if(x>0){
 			生命=Math.min(生命+x,最大生命);
 
@@ -2431,11 +2432,11 @@ public abstract class Char extends Actor {
 	}
 	public boolean 防刷(){
 		if(Dungeon.符文("叠角龙"))return true;
-		if(老鬼())return false;
-		if(老鬼傀儡())return false;
-		if(小老鬼())return false;
-		if(傀儡())return false;
-		return true;
+		if(老鬼())return true;
+		if(老鬼傀儡())return true;
+		if(小老鬼())return true;
+		if(傀儡())return true;
+		return false;
 	}
 	public boolean 恶魔(){
 		if(Dungeon.符文("白骨皮肉"))return true;

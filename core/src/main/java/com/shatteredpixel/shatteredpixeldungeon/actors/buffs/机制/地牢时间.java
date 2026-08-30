@@ -14,12 +14,14 @@ import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Plant;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
+import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.watabou.utils.Random;
 
 public class 地牢时间 extends FlavourBuff{
     {
         actPriority=MAX;
     }
+    {name="天数";}
     @Override
     public boolean act(){
         spend( 1 );
@@ -65,5 +67,16 @@ public class 地牢时间 extends FlavourBuff{
             }
         }
         return true;
+    }
+    @Override
+    public int icon() {
+        if(Dungeon.白天())
+        return BuffIndicator.白天;
+        return BuffIndicator.夜晚;
+    }
+
+    @Override
+    public String iconTextDisplay() {
+        return (int)(Dungeon.地牢天数)+"";
     }
 }

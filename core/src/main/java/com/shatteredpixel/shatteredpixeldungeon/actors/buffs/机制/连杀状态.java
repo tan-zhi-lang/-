@@ -21,10 +21,11 @@ public class 连杀状态 extends FlavourBuff{
     @Override
     public String name(){
         return count+super.name();
-    }@Override
-    	public String iconTextDisplay() {
-    		return (int)(count)+"";
-    	}
+    }
+    @Override
+    public String iconTextDisplay() {
+        return (int)(count)+"";
+    }
 
     public float count = 0;
     public float set(float x){

@@ -219,7 +219,7 @@ public class StatusPane extends Component {
 		add(time);
 		
 		day = new RenderedText( "第"+Dungeon.地牢天数+"天",32);
-		add(day);
+//		add(day);
 
 		level = new BitmapText( PixelScene.pixelFont);
 		level.hardlight( 0xFFFFAA );
@@ -351,7 +351,7 @@ public class StatusPane extends Component {
 		busy.x = x + 1;
 		busy.y = y + 37;
 		
-		busytime.scale.set(0.165f);
+		busytime.scale.set(0.135f);
 		busytime.measure();
 		PixelScene.align(busytime);
 		
@@ -507,8 +507,8 @@ public class StatusPane extends Component {
 
 		busytime.text("回合差"+kw2(2,(1f - Actor.now()%1f)%1f));
 		busytime.measure();
-		busytime.x = counter.x-2.5f;
-		busytime.y = counter.y+counter.height()+busytime.height()*4+2;
+		busytime.x = counter.x-5f;
+		busytime.y = counter.y+counter.height()-busytime.height()*2+5;
 		
 		if (Dungeon.hero.等级 != lastLvl) {
 

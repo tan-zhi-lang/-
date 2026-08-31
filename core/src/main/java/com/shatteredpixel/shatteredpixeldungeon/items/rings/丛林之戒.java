@@ -49,25 +49,25 @@ public class 丛林之戒 extends Ring {
 	public String statsInfo() {
 		if (已鉴定()){
 			String info = Messages.get(this, "stats",
-									   kw2(1/10f*soloBuffedBonus()));
+									   kw2(1/15f*soloBuffedBonus()));
 			if (isEquipped(Dungeon.hero) && soloBuffedBonus() != combinedBuffedBonus(Dungeon.hero)){
 				info += "\n\n" + Messages.get(this, "combined_stats",
-							  kw2(1/10f*combinedBuffedBonus(Dungeon.hero)));
+							  kw2(1/15f*combinedBuffedBonus(Dungeon.hero)));
 			}
 			return info;
 		} else {
-			return Messages.get(this, "stats", kw2(1));
+			return Messages.get(this, "stats", kw2(1/15f));
 		}
 	}
 
 	public String upgradeStat1(int level){
 		if (cursed && cursedKnown) level = Math.min(-1, level-6);
-		return kw2(1/10f*(level));
+		return kw2(1/15f*(level));
 	}
 
 	
 	public static float 累计(Char target){
-		return 1/10f*getBuffedBonus( target, 丛林搜索.class);
+		return 1/15f*getBuffedBonus( target, 丛林搜索.class);
 	}
 	private static final String TRIES_TO_DROP = "tries_to_drop";
 	private static final String DROPS_TO_RARE = "drops_to_rare";
@@ -93,7 +93,7 @@ public class 丛林之戒 extends Ring {
 
 	
 	public static ArrayList<Item> tryForBonusDrop(Char target, float tries ){
-		int x=2;
+		int x=1;
 
 		int 概率0=0;
 		int 概率1=20*x;

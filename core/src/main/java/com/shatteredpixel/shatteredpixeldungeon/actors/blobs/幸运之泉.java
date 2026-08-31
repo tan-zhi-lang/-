@@ -26,7 +26,6 @@ import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
-import com.watabou.utils.Random;
 
 public class 幸运之泉 extends WellWater {
 	
@@ -99,7 +98,9 @@ public class 幸运之泉 extends WellWater {
 		} while (Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 
 		n.等级(0);
-		int level = w.真等级()+Math.round(Random.Float(Dungeon.hero.幸运值(),Dungeon.hero.幸运值()*3));
+		int level = w.真等级();
+
+		level=Math.min(3,Math.round(level+3*Dungeon.hero.幸运机制()));
 		if (level > 0) {
 			n.升级( level );
 		} else if (level < 0) {
@@ -122,7 +123,8 @@ public class 幸运之泉 extends WellWater {
 		Armor n = Generator.randomArmor();
 
 		n.等级(0);
-		int level = a.真等级()+Math.round(Random.Float(Dungeon.hero.幸运值(),Dungeon.hero.幸运值()*3));
+		int level = a.真等级();
+		level=Math.min(3,Math.round(level+3*Dungeon.hero.幸运机制()));
 		if (level > 0) {
 			n.升级( level );
 		} else if (level < 0) {
@@ -150,7 +152,8 @@ public class 幸运之泉 extends WellWater {
 
 		n.等级(0);
 
-		int level =r.等级()+Math.round(Random.Float(Dungeon.hero.幸运值(),Dungeon.hero.幸运值()*3));
+		int level =r.等级();
+		level=Math.min(3,Math.round(level+3*Dungeon.hero.幸运机制()));
 		if (level > 0) {
 			n.升级( level );
 		} else if (level < 0) {
@@ -171,7 +174,8 @@ public class 幸运之泉 extends WellWater {
 		} while ( Challenges.isItemBlocked(n) || n.getClass() == w.getClass());
 
 		n.等级( 0 );
-		int level = w.真等级()+Math.round(Random.Float(Dungeon.hero.幸运值(),Dungeon.hero.幸运值()*3));
+		int level = w.真等级();
+		level=Math.min(3,Math.round(level+3*Dungeon.hero.幸运机制()));
 		n.升级( level );
 
 		n.levelKnown = w.levelKnown;

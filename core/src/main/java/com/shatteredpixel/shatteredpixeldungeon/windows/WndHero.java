@@ -256,8 +256,8 @@ public class WndHero extends WndTabbed {
 						statSlot("力量/敏捷",kw2(hero.力量())+"/"+kw2(hero.敏捷()));
 					}
 					pos+=GAP;
-					statSlot("==攻击伤害/攻击==",kw2((hero.攻击时(null,1)))+"倍/"+kw2(hero.最小攻击())+"~"+kw2(hero.最大攻击()));
-					statSlot("++物理抗性/防御++",Math.round((1-(hero.防御时(null,100))))+"%/"+kw2(hero.最小防御())+"~"+kw2(hero.最大防御()));
+					statSlot("==攻击伤害/攻击==",kw2(hero.攻击时(null,hero.英雄伤害())/hero.英雄伤害())+"倍/"+kw2(hero.最小攻击())+"~"+kw2(hero.最大攻击()));
+					statSlot("++物理抗性/防御++",Math.round((1-hero.防御时(null,100f)/100f))+"%/"+kw2(hero.最小防御())+"~"+kw2(hero.最大防御()));
 
 					statSlot("@@元素抗性/魔抗@@",Math.round(100*(1-(元素之戒.抗性(hero))))+"%/"+kw2(hero.最小魔抗())+"~"+kw2(hero.最大魔抗()));
 
@@ -398,7 +398,7 @@ public class WndHero extends WndTabbed {
 			pos = GAP*2;
 
 			if(!hero.符文("黑幕")){
-					statSlot("^^幸运值^^",""+hero.幸运值());
+					statSlot("^^幸运值^^",""+kw2(hero.幸运值()));
 					statSlot("_法杖/神器充能倍_",
 							 kw2(能量之戒.wandChargeMultiplier(hero))+"/"+
 								 kw2(能量之戒.artifactChargeMultiplier(hero))+"倍"

@@ -118,6 +118,7 @@ public abstract class RegularLevel extends Level {
 		//房间数量
 		if(算法.彩蛋("更小"))standards/=2;
 		if(算法.彩蛋("更大"))standards*=2;
+		if(算法.彩蛋("超级大"))standards*=3;
 
 		for (int i = 0; i < standards; i++) {
 			StandardRoom s;
@@ -154,6 +155,7 @@ public abstract class RegularLevel extends Level {
 		//房间数量
 		if(算法.彩蛋("更小"))specials/=2;
 		if(算法.彩蛋("更大"))specials*=2;
+		if(算法.彩蛋("超级大"))specials*=3;
 
 		SpecialRoom.initForFloor();
 		for (int i = 0; i < specials; i++) {
@@ -168,6 +170,7 @@ public abstract class RegularLevel extends Level {
 		//房间数量
 		if(算法.彩蛋("更小"))secrets/=2;
 		if(算法.彩蛋("更大"))secrets*=2;
+		if(算法.彩蛋("超级大"))secrets*=3;
 
 		for (int i = 0; i < secrets; i++) {
 			initRooms.add(SecretRoom.createRoom());
@@ -417,6 +420,8 @@ public abstract class RegularLevel extends Level {
 
 		if(算法.彩蛋("更小"))nItems/=2;
 		if(算法.彩蛋("更大"))nItems*=2;
+		if(算法.彩蛋("超级大"))nItems*=3;
+		if(Dungeon.hero())nItems*=Dungeon.hero.幸运机制();
 		//物品数量
 		for (int i=0; i < nItems; i++) {
 

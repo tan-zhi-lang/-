@@ -525,7 +525,7 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 红包(),
 										   "春节开局获得"));
 		changes.addButton(new ChangeButton(new 生命果(),
-										   "踩踏草丛1/300概率获得，上限1个。"));
+										   "踩踏草丛1/450概率获得，上限1个。"));
 		changes.addButton(new ChangeButton(new 生命水晶(),
 										   "洞穴层第三层生成一个。"));
 		changes.addButton(new ChangeButton(new 坠牢之星(),

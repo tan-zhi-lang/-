@@ -107,6 +107,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.无形威胁
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.无终恨意冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.星蚀;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.星蚀冷却;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.月影神读;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.疾射火炮;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.神圣干预冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.赐死剑气冷却;
@@ -215,25 +216,25 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.连裙;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.炼金工具箱;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虚空锁链;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.丰饶之角;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.丰饶之角;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙拉管;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.召唤物品;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.灵魂焰灯;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.炼金工具箱;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虚空锁链;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
@@ -556,6 +557,8 @@ public class Hero extends Char {
             put1("升级金液",2);
             put1("鞋底抹油",2);
             put1("吃货",2);
+            put1("步步高升",2);
+            put1("月影神读",2);
             put1("坠入深渊",2);
             put1("血条剑",2);
             put1("AI脑",2);
@@ -1707,6 +1710,8 @@ public class Hero extends Char {
             case "人工肌肉":return "力量固定20";
             case "坠入深渊":return "跳楼获得地牢层数回合的无敌";
             case "吃货":return "吃饭恢复12.5%最大生命";
+            case "步步高升":return "每层的首次下楼时获得1个升级卷轴";
+            case "月影神读":return "之后的10回合内海克斯卷轴每个选项额外增加6次刷新机会";
             case "偷袭":return "首次对敌人的攻击必定暴击";
             case "气功":return "暴击时恢复所有武器法杖神器的能量";
             case "双手武器专家":return "装备双手武器时，攻击，暴击率和暴击伤害+15%";
@@ -2340,6 +2345,9 @@ public class Hero extends Char {
                     new 海克斯秘卷().放背包();
                     new 海克斯秘卷().放背包();
                 }
+                return;
+            case "月影神读":
+                Buff.施加(this,月影神读.class,10 );
                 return;
             case "不再错过海克斯":
 
@@ -3071,11 +3079,16 @@ public class Hero extends Char {
         return 幸运机制();
     }
     public float 幸运机制(){
+
         float 幸运=幸运值;
             幸运+=SPDSettings.幸运值();
 //        if(Rankings.INSTANCE.totalNumber<=1)幸运++;
 //        if(Dungeon.daily&&!Dungeon.dailyReplay)幸运++;
 
+        if(subClass(HeroSubClass.幸运之子))
+            幸运++;
+        if(subClass(HeroSubClass.幸运之子)&&职业精通())
+            幸运++;
         幸运+=天赋点数(Talent.天命之赐);
         if(subClass(HeroSubClass.灾厄化身)){
             幸运--;
@@ -3148,8 +3161,9 @@ public class Hero extends Char {
 
         if(算法.彩蛋("非酋"))幸运--;
         if(算法.彩蛋("欧皇"))幸运++;
-        if(幸运>1)幸运=1+幸运*0.25f;
-        if(幸运<1)幸运=1+幸运*0.25f;
+        if(幸运==0)幸运--;
+        if(幸运>1)幸运=1+幸运/4;
+        if(幸运<1)幸运=1+幸运/4f;
         return 幸运;
     }
     public String 种族天赋 = "";
@@ -7220,15 +7234,18 @@ public class Hero extends Char {
 
     //damage rolls that come from the hero can have their RNG influenced by clover
     public static float 英雄伤害(float min,float max) {
+        min=Math.min(max,min+max*Dungeon.hero.幸运机制());
         if (Random.Float() < ThirteenLeafClover.alterHeroDamageChance()) {
             return ThirteenLeafClover.alterDamageRoll(min, max);
         } else {
             return Random.NormalFloat(min, max);
         }
     }
+    public static float 英雄伤害() {
+        return 英雄伤害(Dungeon.hero.最小攻击(),Dungeon.hero.最大攻击());
+    }
     public static float 空手伤害() {
         return 英雄伤害(武力之戒.heromin(),武力之戒.heromax());
-
     }
 
     @Override
@@ -9615,8 +9632,6 @@ public class Hero extends Char {
             if(等级==21&&职业精通()){
                 职业精通提示();
 
-                if(subClass(HeroSubClass.幸运之子))
-                    belongings.幸运.升级(7);
             }
 
             if(Dungeon.派对(派对设置.海克斯)){
@@ -10408,7 +10423,7 @@ public class Hero extends Char {
                             chance = 0;
                         }
 
-                        if (Random.Float() < chance) {
+                        if (Random.Float() < chance*幸运机制()) {
 
                             int oldValue = Dungeon.level.map[curr];
 
@@ -10599,7 +10614,7 @@ public class Hero extends Char {
         隐匿+=虚无透纱.增加();
         if(符文("树懒转世"))
             隐匿+=6;
-        return 隐匿;
+        return 隐匿*幸运机制();
     }
 
 	//region 杂项属性
@@ -12025,7 +12040,7 @@ public class Hero extends Char {
                     s+= "每第四次攻击造成的额外魔法伤害x2。";
                     break;
                 case 幸运之子:
-                    s+= "额外获得7级幸运之戒效果。";
+                    s+= "幸运值+1。";
                     break;
                 case 图书管理员:
                     s+= "阅读卷轴会获得2回合时间气泡。";

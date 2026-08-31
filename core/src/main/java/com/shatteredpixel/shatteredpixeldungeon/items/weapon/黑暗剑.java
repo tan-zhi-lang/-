@@ -10,7 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 public class 黑暗剑 extends Weapon{
 	{
 		image = 物品表.黑暗剑;
-		hitSound = Assets.Sounds.攻击砍;
+		hitSound = Assets.Sounds.CURSED;
 		特别=true;
 		黑色=true;
 		黑光=true;

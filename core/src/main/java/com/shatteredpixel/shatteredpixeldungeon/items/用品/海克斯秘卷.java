@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.用品;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.月影神读;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -175,9 +176,10 @@ public class 海克斯秘卷 extends 用品{
 	}
 	public static int 使用上限(){
 		return 1+(Dungeon.符文("骰子收集者")?2:0)
-			   +(算法.isDebug()?100:0)+
+			   +(算法.isDebug()?100:0)
 			   +(Dungeon.符文("刷新海克斯")?5:0)+
-			   (Dungeon.符文("好记性如烂笔头")?4:0);
+			   (Dungeon.符文("好记性如烂笔头")?4:0)+
+			   (Dungeon.hero()&&Dungeon.hero.hasbuff(月影神读.class)?6:0);
 	}
 	public static int 使用上限1(){
 		return 使用上限();

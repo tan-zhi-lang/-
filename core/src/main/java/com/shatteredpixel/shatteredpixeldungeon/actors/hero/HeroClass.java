@@ -353,6 +353,16 @@ public enum HeroClass{
 		if(算法.物品()!=null)
 		算法.物品().放背包();
 
+
+		if(算法.彩蛋("随机武器"))
+		Generator.randomWeapon().放背包();
+
+		if(算法.彩蛋("随机法杖"))
+		Generator.randomWand().放背包();
+
+		if(算法.彩蛋("随机戒指"))
+		Generator.randomRing().放背包();
+
 		if(Dungeon.赛季(赛季设置.地牢塔防)){
 
 		}else{

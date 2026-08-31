@@ -175,8 +175,8 @@ public class HighGrass {
 			// 生命果
 			for (int i = 0; i < (三倍? 3 : 1); i++){
 				if(Random.Float()<(三倍?
-										   1/100f:
-										   1/300f)*概率()&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?
+										   1/150f:
+										   1/450f)*概率()&&Dungeon.LimitedDrops.生命果.count<(Dungeon.符文("更多生命水晶和生命果")?
 																									  20:
 																									  1)){
 					Dungeon.LimitedDrops.生命果.count++;

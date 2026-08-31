@@ -76,7 +76,7 @@ public class 算法 {
 	//endregion
 
     public static String 日期(){
-        return "8.31/8:30";
+        return "8.31/12:44";
     }
 
     public static float 金额=5;
@@ -288,9 +288,14 @@ public class 算法 {
         String seed = SPDSettings.customSeed();
         if(
             seed.contains("解锁全部英雄")||
+
             seed.contains("欧皇")||
             seed.contains("非酋")||
 
+            seed.contains("随机武器")||
+            seed.contains("随机法杖")||
+            seed.contains("随机戒指")||
+            seed.contains("超级大")||
             seed.contains("更小")||
             seed.contains("更大")
            ){

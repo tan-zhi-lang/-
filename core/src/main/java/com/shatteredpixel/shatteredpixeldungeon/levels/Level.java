@@ -917,6 +917,7 @@ public abstract class Level implements Bundlable {
 		}
 		if(算法.彩蛋("更小"))mobs/=2;
 		if(算法.彩蛋("更大"))mobs*=2;
+		if(算法.彩蛋("超级大"))mobs*=3;
 		if(Dungeon.更多怪物)mobs*=5;
 		if(算法.isDebug())mobs*=4;
 

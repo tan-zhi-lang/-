@@ -4,14 +4,14 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.下楼标;
 import com.watabou.utils.Bundle;
 
 public class 下楼 extends Buff implements 下楼标.Action{
-
-	public Food food= null;
+	{
+		name="下楼";
+	}
 
 	@Override
 	public boolean attachTo(Char target){

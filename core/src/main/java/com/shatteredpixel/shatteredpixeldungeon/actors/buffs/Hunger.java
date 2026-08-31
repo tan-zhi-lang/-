@@ -139,6 +139,7 @@ public class Hunger extends Buff implements Hero.Doom {
 		if(Dungeon.符文("我是瘦子"))x/=4f;
 		x*=SaltCube.hungerGainMultiplier();
 		x*=血腥生肉.饥饿();
+		x*=极肚之戒.饥饿速度(Dungeon.hero);
 		if(Dungeon.hero.heroClass(HeroClass.WARRIOR))x*=0.67f;
 		return x;
 	}
@@ -223,7 +224,6 @@ public class Hunger extends Buff implements Hero.Doom {
 		}
 		if(Dungeon.符文("细嚼慢咽"))energy*=2;
 
-		energy*=极肚之戒.饥饿速度(Dungeon.hero);
 		return energy;
 	}
 	public void 吃饭(float energy ) {

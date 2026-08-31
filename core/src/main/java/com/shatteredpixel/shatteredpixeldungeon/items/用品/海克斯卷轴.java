@@ -11,7 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndTextInput;
 import com.shatteredpixel.shatteredpixeldungeon.windows.Wnd选择海克斯;
-import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -161,12 +160,7 @@ public class 海克斯卷轴 extends 用品{
 		return 使用上限2()-用过2;
 	}
 	public static int 使用上限(){
-		return Math.round((
-								  1+(Dungeon.符文("骰子收集者")?2:0)
-								  +(算法.isDebug()?100:0)+
-								  +(Dungeon.符文("刷新海克斯")?5:0)+
-								  (Dungeon.符文("好记性如烂笔头")?4:0)
-								  )/2f);
+		return 海克斯秘卷.使用上限()/2;
 	}
 	public static int 使用上限1(){
 		return 使用上限();

@@ -24,7 +24,7 @@ public class Gold extends Item{
 	}
 
 	public Gold() {
-		this(Math.round(Random.IntRange(60, 120)/金额));
+		this(Math.round(Random.IntRange(Math.min(120,Math.round(60*Dungeon.hero.幸运机制())), 120)/金额));
 	}
 	
 	public Gold( int value ) {
@@ -49,13 +49,13 @@ public class Gold extends Item{
 	
 	@Override
 	public Item random() {
-		quantity = Math.round(Random.IntRange(60, 120)/金额);
+		quantity = Math.round(Random.IntRange(Math.min(120,Math.round(60*Dungeon.hero.幸运机制())), 120)/金额);
 //		quantity = Random.IntRange( 30 + Dungeon.depth * 10, 60 + Dungeon.depth * 20 );
 		return this;
 	}
 
 	public Item random(float f) {
-		quantity = Math.round(Random.IntRange(60, 120)/金额*f);
+		quantity = Math.round(Random.IntRange(Math.min(120,Math.round(60*Dungeon.hero.幸运机制())), 120)/金额*f);
 		//		quantity = Random.IntRange( 30 + Dungeon.depth * 10, 60 + Dungeon.depth * 20 );
 		return this;
 	}

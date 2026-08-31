@@ -32,7 +32,7 @@ public class 冰门重盾 extends Weapon{
 	}
 
 	public int 最大转移(){
-		return 3+Dungeon.hero.天赋点数(Talent.高阶盾武,2);
+		return 3+Dungeon.hero.天赋点数(Talent.重铸冰门,2);
 	}
 
 	@Override
@@ -133,12 +133,12 @@ public class 冰门重盾 extends Weapon{
 
 	@Override
 	public float 吸血(){
-		return super.吸血()+Dungeon.hero.天赋点数(Talent.用盾诀窍,0.03f);
+		return super.吸血()+Dungeon.hero.天赋点数(Talent.用盾诀窍,0.02f);
 	}
 
 	@Override
 	public float 防御(){
-		return super.防御()+Dungeon.hero.天赋点数(Talent.冰门高防,0.5f);
+		return super.防御()+Dungeon.hero.天赋点数(Talent.冰门高防,0.25f);
 	}
 
 

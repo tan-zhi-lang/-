@@ -438,8 +438,13 @@ public abstract class Char extends Actor {
 			return false;
 
 		} else if (hit( this, enemy, accMulti, false )) {
-			
-			float dr = Random.NormalFloat( enemy.最小防御(), enemy.最大防御());
+			float mind=enemy.最小防御();
+			float maxd=enemy.最大防御();
+
+			if(enemy instanceof Hero hero)
+				mind=Math.min(maxd,mind+maxd*hero.幸运机制());
+
+			float dr = Random.NormalFloat(mind, maxd);
 
 			dr*=AscensionChallenge.statModifier(enemy);
 
@@ -644,8 +649,20 @@ public abstract class Char extends Actor {
 	}
 
 	public static boolean hit( Char attacker, Char defender, float accMulti, boolean magic ){
-		float acuStat=Random.Float(attacker.最小命中(attacker),attacker.最大命中(defender));
-		float defStat=Random.Float(defender.最小闪避(attacker),defender.最大闪避(attacker));
+		float min命=attacker.最小命中(attacker);
+		float max命=attacker.最大命中(defender);
+
+		float min闪=defender.最小闪避(attacker);
+		float max闪=defender.最大闪避(attacker);
+
+		if(attacker instanceof Hero hero)
+		min命=Math.min(max命,min命+max命*hero.幸运机制());
+
+		if(defender instanceof Hero hero)
+		min闪=Math.min(max闪,min闪+max闪*hero.幸运机制());
+
+		float acuStat=Random.Float(min命,max命);
+		float defStat=Random.Float(min闪,max闪);
 
 //		if(Dungeon.派对(派对设置.英雄联盟)){
 //			acuStat=attacker.最小命中(attacker)+attacker.最大命中(defender);
@@ -657,7 +674,6 @@ public abstract class Char extends Actor {
 			}
 			if(hero.符文("三国杀:赵云"))acuStat+=defStat;
 
-			acuStat*=hero.幸运机制();
 
 			if(defender.恶魔亡灵()&&hero.heroClass(HeroClass.道士)){
 				defStat=0;
@@ -678,7 +694,6 @@ public abstract class Char extends Actor {
 		}
 		if(defender instanceof Hero hero){
 			if(hero.符文("三国杀:赵云"))defStat+=acuStat;
-			defStat/=hero.幸运机制();
 
 			if(attacker.恶魔亡灵()&&hero.belongings.armor(道袍.class)){
 				acuStat*=0.85f;

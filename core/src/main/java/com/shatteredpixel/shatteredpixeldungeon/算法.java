@@ -76,7 +76,7 @@ public class 算法 {
 	//endregion
 
     public static String 日期(){
-        return "8.31/12:44";
+        return "8.31/16:39";
     }
 
     public static float 金额=5;

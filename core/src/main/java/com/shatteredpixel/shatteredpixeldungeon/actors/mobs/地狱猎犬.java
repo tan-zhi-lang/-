@@ -4,8 +4,11 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.mobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.灵焰;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.地狱猎犬动画;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.Random;
 
 public class 地狱猎犬 extends Mob {
 	
@@ -28,16 +31,31 @@ public class 地狱猎犬 extends Mob {
 
 	@Override
 	public float 最小攻击() {
-		return 22;
+		return 17;
 	}
 
 	@Override
 	public float 最大攻击() {
-		return 26;
+		return 27;
+	}
+
+	@Override
+	protected boolean act(){
+		Buff.施加(this,灵焰.class).extend(2);
+		return super.act();
+	}
+
+	@Override
+	public void 受伤时(float dmg,Object 来源){
+		if(来源 instanceof 灵焰)dmg=0;
+		super.受伤时(dmg,来源);
 	}
 
 	@Override
 	public float 攻击时(Char enemy,float damage){
+		if (damage > 0&&Random.Int(2)==0) {
+			Buff.施加(this,灵焰.class).reignite(this);
+		}
 		Sample.INSTANCE.play(Assets.Sounds.狗叫);
 		return super.攻击时(enemy,damage);
 	}

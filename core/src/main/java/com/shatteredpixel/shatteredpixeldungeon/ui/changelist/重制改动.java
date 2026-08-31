@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Slime;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.十字弩飞镖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhoulSprite;
@@ -143,7 +143,7 @@ public class 重制改动{
 					   "炸弹不可摧毁可升级的物品，装备不可摧毁->炸弹不摧毁带等级的物品，神器不可摧毁。\n" +
 								   "神圣炸弹贴图改，并且爆炸范围2->5"));
 
-		changes.addButton(new ChangeButton(new 十字弩飞镖(),"商店不再售卖"));
+		changes.addButton(new ChangeButton(new 飞镖(),"商店不再售卖"));
 
 		changes.addButton(new ChangeButton(new 巨鼠头骨(),"击杀腐臭老鼠掉落\n" +
 														  "稀有敌人2+等级->2.5+1.5x等级\n" +
@@ -339,12 +339,7 @@ public class 重制改动{
 
 										   "装备两把武器时，代码判定真实等级最强的掉落遗产->DPS伤害最高的\n" +
 										   "新增双手和双持武器类，装备双手武器(副武器不为空则减少20%命中)，并且攻击范围取DPS最高的武器\n" +
-										   "只影响最大命中->命中\n" +
-										   "升级祛邪->不祛邪\n" +
-										   "升级不概率移除附魔\n" +
-										   "装备和卸下时间1->攻击延迟\n" +
-										   "5阶都是特别物品\n" +
-										   "武器战技重做\n" +
+										   "手里剑20回合冷却的不消耗回合攻击->苦无、手里剑、飞镖类武器首次攻击不消耗回合\n" +
 										   "最小攻击为1" ,
 
 										   "暗杀之刃这类伏击武器不再是是最大攻击-最小攻击这样稳定伤害，而是额外造成伤害。\n"+
@@ -357,7 +352,8 @@ public class 重制改动{
 
 										   //										   "大部分武器的命中跟随攻击延迟，每0.25都会进行衰减，大于1的值比如1.75的值为1+0.25/2+0.25/4+0.25/8，小于1的值比如0.25为0.25+0.25/2+0.25/4\n" +
 										   "大部分武器的伤害跟随攻击延迟\n" +
-										   "武器最大充能(英雄等级+8)/3->2+25%英雄等级\n" +
+										   "武器最大充能(英雄等级+8)/3->2+25%英雄等级",
+
 										   "武器投掷攻击能触发近战攻击效果\n" +
 										   //										   "连招，武器范围>1时，那么设定x，x为范围。第x次攻击造成伤害+20%x(4-x)，1范围后会会重置为最初的范围。\n" +
 										   "扔出装备的武器时，只花费扔出的时间，不花费卸下的时间。\n"+
@@ -366,6 +362,12 @@ public class 重制改动{
 										   "武器最小防御为等级，最大格挡量能根据阶级x等级同步提升，且最大防御等级计算+0.5，但是防御成长减半。" ,
 
 										   "有些武器投掷一次后便消失。\n"+
+										   "只影响最大命中->命中\n" +
+										   "升级祛邪->不祛邪\n" +
+										   "升级不概率移除附魔\n" +
+										   "装备和卸下时间1->攻击延迟\n" +
+										   "5阶都是特别物品\n" +
+										   "武器战技重做\n" +
 //										   "武器最小攻击~最大攻击为阶+级~最大攻击=5x(阶+1)+级x(阶+1)->阶+级~最大攻击=5x(阶+1)+级x(阶+1)。\n" +
 										   "武器投掷最小攻击~最大攻击为2x阶+阶x级~5x阶+阶x级->(阶+级)x1.5~(5x(阶+1)+级x(阶+1))x1.45。\n"
 		));

@@ -67,6 +67,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.石子;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
@@ -283,6 +284,7 @@ public abstract class Recipe {
 		new 血药.Recipe(),
 		new Food.Recipe(),
 		new 封禁卷轴.Recipe(),
+		new 石子.Recipe(),
 
 		new 火把神的恩宠.R(),
 	};

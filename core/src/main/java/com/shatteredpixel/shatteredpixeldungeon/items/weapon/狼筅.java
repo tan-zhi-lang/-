@@ -16,7 +16,7 @@ public class 狼筅 extends Weapon{
 		延迟= 1.5f;
 		范围=2;
 
-		tier = 1;
+		tier = 2;
 	}
 
 }

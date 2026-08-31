@@ -37,6 +37,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Warlock;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.地狱猎犬;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.水蛭;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.矮人官臣;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.石虱;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.蟑螂;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.蠕虫;
@@ -82,6 +83,7 @@ public class AscensionChallenge extends Buff {
 		modifiers.put(Elemental.class,      1.67f);
 		modifiers.put(Warlock.class,        1.5f);
 		modifiers.put(Monk.class,           1.5f);
+		modifiers.put(矮人官臣.class,1.4f);
 		modifiers.put(Golem.class,          1.33f);
 
 		modifiers.put(RipperDemon.class,    1.2f);

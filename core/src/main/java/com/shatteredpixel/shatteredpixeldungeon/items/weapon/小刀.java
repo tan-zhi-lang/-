@@ -3,21 +3,16 @@
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.连击;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
-public class 指虎 extends Weapon{
+public class 小刀 extends Weapon{
 	
 	{
-		image = 物品表.指虎;
+		image = 物品表.小刀;
 		hitSound = Assets.Sounds.攻击刺;
 
-		延迟=0.5f;
-		流血=0.15f;
-		
-		技能=new 连击();
-
+		延迟=0.8f;
 		tier = 1;
 	}
-	
+
 }

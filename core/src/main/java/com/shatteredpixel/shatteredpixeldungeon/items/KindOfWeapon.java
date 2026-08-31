@@ -51,6 +51,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public float 吸血 =0;
 	public float 首攻 =0;
 	public float 麻痹 =0;
+	public float 破甲 =0;
 	public float 冻结 =0;
 	public float 中毒=0;
 	public int 最小= 0;
@@ -86,6 +87,28 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public float 首攻(){
 		float 首攻=this.首攻;
 		return 首攻;
+	}
+
+	public boolean 迅速(){
+		if(this instanceof 苦无||
+		   this instanceof 金玫苦无||
+		   this instanceof 小刀||
+		   this instanceof 飞镖||
+		   this instanceof 手里剑||
+		   this instanceof 寒冰镖
+		   )
+		return true;
+
+		return false;
+	}
+	public float 破甲(){
+		float 破甲=this.破甲;
+		if(this instanceof 小刺||
+		   this instanceof 破甲锥||
+		   this instanceof 双锥
+		   )破甲+=0.75f;
+
+		return 破甲;
 	}
 
 	public float 麻痹(){
@@ -624,11 +647,16 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public float 最小防御( Char owner ) {
 		return 0;
 	}
-	
+
+
+	public boolean 攻击不消耗回合=false;
 	public float 攻击时(Char attacker, Char defender, float damage ) {
 
 		if(defender!=null&&defender.第x次防御==1&&首攻()>0){
 			damage+=首攻();
+		}
+		if(defender!=null&&defender.第x次防御==1&&迅速()){
+			攻击不消耗回合=true;
 		}
 		if(defender!=null&&麻痹()>0){
 				算法.修复效果(()->{

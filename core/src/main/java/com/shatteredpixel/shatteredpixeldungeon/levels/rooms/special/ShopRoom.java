@@ -388,7 +388,7 @@ public class ShopRoom extends SpecialRoom {
 //			itemsToSpawn.add( Random.Int(2) == 0 ?
 //					Generator.randomUsingDefaults( Generator.Category.POTION ) :
 //					Generator.randomUsingDefaults( Generator.Category.SCROLL ) );
-		if(imp)
+		if(Dungeon.区域()==4)
 		itemsToSpawn.add( new 矮人徽章().数量(Random.Int(4,5)));
 
 		if(Dungeon.相对层数()>3){

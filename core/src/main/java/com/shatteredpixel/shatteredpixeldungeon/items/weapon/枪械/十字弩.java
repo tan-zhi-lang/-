@@ -10,7 +10,8 @@ public class 十字弩 extends 枪械{
 	
 	{
 		image = 物品表.十字弩;
-		
+		特别=true;
+		专属=true;
 		tier = 1;
 		伤害=0.6f;
 		射速=2;
@@ -19,7 +20,6 @@ public class 十字弩 extends 枪械{
 		hitSound2 = Assets.Sounds.攻击弩;
 		item_Miss2 = Assets.Sounds.攻击弩;
 		换弹声音 = Assets.Sounds.拉弓;
-		弩发射=true;
 		掉落子弹=true;
 		箭矢发射=true;
 		开火效果=false;

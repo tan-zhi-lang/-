@@ -93,8 +93,10 @@ import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.烈焰法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.落石法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Joker大王;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.三节棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.下界合金剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.半月刃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双锥;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.回旋之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.圣剑;
@@ -117,6 +119,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.木棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.未知武器;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冰结短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.圣银十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.弹弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.暗裔短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.炼金动力十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.短弓;
@@ -310,6 +313,7 @@ public class 重制新增{
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes.addButton(new ChangeButton(new 弹弓(),"额外战士的初始武器"));
 		changes.addButton(new ChangeButton(new 短弓(),"替换女猎的初始武器"));
 		changes.addButton(new ChangeButton(new 炼金动力十字弩(),"十字弩+毒气药剂消耗9能量合成"));
 		changes.addButton(new ChangeButton(new 圣银十字弩(),"炼金十字弩+祛邪卷轴消耗15能量合成"));
@@ -385,21 +389,24 @@ public class 重制新增{
 		//4
 		changes.addButton(new ChangeButton(new 寒冰鱼剑()));
 		changes.addButton(new ChangeButton(new 鹿角刀()));
+		changes.addButton(new ChangeButton(new 斩马刀()));
 
 		changes = new ChangeInfo("3阶", false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		//3
-		changes.addButton(new ChangeButton(new 斩马刀()));
-		changes.addButton(new ChangeButton(new 破甲锥()));
 		changes.addButton(new ChangeButton(new 半月刃()));
 		changes.addButton(new ChangeButton(new 链刃()));
+		changes.addButton(new ChangeButton(new 双锥()));
+		changes.addButton(new ChangeButton(new 三节棍()));
 
 		changes = new ChangeInfo("2阶", false, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 		//2
+		changes.addButton(new ChangeButton(new 破甲锥()));
 		changes.addButton(new ChangeButton(new 爪()));
+		changes.addButton(new ChangeButton(new 狼筅()));
 		//1
 		changes = new ChangeInfo("1阶", false, null);
 		changes.hardlight(Window.TITLE_COLOR);
@@ -407,7 +414,6 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 指虎()));
 		changes.addButton(new ChangeButton(new 木棍()));
 		changes.addButton(new ChangeButton(new 尼泊尔弯刀()));
-		changes.addButton(new ChangeButton(new 狼筅()));
 
 	}
 
@@ -611,7 +617,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 		changes.addButton( new ChangeButton(new 传送阵眼动画(),"传送阵眼",
 											"11、18层生成矮人传送魔法阵房。\n" +
 											"完成野心勃勃的小恶魔的任务，他不会没收你的矮人徽章，你可以用此来使用矮人传送魔法阵。\n" +
-											"第五区域商店回出售4-5个矮人徽章。"));
+											"第4区域商店会出售4-5个矮人徽章。"));
 
 	}
 	

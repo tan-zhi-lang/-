@@ -7,6 +7,8 @@ public class 飞镖 extends Weapon{
 
 		{
 			image = 物品表.DART;
+			伤害=0.7f;
+			专属=true;
 		}
 
 	}

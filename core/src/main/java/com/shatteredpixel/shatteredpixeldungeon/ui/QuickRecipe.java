@@ -81,6 +81,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.关刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.单手剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.双剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.地裂镰;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.石子;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.巨剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.战斧;
@@ -441,6 +442,8 @@ public class QuickRecipe extends Component {
 				result.add(null);
 				result.add(new QuickRecipe(new ScaleArmor.Recipe()));
 				result.add(new QuickRecipe(new PlateArmor.Recipe()));
+				result.add(null);
+				result.add(new QuickRecipe(new 石子.Recipe()));
 
 				result.add(null);
 				result.add(null);

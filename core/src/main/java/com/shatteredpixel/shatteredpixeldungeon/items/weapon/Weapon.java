@@ -86,7 +86,6 @@ import java.util.Arrays;
 
 abstract public class Weapon extends KindOfWeapon {
 
-
 	//region 占位
 	public static class PlaceHolder extends Weapon{
 
@@ -690,6 +689,8 @@ abstract public class Weapon extends KindOfWeapon {
 								(伏击()==0?"":"\n伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
 
 								(首攻()==0?"":"\n首次攻击+"+Math.round(首攻()*100)+"%伤害"),
+								(!迅速()?"":"\n首次攻击不消耗回合"),
+								(破甲()==0?"":"\n攻击伤害+敌人"+Math.round(破甲()*100)+"最大防御"),
 								(麻痹()==0?"":"\n攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
 								(冻结()==0?"":"\n攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
 							   );
@@ -706,6 +707,8 @@ abstract public class Weapon extends KindOfWeapon {
 								(伏击()==0?"":"\n伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
 
 								(首攻()==0?"":"\n首次攻击+"+Math.round(首攻()*100)+"%伤害"),
+								(!迅速()?"":"\n首次攻击不消耗回合"),
+								(破甲()==0?"":"\n攻击伤害+敌人"+Math.round(破甲()*100)+"最大防御"),
 								(麻痹()==0?"":"\n攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
 								(冻结()==0?"":"\n攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
 							   );
@@ -732,6 +735,7 @@ abstract public class Weapon extends KindOfWeapon {
 				*(伏击() > 0 ? 1 + 伏击() / 4f / 2f : 1f)      // 伏击机会和命中和闪避
 
 				*(首攻() > 0 ? 1 + 首攻() / 2f : 1f)            // 首攻机会
+				*(迅速() ? 1 + 0.5f : 1f)            // 迅速机会
 				*(麻痹() > 0 ? 1 + 麻痹() / 2f / 2f : 1f)      // 麻痹机会和额外攻击机会和免疫机会
 				*(冻结() > 0 ? 1 + 冻结() / 2f / 2f : 1f)      // 首攻机会和额外攻击机会和免疫机会
 			   )
@@ -1139,7 +1143,6 @@ abstract public class Weapon extends KindOfWeapon {
 		}
 
 		float result = super.投掷攻击时(attacker, defender, damage);
-		result = super.攻击时(attacker, defender, damage);
 
 		if(defender!=null)
 		if (!已鉴定()&& attacker == Dungeon.hero) {
@@ -1164,8 +1167,8 @@ abstract public class Weapon extends KindOfWeapon {
 
 		return result;
 	}
-	
-	
+
+
 	@Override
 	public float castDelay(Char user, int cell) {
 		if(user instanceof Hero hero&&hero.符文("精巧狙击手")){
@@ -1252,6 +1255,7 @@ abstract public class Weapon extends KindOfWeapon {
 			else 连招范围=范围;
 		}
 		if (defender!=null&&attacker instanceof Hero hero) {
+			damage = super.攻击时(attacker, defender, damage);
 			if(首次使用){
 				首次使用=false;
 				usesLeftToID-=Talent.鉴定速度(hero,this);
@@ -1417,6 +1421,10 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float delayFactor( Char owner ) {
+		if(攻击不消耗回合){
+			攻击不消耗回合=false;
+			return 0;
+		}
 		float multi = 狂怒之戒.attackSpeedMultiplier(owner);
 
 		//		if (owner.buff(弯刀.SwordDance.class)!=null){

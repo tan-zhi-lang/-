@@ -60,13 +60,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.炼金工具箱;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.丰饶之角;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.干涸绝露;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.炼金工具箱;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
@@ -113,11 +113,13 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.皇室佩剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.匕首;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.石子;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.未知武器;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
@@ -125,6 +127,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冰结短弓
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冲锋枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.十字弩;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.圣银十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.弹弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.暗裔短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.火炮;
@@ -639,9 +642,13 @@ public enum HeroClass{
 			Catalog.setSeen(荣誉纹章.class); //as it's not added to the inventory
 		}
 
-		石头 tome=new 石头();
-		tome.鉴定().放背包();
-		Dungeon.quickslot.setSlot(0,tome);
+		new 石头().鉴定().放背包();
+
+		new 石子().数量(10).放背包();
+
+		弹弓 d=new 弹弓();
+		d.鉴定().放背包();
+		Dungeon.quickslot.setSlot(0,d);
 
 		new 水袋().放背包();
 
@@ -905,12 +912,10 @@ public enum HeroClass{
 	}
 	
 	private static void 初始来世(Hero hero){
-		
-//		手枪 x=new 手枪();
-//		(hero.belongings.weapon=x).鉴定();
-//		hero.belongings.weapon.activate(hero);
-//		new 手枪子弹().数量(70).放背包();
-//		Dungeon.quickslot.setSlot(0,x);
+
+		飞镖 x=new 飞镖();
+		(hero.belongings.weapon=x).鉴定();
+
 		Item i=new 未来空间器();
 		i.放背包();
 		Dungeon.quickslot.setSlot(0,i);

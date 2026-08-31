@@ -32,9 +32,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
@@ -104,12 +104,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.spells.CurseInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.MagicalInfusion;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.PhaseShift;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.ReclaimTrap;
-import com.shatteredpixel.shatteredpixeldungeon.items.spells.转级菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.SummonElemental;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.TelekineticGrab;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.UnstableSpell;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.WildEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.炼金菱晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.spells.转级菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
@@ -122,6 +122,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.吸血刀;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.小刺;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.权杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.十字弩;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.弹弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.短弓;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.法师魔杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.灵鞭;
@@ -261,6 +262,7 @@ public enum Catalog {
 		MISC_EQUIPMENT.addItems(荣誉纹章.class,
 
 								短剑.class,//1
+								弹弓.class,//0.6
 								石头.class,//0.6
 
 								法师魔杖.class,//0.6
@@ -309,9 +311,10 @@ public enum Catalog {
 								书包.class,//0.6
 
 								十字弩.class,//0.6
-								飞镖.class,//0.8
 
 								吸血刀.class,//0.8
+
+								飞镖.class,//0.8
 
 								镐子.class,
 								锻造锤.class,

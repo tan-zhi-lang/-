@@ -14,7 +14,7 @@ public class 武士刀 extends Weapon {
 		伤害=1;
 		延迟=1.1f;
 		技能=new 突刺();
-		tier = 2;
+		tier = 4;
 		具备防御=true;
 	}
 }

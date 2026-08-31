@@ -93,6 +93,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.MirrorImage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.PrismaticImage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.黑暗结晶;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.地狱猎犬;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShadowParticle;
@@ -2480,6 +2481,7 @@ public abstract class Char extends Actor {
 		   this instanceof GnollGuard||
 		   this instanceof GnollSapper||
 		   this instanceof GnollTrickster||
+		   this instanceof 地狱猎犬||
 		   this instanceof Shaman
 		)return true;
 

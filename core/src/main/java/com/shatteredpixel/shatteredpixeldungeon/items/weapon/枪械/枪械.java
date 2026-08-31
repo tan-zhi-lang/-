@@ -60,7 +60,6 @@ public abstract class 枪械 extends Weapon{
 	public boolean 掉落子弹 = false;
 	public boolean 爆炸效果 = false;
 	public boolean 箭矢发射 = false;
-	public boolean 弩发射 = false;
 	public boolean 开火效果 = true;
 	public boolean 霰弹效果 = false;
 	public boolean 破甲弹 = false;
@@ -79,7 +78,7 @@ public abstract class 枪械 extends Weapon{
 		if(!无限子弹)
 		actions.add(AC_换弹);
 
-		if(箭矢发射&&!弩发射)
+		if(箭矢发射)
 			actions.add(AC_弓力);
 
 		return actions;
@@ -595,7 +594,7 @@ public abstract class 枪械 extends Weapon{
 				}
 			}else {
 
-				if(箭矢发射||弩发射){
+				if(箭矢发射){
 
 					Char enemy=Actor.findChar(cell);
 					if(enemy==null||enemy==curUser){

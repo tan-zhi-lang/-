@@ -24,7 +24,7 @@ import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
-public class AlchemistsToolkit extends Artifact {
+public class 炼金工具箱 extends Artifact {
 
 	{
 		image = 物品表.ARTIFACT_TOOLKIT;
@@ -45,7 +45,7 @@ public class AlchemistsToolkit extends Artifact {
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
-		if (isEquipped( hero ) && !cursed && hero.buff(MagicImmune.class) == null) {
+		if (isEquipped( hero ) &&  hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_BREW);
 			if (等级() < levelCap) {
 				actions.add(AC_ENERGIZE);
@@ -63,7 +63,6 @@ public class AlchemistsToolkit extends Artifact {
 
 		if (action.equals(AC_BREW)){
 			if (!isEquipped(hero))              GLog.白(Messages.get(this,"need_to_equip"));
-			else if (cursed)                    GLog.橙(Messages.get(this,"cursed"));
 			else if (warmUpDelay > 0)           GLog.橙(Messages.get(this,"not_ready"));
 			else {
 				AlchemyScene.assignToolkit(this);
@@ -72,7 +71,6 @@ public class AlchemistsToolkit extends Artifact {
 			
 		} else if (action.equals(AC_ENERGIZE)){
 			if (!isEquipped(hero))              GLog.白(Messages.get(this,"need_to_equip"));
-			else if (cursed)                    GLog.橙(Messages.get(this,"cursed"));
 			else if (Dungeon.energy < 6)        GLog.橙(Messages.get(this,"need_energy",6));
 			else {
 
@@ -99,14 +97,14 @@ public class AlchemistsToolkit extends Artifact {
 							Sample.INSTANCE.playDelayed(Assets.Sounds.PUFF, 0.5f);
 							Dungeon.hero.sprite.operate();
 							升级();
-							Catalog.countUse(AlchemistsToolkit.class);
+							Catalog.countUse(炼金工具箱.class);
 						} else if (index == 1){
 							Dungeon.energy(-6*maxLevels);
 							Sample.INSTANCE.play(Assets.Sounds.DRINK);
 							Sample.INSTANCE.playDelayed(Assets.Sounds.PUFF, 0.5f);
 							Dungeon.hero.sprite.operate();
 							升级(maxLevels);
-							Catalog.countUses(AlchemistsToolkit.class, maxLevels);
+							Catalog.countUses(炼金工具箱.class,maxLevels);
 						}
 
 					}
@@ -129,7 +127,7 @@ public class AlchemistsToolkit extends Artifact {
 
 	@Override
 	public String status() {
-		if (isEquipped(Dungeon.hero) && warmUpDelay > 0 && !cursed){
+		if (isEquipped(Dungeon.hero) && warmUpDelay > 0){
 			return Messages.format( "%d%%", Math.max(0, 100 - (int)warmUpDelay) );
 		} else {
 			return super.status();
@@ -206,7 +204,7 @@ public class AlchemistsToolkit extends Artifact {
 			if (warmUpDelay > 0){
 				if (等级() == 10){
 					warmUpDelay = 0;
-				} else if (!cursed && target.buff(MagicImmune.class) == null) {
+				} else if ( target.buff(MagicImmune.class) == null) {
 					float turnsToWarmUp = (int) Math.pow(10 - 等级(), 2);
 					warmUpDelay -= 100 / turnsToWarmUp;
 					if(算法.isDebug()){
@@ -221,7 +219,7 @@ public class AlchemistsToolkit extends Artifact {
 		}
 
 		public void gainCharge(float levelPortion) {
-			if (cursed || target.buff(MagicImmune.class) != null) return;
+			if (target.buff(MagicImmune.class) != null) return;
 
 			//generates 2 energy every hero level, +1 energy per toolkit level
 			//to a max of 12 energy per hero level

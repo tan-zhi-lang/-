@@ -82,7 +82,7 @@ public class 骷髅钥匙 extends Artifact {
 		ArrayList<String> actions = super.actions(hero);
 		if (isEquipped(hero)
 				&& hero.buff(MagicImmune.class) == null
-				&& !cursed) {
+				) {
 			actions.add(AC_INSERT);
 		}
 		return actions;
@@ -100,9 +100,6 @@ public class 骷髅钥匙 extends Artifact {
 
 			if (!isEquipped( hero )) {
 				GLog.白(Messages.get(Artifact.class,"need_to_equip"));
-
-			} else if (cursed) {
-				GLog.橙(Messages.get(this,"cursed"));
 
 			} else {
 				GameScene.selectCell(targeter);
@@ -391,7 +388,7 @@ public class 骷髅钥匙 extends Artifact {
 
 	@Override
 	public void charge(Hero target, float amount) {
-		if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null){
+		if (charge < chargeCap &&  target.buff(MagicImmune.class) == null){
 			partialCharge += 0.133f*amount;
 			while (partialCharge >= 1){
 				partialCharge--;
@@ -417,7 +414,7 @@ public class 骷髅钥匙 extends Artifact {
 		@Override
 		public boolean act() {
 			if (charge < chargeCap
-				&&!cursed
+
 				&& target.buff(MagicImmune.class) == null
 				&&再生.regenOn()) {
 				//120 turns to charge at full, 60 turns to charge at 0/8

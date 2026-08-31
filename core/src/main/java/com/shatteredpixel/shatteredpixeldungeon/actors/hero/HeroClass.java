@@ -60,9 +60,9 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.道袍;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.炼金工具箱;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.丰饶之角;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.干涸绝露;
@@ -371,7 +371,7 @@ public enum HeroClass{
 				}
 
 				if(Holiday.getCurrentHoliday()==Holiday.感恩节){
-					new HornOfPlenty().放背包();
+					new 丰饶之角().放背包();
 				}
 
 				new 绒布袋().放背包();
@@ -560,7 +560,7 @@ public enum HeroClass{
 			new Honeypot().数量(x).放背包();
 
 			new TengusMask().放背包();
-			new AlchemistsToolkit().放背包();
+			new 炼金工具箱().放背包();
 
 			new ArcaneResin().数量(x).放背包();
 
@@ -668,7 +668,7 @@ public enum HeroClass{
 //		hero.belongings.weapon.enchant(new 诡秘());
 //		hero.belongings.armor.inscribe(new 冰心());
 
-		CloakOfShadows cloak=new CloakOfShadows();
+		暗影斗篷 cloak=new 暗影斗篷();
 		(hero.belongings.misc=cloak).鉴定();
 		
 		

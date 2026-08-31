@@ -12,7 +12,7 @@ public class 地狱猎犬 extends Mob {
 	{
 		spriteClass = 地狱猎犬动画.class;
 		
-		生命 = 最大生命 = 70;
+		生命 = 最大生命 = 100;
 		defenseSkill = 25;
 		baseSpeed=2f;
 		经验 = 12;
@@ -23,12 +23,12 @@ public class 地狱猎犬 extends Mob {
 	
 	@Override
 	public float 最小攻击() {
-		return 5;
+		return 30;
 	}
 
 	@Override
 	public float 最大攻击() {
-		return 25;
+		return 35;
 	}
 
 	@Override

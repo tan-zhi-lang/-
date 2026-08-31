@@ -33,7 +33,7 @@ import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
-public class HornOfPlenty extends Artifact {
+public class 丰饶之角 extends Artifact {
 
 
 	{
@@ -44,7 +44,7 @@ public class HornOfPlenty extends Artifact {
 
 		charge = 0;
 		partialCharge = 0;
-		chargeCap = 3 + 等级()/2;
+		chargeCap = 5 + 等级()/2;
 	}
 	@Override
 	public String defaultAction(){
@@ -69,7 +69,7 @@ public class HornOfPlenty extends Artifact {
 			actions.add(AC_SNACK);
 			actions.add(AC_EAT);
 		}
-		if (isEquipped( hero ) && 等级() < levelCap && !cursed) {
+		if (isEquipped( hero ) && 等级() < levelCap) {
 			actions.add(AC_STORE);
 		}
 		return actions;
@@ -114,7 +114,7 @@ public class HornOfPlenty extends Artifact {
 		if(hero.符文("升级丰饶之角"))satietyPerCharge*=2;
 
 		Buff.施加(hero, Hunger.class).吃饭(satietyPerCharge*chargesToUse);
-
+		hero.回血(satietyPerCharge*chargesToUse/100f);
 		Statistics.foodEaten++;
 
 		charge -= chargesToUse;
@@ -149,14 +149,14 @@ public class HornOfPlenty extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null){
+		if (charge < chargeCap &&  target.buff(MagicImmune.class) == null){
 			partialCharge += 0.25f*amount;
 			while (partialCharge >= 1){
 				partialCharge--;
 				charge++;
 				
 				if (charge == chargeCap){
-					GLog.绿(Messages.get(HornOfPlenty.class,"full"));
+					GLog.绿(Messages.get(丰饶之角.class,"full"));
 					partialCharge = 0;
 				}
 
@@ -198,7 +198,7 @@ public class HornOfPlenty extends Artifact {
 			int upgrades = storedFoodEnergy / (int)Hunger.HUNGRY;
 			upgrades = Math.min(upgrades, 10 - 等级());
 			升级(upgrades);
-			Catalog.countUse(HornOfPlenty.class);
+			Catalog.countUse(丰饶之角.class);
 			storedFoodEnergy -= upgrades * Hunger.HUNGRY;
 			if (等级() == 10){
 				storedFoodEnergy = 0;
@@ -233,7 +233,7 @@ public class HornOfPlenty extends Artifact {
 	public class hornRecharge extends ArtifactBuff{
 
 		public void gainCharge(float levelPortion) {
-			if (cursed || target.buff(MagicImmune.class) != null) return;
+			if (target.buff(MagicImmune.class) != null) return;
 			
 			if (charge < chargeCap) {
 
@@ -262,7 +262,7 @@ public class HornOfPlenty extends Artifact {
 					updateQuickslot();
 
 					if (charge == chargeCap){
-						GLog.绿(Messages.get(HornOfPlenty.class,"full"));
+						GLog.绿(Messages.get(丰饶之角.class,"full"));
 						partialCharge = 0;
 					}
 				}
@@ -277,7 +277,7 @@ public class HornOfPlenty extends Artifact {
 
 		@Override
 		public String textPrompt() {
-			return Messages.get(HornOfPlenty.class, "prompt");
+			return Messages.get(丰饶之角.class,"prompt");
 		}
 
 		@Override
@@ -294,14 +294,14 @@ public class HornOfPlenty extends Artifact {
 		public void onSelect( Item item ) {
 			if (item != null && item instanceof Food) {
 				if (item instanceof Blandfruit && ((Blandfruit) item).potionAttrib == null){
-					GLog.橙(Messages.get(HornOfPlenty.class,"reject"));
+					GLog.橙(Messages.get(丰饶之角.class,"reject"));
 				} else {
 					Hero hero = Dungeon.hero;
 					hero.sprite.operate( hero.pos );
 					hero.busy();
 					hero.spend( Food.TIME_TO_EAT );
 
-					((HornOfPlenty)curItem).gainFoodValue(((Food)item));
+					((丰饶之角)curItem).gainFoodValue(((Food)item));
 					item.detach(hero.belongings.backpack);
 				}
 

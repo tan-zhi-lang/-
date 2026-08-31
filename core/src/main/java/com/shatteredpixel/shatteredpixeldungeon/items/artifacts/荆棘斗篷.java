@@ -31,7 +31,7 @@ public class 荆棘斗篷 extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (cursed ||target.buff(MagicImmune.class)!=null) return;
+		if (target.buff(MagicImmune.class)!=null) return;
 		charge = Math.min(charge+amount*10,chargeCap);
 		updateQuickslot();
 	}
@@ -63,7 +63,7 @@ public class 荆棘斗篷 extends Artifact {
 					if(defender!=null)
 					GLog.绿(Messages.get(this,"radiating",0,(1+等级())/3f*Dungeon.hero.最大护甲));
 
-					float deflected=Math.round(damage*(1-0.5f+等级()*0.05f));
+					float deflected=damage*(1-0.5f+等级()*0.05f);
 
 					if(defender!=null){
 						Talent.onArtifactUsed(Dungeon.hero);
@@ -92,7 +92,7 @@ public class 荆棘斗篷 extends Artifact {
 				if (charge >= chargeCap){
 					GLog.绿(Messages.get(this,"radiating",Math.round((0.5f+等级()*0.05f)*100)
 							,(1+等级())/3f*Dungeon.hero.最大护甲));
-					float deflected = Math.round(damage*(0.5f+等级()*0.05f));
+					float deflected = damage*(0.5f+等级()*0.05f);
 					damage=0.5f-0.05f*等级();
 					if (attacker != null) {
 						Talent.onArtifactUsed(Dungeon.hero);

@@ -4,7 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.充能卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
@@ -28,7 +28,7 @@ public class SupplyRation extends Food {
 
 		hero.回血(5);
 
-		CloakOfShadows cloak = hero.belongings.getItem(CloakOfShadows.class);
+		暗影斗篷 cloak = hero.belongings.getItem(暗影斗篷.class);
 		if (cloak != null) {
 			cloak.directCharge(1);
 			充能卷轴.charge(hero);

@@ -55,7 +55,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
@@ -495,9 +495,9 @@ public enum Talent {
 		}else hero.第2层天赋=false;
 
 			for (Item item : Dungeon.hero.belongings){
-				if (talent==轻便斗篷&&item instanceof CloakOfShadows){
+				if (talent==轻便斗篷&&item instanceof 暗影斗篷){
 					if (!hero.belongings.lostInventory() || item.keptThroughLostInventory()) {
-						((CloakOfShadows) item).activate(Dungeon.hero);
+						((暗影斗篷) item).activate(Dungeon.hero);
 					}
 				}
 				if (talent==轻便法典&&item instanceof 四叶草法典){

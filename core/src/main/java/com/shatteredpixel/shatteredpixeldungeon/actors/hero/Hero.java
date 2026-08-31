@@ -215,12 +215,12 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.连裙;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.铠甲;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.风衣;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.魔披;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.炼金工具箱;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.EtherealChains;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.HornOfPlenty;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.虚空锁链;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.丰饶之角;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.SandalsOfNature;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
@@ -1365,7 +1365,7 @@ public class Hero extends Char {
         if(belongings.hasItem(中国国旗.class))
             权重3海克斯("走完红色路线");
 
-        if(belongings.hasItem(CloakOfShadows.class))
+        if(belongings.hasItem(暗影斗篷.class))
             权重3海克斯("升级暗影斗篷");
 
         if(belongings.hasItem(法师魔杖.class))
@@ -1383,7 +1383,7 @@ public class Hero extends Char {
         if(belongings.hasItem(ChaliceOfBlood.class))
             权重3海克斯("升级蓄血圣杯");
 
-        if(belongings.hasItem(HornOfPlenty.class))
+        if(belongings.hasItem(丰饶之角.class))
             权重3海克斯("升级丰饶之角");
 
         if(belongings.hasItem(SandalsOfNature.class))
@@ -7551,7 +7551,7 @@ public class Hero extends Char {
 
         荆棘斗篷.Thorns thorns = buff(荆棘斗篷.Thorns.class);
         if (thorns != null) {
-            damage= thorns.proc(damage,enemy);
+            damage= thorns.proc(damage,enemy,this);
         }
 
         心之钢.心 钢 = buff(心之钢.心.class);
@@ -8635,7 +8635,7 @@ public class Hero extends Char {
 
         荆棘斗篷.Thorns thorns = buff(荆棘斗篷.Thorns.class);
         if (enemy!=null&&thorns!=null) {
-            damage= thorns.proc(damage,enemy,this);
+            damage= thorns.proc(damage,enemy);
         }
         WandOfLivingEarth.RockArmor rockArmor = buff(WandOfLivingEarth.RockArmor.class);
         if (enemy!=null&&rockArmor!=null) {
@@ -9544,13 +9544,13 @@ public class Hero extends Char {
         }
         float percent = exp / (float) 升级所需();
 
-        EtherealChains.chainsRecharge chains = buff(EtherealChains.chainsRecharge.class);
+        虚空锁链.chainsRecharge chains = buff(虚空锁链.chainsRecharge.class);
         if (chains != null) chains.gainExp(percent);
 
-        HornOfPlenty.hornRecharge horn = buff(HornOfPlenty.hornRecharge.class);
+        丰饶之角.hornRecharge horn = buff(丰饶之角.hornRecharge.class);
         if (horn != null) horn.gainCharge(percent);
 
-        AlchemistsToolkit.kitEnergy kit = buff(AlchemistsToolkit.kitEnergy.class);
+        炼金工具箱.kitEnergy kit = buff(炼金工具箱.kitEnergy.class);
         if (kit != null) kit.gainCharge(percent);
 
         MasterThievesArmband.Thievery armband = buff(MasterThievesArmband.Thievery.class);
@@ -10213,7 +10213,7 @@ public class Hero extends Char {
         float x = super.视野范围();
         if(符文("内部传感器"))return 1;
         if(符文("摸不着头脑"))return 1;
-        if(Dungeon.晚上())x--;
+        if(Dungeon.真晚上())x--;
 		x +=天赋点数(Talent.精准感知,2);
 		x +=天赋点数(Talent.命运罗盘);
 		x +=天赋点数(Talent.视察);
@@ -10362,7 +10362,7 @@ public class Hero extends Char {
                             m.interact(this);
                         }
                         if(subClass(HeroSubClass.神偷无影)){
-                            attack(Actor.findChar(curr),0.15f+天赋点数(Talent.边搜边打,0.15f));
+                            attack(Actor.findChar(curr),0.45f+天赋点数(Talent.边搜边打,0.2f));
                         }
                     }
                 }
@@ -10541,8 +10541,8 @@ public class Hero extends Char {
                 ((EquipableItem) i).activate(this);
             } else if (i instanceof 心之钢&&i.keptThroughLostInventory()&&Dungeon.派对(派对设置.钢门联盟)) {
                 ((心之钢) i).activate(this);
-            } else if (i instanceof CloakOfShadows&&i.keptThroughLostInventory()&&天赋(Talent.轻便斗篷)) {
-                ((CloakOfShadows) i).activate(this);
+            } else if (i instanceof 暗影斗篷&&i.keptThroughLostInventory()&&天赋(Talent.轻便斗篷)) {
+                ((暗影斗篷) i).activate(this);
             } else if (i instanceof 神圣法典&&i.keptThroughLostInventory()&&天赋(Talent.轻量阅读)) {
                 ((神圣法典) i).activate(this);
             } else if (i instanceof 鬼帝钟&&i.keptThroughLostInventory()&&天赋(Talent.轻便帝钟)) {
@@ -10908,7 +10908,7 @@ public class Hero extends Char {
         吸血+=汲取之戒.吸血(this);
 
         if(Dungeon.hero.种族天赋.equals("吸血鬼")){
-            吸血+=Dungeon.晚上()?0.12f:0.06f;
+            吸血+=Dungeon.真晚上()?0.12f:0.06f;
         }
         if(英精英雄==8)吸血+=0.2f;
 
@@ -11986,7 +11986,7 @@ public class Hero extends Char {
                     s+= "征服者全能吸血无需满层也加，每层1/12效果，并且额外2%全能吸血。";
                     break;
                 case 皇室卫兵:
-                    s+= "护甲恢复速度x4倍。";
+                    s+= "护甲恢复速度+4倍。";
                     break;
                 case 神兽之灵:
                     s+= "你与视野内的任意一个敌人距离大于1格，那么获得30%移速。";

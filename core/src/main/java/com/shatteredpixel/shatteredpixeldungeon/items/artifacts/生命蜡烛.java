@@ -44,7 +44,7 @@ public class 生命蜡烛 extends Artifact {
 		ArrayList<String> actions = super.actions( hero );
 		if (isEquipped( hero )
 				&& charge>0
-				&& !cursed
+
 				&& !hero.是无敌(getClass())
 				&& hero.buff(MagicImmune.class) == null)
 			actions.add(AC_PRICK);
@@ -146,7 +146,7 @@ public class 生命蜡烛 extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null){
+		if (charge < chargeCap &&  target.buff(MagicImmune.class) == null){
 			partialCharge += 0.0067f*amount;
 			while (partialCharge >= 1){
 				partialCharge--;
@@ -169,7 +169,7 @@ public class 生命蜡烛 extends Artifact {
 		@Override
 		public boolean act() {
 			if (charge < chargeCap
-				&&!cursed
+
 				&& target.buff(MagicImmune.class) == null
 				&&再生.regenOn()) {
 				//120 turns to charge at full, 60 turns to charge at 0/8

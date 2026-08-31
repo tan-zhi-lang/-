@@ -96,7 +96,8 @@ public class 重制改动{
 											"矮人国王在召唤2个矮人尸群时，有一个将是骷髅。\n"+
 											"矮人国王最小和最大攻击+10。"));
 
-		changes.addButton( new ChangeButton(new Eye(),"邪眼","相邻时不会施法。"));
+		changes.addButton( new ChangeButton(new Eye(),"邪眼","最大生命100->90\n" +
+															 "相邻时不会施法。"));
 		changes.addButton( new ChangeButton(new GhoulSprite(),"矮人尸群","复活的生命10%->12.5%，但是每次死亡都会使复活的生命x0.6。"));
 		changes.addButton( new ChangeButton(new Slime(),"所有史莱姆","史莱姆受到伤害减伤->物理减伤。"));
 		changes.addButton( new ChangeButton(new Crab(),"所有螃蟹","下水道螃蟹移速初始1.5倍，且所有螃蟹敌人水平移动速度x2.5倍。"));
@@ -375,7 +376,7 @@ public class 重制改动{
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARTIFACT_HOLDER), "神器",
 										   "诅咒时，等级为0。\n"+
 										   "升级33%概率祛邪->不祛邪\n" +
-										   "诅咒神器在神器充能Buff也能充能。\n"+
+										   "诅咒神器在神器充能Buff也能充能，并且诅咒负面移除。\n"+
 										   "神器充能整数->小数。\n"+
 										   "装备和卸下花费1->攻速。\n\n"+
 
@@ -386,10 +387,14 @@ public class 重制改动{
 										   "充能速度翻倍。\n\n"+
 
 										   "暗影斗篷\n" +
+										   "移除大于7级时的充能速度降低\n" +
 										   "移除升级会根据英雄等级降低或增加获得的神器经验。\n\n"+
 
 										   "丰饶之角\n" +
-										   "最大充能5+等级/2->3+等级/2。\n\n"+
+										   "吃饭同时恢复吃下的值/100的生命。\n\n"+
+
+										   "神圣法典\n" +
+										   "移除大于7级时的充能速度降低。\n\n"+
 
 										   "蓄血圣杯\n" +
 										   "血祭消耗生命-5，并且扣血2.5~3.5系数->1.5，生命再生加成(包括诅咒。",

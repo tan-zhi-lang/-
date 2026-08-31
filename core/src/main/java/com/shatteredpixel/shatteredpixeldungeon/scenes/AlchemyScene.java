@@ -15,7 +15,7 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.particles.SparkParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.EnergyCrystal;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.Recipe;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.炼金工具箱;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.TrinketCatalyst;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
@@ -1202,9 +1202,9 @@ public class AlchemyScene extends PixelScene {
 		}
 	}
 
-	private static AlchemistsToolkit toolkit;
+	private static 炼金工具箱 toolkit;
 
-	public static void assignToolkit( AlchemistsToolkit toolkit ){
+	public static void assignToolkit( 炼金工具箱 toolkit){
 		AlchemyScene.toolkit = toolkit;
 	}
 

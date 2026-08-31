@@ -8,7 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
@@ -58,7 +58,7 @@ public class WndQuickBag extends Window {
 			if (i instanceof Artifact
 					&& !i.isEquipped(Dungeon.hero)
 					&& (!(i instanceof 四叶草法典)||!Dungeon.hero.天赋(Talent.轻便法典))
-					&& (!(i instanceof CloakOfShadows) || !Dungeon.hero.天赋(Talent.轻便斗篷))
+					&& (!(i instanceof 暗影斗篷)||!Dungeon.hero.天赋(Talent.轻便斗篷))
 					&& (!(i instanceof 叛忍护额)||!Dungeon.hero.天赋(Talent.轻便护额))
 					&& (!(i instanceof 鬼帝钟)||!Dungeon.hero.天赋(Talent.轻便帝钟))
 					&& (!(i instanceof 神圣法典) || !Dungeon.hero.天赋(Talent.轻量阅读))){

@@ -161,7 +161,7 @@ public class Artifact extends KindofMisc {
 
 	@Override
 	public String info() {
-		if (cursed && cursedKnown && !isEquipped( Dungeon.hero )) {
+		if ( cursedKnown && !isEquipped( Dungeon.hero )) {
 			return super.info() + "\n\n" + Messages.get(Artifact.class, "curse_known");
 			
 		} else if (!已鉴定() && cursedKnown && !isEquipped( Dungeon.hero)) {
@@ -177,7 +177,7 @@ public class Artifact extends KindofMisc {
 	public String status() {
 		
 		//if the artifact isn't IDed, or is cursed, don't display anything
-		if (!已鉴定() || cursed){
+		if (!已鉴定()){
 			return null;
 		}
 

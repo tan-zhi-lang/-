@@ -11,7 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bee;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Splash;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.AlchemistsToolkit;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.炼金工具箱;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Catalog;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -155,7 +155,7 @@ public class Honeypot extends Item {
 			
 			if (action.equals( AC_修复 )) {
 				if (Dungeon.energy <6){
-					GLog.橙(Messages.get(AlchemistsToolkit.class,"need_energy"));
+					GLog.橙(Messages.get(炼金工具箱.class,"need_energy"));
 				}else{
 					Dungeon.energy(-6);
 

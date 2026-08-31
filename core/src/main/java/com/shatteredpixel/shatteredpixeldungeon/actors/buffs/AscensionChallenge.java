@@ -84,10 +84,10 @@ public class AscensionChallenge extends Buff {
 		modifiers.put(Monk.class,           1.5f);
 		modifiers.put(Golem.class,          1.33f);
 
-		modifiers.put(地狱猎犬.class,1.25f);
 		modifiers.put(RipperDemon.class,    1.2f);
 		modifiers.put(Succubus.class,       1.2f);
 		modifiers.put(Eye.class,            1.1f);
+		modifiers.put(地狱猎犬.class,1.1f);
 		modifiers.put(Scorpio.class,        1.1f);
 	}
 

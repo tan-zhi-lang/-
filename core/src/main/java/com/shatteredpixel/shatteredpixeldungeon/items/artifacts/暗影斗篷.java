@@ -28,7 +28,7 @@ import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
-public class CloakOfShadows extends Artifact {
+public class 暗影斗篷 extends Artifact {
 
 	{
 		image = 物品表.ARTIFACT_CLOAK;
@@ -51,7 +51,6 @@ public class CloakOfShadows extends Artifact {
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		if ((isEquipped( hero ) || hero.天赋(Talent.轻便斗篷))
-				&& !cursed
 				&& hero.buff(MagicImmune.class) == null
 				&& (charge > 0 || activeBuff != null)) {
 			actions.add(AC_STEALTH);
@@ -70,7 +69,6 @@ public class CloakOfShadows extends Artifact {
 
 			if (activeBuff == null){
 				if (!isEquipped(hero) && !hero.天赋(Talent.轻便斗篷)) GLog.白(Messages.get(Artifact.class,"need_to_equip"));
-				else if (cursed)       GLog.白(Messages.get(this,"cursed"));
 				else if (charge <= 0)  GLog.白(Messages.get(this,"no_charge"));
 				else {
 					hero.spend( 1f );
@@ -156,7 +154,7 @@ public class CloakOfShadows extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (cursed || target.buff(MagicImmune.class) != null) return;
+		if (target.buff(MagicImmune.class) != null) return;
 
 		if (charge < chargeCap) {
 			if (!isEquipped(target)) amount *= target.天赋点数(Talent.轻便斗篷,0.25f);
@@ -210,10 +208,10 @@ public class CloakOfShadows extends Artifact {
 	public class cloakRecharge extends ArtifactBuff{
 		@Override
 		public boolean act() {
-			if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null) {
+			if (charge < chargeCap &&  target.buff(MagicImmune.class) == null) {
 				if (activeBuff == null && 再生.regenOn()) {
 					float missing = (chargeCap - charge);
-					if (等级() > 7) missing += 5*(等级() - 7)/3f;
+
 					float turnsToCharge = (45 - missing);
 					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
@@ -312,7 +310,7 @@ public class CloakOfShadows extends Artifact {
 					
 					if (exp >= (等级() + 1) * 50 && 等级() < levelCap) {
 						升级();
-						Catalog.countUse(CloakOfShadows.class);
+						Catalog.countUse(暗影斗篷.class);
 						exp -= 等级() * 50;
 						GLog.绿(Messages.get(this,"levelup"));
 						

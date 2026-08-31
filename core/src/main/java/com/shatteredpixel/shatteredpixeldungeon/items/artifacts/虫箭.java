@@ -101,7 +101,7 @@ public class 虫箭 extends Artifact {
 	}
 	@Override
 	public void charge(Hero target, float amount) {
-		if (cursed ||target.buff(MagicImmune.class)!=null) return;
+		if (target.buff(MagicImmune.class)!=null) return;
 
 		//grants 5 turns of healing up-front, if hero isn't starving
 		if (target.isStarving()) return;

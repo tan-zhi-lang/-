@@ -70,7 +70,7 @@ public class 地牢时间 extends FlavourBuff{
     }
     @Override
     public int icon() {
-        if(Dungeon.白天())
+        if(Dungeon.真白天())
         return BuffIndicator.白天;
         return BuffIndicator.夜晚;
     }

@@ -36,9 +36,9 @@ public class 干涸绝露 extends Artifact {
 
 		levelCap = 10;
 
-		charge = 3 + 等级()/2;
+		charge = 5 + 等级()/2;
 		partialCharge = 0;
-		chargeCap = 3 + 等级()/2;
+		chargeCap = 5 + 等级()/2;
 	}
 	@Override
 	public String defaultAction(){
@@ -63,7 +63,7 @@ public class 干涸绝露 extends Artifact {
 			actions.add(AC_SNACK);
 			actions.add(AC_EAT);
 		}
-		if ((isEquipped( hero ) ) && 等级() < levelCap && !cursed) {
+		if ((isEquipped( hero ) ) && 等级() < levelCap ) {
 			actions.add(AC_STORE);
 		}
 		return actions;
@@ -166,7 +166,7 @@ public class 干涸绝露 extends Artifact {
 	}
 	@Override
 	public void charge(Hero target, float amount) {
-		if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null){
+		if (charge < chargeCap &&  target.buff(MagicImmune.class) == null){
 			if (!isEquipped(target)) amount *= target.天赋点数(Talent.祸乱绝露,0.25f);
 			partialCharge += 0.25f*amount;
 			while (partialCharge >= 1){
@@ -254,10 +254,10 @@ public class 干涸绝露 extends Artifact {
 
 		@Override
 		public boolean act() {
-			if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null) {
+			if (charge < chargeCap &&  target.buff(MagicImmune.class) == null) {
 				if (activeBuff == null&&再生.regenOn()) {
 					float missing = (chargeCap - charge);
-					if (等级() > 7) missing += 5*(等级() - 7)/3f;
+
 					float turnsToCharge = (45 - missing);
 					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);

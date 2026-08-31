@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.心之钢;
@@ -49,8 +49,8 @@ public class LostBackpack extends Item {
 					((心之钢) i).activate(hero);
 				} else if ((i instanceof 四叶草法典)&&hero.天赋(Talent.轻便法典)){
 					((四叶草法典) i).activate(hero);
-				} else if ( i instanceof CloakOfShadows && hero.天赋(Talent.轻便斗篷)){
-					((CloakOfShadows) i).activate(hero);
+				} else if (i instanceof 暗影斗篷&&hero.天赋(Talent.轻便斗篷)){
+					((暗影斗篷) i).activate(hero);
 				} else if (i instanceof 神圣法典&&hero.天赋(Talent.轻量阅读)){
 					((神圣法典) i).activate(hero);
 				} else if (i instanceof 鬼帝钟&&hero.天赋(Talent.轻便帝钟)){

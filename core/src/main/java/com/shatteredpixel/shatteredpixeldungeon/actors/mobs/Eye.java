@@ -32,7 +32,7 @@ public class Eye extends Mob {
 	{
 		spriteClass = EyeSprite.class;
 		
-		生命 = 最大生命 = 100;
+		生命 = 最大生命 = 90;
 		defenseSkill = 20;
 		viewDistance = 6;
 		

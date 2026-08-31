@@ -56,7 +56,6 @@ public class 四叶草法典 extends Artifact {
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		if ((isEquipped( hero ) || hero.天赋(Talent.轻便法典))
-				&& !cursed
 				&& hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_CAST);
 		}
@@ -73,7 +72,6 @@ public class 四叶草法典 extends Artifact {
 		if (action.equals(AC_CAST)) {
 
 			if (!isEquipped(hero) && !hero.天赋(Talent.轻便法典)) GLog.白(Messages.get(Artifact.class,"need_to_equip"));
-			else if (cursed)       GLog.白(Messages.get(this,"cursed"));
 			else {
 
 				GameScene.show(new Wnd法术(this,hero,false));
@@ -196,7 +194,7 @@ public class 四叶草法典 extends Artifact {
 
 	@Override
 	public void charge(Hero target, float amount) {
-		if (cursed || target.buff(MagicImmune.class) != null) return;
+		if ( target.buff(MagicImmune.class) != null) return;
 
 		if (charge < chargeCap) {
 			if (!isEquipped(target)) amount *= target.天赋点数(Talent.轻便法典,0.25f);
@@ -273,10 +271,10 @@ public class 四叶草法典 extends Artifact {
 
 		@Override
 		public boolean act() {
-			if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null) {
+			if (charge < chargeCap  && target.buff(MagicImmune.class) == null) {
 				if (再生.regenOn()) {
 					float missing = (chargeCap - charge);
-					if (等级() > 7) missing += 5*(等级() - 7)/3f;
+
 					float turnsToCharge = (45 - missing);
 					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
@@ -338,10 +336,6 @@ public class 四叶草法典 extends Artifact {
 
 		@Override
 		public void doAction() {
-			if (cursed){
-				GLog.橙(Messages.get(四叶草法典.this,"cursed"));
-				return;
-			}
 
 			if (!canCast(Dungeon.hero, quickSpell)){
 				GLog.橙(Messages.get(四叶草法典.this,"no_spell"));

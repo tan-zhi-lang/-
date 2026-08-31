@@ -297,7 +297,7 @@ public class 时空道标 extends Artifact {
 	public class beaconRecharge extends ArtifactBuff{
 		@Override
 		public boolean act() {
-			if (charge < chargeCap && !cursed && 再生.regenOn()) {
+			if (charge < chargeCap &&  再生.regenOn()) {
 				partialCharge += 1 / (100f - (chargeCap - charge)*10f);
 
 				while (partialCharge >= 1) {

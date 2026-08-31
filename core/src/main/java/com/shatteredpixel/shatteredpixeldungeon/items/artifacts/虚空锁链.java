@@ -31,11 +31,10 @@ import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
-public class EtherealChains extends Artifact {
+public class 虚空锁链 extends Artifact {
 
 	public static final String AC_CAST       = "CAST";
 
@@ -55,7 +54,7 @@ public class EtherealChains extends Artifact {
 	@Override
 	public ArrayList<String> actions(Hero hero) {
 		ArrayList<String> actions = super.actions( hero );
-		if (isEquipped(hero) && charge > 0 && !cursed && hero.buff(MagicImmune.class) == null) {
+		if (isEquipped(hero) && charge > 0 &&  hero.buff(MagicImmune.class) == null) {
 			actions.add(AC_CAST);
 		}
 		return actions;
@@ -84,10 +83,6 @@ public class EtherealChains extends Artifact {
 				GLog.白(Messages.get(this,"no_charge"));
 				usesTargeting = false;
 
-			} else if (cursed) {
-				GLog.橙(Messages.get(this,"cursed"));
-				usesTargeting = false;
-
 			} else {
 				usesTargeting = true;
 				GameScene.selectCell(caster);
@@ -111,7 +106,7 @@ public class EtherealChains extends Artifact {
 				//chains cannot be used to go where it is impossible to walk to
 				PathFinder.buildDistanceMap(target, BArray.or(Dungeon.level.passable, Dungeon.level.avoid, null));
 				if (!(Dungeon.level instanceof MiningLevel) && PathFinder.distance[curUser.pos] == Integer.MAX_VALUE){
-					GLog.橙(Messages.get(EtherealChains.class,"cant_reach"));
+					GLog.橙(Messages.get(虚空锁链.class,"cant_reach"));
 					return;
 				}
 				
@@ -129,7 +124,7 @@ public class EtherealChains extends Artifact {
 
 		@Override
 		public String prompt() {
-			return Messages.get(EtherealChains.class, "prompt");
+			return Messages.get(虚空锁链.class,"prompt");
 		}
 	};
 	
@@ -203,7 +198,7 @@ public class EtherealChains extends Artifact {
 		//don't pull if rooted
 		if (hero.rooted){
 			PixelScene.shake( 1, 1f );
-			GLog.橙(Messages.get(EtherealChains.class,"rooted"));
+			GLog.橙(Messages.get(虚空锁链.class,"rooted"));
 			return;
 		}
 
@@ -223,7 +218,7 @@ public class EtherealChains extends Artifact {
 			}
 		}
 		if (!solidFound){
-			GLog.白(Messages.get(EtherealChains.class,"nothing_to_grab"));
+			GLog.白(Messages.get(虚空锁链.class,"nothing_to_grab"));
 			return;
 		}
 		
@@ -231,7 +226,7 @@ public class EtherealChains extends Artifact {
 		
 		int chargeUse = Dungeon.level.距离(hero.pos,newHeroPos);
 		if (chargeUse > charge){
-			GLog.橙(Messages.get(EtherealChains.class,"no_charge"));
+			GLog.橙(Messages.get(虚空锁链.class,"no_charge"));
 			return;
 		}
 		
@@ -271,7 +266,7 @@ public class EtherealChains extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (cursed || target.buff(MagicImmune.class) != null) return;
+		if (target.buff(MagicImmune.class) != null) return;
 		int chargeTarget = 5+(等级()*2);
 		if (charge < chargeTarget*2){
 			partialCharge += 0.5f*amount;
@@ -298,15 +293,13 @@ public class EtherealChains extends Artifact {
 		public boolean act() {
 			int chargeTarget = 5+(等级()*2);
 			if (charge < chargeTarget
-					&& !cursed
+
 					&& target.buff(MagicImmune.class) == null
 					&& 再生.regenOn()) {
 				//gains a charge in 40 - 2*missingCharge turns
 				float chargeGain = (1 / (40f - (chargeTarget - charge)*2f));
 				chargeGain *= 能量之戒.artifactChargeMultiplier(target);
 				partialCharge += chargeGain;
-			} else if (cursed && Random.Int(100) == 0){
-				Buff.延长( target, Cripple.class, 10f);
 			}
 
 			while (partialCharge >= 1) {
@@ -322,7 +315,7 @@ public class EtherealChains extends Artifact {
 		}
 
 		public void gainExp( float levelPortion ) {
-			if (cursed || target.buff(MagicImmune.class) != null || levelPortion == 0) return;
+			if (target.buff(MagicImmune.class) != null || levelPortion == 0) return;
 
 			exp += Math.round(levelPortion*100);
 
@@ -335,7 +328,7 @@ public class EtherealChains extends Artifact {
 			if (exp > 100+ 等级()*100 && 等级() < levelCap){
 				exp -= 100+ 等级()*100;
 				GLog.绿(Messages.get(this,"levelup"));
-				Catalog.countUses(EtherealChains.class, 2);
+				Catalog.countUses(虚空锁链.class,2);
 				升级();
 			}
 

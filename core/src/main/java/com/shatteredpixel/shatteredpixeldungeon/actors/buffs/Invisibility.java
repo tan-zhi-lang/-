@@ -9,7 +9,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.CloakOfShadows;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.时光沙漏;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
@@ -80,7 +80,7 @@ public class Invisibility extends FlavourBuff {
 		for ( Buff invis : ch.buffs( Invisibility.class )){
 			invis.detach();
 		}
-		CloakOfShadows.cloakStealth cloakBuff = ch.buff( CloakOfShadows.cloakStealth.class );
+		暗影斗篷.cloakStealth cloakBuff = ch.buff(暗影斗篷.cloakStealth.class);
 		if (cloakBuff != null) {
 			cloakBuff.dispel();
 		}
@@ -113,7 +113,7 @@ public class Invisibility extends FlavourBuff {
 		for ( Buff invis : ch.buffs( Invisibility.class )){
 			invis.detach();
 		}
-		CloakOfShadows.cloakStealth cloakBuff = ch.buff( CloakOfShadows.cloakStealth.class );
+		暗影斗篷.cloakStealth cloakBuff = ch.buff(暗影斗篷.cloakStealth.class);
 		if (cloakBuff != null) {
 			cloakBuff.dispel();
 		}

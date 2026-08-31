@@ -461,10 +461,13 @@ public class Dungeon {
 		if(符文("大错特错")&&Random.Int(9)==0)return false;
 		return (赛季&mask)!=0;
 	}
-	public static boolean 晚上() {
+	public static boolean 真晚上() {
 		if(Dungeon.地牢时间>=时间(22)||Dungeon.地牢时间<=时间(6))
 			return true;
 		return false;
+	}
+	public static boolean 真白天() {
+		return !真晚上();
 	}
 	public static boolean 白天() {
 		if(Dungeon.地牢时间>时间(6)||Dungeon.地牢时间<时间(18))

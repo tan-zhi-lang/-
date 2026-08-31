@@ -57,7 +57,7 @@ public class MasterThievesArmband extends Artifact {
 		if (isEquipped(hero)
 				&& charge > 0
 				&& hero.buff(MagicImmune.class) == null
-				&& !cursed) {
+				) {
 			actions.add(AC_STEAL);
 		}
 		return actions;
@@ -79,10 +79,6 @@ public class MasterThievesArmband extends Artifact {
 
 			} else if (charge < 1) {
 				GLog.白(Messages.get(this,"no_charge"));
-				usesTargeting = false;
-
-			} else if (cursed) {
-				GLog.橙(Messages.get(this,"cursed"));
 				usesTargeting = false;
 
 			} else {
@@ -223,7 +219,7 @@ public class MasterThievesArmband extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (cursed || target.buff(MagicImmune.class) != null) return;
+		if (target.buff(MagicImmune.class) != null) return;
 		if (charge < chargeCap) {
 			partialCharge += 0.1f * amount;
 			while (partialCharge >= 1f) {
@@ -258,7 +254,7 @@ public class MasterThievesArmband extends Artifact {
 
 		@Override
 		public boolean act() {
-			if (cursed && Dungeon.gold > 0 && Random.Int(5) == 0){
+			if (Dungeon.gold > 0 && Random.Int(5) == 0){
 				Dungeon.gold(-1,target.pos);
 				updateQuickslot();
 			}
@@ -268,7 +264,7 @@ public class MasterThievesArmband extends Artifact {
 		}
 
 		public void gainCharge(float levelPortion) {
-			if (cursed || target.buff(MagicImmune.class) != null) return;
+			if (target.buff(MagicImmune.class) != null) return;
 
 			if (charge < chargeCap){
 				float chargeGain = 3f * levelPortion;

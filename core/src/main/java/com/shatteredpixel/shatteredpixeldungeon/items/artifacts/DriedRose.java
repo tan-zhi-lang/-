@@ -95,7 +95,7 @@ public class DriedRose extends Artifact {
 		}
 		if (isEquipped( hero )
 				&& charge == chargeCap
-				&& !cursed
+
 				&& hero.buff(MagicImmune.class) == null
 				&& ghostID == 0) {
 			actions.add(AC_SUMMON);
@@ -103,7 +103,7 @@ public class DriedRose extends Artifact {
 		if (ghostID != 0){
 			actions.add(AC_DIRECT);
 		}
-		if (已鉴定() && !cursed){
+		if (已鉴定() ){
 			actions.add(AC_OUTFIT);
 		}
 		
@@ -132,7 +132,7 @@ public class DriedRose extends Artifact {
 			else if (ghost != null)         GLog.白(Messages.get(this,"spawned"));
 			else if (!isEquipped( hero ))   GLog.白(Messages.get(Artifact.class,"need_to_equip"));
 			else if (charge != chargeCap)   GLog.白(Messages.get(this,"no_charge"));
-			else if (cursed)                GLog.白(Messages.get(this,"cursed"));
+
 			else {
 				ArrayList<Integer> spawnPoints = new ArrayList<>();
 				for (int i=0; i < PathFinder.相邻.length;i++) {
@@ -263,7 +263,7 @@ public class DriedRose extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (cursed || target.buff(MagicImmune.class) != null) return;
+		if (target.buff(MagicImmune.class) != null) return;
 
 		if (ghost == null){
 			if (charge < chargeCap) {
@@ -362,7 +362,7 @@ public class DriedRose extends Artifact {
 			}
 			
 			//rose does not charge while ghost hero is alive
-			if (ghost != null && !cursed && target.buff(MagicImmune.class) == null){
+			if (ghost != null &&  target.buff(MagicImmune.class) == null){
 				
 				//heals to full over 500 turns
 				if (ghost.生命 < ghost.最大生命 && 再生.regenOn()) {
@@ -384,7 +384,7 @@ public class DriedRose extends Artifact {
 			}
 			
 			if (charge < chargeCap
-					&& !cursed
+
 					&& target.buff(MagicImmune.class) == null
 					&& 再生.regenOn()) {
 				//500 turns to a full charge

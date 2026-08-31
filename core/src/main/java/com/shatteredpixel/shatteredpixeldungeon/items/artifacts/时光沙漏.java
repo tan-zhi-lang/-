@@ -67,7 +67,7 @@ public class 时光沙漏 extends Artifact {
 	public ArrayList<String> actions( Hero hero ) {
 		ArrayList<String> actions = super.actions( hero );
 		if (isEquipped( hero )
-				&& !cursed
+
 				&& hero.buff(MagicImmune.class) == null
 				&& (charge > 0 || activeBuff != null)) {
 			actions.add(AC_ACTIVATE);
@@ -92,7 +92,7 @@ public class 时光沙漏 extends Artifact {
 					GLog.白(Messages.get(this,"deactivate"));
 				}
 			} else if (charge <= 0)         GLog.白(Messages.get(this,"no_charge"));
-			else if (cursed)                GLog.白(Messages.get(this,"cursed"));
+
 			else GameScene.show(
 						new WndOptions(new ItemSprite(this),
 								Messages.titleCase(name()),
@@ -161,7 +161,7 @@ public class 时光沙漏 extends Artifact {
 	
 	@Override
 	public void charge(Hero target, float amount) {
-		if (charge < chargeCap && !cursed && target.buff(MagicImmune.class) == null){
+		if (charge < chargeCap &&  target.buff(MagicImmune.class) == null){
 			partialCharge += 0.25f*amount;
 			while (partialCharge >= 1){
 				partialCharge--;
@@ -221,7 +221,7 @@ public class 时光沙漏 extends Artifact {
 		public boolean act() {
 
 			if (charge < chargeCap
-					&& !cursed
+
 					&& target.buff(MagicImmune.class) == null
 					&& 再生.regenOn()) {
 				//90 turns to charge at full, 60 turns to charge at 0/10
@@ -237,8 +237,7 @@ public class 时光沙漏 extends Artifact {
 						partialCharge = 0;
 					}
 				}
-			} else if (cursed && Random.Int(10) == 0)
-				((Hero) target).spend( TICK );
+			}
 
 			updateQuickslot();
 

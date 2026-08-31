@@ -1879,7 +1879,7 @@ public class Hero extends Char {
             case "鉴定的宠爱":return "鉴定物品会同时升级1次(武器、防具、戒指、法杖)";
             case "最终祝福":return "满级之后一直拥有祝福";
             case "认真的一拳":return "空手暴击伤害x2";
-            case "钢化你心":return "心之钢叠钢生命x3";
+            case "钢化你心":return "心之钢叠钢生命x2";
             case "没坐":return "第四区的boss无需击败";
             case "黄金忍者":return "持有4把乐高幻影忍者的黄金武器，综合属性+45%，元素抗性+50%，对恶魔的攻击伤害+45%";
             case "接二连三":return "每第三次攻击会额外攻击一次";
@@ -7555,10 +7555,9 @@ public class Hero extends Char {
         }
 
         心之钢.心 钢 = buff(心之钢.心.class);
-        if (钢!=null&&enemy!=null&&enemy.第x次防御==1&&enemy.防刷()&&enemy.nobuff(心之钢冷却.class)) {//&&enemy.hasbuff(被发现.class)&&enemy.buff(被发现.class).visualcooldown()>=3
-            damage= 钢.proc(damage,this,enemy);
+        if (钢!=null&&enemy!=null&&enemy.nobuff(心之钢冷却.class)) {//&&enemy.hasbuff(被发现.class)&&enemy.buff(被发现.class).visualcooldown()>=3
+            damage= 钢.proc(damage,this,enemy);//&&enemy.第x次防御==1
             if(Dungeon.派对(派对设置.钢门联盟)){
-
                 Buff.施加(enemy,心之钢冷却.class,10/能量之戒.artifactChargeMultiplier(this));
             }else
                 Buff.施加(enemy,心之钢冷却.class,30f/能量之戒.artifactChargeMultiplier(this));
@@ -8957,8 +8956,8 @@ public class Hero extends Char {
                 dmg=0;
         }
         if(符文("三国杀:司马懿")&&来源 instanceof Mob mob){
-            Item item=null;
-            item = mob.createLoot();
+            Item item= mob.createLoot();
+            if(item!=null)
             if(!(item instanceof Gold)){
                 item.放背包();
                 if(belongings.hasItem(item.getClass()))

@@ -196,7 +196,7 @@ public class 法师魔杖 extends Weapon{
 
 
 				if(wand.真等级()>0)
-				转移=Item.转移等级(wand,最大转移(),等级());
+				转移=Item.转移等级(wand,最大转移(),转移);
 
 
 			if (!this.wand.放背包()) {

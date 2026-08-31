@@ -41,12 +41,11 @@ public class 心之钢 extends Artifact {
 	
 	@Override
 	public String desc() {
-		float 伤害=20*(0.06f+0.03f*等级());
-		if(Dungeon.hero())伤害=Dungeon.hero.最大生命(0.06f+0.02f*等级());
+		float 伤害=20*(0.04f+0.03f*等级());
+		if(Dungeon.hero())伤害=Dungeon.hero.最大生命(0.04f+0.02f*等级());
 
-		float 生命=伤害*(0.004f+等级()*0.002f);
-		if(Dungeon.派对(派对设置.钢门联盟))生命*=2;
-		if(Dungeon.符文("钢化你心"))生命*=3;
+		float 生命=伤害*(0.002f+等级()*0.002f);
+		if(Dungeon.符文("钢化你心"))生命*=2;
 		return Messages.get(this, "desc",kw2(伤害),kw2(生命))+stas();
 	}
 
@@ -96,23 +95,17 @@ public class 心之钢 extends Artifact {
 		public float proc(float damage, Char attacker, Char defender){
 			if(charge>=chargeCap){
 				if(attacker instanceof Hero hero){
-					float 伤害=attacker.最大生命(0.06f+0.03f*等级());
+					float 伤害=attacker.最大生命(0.04f+0.03f*等级());
 					damage+=伤害;
 
-					float 生命=伤害*(0.004f+等级()*0.002f);
-					if(Dungeon.符文("钢化你心"))生命*=3;
-					if(Dungeon.派对(派对设置.钢门联盟))生命*=2;
-					if(cursed)
-					hero.生命成长-=生命;
-					else
-					hero.生命成长+=生命;
+					float 生命=伤害*(0.002f+等级()*0.002f);
+					if(Dungeon.符文("钢化你心"))生命*=2;
 
+					hero.生命成长+=生命;
+					hero.更新生命();
 					
 
-					if(cursed)
-						GLog.橙("心之钢为这次攻击-"+伤害+"伤害，并-"+生命+"最大生命。");
-					else
-						GLog.橙("心之钢为这次攻击+"+伤害+"伤害，并+"+生命+"最大生命。");
+					GLog.橙("心之钢为这次攻击+"+kw2(伤害)+"伤害，并+"+kw2(生命)+"最大生命。");
 
 					exp+=Math.round(伤害+生命);
 					charge=0;

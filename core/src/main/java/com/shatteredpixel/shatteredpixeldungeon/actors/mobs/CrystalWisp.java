@@ -28,6 +28,7 @@ public class CrystalWisp extends Mob{
 
 		flying = true;
 
+		属性表.add(Property.水晶);
 		属性表.add(Property.INORGANIC);
 	}
 

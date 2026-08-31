@@ -38,6 +38,7 @@ public class CrystalGuardian extends Mob{
 		SLEEPING = new Sleeping();
 		state = SLEEPING;
 
+		属性表.add(Property.水晶);
 		属性表.add(Property.INORGANIC);
 		属性表.add(Property.MINIBOSS);
 	}

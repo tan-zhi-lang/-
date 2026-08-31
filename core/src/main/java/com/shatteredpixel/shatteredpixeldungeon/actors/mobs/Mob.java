@@ -1703,7 +1703,7 @@ public abstract class Mob extends Char{
 				属性+="/ ##恶魔##";
 			}
 			if(亡灵()){
-				属性+="/ -- 亡灵 --";
+				属性+="/ -- 亡灵 -- ";
 			}
 
 			if(庞大()){
@@ -1717,6 +1717,9 @@ public abstract class Mob extends Char{
 			}
 			if(树妖()){
 				属性+="/ ++ 植物 ++";
+			}
+			if(水晶()){
+				属性+="/植物";
 			}
 			if(昆虫()){
 				属性+="/昆虫";

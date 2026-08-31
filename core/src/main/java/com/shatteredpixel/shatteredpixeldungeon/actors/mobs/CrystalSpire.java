@@ -56,6 +56,7 @@ public class CrystalSpire extends Mob {
 
 		属性表.add(Property.IMMOVABLE);
 		属性表.add(Property.BOSS);
+		属性表.add(Property.水晶);
 		属性表.add(Property.INORGANIC);
 		属性表.add(Property.STATIC);
 	}

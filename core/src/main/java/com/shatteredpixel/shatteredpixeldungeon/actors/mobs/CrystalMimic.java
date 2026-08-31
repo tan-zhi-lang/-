@@ -34,6 +34,7 @@ public class CrystalMimic extends Mimic {
 		spriteClass = MimicSprite.Crystal.class;
 
 		FLEEING = new Fleeing();
+		属性表.add(Property.水晶);
 	}
 
 	@Override

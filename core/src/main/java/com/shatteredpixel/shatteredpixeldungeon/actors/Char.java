@@ -123,6 +123,8 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.恒动;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.钻石镐;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
@@ -151,6 +153,7 @@ import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 
@@ -1961,6 +1964,8 @@ public abstract class Char extends Actor {
 		//ELECTRIC
 		电(null,元素类型.电),
 		LARGE,
+		水晶(null,null,null,new HashSet<Class>(Arrays.asList(镐子.class,
+															 钻石镐.class))),
 		IMMOVABLE ( null,元素类型.不能移动),//免疫AI状态减益或晕眩减速
 		STATIC( null,元素类型.静态),
 		机械(null,元素类型.电),
@@ -2506,6 +2511,9 @@ public abstract class Char extends Actor {
 	}
 	public boolean 树妖(){
 		return 属性表().contains(Property.树妖);
+	}
+	public boolean 水晶(){
+		return 属性表().contains(Property.水晶);
 	}
 	public boolean 海妖(){
 		return 属性表().contains(Property.海妖);

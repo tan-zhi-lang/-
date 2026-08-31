@@ -597,7 +597,7 @@ public class Generator {
 					英雄断剑.class,//1
 					符文之刃.class,//0.9
 					暗杀之刃.class,//0.8
-					寒冰鱼剑.class,//0.8
+					寒冰鱼剑.class,//1
 
 					封印之杖.class,//0.7
 					金纹拐.class,//0.7
@@ -614,7 +614,7 @@ public class Generator {
 					神农锄.class,//1.2
 					日炎链刃.class,//0.8
 					流火.class,//0.8
-					蜜剑.class,//0.8
+					蜜剑.class,//1
 
 					火焰剑.class,//0.9
 					地裂镰.class,//1.5

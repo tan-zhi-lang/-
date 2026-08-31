@@ -278,7 +278,7 @@ public class 鬼帝钟 extends Artifact {
 					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
 					if (!isEquipped(Dungeon.hero)){
-						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻便帝钟,025f);
+						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻便帝钟,0.25f);
 					}
 					partialCharge += chargeToGain;
 				}

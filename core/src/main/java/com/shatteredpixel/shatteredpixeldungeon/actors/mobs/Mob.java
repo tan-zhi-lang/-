@@ -1204,7 +1204,7 @@ public abstract class Mob extends Char{
 							}
 						}
 						if(!免疫(流血.class)&&Dungeon.hero.belongings.weapon(饮血之剑.class)){
-							Dungeon.hero.吸血成长+=0.04f/100f;
+							Dungeon.hero.吸血成长+=0.05f/100f;
 						}
 						if(Dungeon.hero.belongings.weapon(日炎链刃.class)){
 							new Bomb.ConjuredBomb().heroexplode(pos);

@@ -280,6 +280,7 @@ public class Assets {
 
 		public static final String 攻击灵箭= "sounds/hit/攻击灵箭.mp3";
 		public static final String 攻击弩= "sounds/hit/攻击弩.mp3";
+		public static final String 大型弩= "sounds/hit/大型弩.mp3";
 		public static final String 拉弓= "sounds/hit/拉弓.mp3";
 
 		public static final String HEALTH_WARN      = "sounds/health_warn.mp3";
@@ -406,6 +407,7 @@ public class Assets {
 				攻击箭,
 				攻击灵箭,
 				攻击弩,
+				大型弩,
 				拉弓,
 				HEALTH_WARN, HEALTH_CRITICAL,
 

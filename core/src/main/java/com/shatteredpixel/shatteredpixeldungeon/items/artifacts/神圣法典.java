@@ -279,7 +279,7 @@ public class 神圣法典 extends Artifact {
 					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
 					if (!isEquipped(Dungeon.hero)){
-						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻量阅读,025f);
+						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻量阅读,0.25f);
 					}
 					partialCharge += chargeToGain;
 				}

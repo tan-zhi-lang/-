@@ -1967,6 +1967,8 @@ public abstract class Level implements Bundlable {
 			for (RevealedArea a : c.buffs(RevealedArea.class)){
 				if (Dungeon.depth != a.depth || Dungeon.branch != a.branch) continue;
 				if(Dungeon.hero.满天赋(Talent.SEER_SHOT)){
+					for (int i : PathFinder.范围4) heroMindFov[a.pos+i] = true;
+				}else if(Dungeon.hero.天赋点数(Talent.SEER_SHOT)==3){
 					for (int i : PathFinder.范围3) heroMindFov[a.pos+i] = true;
 				}else if(Dungeon.hero.天赋点数(Talent.SEER_SHOT)==2){
 					for (int i : PathFinder.范围2) heroMindFov[a.pos+i] = true;

@@ -891,7 +891,9 @@ public class Hero extends Char {
             put1("附魔神剑",2);
             put1("免疫学",2);
             put1("动力法术学",2);
+            put1("水到渠成",2);
             put1("属性叠",2);
+            put1("草上飞",2);
         }
         //22222222222222222
         {
@@ -1165,6 +1167,7 @@ public class Hero extends Char {
             put2("还得是高玩",2);
             put2("我不吃牛肉",2);
             put2("千咒卷轴",2);
+            put2("应急储蓄",2);
         }
         //33333333333333
         {
@@ -1531,6 +1534,7 @@ public class Hero extends Char {
         switch(选择){
             default:return "What?";
             //1111111111111111
+            case "水到渠成":return "在水中时，每回合恢复1%最大生命";
             case "猴子给给":return "配刺剑、武士刀的技能伤害+50%，恢复8%最大生命，并且击杀敌人不消耗充能";
             case "家园卫士":return "未战斗状态时，移速+50%";
             case "死腿快跑啊":return "根据已经损失生命最多+70%移速";
@@ -1703,6 +1707,7 @@ public class Hero extends Char {
             case "鞋底抹油":return "总移速+25%";
             case "升级升级:防御":return "最大防御+等级*1";
             case "升级升级:攻击":return "最大攻击+等级*1.5";
+            case "草上飞":return "在草丛中移速+25%，并且一直飞行";
             case "止渴":return "饮用药剂恢复8%最大生命";
             case "血条剑":return "攻击范围+1.5%生命";
             case "AI脑":return "魔力固定20";
@@ -1939,7 +1944,7 @@ public class Hero extends Char {
             case "心之力":return "首次攻击+0.2力量";
             case "人皇步":return "你向非东南西北方向移动速度x2";
             case "登神长阶":return "升级所需经验x2。攻击+0.6%魔力的攻速，持续战斗状态回合，最多5层，满层+10%移速。8级之后+4攻击范围，并且攻击对相邻敌人造成20%的魔法伤害，22级之后+1攻击范围，并且永久满层";
-            case "还是躲在水里最自在":return "水上每回合恢复1%最大生命和护甲";
+            case "还是躲在水里最自在":return "水上每回合恢复2%最大生命和护甲";
             case "士兵男孩":return "受到致命伤害产生爆炸效果(不过不会和炸弹一样炸弹英雄以及破坏物品，且伤害减半)";
             case "广告复活":return "死亡后满血复活，并且麻痹15秒，该效果每天重置";
             case "花岗岩护盾":return "根据护甲，防御最少+10%，最多90%，以及治疗护盾，不过仅1/3效果";
@@ -1986,6 +1991,7 @@ public class Hero extends Char {
             case "打野":return "敌人最大生命x3，同时获得7%全能吸血";
             case "加倍":return "可堆叠战利品掉落数量x2";
             //222222222222222222222222
+            case "应急储蓄":return "获得金币时恢复金币量的生命";
             case "安内":return "对相邻敌人攻击伤害+75%，对之外的敌人-30%伤害";
             case "暴击邦！":return "攻击对敌人和敌人相邻的敌人造成45%的伤害";
             case "孤立无援":return "攻击伤害+45%，前提是该敌人没有相邻敌人";
@@ -4512,19 +4518,19 @@ public class Hero extends Char {
         if(天赋(Talent.任督二脉)&&综合属性()>1)x*=1+(综合属性()-1)*天赋点数(Talent.任督二脉,0.25f);
         if(天赋(Talent.自然之护)){
             if(在草丛())
-            x*=1+天赋点数(Talent.自然之护,0.75f);
+            x*=1+天赋点数(Talent.自然之护,0.05f);
 
             if(belongings.weapon1()!=null&&belongings.weapon.涂药种类!=null)
-            x*=1+天赋点数(Talent.自然之护,0.75f);
+            x*=1+天赋点数(Talent.自然之护,0.05f);
 
             if(belongings.weapon2()!=null&&belongings.secondWep.涂药种类!=null)
-            x*=1+天赋点数(Talent.自然之护,0.75f)*副武器效果();
+            x*=1+天赋点数(Talent.自然之护,0.05f)*副武器效果();
 
             if(belongings.armor1()!=null&&belongings.armor.涂药种类!=null)
-            x*=1+天赋点数(Talent.自然之护,0.75f);
+            x*=1+天赋点数(Talent.自然之护,0.05f);
 
             if(belongings.armor2()!=null&&belongings.armor2.涂药种类!=null)
-            x*=1+天赋点数(Talent.自然之护,0.75f)*副防具效果();
+            x*=1+天赋点数(Talent.自然之护,0.05f)*副防具效果();
         }
 
         if(belongings.技能(防御力.class)) x*=1.05f+0.05f*belongings.技能等级(防御力.class);
@@ -4836,6 +4842,10 @@ public class Hero extends Char {
                 移速+=天赋点数(Talent.追捕猎物,0.15f)/2f;
         }
         if(nobuff(战斗状态.class)&&符文("家园卫士"))移速+=0.5f;
+        if(符文("草上飞")&&在草丛()){
+            flying=true;
+            移速+=0.25f;
+        }
 
         if (belongings.armor(忍服.class)) {
             移速+= .03f;
@@ -4861,7 +4871,7 @@ public class Hero extends Char {
             if (heroClass(HeroClass.机器)) {
                 speed*= 0.7f;
             }
-            speed*=1+天赋点数(Talent.水中漫步,0.1f);
+            speed*=1+天赋点数(Talent.水中漫步,0.125f);
         }
 
         if (belongings.armor(披风.class)) {
@@ -5325,8 +5335,8 @@ public class Hero extends Char {
 
 
         if(符文("还是躲在水里最自在")&&在水中()){
-            回百分比血(0.01f);
-            回百分比护甲(0.01f);
+            回百分比血(0.02f);
+            回百分比护甲(0.02f);
         }
         if(符文("过敏性鼻炎")&&算法.概率学(2)){
             力量+=0.02f;
@@ -5600,12 +5610,13 @@ public class Hero extends Char {
             sprite.centerEmitter().burst(SparkParticle.FACTORY);
             sprite.flash();
 
-            float x=-0.1f+天赋点数(Talent.防雨钢皮,0.1f);
+            float x=-0.1f+天赋点数(Talent.防雨钢皮,0.15f);
             if(x>0)
             回血(x);
             else if(x<0)
                 受伤时(-x,元素类型.水元素.class);
         }
+        if(在水中()&&符文("水到渠成"))回血(最大生命(0.01f));
         if(在水中()&&!Dungeon.bossLevel()&&Dungeon.branch==0){
             ArrayList<Item> bonus=镜钓之戒.tryForBonusDrop(this,
                                                            镜钓之戒.累计(this));
@@ -8849,6 +8860,7 @@ public class Hero extends Char {
         if (Dungeon.相对层数() > 15 && Dungeon.branch == 1){
             dmg = 0;
         }
+
         //regular damage interrupt, triggers on any damage except specific mild DOT effects
         // unless the player recently hit 'continue moving', in which case this is ignored
         if (!(来源 instanceof Hunger||来源 instanceof 粘稠.DeferedDamage)&&damageInterrupt) {

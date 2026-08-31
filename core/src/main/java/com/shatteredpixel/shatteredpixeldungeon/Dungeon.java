@@ -255,6 +255,7 @@ public class Dungeon {
 				energy+=x;
 
 			gold+=x;
+			if(hero.符文("应急储蓄"))hero.回血(x);
 		}
 		if(x<0){
 			gold+=x;

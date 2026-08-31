@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械;
 
+import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.自然箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -15,6 +16,8 @@ public class 炼金动力十字弩 extends 十字弩{
 		中毒=0.15f;
 		子弹 = new 自然箭矢();
 		image2 = 物品表.自然箭矢;
+		hitSound2 = Assets.Sounds.大型弩;
+		item_Miss2 = Assets.Sounds.大型弩;
 
 		掉落子弹=false;
 	}

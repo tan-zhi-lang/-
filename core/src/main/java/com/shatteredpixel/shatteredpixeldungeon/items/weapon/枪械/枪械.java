@@ -487,7 +487,6 @@ public abstract class 枪械 extends Weapon{
 					for(int n: PathFinder.自相邻)Dungeon.level.pressCell( cell+n );
 				}else Dungeon.level.pressCell( cell );
 			}
-			if(枪() instanceof 十字弩)Sample.INSTANCE.play(Assets.Sounds.攻击弩);
 
 			if(枪().爆炸效果)
 				WandOfBlastWave.BlastWave.blast(cell);

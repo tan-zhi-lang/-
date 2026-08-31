@@ -13,6 +13,6 @@ public class 蝙蝠棒 extends Weapon{
 		伤害=0.6f;
 		特别=true;
 		靛色=true;
-		吸血=0.12f;
+		吸血=0.18f;
 	}
 }

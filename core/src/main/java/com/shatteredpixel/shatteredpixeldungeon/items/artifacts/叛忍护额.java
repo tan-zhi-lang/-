@@ -278,7 +278,7 @@ public class 叛忍护额 extends Artifact {
 					turnsToCharge /= 能量之戒.artifactChargeMultiplier(target);
 					float chargeToGain = (1f / turnsToCharge);
 					if (!isEquipped(Dungeon.hero)){
-						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻便护额,025f);
+						chargeToGain *= Dungeon.hero.天赋点数(Talent.轻便护额,0.25f);
 					}
 					partialCharge += chargeToGain;
 				}

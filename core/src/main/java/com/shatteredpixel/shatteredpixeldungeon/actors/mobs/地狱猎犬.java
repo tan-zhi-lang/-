@@ -20,15 +20,20 @@ public class 地狱猎犬 extends Mob {
 
 		属性表.add(Property.动物);
 	}
-	
+
+	@Override
+	public float 攻击延迟(){
+		return super.攻击延迟()/2f;
+	}
+
 	@Override
 	public float 最小攻击() {
-		return 30;
+		return 22;
 	}
 
 	@Override
 	public float 最大攻击() {
-		return 35;
+		return 26;
 	}
 
 	@Override
@@ -39,11 +44,11 @@ public class 地狱猎犬 extends Mob {
 	
 	@Override
 	public int 最大命中(Char target ) {
-		return 30;
+		return 34;
 	}
 	
 	@Override
 	public float 最大防御() {
-		return super.最大防御()+8;
+		return super.最大防御()+10;
 	}
 }

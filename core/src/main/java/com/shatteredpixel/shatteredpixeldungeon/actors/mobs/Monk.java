@@ -20,7 +20,7 @@ public class Monk extends Mob {
 	{
 		spriteClass = MonkSprite.class;
 		
-		生命 = 最大生命 = 70;
+		生命 = 最大生命 = 60;
 		defenseSkill = 30;
 		
 		经验 = 11;

@@ -30,7 +30,10 @@ public class MysteryMeat extends Food {
 
 	public MysteryMeat(){
 	}
-
+	@Override
+	public boolean isSimilar( Item item ) {
+		return super.isSimilar(item)&&item.真name.equals(真name);
+	}
 	@Override
 	protected void satisfy(Hero hero) {
 		super.satisfy(hero);

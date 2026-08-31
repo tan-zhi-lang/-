@@ -2022,7 +2022,25 @@ public abstract class Level implements Bundlable {
 	public boolean invalidHeroPos( int tile ){
 		return !passable[tile] && !avoid[tile];
 	}
+	public boolean 可落地(int cell){
+		return Dungeon.level.insideMap(cell)
+			   && !Dungeon.level.pit[cell]
+			   && !Dungeon.level.solid[cell]
+			   && Dungeon.level.passable[cell]
+			   && Actor.findChar(cell) == null;
+	}
 
+	public int 最近落点(int pos,int from){
+		int best = -1;
+		for (int i : PathFinder.相邻){
+			int cell = from + i;
+			if (!可落地(cell)) continue;
+			if (best == -1 || Dungeon.level.trueDistance(pos, cell) < Dungeon.level.trueDistance(pos, best)){
+				best = cell;
+			}
+		}
+		return best;
+	}
 	//returns true if the input is a valid tile within the level
 	public boolean insideMap( int tile ){
 				//top and bottom row and beyond

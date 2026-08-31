@@ -77,7 +77,7 @@ public class MobSpawner extends Actor {
 			case 1: default:
 				//3x rat, 1x snake\
 //					return new ArrayList<>(Arrays.asList(
-//							DM0.class));
+//							RipperDemon.class));
 					return new ArrayList<>(Arrays.asList(
 							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
 							Dungeon.老鼠蝙蝠?Bat.class:Rat.class,
@@ -173,10 +173,10 @@ public class MobSpawner extends Actor {
 						Elemental.random(),
 						Warlock.class));
 			case 17:
-				//1x ghoul, 2x elemental, 1x warlock, 1x monk
+				//2x ghoul, 1x elemental, 1x warlock, 1x monk
 				return new ArrayList<>(Arrays.asList(
 						Ghoul.class,
-						Elemental.random(), Elemental.random(),
+						Ghoul.class, Elemental.random(),
 						Warlock.class,
 						Monk.class));
 			case 18:
@@ -184,16 +184,16 @@ public class MobSpawner extends Actor {
 				return new ArrayList<>(Arrays.asList(
 						Ghoul.class,
 						Elemental.random(),
-						Warlock.class, Warlock.class,
+						Warlock.class, 矮人官臣.class,
 						Monk.class, Monk.class,
 						Golem.class));
 			case 19: case 20:
 				//1x elemental, 2x warlock, 2x monk, 3x golem
 				return new ArrayList<>(Arrays.asList(
 						Elemental.random(),
-						Warlock.class, Warlock.class,
-						Monk.class, Monk.class,
-						Golem.class, Golem.class, Golem.class));
+						Warlock.class,矮人官臣.class,
+						Monk.class,Monk.class,
+						Golem.class,矮人官臣.class,Golem.class));
 
 			// Halls
 			case 21:
@@ -209,14 +209,14 @@ public class MobSpawner extends Actor {
 			case 23:
 				//1x succubus, 2x evil eye, 1x scorpio
 				return new ArrayList<>(Arrays.asList(
-						地狱猎犬.class,
-						Eye.class, Eye.class,
+						Eye.class,
+						地狱猎犬.class, 地狱猎犬.class,
 						Scorpio.class));
 			case 24: case 25: case 26:
 				//1x succubus, 2x evil eye, 3x scorpio
 				return new ArrayList<>(Arrays.asList(
-						地狱猎犬.class,
-						Eye.class, Eye.class,
+						Eye.class,
+						地狱猎犬.class, 地狱猎犬.class,
 						Scorpio.class, Scorpio.class, Scorpio.class));
 		}
 
@@ -265,7 +265,7 @@ public class MobSpawner extends Actor {
 
 	//switches out regular mobs for their alt versions when appropriate
 	private static void swapMobAlts(ArrayList<Class<?extends Mob>> rotation) {
-		float altChance = 1 / 50f*巨鼠头骨.exoticChanceMultiplier();
+		float altChance = 6 / 100f*巨鼠头骨.exoticChanceMultiplier();//2
 		if(Holiday.getCurrentHoliday()==Holiday._1024){
 			altChance*=2;
 		}
@@ -305,6 +305,7 @@ public class MobSpawner extends Actor {
 		RARE_ALTS.put(Brute.class,          ArmoredBrute.class);
 		RARE_ALTS.put(DM200.class,          DM201.class);
 
+		RARE_ALTS.put(Ghoul.class,           绿尸寒.class);
 		RARE_ALTS.put(Monk.class,           Senior.class);
 		//swapping to chaos elemental actually happens in Elemental.random
 		RARE_ALTS.put(Elemental.class,      Elemental.ChaosElemental.class);

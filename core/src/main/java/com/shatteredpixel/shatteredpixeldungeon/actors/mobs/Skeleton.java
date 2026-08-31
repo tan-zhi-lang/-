@@ -52,6 +52,8 @@ public class Skeleton extends Mob {
 		Sample.INSTANCE.play(Assets.Sounds.骷髅);
 		return super.防御时(enemy,damage);
 	}
+	int 爆炸min=6;
+	int 爆炸max=12;
 	@Override
 	public void 死亡时(Object 来源) {
 		
@@ -63,7 +65,7 @@ public class Skeleton extends Mob {
 		for (int i=0; i < PathFinder.相邻.length;i++) {
 			Char ch = findChar( pos + PathFinder.相邻[i]);
 			if (ch != null && ch.isAlive()) {
-				float damage = Random.NormalIntRange(6, 12);
+				float damage = Random.NormalIntRange(爆炸min, 爆炸max);
 				damage=damage*Dungeon.难度攻击(this);
 				damage =damage*AscensionChallenge.statModifier(this);
 				//all sources of DR are 2x effective vs. bone explosion

@@ -192,11 +192,13 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.DM0Sprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.MimicSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.SheepSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.UndeadSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.传送阵眼动画;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.地狱猎犬动画;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.水蛭动画;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.石虱动画;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.绿尸寒动画;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.蟑螂动画;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.蠕虫动画;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.骷髅战士动画;
@@ -670,8 +672,13 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
 
+		changes.addButton( new ChangeButton(new UndeadSprite(),"矮人官臣",
+											"四区怪物，替换五层的一个魔像、矮人术士，替换四层的一个矮人术士。"));
+
 		changes.addButton( new ChangeButton(new 地狱猎犬动画(),"地狱猎犬",
-											"五区怪物，替换三四五层的恶魔撕裂者。"));
+											"五区怪物，替换三四五层的恶魔撕裂者和1个邪眼。"));
+		changes.addButton( new ChangeButton(new 绿尸寒动画(),"绿尸寒",
+											"新增矮人尸群的变异体。"));
 		changes.addButton( new ChangeButton(new 石虱动画(),"石虱",
 											"三区怪物，替换二层的吸血蝙蝠。"));
 		changes.addButton( new ChangeButton(new 蠕虫动画(),"蠕虫",

@@ -66,7 +66,7 @@ public class Eye extends Mob {
 	
 	@Override
 	public float 最大防御() {
-		return super.最大防御()+10;
+		return super.最大防御()+8;
 	}
 	
 	private Ballistica beam;

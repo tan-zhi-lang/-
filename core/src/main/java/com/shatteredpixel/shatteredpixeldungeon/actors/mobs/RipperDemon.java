@@ -57,7 +57,7 @@ public class RipperDemon extends Mob {
 
 	@Override
 	public int 最大命中(Char target ) {
-		return 30;
+		return 0;
 	}
 
 	@Override
@@ -117,6 +117,8 @@ public class RipperDemon extends Mob {
 	private int leapPos = -1;
 	private float leapCooldown = 0;
 
+
+
 	public class Hunting extends Mob.Hunting {
 
 		@Override
@@ -126,7 +128,7 @@ public class RipperDemon extends Mob {
 
 				leapCooldown = Random.NormalIntRange(2, 4);
 
-				if (rooted){
+				if (rooted || leapPos < 0 || leapPos >= Dungeon.level.length()){
 					leapPos = -1;
 					return true;
 				}
@@ -139,17 +141,8 @@ public class RipperDemon extends Mob {
 
 				//ensure there is somewhere to land after leaping
 				if (leapVictim != null){
-					int bouncepos = -1;
-					//attempt to bounce in free passable space
-					for(int i: PathFinder.相邻){
-						if((bouncepos==-1||
-							Dungeon.level.trueDistance(pos,leapPos+i)<Dungeon.level.trueDistance(pos,bouncepos))
-						   &&Actor.findChar(leapPos+i)==null&&Dungeon.level.passable[leapPos+i]&& !Dungeon.level.solid[leapPos+i]){
-							bouncepos=leapPos+i;
-							break;
-						}
-					}
-					
+					int bouncepos = Dungeon.level.最近落点(pos,leapPos);
+
 					//if no valid position, cancel the leap
 					if (bouncepos == -1) {
 						leapPos = -1;
@@ -157,8 +150,16 @@ public class RipperDemon extends Mob {
 					} else {
 						endPos = bouncepos;
 					}
-				} else {
+				} else if (Dungeon.level.可落地(leapPos)) {
 					endPos = leapPos;
+				} else {
+					//landing spot is invalid (pit/solid/occupied), fall back to an adjacent cell
+					int alt =Dungeon.level.最近落点(pos,leapPos);
+					if (alt == -1){
+						leapPos = -1;
+						return true;
+					}
+					endPos = alt;
 				}
 
 				//do leap
@@ -226,13 +227,21 @@ public class RipperDemon extends Mob {
 						targetPos = enemy.pos + PathFinder.CIRCLE8[(closestIdx+4)%8];
 					}
 
+					//don't aim at cells outside the map, or cells we couldn't land on
+					if (!Dungeon.level.insideMap(targetPos)
+							|| Dungeon.level.pit[targetPos]
+							|| Dungeon.level.solid[targetPos]
+							|| !Dungeon.level.passable[targetPos]){
+						targetPos = enemy.pos;
+					}
+
 					Ballistica b = new Ballistica(pos, targetPos, Ballistica.STOP_TARGET | Ballistica.STOP_SOLID);
 					//try aiming directly at hero if aiming near them doesn't work
 					if (b.collisionPos != targetPos && targetPos != enemy.pos){
 						targetPos = enemy.pos;
 						b = new Ballistica(pos, targetPos, Ballistica.STOP_TARGET | Ballistica.STOP_SOLID);
 					}
-					if (b.collisionPos == targetPos){
+					if (b.collisionPos == targetPos && !Dungeon.level.pit[targetPos]){
 						//get ready to leap
 						leapPos = targetPos;
 						//don't want to overly punish players with slow move or attack speed

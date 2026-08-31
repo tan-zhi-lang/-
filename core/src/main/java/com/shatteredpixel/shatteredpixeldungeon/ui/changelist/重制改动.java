@@ -8,6 +8,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Crab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eye;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollTrickster;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Skeleton;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Slime;
@@ -50,6 +51,7 @@ public class 重制改动{
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS),"怪物",
 											"所有远程魔法攻击伤害-20%。\n"+
+											"变异2%概率=>6%。\n"+
 											"大部分怪物正确获得属性。\n"+
 											"1楼刷怪不会刷怪->25x25回合后才会刷怪(幸福结局回来除外)。\n"+
 											"1楼刷怪数量8->10。\n"+
@@ -96,9 +98,14 @@ public class 重制改动{
 											"矮人国王在召唤2个矮人尸群时，有一个将是骷髅。\n"+
 											"矮人国王最小和最大攻击+10。"));
 
-		changes.addButton( new ChangeButton(new Eye(),"邪眼","最大生命100->90\n" +
+		changes.addButton( new ChangeButton(new Eye(),"邪眼",
+											"最大防御-2\n" +
+											"最大生命-10\n" +
 															 "相邻时不会施法。"));
-		changes.addButton( new ChangeButton(new GhoulSprite(),"矮人尸群","复活的生命10%->12.5%，但是每次死亡都会使复活的生命x0.6。"));
+		changes.addButton( new ChangeButton(new Monk(),"矮人武僧",
+											"最大生命-10。"));
+		changes.addButton( new ChangeButton(new GhoulSprite(),"矮人尸群","复活的生命10%->12.5%，但是每次死亡都会使复活的生命x0.6。\n" +
+																		 "替换3区2层的一个元素怪"));
 		changes.addButton( new ChangeButton(new Slime(),"所有史莱姆","史莱姆受到伤害减伤->物理减伤。"));
 		changes.addButton( new ChangeButton(new Crab(),"所有螃蟹","下水道螃蟹移速初始1.5倍，且所有螃蟹敌人水平移动速度x2.5倍。"));
 		changes.addButton( new ChangeButton(new ThiefSprite(),"所有小偷","没偷东西移速9/6。"));

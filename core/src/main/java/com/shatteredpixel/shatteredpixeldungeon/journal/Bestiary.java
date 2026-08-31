@@ -81,8 +81,15 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Sheep;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Shopkeeper;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.Wandmaker;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs.白猫;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.地狱猎犬;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.毒气宝箱怪;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.水蛭;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.矮人官臣;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.石虱;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.粘咕;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.绿尸寒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.蟑螂;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.蠕虫;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.超级魔法绵羊;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.骷髅战士;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.DriedRose;
@@ -193,11 +200,11 @@ public enum Bestiary {
 
 	static {
 
-		REGIONAL.addEntities(Rat.class, Snake.class, Gnoll.class, Swarm.class, Crab.class, Slime.class,
-				Skeleton.class, Thief.class, DM100.class, Guard.class, Necromancer.class,
-				Bat.class, Brute.class, Shaman.RedShaman.class, Shaman.BlueShaman.class, Shaman.PurpleShaman.class, Spinner.class, DM200.class,
-				Ghoul.class, Elemental.FireElemental.class, Elemental.FrostElemental.class, Elemental.ShockElemental.class, Warlock.class, Monk.class, Golem.class,
-				RipperDemon.class, DemonSpawner.class, Succubus.class, Eye.class, Scorpio.class);
+		REGIONAL.addEntities(蟑螂.class,水蛭.class,Rat.class,Snake.class,Gnoll.class,Swarm.class,Crab.class,Slime.class,
+							 Skeleton.class,Thief.class,DM100.class,Guard.class,Necromancer.class,
+							 Bat.class,蠕虫.class,石虱.class,Brute.class,Shaman.RedShaman.class,Shaman.BlueShaman.class,Shaman.PurpleShaman.class,Spinner.class,DM200.class,
+							 Ghoul.class,Elemental.FireElemental.class,Elemental.FrostElemental.class,Elemental.ShockElemental.class,Warlock.class,Monk.class,矮人官臣.class,Golem.class,
+							 RipperDemon.class,DemonSpawner.class,Succubus.class,Eye.class,地狱猎犬.class,Scorpio.class);
 
 		BOSSES.addEntities(粘咕.class,
 				Tengu.class,
@@ -218,7 +225,7 @@ public enum Bestiary {
 		RARE.addEntities(Albino.class,GnollExile.class,HermitCrab.class,CausticSlime.class,
 						 骷髅战士.class,Bandit.class,SpectralNecromancer.class,
 						 ArmoredBrute.class,DM201.class,
-						 Elemental.ChaosElemental.class,Senior.class,
+						 绿尸寒.class,Elemental.ChaosElemental.class,Senior.class,
 						 Acidic.class,
 						 TormentedSpirit.class,PhantomPiranha.class,CrystalMimic.class,ArmoredStatue.class);
 
@@ -259,6 +266,7 @@ public enum Bestiary {
 		classConversions.put(TenguDartTrap.class,              PoisonDartTrap.class);
 		classConversions.put(GnollRockfallTrap.class,          RockfallTrap.class);
 
+		classConversions.put(DwarfKing.DKSkeleton.class,          矮人官臣.class);
 		classConversions.put(DwarfKing.DKGhoul.class,          Ghoul.class);
 		classConversions.put(DwarfKing.DKWarlock.class,        Warlock.class);
 		classConversions.put(DwarfKing.DKMonk.class,           Monk.class);

@@ -20,7 +20,7 @@ import com.watabou.utils.Random;
 
 public class Sheep extends NPC {
 
-	private static final String[] LINE_KEYS = {"咩!", "咩?", "咩.", "咩...", "咩咩咩"};
+	private static final String[] LINE_KEYS = {"Baa!", "Baa?", "Baa.", "Baa...", "Baba"};
 
 	{
 		spriteClass = SheepSprite.class;

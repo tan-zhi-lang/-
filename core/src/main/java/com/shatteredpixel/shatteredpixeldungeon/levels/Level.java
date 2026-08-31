@@ -230,13 +230,8 @@ public abstract class Level implements Bundlable {
 		//TODO maybe just make this part of RegularLevel?
 		if (!Dungeon.bossLevel() && Dungeon.branch == 0) {
 			addItemToSpawn(Generator.random(Generator.Category.FOOD));
-			if(Dungeon.解压(解压设置.抗饿能手))
-				addItemToSpawn(Generator.random(Generator.Category.FOOD));
-			
-			if(Dungeon.偶数层()) {
+			if(Dungeon.偶数层()&&Random.Int(1)==0) {
 				addItemToSpawn(new SmallRation());
-				if(Dungeon.解压(解压设置.抗饿能手))
-					addItemToSpawn(new SmallRation());
 			}
 			if (Dungeon.区域层数(3)){
 				if(Dungeon.解压(解压设置.随机装备)){
@@ -379,8 +374,6 @@ public abstract class Level implements Bundlable {
 					case 4:
 						feeling = Feeling.LARGE;
 						addItemToSpawn(Generator.random(Generator.Category.FOOD));
-						if(Dungeon.解压(解压设置.抗饿能手))
-							addItemToSpawn(Generator.random(Generator.Category.FOOD));
 						break;
 					case 5:
 						feeling = Feeling.TRAPS;

@@ -136,7 +136,7 @@ public class HighGrass {
 
 			// 蘑菇（特殊）
 			for (int i = 0; i < (三倍? 3 : 1); i++){
-				if(Dungeon.符文("灵感咕力咕力咕力灵感菇")||(Random.Float()<概率&&Dungeon.hero.heroClass(HeroClass.HUNTRESS))){
+				if(Dungeon.符文("灵感咕力咕力咕力灵感菇")||(Random.Float()<概率/2f&&Dungeon.hero.heroClass(HeroClass.HUNTRESS))){
 					if(Dungeon.白天())
 						level.drop(Random.oneOf(new 红蘑菇()),pos).sprite().drop();
 					else if(Dungeon.黄昏())

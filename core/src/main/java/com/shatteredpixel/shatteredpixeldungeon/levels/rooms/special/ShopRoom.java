@@ -393,6 +393,7 @@ public class ShopRoom extends SpecialRoom {
 
 		if(Dungeon.相对层数()>3){
 			itemsToSpawn.add(new 面包());
+			if(Random.Int(1)==0)
 			itemsToSpawn.add(new SmallRation());
 		}
 

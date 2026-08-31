@@ -865,7 +865,7 @@ public abstract class Char extends Actor {
 		return x;
 	}
 	public float 最大防御() {
-		int dr = 0;
+		int dr = 1;
 		dr += Barkskin.currentLevel(this);
 
 		return dr;

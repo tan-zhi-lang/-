@@ -14,13 +14,10 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Shadows;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CircleArc;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
-import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.血腥生肉;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
@@ -28,7 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.Holiday;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndHero;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.input.GameAction;
 import com.watabou.noosa.BitmapText;
@@ -379,16 +375,7 @@ public class StatusPane extends Component {
 		float hunger = 450f-
 				(Dungeon.hero.hasbuff(Hunger.class)?
 						Dungeon.hero.buff(Hunger.class).hunger():450f);
-		float hungerDelay = 1f;
-		if (Dungeon.hero.buff(Shadows.class)!=null){
-			hungerDelay *= 1.5f;
-		}
-		if(Dungeon.解压(解压设置.抗饿能手))
-			hungerDelay *= 2;
-		hungerDelay/=
-				SaltCube.hungerGainMultiplier();
-		hungerDelay/=
-				血腥生肉.饥饿();
+		float hungerDelay = 1f/Dungeon.hero.buff(Hunger.class).饥饿速度();
 
 		float shield = Dungeon.hero.shielding();
 

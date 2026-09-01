@@ -358,12 +358,8 @@ public class StatusPane extends Component {
 	private static final int[] warningColors = new int[]{0x660000, 0xCC0000, 0x660000};
 
 	private float oldHP = 0;
-	private float HP缓冲=0;
 	private float old绿 = 0;
-	private float 绿缓冲=0;
 	private float old法力 = 0;
-	private float 法力缓冲=0;
-	private float 时间=0;
 
 	@SuppressWarnings("DefaultLocale")
 	@Override
@@ -404,28 +400,17 @@ public class StatusPane extends Component {
 			old绿 = hunger;
 		if (old法力 ==0)
 			old法力 = 护甲;
-		
-		HP缓冲=oldHP-health;
-		绿缓冲=old绿-hunger;
-		法力缓冲=old法力-护甲;
-		if((时间+=Game.elapsed)>=2f){
-			if(HP缓冲>0){
-				oldHP-=HP缓冲/1.11f;
-			}
-			if(绿缓冲>0){
-				old绿-=绿缓冲/1.11f;
-			}
-			if(法力缓冲>0){
-				old法力-=法力缓冲/1.11f;
-			}
-			
-			血条.scale.x = Math.max( 0, Math.min(1,oldHP/max));
-			绿条.scale.x = Math.max( 0, old绿/450f);
-			法力条.scale.x = Math.max(0,old法力/最大护甲);
-			护盾.scale.x = 0;
-			
-			时间=0;
-		}
+
+		//缓冲：掉血/掉绿/掉蓝时缓慢跟随，恢复时立即跟上
+		float k = (float)Math.pow( 0.0175f, Game.elapsed );
+		oldHP = health > oldHP ? health : health + (oldHP - health) * k;
+		old绿 = hunger > old绿 ? hunger : hunger + (old绿 - hunger) * k;
+		old法力 = 护甲 > old法力 ? 护甲 : 护甲 + (old法力 - 护甲) * k;
+
+		血条.scale.x = Math.max( 0, Math.min( 1, oldHP / max ) );
+		绿条.scale.x = Math.max( 0, Math.min( 1, old绿 / 450f ) );
+		法力条.scale.x = 最大护甲 > 0 ? Math.max( 0, Math.min( 1, old法力 / 最大护甲 ) ) : 0;
+		护盾.scale.x = 0;
 		
 		float 血量变化=0;
 		if(Dungeon.hero.hasbuff(Hunger.class)){

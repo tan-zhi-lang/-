@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.ColorBlock;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.ui.Component;
 
 public class HealthBar extends Component {
@@ -32,6 +33,9 @@ public class HealthBar extends Component {
 	private float max;
 	private float shield;
 	private boolean 隐形;
+
+	private float oldHealth = -1;
+	private float oldShield = -1;
 	
 	@Override
 	protected void createChildren() {
@@ -73,17 +77,23 @@ public class HealthBar extends Component {
 	float 框大小=1.25f;//1
 	@Override
 	public synchronized void update(){
-		
+
 		Bg.x = Shld.x = Hp.x = x;
 		Bg.y = Shld.y = Hp.y = y;
 		Bg.size( width, height*框大小 );
-		
-		
+
+		//缓冲：掉值时缓慢跟随，恢复时立即跟上
+		if (oldHealth < 0) oldHealth = health;
+		if (oldShield < 0) oldShield = shield;
+		float k = (float)Math.pow( 0.0175f, Game.elapsed );
+		oldHealth = health > oldHealth ? health : health + (oldHealth - health) * k;
+		oldShield = shield > oldShield ? shield : shield + (oldShield - shield) * k;
+
 		//logic here rounds up to the nearest pixel
 		float pixelWidth = width;
 		if (camera() != null) pixelWidth *= camera().zoom;
-		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height*框大小 );
-		Hp.size( width * (float)Math.ceil(health * pixelWidth)/pixelWidth, height*框大小 );
+		Shld.size( width * (float)Math.ceil(oldShield * pixelWidth)/pixelWidth, height*框大小 );
+		Hp.size( width * (float)Math.ceil(oldHealth * pixelWidth)/pixelWidth, height*框大小 );
 
 		hpText.scale.set(PixelScene.align(文本大小));
 		hpText.text(kw2(生命)+"/"+kw2(max));

@@ -142,9 +142,6 @@ public class BossHealthBar extends Component {
 	}
 	float oldhp=0;
 	float oldshield=0;
-	private float HP缓冲=0;
-	private float SHI缓冲=0;
-	float 时间=0;
 
 	@Override
 	public void update() {
@@ -162,33 +159,22 @@ public class BossHealthBar extends Component {
 			} else {
 
 				float health = boss.生命;
-				
+
 				float shield = boss.shielding();
 				float max = boss.最大生命;
-				
-				if(oldhp==0)
+
+				if (oldhp == 0)
 					oldhp = health;
-				if(oldshield==0)
+				if (oldshield == 0)
 					oldshield = shield;
-				
-				HP缓冲=oldhp-health;
-				SHI缓冲=oldshield-shield;
-				if((时间+=Game.elapsed)>=0.33f){
-					if(HP缓冲>0){
-						oldhp-=HP缓冲/1.11f;
-					}
-					if(HP缓冲<0){
-						oldhp-=HP缓冲/1.11f;
-					}
-					if(SHI缓冲>0){
-						oldshield-=SHI缓冲/1.11f;
-					}
-					if(SHI缓冲<0){
-						oldshield-=SHI缓冲/1.11f;
-					}
-				}
-				hp.scale.x = Math.max( 0, oldhp/(float)max);
-				shieldedHP.scale.x = Math.min( 1, oldshield/(float)max);
+
+				//缓冲：掉值时缓慢跟随，恢复时立即跟上
+				float k = (float)Math.pow( 0.0175f, Game.elapsed );
+				oldhp = health > oldhp ? health : health + (oldhp - health) * k;
+				oldshield = shield > oldshield ? shield : shield + (oldshield - shield) * k;
+
+				hp.scale.x = Math.max( 0, Math.min( 1, oldhp / (float)max ) );
+				shieldedHP.scale.x = Math.max( 0, Math.min( 1, oldshield / (float)max ) );
 				if (bleeding != blood.on){
 					if (bleeding)   skull.tint( 0xcc0000, 0.6f );
 					else            skull.resetColor();
@@ -216,17 +202,19 @@ public class BossHealthBar extends Component {
 			ShatteredPixelDungeon.runOnRenderThread(new Callback() {
 				@Override
 				public void call() {
-			instance.visible = instance.active = true;
-			if (boss != null){
-				if (instance.buffs != null){
-					instance.remove(instance.buffs);
-					instance.buffs.destroy();
-				}
-						instance.buffs = new BuffIndicator(boss);
-				BuffIndicator.setBossInstance(instance.buffs);
-				instance.add(instance.buffs);
-				instance.layout();
+		instance.visible = instance.active = true;
+		if (boss != null){
+			if (instance.buffs != null){
+				instance.remove(instance.buffs);
+				instance.buffs.destroy();
 			}
+					instance.buffs = new BuffIndicator(boss);
+			BuffIndicator.setBossInstance(instance.buffs);
+			instance.add(instance.buffs);
+			instance.oldhp = 0;
+			instance.oldshield = 0;
+			instance.layout();
+		}
 		}
 			});
 		}

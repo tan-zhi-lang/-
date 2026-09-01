@@ -174,7 +174,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 			}
 			if(SPDSettings.战斗快速()&&
 			   Dungeon.hero()&&ch!=null&&ch!=Dungeon.hero&&ch.距离(Dungeon.hero)>Dungeon.hero.攻击范围()){
-				if (anim == idle) {
+				if (anim == idle||anim == run) {
 
 				}else
 					anim.delay=1f/1000;

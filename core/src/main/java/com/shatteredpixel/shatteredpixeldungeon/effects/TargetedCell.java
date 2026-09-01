@@ -23,7 +23,7 @@ public class TargetedCell extends Image {
 
 		point( DungeonTilemap.tileToWorld( pos ) );
 
-		alpha = 1.68f;//1
+		alpha = 1.34f;//1
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class TargetedCell extends Image {
 		visible = SPDSettings.辅助格子();
 		if ((alpha -= Game.elapsed/2f) > 0) {
 			alpha( alpha );
-			scale.set( alpha/2f );//1
+//			scale.set( alpha/2f );//1
 		} else {
 			killAndErase();
 		}

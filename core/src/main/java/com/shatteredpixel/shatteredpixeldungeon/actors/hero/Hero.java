@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.时间;
+import static com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene.getObjectsAtCell;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
@@ -201,6 +202,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.ClothArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.元法;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.同位素;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.晦暗;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.涌流;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.臃肿;
@@ -426,6 +428,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
+import com.shatteredpixel.shatteredpixeldungeon.tiles.TerrainFeaturesTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
@@ -1806,7 +1809,7 @@ public class Hero extends Char {
             case "力量的爆发": return "使用潜力药剂时，力量x10，持续900回合，持续时间结束时永久+10%力量";
             case "速度的承载": return "使用极速药剂时，攻速+200%，持续900回合，持续时间结束时永久+20%攻速和10%移速";
             case "战场Boss":return "Boss层+20%攻击伤害";
-            case "树懒转世":return "饥饿速度-50%，隐匿+600%，动画加快关闭";
+            case "树懒转世":return "饥饿速度-50%，隐匿+6，动画加快关闭";
             case "小型打击":return "攻击伤害仅30%，但是攻击4次";
             case "武器＞防具":return "武器+已装备的防具等级";
             case "升级暗影斗篷":return "每层充能额外获得4回合隐形，充能速度+45%";
@@ -9160,53 +9163,57 @@ public class Hero extends Char {
 //                sprite.parent.add(new TargetedCell(target,0x44FF44));
 //            }
         }
-        if(SPDSettings.安全行走())
-        if(Dungeon.level.在陷阱(target)||Dungeon.level.在深渊(target)){
-            interrupt();
-            GLog.橙("你差点走到深渊和陷阱了！");
-            return false;
-        }
 
-        if (subClass == HeroSubClass.时间刺客&&hasbuff(时光沙漏.timeFreeze.class)&&天赋(Talent.穿越零界)) {
-            if(Dungeon.level.solid[target]&&Dungeon.level.距离(pos,target)<=1&&实体墙(天赋点数(Talent.穿越零界))){
-
-                float delay = 1;
-
-                if (buff(GreaterHaste.class) != null) {
-                    delay = 0;
-                }
-                移动处理(target);
-                sprite.move(pos, target);
-
-                move(target);
-
-                spend(delay/ 移速());
-                
-                search(false);
-                interrupt();
-                return true;
-            }
-        }
-
-        if(符文("传送")||算法.isDebug()){
-            int cs=Math.round(1+0.3f*移速()+(算法.isDebug()?16:0));
-            if(Dungeon.bossLevel())cs=1;
-
-            if (Dungeon.level.passable[target]||(Dungeon.level.pit[target] && !Dungeon.level.solid[target]))
-            if(距离(target)<=cs&&Actor.findChar(target)==null){
-                移动处理(target);
-                传送卷轴.appear(Hero.this,target);
-//                if(垂直移动||水平移动)
-//                spend(0.5f);
-//                else
-                spend(1);
-
-                search(false);
-                interrupt();
-                return true;
-            }
-            return false;
-        }
+//        if(Dungeon.level.在陷阱(target)){
+//            final boolean[] 不踩={false};
+//            float 按时;
+//            if(SPDSettings.安全行走())按时=4;
+//            else{
+//                按时=0.2f;
+//            }
+//            interrupt();
+//            Game.runOnRenderThread(new Callback() {
+//                @Override
+//                public void call() {
+//                    ArrayList<Object> objects = getObjectsAtCell(target);
+//                    if(objects.get(0) instanceof Trap trap)
+//                    GameScene.show(
+//                            new WndOptions(TerrainFeaturesTilemap.tile(trap.pos,Dungeon.level.map[trap.pos]),
+//                                           trap.name(),
+//                                           Messages.get(Trap.class, "goto"),
+//                                           Messages.get(Trap.class, "yes"),
+//                                           Messages.get(Trap.class, "no") ) {
+//
+//                                private float elapsed = 0f;
+//
+//                                @Override
+//                                public synchronized void update() {
+//                                    super.update();
+//                                    elapsed += Game.elapsed;
+//                                }
+//
+//                                @Override
+//                                public void hide() {
+//                                    if (elapsed > 按时){
+//                                        super.hide();
+//                                    }
+//                                }
+//
+//                                @Override
+//                                protected void onSelect( int index ) {
+//                                    if (index == 0 && elapsed > 按时) {
+//
+//                                    }else 不踩[0]=true;
+//
+//                                }
+//                            }
+//                                  );
+//                }
+//            });
+//
+//            if(不踩[0])
+//            return false;
+//        }
 
         if (target == pos){
             if(Dungeon.level.pit[target] && !Dungeon.level.solid[target]){
@@ -9221,10 +9228,51 @@ public class Hero extends Char {
             return false;
         }
 
+        if(符文("传送")||算法.isDebug()){
+            int cs=Math.round(1+0.3f*移速()+(算法.isDebug()?16:0));
+            if(Dungeon.bossLevel())cs=1;
+
+            if (Dungeon.level.passable[target]||(Dungeon.level.pit[target] && !Dungeon.level.solid[target]))
+                if(距离(target)<=cs&&Actor.findChar(target)==null){
+                    移动处理(target);
+                    传送卷轴.appear(Hero.this,target);
+                    //                if(垂直移动||水平移动)
+                    //                spend(0.5f);
+                    //                else
+                    spend(1);
+
+                    search(false);
+                    interrupt();
+                    return true;
+                }
+            return false;
+        }
+
         if (rooted) {
             PixelScene.shake(1, 1f);
             return false;
         }
+        if (subClass == HeroSubClass.时间刺客&&hasbuff(时光沙漏.timeFreeze.class)&&天赋(Talent.穿越零界)) {
+            if(Dungeon.level.solid[target]&&Dungeon.level.距离(pos,target)<=1&&实体墙(天赋点数(Talent.穿越零界))){
+
+                float delay = 1;
+
+                if (buff(GreaterHaste.class) != null) {
+                    delay = 0;
+                }
+                移动处理(target);
+                sprite.move(pos, target);
+
+                move(target);
+
+                spend(delay/ 移速());
+
+                search(false);
+                interrupt();
+                return true;
+            }
+        }
+
 
         int step = -1;
 
@@ -9257,15 +9305,18 @@ public class Hero extends Char {
                 }
             }
 
+            if(SPDSettings.安全行走())newPath=true;
+
             if (newPath) {
 
                 int len = Dungeon.level.length();
-                boolean[] p = Dungeon.level.passable;
-                boolean[] v = Dungeon.level.visited;
+                boolean[] p = Dungeon.level.passable;//通行
+                boolean[] v = Dungeon.level.visited;//参观
                 boolean[] m = Dungeon.level.mapped;
+                boolean[] 搜索过 = Dungeon.level.搜索过;
                 boolean[] passable = new boolean[len];
                 for (int i = 0; i < len; i++) {
-                    passable[i] = p[i] && (v[i] || m[i]);
+                    passable[i] = p[i] && (v[i] || m[i])&&搜索过[i];
                 }
 
                 PathFinder.Path newpath = Dungeon.findPath(this, target, passable, fieldOfView, true);
@@ -9329,6 +9380,7 @@ public class Hero extends Char {
     }
     public void 移动处理(int gopot){
 
+        Dungeon.level.搜索过[gopot]=true;
         水平移动=水平移动(gopot);
         垂直移动=垂直移动(gopot);
 
@@ -10357,7 +10409,7 @@ public class Hero extends Char {
                             搜索时间++;
                         }
                     }
-
+                    Dungeon.level.搜索过[curr]=true;
 					//region 搜索拾取
 					if(Dungeon.level.solid[curr]||//墙体
                        //参观了、可通行的路径
@@ -10436,6 +10488,7 @@ public class Hero extends Char {
                         }
 
                         if (Random.Float() < chance*幸运机制()) {
+                            Dungeon.level.搜索过[curr]=true;
 
                             int oldValue = Dungeon.level.map[curr];
 
@@ -10623,6 +10676,7 @@ public class Hero extends Char {
     @Override
     public float stealth() {
         float 隐匿= super.stealth();//6+
+        隐匿+=晦暗.stealthBoost(this,glyphLevel(晦暗.class));
         隐匿+=虚无透纱.增加();
         if(符文("树懒转世"))
             隐匿+=6;

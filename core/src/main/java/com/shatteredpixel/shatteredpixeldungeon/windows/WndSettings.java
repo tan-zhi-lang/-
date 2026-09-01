@@ -740,152 +740,209 @@ public class WndSettings extends WndTabbed {//WndSettings
 			所有开关= new RedButton("所有开关"){
 				@Override
 				protected void onClick() {
-					ShatteredPixelDungeon.scene().addToFront(new Window(){
+                        ShatteredPixelDungeon.scene().addToFront(new Window(){
 
-						CheckBox 安全行走;
-						CheckBox 物品命名;
-						CheckBox 打断英雄;
-						CheckBox 自动拾取;
-						RenderedTextBlock 自动拾取str;
-						CheckBox 装备武器;
-						RenderedTextBlock 装备武器str;
-						CheckBox 主要战技;
-						CheckBox 战斗快速;
-						RenderedTextBlock 战斗快速str;
-						CheckBox 从不过节;
-						CheckBox 隐藏细节;
+							RedButton 简单开关;
+							RedButton 复杂开关;
+
 						{
-							
-							安全行走 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "安全行走")){
+							简单开关 = new RedButton(Messages.get(WndSettings.游戏设置.this, "简单开关")){
 								@Override
 								protected void onClick() {
 									super.onClick();
-									SPDSettings.安全行走(checked());
-								}
-							};
-							安全行走.checked(SPDSettings.安全行走());
-							add(安全行走);
 
-							物品命名 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "物品命名")){
-								@Override
-								protected void onClick() {
-									super.onClick();
-									SPDSettings.物品命名(checked());
-								}
-							};
-							物品命名.checked(SPDSettings.物品命名());
-							add(物品命名);
+									ShatteredPixelDungeon.scene().addToFront(new Window(){
 
-							打断英雄= new CheckBox(Messages.get(WndSettings.游戏设置.this,"打断英雄")){
-								@Override
-								protected void onClick() {
-									super.onClick();
-									SPDSettings.打断英雄(checked());
-								}
-							};
-							打断英雄.checked(SPDSettings.打断英雄());
-							add(打断英雄);
-							
-							自动拾取 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "自动拾取")){
-								@Override
-								protected void onClick() {
-									super.onClick();
-									SPDSettings.自动拾取(checked());
-								}
-							};
-							自动拾取.checked(SPDSettings.自动拾取());
-							add(自动拾取);
-							自动拾取str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "自动拾取str"), 5);
-							自动拾取str.hardlight(0x888888);
-							add(自动拾取str);
-							
-							装备武器 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "装备武器")){
-								@Override
-								protected void onClick() {
-									super.onClick();
-									SPDSettings.装备武器(checked());
-								}
-							};
-							装备武器.checked(SPDSettings.装备武器());
-							add(装备武器);
-							装备武器str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "装备武器str"), 5);
-							装备武器str.hardlight(0x888888);
-							add(装备武器str);
-							
-							主要战技 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "主要战技")){
-								@Override
-								protected void onClick() {
-									super.onClick();
-									SPDSettings.主要战技(checked());
-								}
-							};
-							主要战技.checked(SPDSettings.主要战技());
-							add(主要战技);
+										CheckBox 物品命名;
+										CheckBox 主要战技;
+										CheckBox 隐藏细节;
+										CheckBox 打断英雄;
+										CheckBox 从不过节;
+
+										{
+
+											物品命名 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "物品命名")){
+												@Override
+												protected void onClick() {
+													super.onClick();
+													SPDSettings.物品命名(checked());
+												}
+											};
+											物品命名.checked(SPDSettings.物品命名());
+											add(物品命名);
+											主要战技 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "主要战技")){
+												@Override
+												protected void onClick() {
+													super.onClick();
+													SPDSettings.主要战技(checked());
+												}
+											};
+											主要战技.checked(SPDSettings.主要战技());
+											add(主要战技);
+
+											隐藏细节 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "隐藏细节")){
+												@Override
+												protected void onClick() {
+													super.onClick();
+													SPDSettings.隐藏细节(checked());
+												}
+											};
+											隐藏细节.checked(SPDSettings.隐藏细节());
+											add(隐藏细节);
 
 
-							战斗快速 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "战斗快速")){
+											打断英雄= new CheckBox(Messages.get(WndSettings.游戏设置.this,"打断英雄")){
+												@Override
+												protected void onClick() {
+													super.onClick();
+													SPDSettings.打断英雄(checked());
+												}
+											};
+											打断英雄.checked(SPDSettings.打断英雄());
+											add(打断英雄);
+
+											从不过节 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "从不过节")){
+												@Override
+												protected void onClick() {
+													super.onClick();
+													SPDSettings.从不过节(checked());
+												}
+											};
+											从不过节.checked(SPDSettings.从不过节());
+											add(从不过节);
+
+											resize(WIDTH_P, 0);
+
+											物品命名.setRect(0,  GAP, width, BTN_HEIGHT);
+											主要战技.setRect(0,  物品命名.bottom()+GAP, width, BTN_HEIGHT);
+
+											隐藏细节.setRect(0,  从不过节.bottom()+GAP, width, BTN_HEIGHT);
+
+											打断英雄.setRect(0,隐藏细节.bottom()+GAP,width,BTN_HEIGHT);
+											从不过节.setRect(0,打断英雄.bottom()+GAP,width,BTN_HEIGHT);
+
+
+											resize(WIDTH_P, (int) 从不过节.bottom());
+
+										}
+									});
+
+								}
+							};
+							add(简单开关);
+
+							复杂开关 = new RedButton(Messages.get(WndSettings.游戏设置.this, "复杂开关")){
 								@Override
 								protected void onClick() {
 									super.onClick();
-									SPDSettings.战斗快速(checked());
+
+									ShatteredPixelDungeon.scene().addToFront(new Window()
+									{
+
+										CheckBox 安全行走;
+										RenderedTextBlock 安全行走str;
+										CheckBox 自动拾取;
+										RenderedTextBlock 自动拾取str;
+										CheckBox 装备武器;
+										RenderedTextBlock 装备武器str;
+										CheckBox 战斗快速;
+										RenderedTextBlock 战斗快速str;
+										{
+
+											安全行走 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "安全行走")){
+												@Override
+												protected void onClick() {
+													super.onClick();
+													SPDSettings.安全行走(checked());
+												}
+											};
+											安全行走.checked(SPDSettings.安全行走());
+											add(安全行走);
+
+											安全行走str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "安全行走str"), 5);
+											安全行走str.hardlight(0x888888);
+											add(安全行走str);
+
+											自动拾取 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "自动拾取")){
+												@Override
+												protected void onClick() {
+													super.onClick();
+													SPDSettings.自动拾取(checked());
+												}
+											};
+											自动拾取.checked(SPDSettings.自动拾取());
+											add(自动拾取);
+											自动拾取str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "自动拾取str"), 5);
+											自动拾取str.hardlight(0x888888);
+											add(自动拾取str);
+
+
+											装备武器 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "装备武器")){
+												@Override
+												protected void onClick() {
+													super.onClick();
+													SPDSettings.装备武器(checked());
+												}
+											};
+											装备武器.checked(SPDSettings.装备武器());
+											add(装备武器);
+											装备武器str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "装备武器str"), 5);
+											装备武器str.hardlight(0x888888);
+											add(装备武器str);
+
+
+											战斗快速 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "战斗快速")){
+												@Override
+												protected void onClick() {
+													super.onClick();
+													SPDSettings.战斗快速(checked());
+												}
+											};
+											战斗快速.checked(SPDSettings.战斗快速());
+											add(战斗快速);
+											战斗快速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "战斗快速str"), 5);
+											战斗快速str.hardlight(0x888888);
+											add(战斗快速str);
+
+
+											resize(WIDTH_P, 0);
+
+											安全行走.setRect(0,  GAP, width, BTN_HEIGHT);
+											安全行走str.maxWidth(width);
+											安全行走str.setPos(0, 安全行走.bottom()+1);
+
+											自动拾取.setRect(0,  安全行走str.bottom()+GAP, width, BTN_HEIGHT);
+											自动拾取str.maxWidth(width);
+											自动拾取str.setPos(0, 自动拾取.bottom()+1);
+
+											装备武器.setRect(0,  自动拾取str.bottom()+GAP, width, BTN_HEIGHT);
+											装备武器str.maxWidth(width);
+											装备武器str.setPos(0, 装备武器.bottom()+1);
+
+											战斗快速.setRect(0,  装备武器str.bottom()+GAP, width, BTN_HEIGHT);
+											战斗快速str.maxWidth(width);
+											战斗快速str.setPos(0, 战斗快速.bottom()+1);
+
+											resize(WIDTH_P, (int) 战斗快速str.bottom());
+
+										}
+									});
+
 								}
 							};
-							战斗快速.checked(SPDSettings.战斗快速());
-							add(战斗快速);
-							战斗快速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "战斗快速str"), 5);
-							战斗快速str.hardlight(0x888888);
-							add(战斗快速str);
+							add(复杂开关);
 
-							
-							从不过节 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "从不过节")){
-								@Override
-								protected void onClick() {
-									super.onClick();
-									SPDSettings.从不过节(checked());
-								}
-							};
-							从不过节.checked(SPDSettings.从不过节());
-							add(从不过节);
 
-							隐藏细节 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "隐藏细节")){
-								@Override
-								protected void onClick() {
-									super.onClick();
-									SPDSettings.隐藏细节(checked());
-								}
-							};
-							隐藏细节.checked(SPDSettings.隐藏细节());
-							add(隐藏细节);
-
-							
 							resize(WIDTH_P, 0);
 
-							安全行走.setRect(0,  GAP, width, BTN_HEIGHT);
-							物品命名.setRect(0,安全行走.bottom()+GAP,width,BTN_HEIGHT);
-							打断英雄.setRect(0,物品命名.bottom()+GAP,width,BTN_HEIGHT);
+							简单开关.setRect(0,  GAP, width, BTN_HEIGHT);
+							复杂开关.setRect(0,简单开关.bottom()+GAP,width,BTN_HEIGHT);
 
-							自动拾取.setRect(0,  打断英雄.bottom()+GAP, width, BTN_HEIGHT);
-							自动拾取str.maxWidth(width);
-							自动拾取str.setPos(0, 自动拾取.bottom()+1);
-							
-							装备武器.setRect(0,  自动拾取str.bottom()+GAP, width, BTN_HEIGHT);
-							装备武器str.maxWidth(width);
-							装备武器str.setPos(0, 装备武器.bottom()+1);
-							
-							主要战技.setRect(0,  装备武器str.bottom()+GAP, width, BTN_HEIGHT);
-
-							战斗快速.setRect(0,  主要战技.bottom()+GAP, width, BTN_HEIGHT);
-							战斗快速str.maxWidth(width);
-							战斗快速str.setPos(0, 战斗快速.bottom()+1);
-
-							从不过节.setRect(0,  战斗快速str.bottom()+GAP, width, BTN_HEIGHT);
-
-							隐藏细节.setRect(0,  从不过节.bottom()+GAP, width, BTN_HEIGHT);
-
-							resize(WIDTH_P, (int) 隐藏细节.bottom());
+							resize(WIDTH_P, (int) 复杂开关.bottom());
 
 						}
 					});
+
 				}
 			};
 			add(所有开关);

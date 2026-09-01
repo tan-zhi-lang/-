@@ -25,6 +25,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.元法;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.冰心;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.同位素;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.守护;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.晦暗;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.涌流;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.磐石;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.glyphs.粘稠;
@@ -935,6 +936,7 @@ public class Armor extends EquipableItem {
 		public ItemSprite.Glowing 白= new ItemSprite.Glowing(0xFFFFFF );
 		public ItemSprite.Glowing 深灰= new ItemSprite.Glowing(0x222222 );
 		public static final Class<?>[] all = new Class<?>[]{
+				晦暗.class,//
 				轻便.class,//
 				丛生.class,//
 				臃肿.class,//

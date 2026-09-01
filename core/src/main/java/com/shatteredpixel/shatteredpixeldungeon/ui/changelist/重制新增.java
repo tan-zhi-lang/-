@@ -243,17 +243,17 @@ public class 重制新增{
 
 		"每个英雄有自己的主属性，最大攻击+主属性-10。\n"+
 			"力量\n" +
-			"1%治疗护盾，0.4%暴击率，2最大生命(但是会从最基础的-1)，因力量的空手伤害和满适配武器的额外伤害，满适配条件。",
+			"每点力量：1%治疗护盾，0.4%暴击率，+2最大生命(但会从最基础的-1)，影响力量的空手伤害和满适配武器的额外伤害。",
 
-				"敏捷\n"+
-				"初始是10+0.4x升级等级(满级额外+0.4)，每点敏捷+1命中和0.5闪避，1最大护甲(但是会从最基础的-1)，影响命中、攻速、闪避、移速\n"+
+			"敏捷\n"+
+			"初始是10+0.4x升级等级(满级额外+0.4)，每点敏捷+1命中和0.5闪避，+1最大护甲(但会从最基础的-1)，影响命中、攻速、闪避、移速\n"+
 				"武器满适配：命中(力量-武器力量)×0.1%x敏捷，攻速(力量-武器力量)×0.1%x敏捷\n"+
 				"防具满适配：闪避(力量-防具力量)×0.05%x敏捷，移速(力量-防具力量)×0.05x敏捷\n"+
 				"裸身状态：闪避(力量-10)×0.05%x敏捷，移速(力量-10)×0.05%x敏捷\n"+
 				"空手加成：命中(力量-10)×0.1%x敏捷，攻速(力量-10)×0.1%x敏捷",
 
 				"魔力\n" +
-				"初始是10，法杖、法、巫、道、忍术的收益，武器、法杖、神器充能速度5%，最大魔抗+魔力-10。"
+				"初始是10，法杖、法、巫、道、忍术的收益，武器、法杖、神器充能速度+5%，最大魔抗+魔力-10。"
 											));
 		changes.addButton( new ChangeButton(new Image(avatar(HeroClass.WARRIOR,tier(HeroClass.WARRIOR))),"杂项机制",
 
@@ -548,7 +548,7 @@ public class 重制新增{
 						  "五区第三层生成一个。"));
 		changes.addButton(new ChangeButton(new 神盾果(),"矮人城第三层生成一个。"));
 		changes.addButton(new ChangeButton(new 宝物袋(),"商店第一区域必定出售。"));
-		changes.addButton(new ChangeButton(new 干枯花瓣(),"装备干枯玫瑰击杀敌人敌人强度概率掉落。"));
+		changes.addButton(new ChangeButton(new 干枯花瓣(),"装备干枯玫瑰击杀敌人，按敌人强度概率掉落。"));
 
 	}
 
@@ -597,10 +597,10 @@ public class 重制新增{
 											"奖励同魔法火焰房间。"));
 		changes.addButton( new ChangeButton(new DM0Sprite(),"DM0房",
 											"必定生成麻痹药剂、冰冠花种子。\n" +
-											"DM0遇到麻痹、眩晕、魅惑、恐惧、魂飞魄散、冻结会死亡，死亡随机掉率卷轴药剂。"));
+											"DM0遇到麻痹、眩晕、魅惑、恐惧、魂飞魄散、冻结会死亡，死亡随机掉落卷轴药剂。"));
 		changes.addButton( new ChangeButton(new SheepSprite(),"超级魔法绵羊房",
 											"必定生成灵视药剂。\n" +
-											"超级魔法绵羊是隐形的，只能被灵视药剂发现，可以被击杀，但是每次受伤会随机传送。死亡随机掉率神器、法杖、戒指"));
+											"超级魔法绵羊是隐形的，只能被灵视药剂发现，可以被击杀，但是每次受伤会随机传送。死亡随机掉落神器、法杖、戒指"));
 		changes.addButton( new ChangeButton(new MimicSprite.毒气(),"毒气宝箱怪房",
 											"必定生成毒气药剂。\n" +
 											"宝箱毒气怪遇到毒气会死亡，死亡随机掉率武器护甲。"));
@@ -658,7 +658,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 		changeInfos.add(changes);
 
 		changes.addButton( new ChangeButton(Icons.解压开.get(), "解压",
-											"小幅度幅度减少游戏难度。"));
+											"小幅度减少游戏难度。"));
 		changes.addButton( new ChangeButton(Icons.系统开.get(), "系统",
 											"大幅度减少游戏难度。"));
 		changes.addButton( new ChangeButton(Icons.炼狱开.get(), "炼狱",
@@ -689,7 +689,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"三区怪物，替换二层的吸血蝙蝠。"));
 		changes.addButton( new ChangeButton(new 蠕虫动画(),"蠕虫",
 											"三区怪物，替换一和二层的吸血蝙蝠。\n" +
-											"受到伤害会在敌人6范围传送"));
+											"受到伤害后会在敌人6格范围内随机传送"));
 		changes.addButton( new ChangeButton(new 水蛭动画(),"水蛭",
 											"一区怪物，替换二和三层的啮齿老鼠。\n" +
 											"在水中每回合恢复20%最大生命。\n" +
@@ -697,7 +697,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 		changes.addButton( new ChangeButton(new 蟑螂动画(),"蟑螂",
 											"一区怪物，替换2层的1只下水道巨蛇。\n" +
 											"没攻击前移速仅60%，与敌人距离小于等于2时最大闪避为0。\n" +
-											"受到的物理攻击伤害35%伤害并且向下取整，最小为1。"));
+											"受到物理攻击伤害-35%，向下取整，最小为1。"));
 		changes.addButton( new ChangeButton(new 骷髅战士动画(),"骷髅战士",
 											"新增骷髅的变异体。\n" +
 											"死亡掉落单手剑、长剑、巨剑任意一个。"));
@@ -716,7 +716,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 											"将原版改成此"));
 		changes.addButton( new ChangeButton(Icons.get(Icons.问号), "问号",
 											"将原版改成此"));
-		changes.addButton( new ChangeButton(Icons.get(Icons.调查), "问号",
+		changes.addButton( new ChangeButton(Icons.get(Icons.调查), "调查",
 											"将原版改成此"));
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.无语), "无语",
@@ -819,7 +819,7 @@ changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",
 		));
 		changes.addButton( new ChangeButton(Icons.CALENDAR.get(), "日历",
 				"地牢探索指南新增日历节日。\n" +
-				"新增妇女节、植树节、清明节、游戏周年、520、端午节618、七夕(奇袭)节、中元节、中秋节、国庆节、程序员(1024)节，双十一。"));
+				"新增妇女节、植树节、清明节、游戏周年、520、端午节、618、七夕(奇袭)节、中元节、中秋节、国庆节、程序员(1024)节、双十一。"));
 
 	}
 }

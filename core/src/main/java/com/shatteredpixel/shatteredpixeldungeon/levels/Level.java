@@ -164,6 +164,7 @@ public abstract class Level implements Bundlable {
 	public boolean[] visited;//参观了
 	public boolean[] mapped;
 	public boolean[] discoverable;
+	public boolean[] 搜索过;
 
 	public int 视野范围= 8;
 	
@@ -211,6 +212,7 @@ public abstract class Level implements Bundlable {
 	private static final String HEIGHT      = "height";
 	private static final String MAP			= "map";
 	private static final String VISITED		= "visited";
+	private static final String 搜索过x		= "搜索过";
 	private static final String MAPPED		= "mapped";
 	private static final String TRANSITIONS	= "transitions";
 	private static final String LOCKED      = "locked";
@@ -437,7 +439,8 @@ public abstract class Level implements Bundlable {
 		
 		map = new int[length];
 		Arrays.fill( map, feeling == Level.Feeling.CHASM ? Terrain.CHASM : Terrain.WALL );
-		
+
+		搜索过     = new boolean[length];
 		visited     = new boolean[length];
 		mapped      = new boolean[length];
 		
@@ -493,6 +496,7 @@ public abstract class Level implements Bundlable {
 		
 		map		= bundle.getIntArray( MAP );
 
+		搜索过	= bundle.getBooleanArray( 搜索过x );
 		visited	= bundle.getBooleanArray( VISITED );
 		mapped	= bundle.getBooleanArray( MAPPED );
 
@@ -574,6 +578,7 @@ public abstract class Level implements Bundlable {
 		bundle.put( WIDTH, width );
 		bundle.put( HEIGHT, height );
 		bundle.put( MAP, map );
+		bundle.put( 搜索过x, 搜索过 );
 		bundle.put( VISITED, visited );
 		bundle.put( MAPPED, mapped );
 		bundle.put( TRANSITIONS, transitions );

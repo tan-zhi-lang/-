@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.features;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invulnerability;
@@ -45,6 +46,11 @@ public class Chasm implements Hero.Doom {
 			return;
 
 		heroPos = hero.pos;
+		float 按时;
+		if(SPDSettings.安全行走())按时=4;
+		else{
+			按时=0.2f;
+		}
 		Game.runOnRenderThread(new Callback() {
 			@Override
 			public void call() {
@@ -65,14 +71,14 @@ public class Chasm implements Hero.Doom {
 
 							@Override
 							public void hide() {
-								if (elapsed > 0.2f){
+								if (elapsed > 按时){
 									super.hide();
 								}
 							}
 
 							@Override
 							protected void onSelect( int index ) {
-								if (index == 0 && elapsed > 0.2f) {
+								if (index == 0 && elapsed > 按时) {
 									if (Dungeon.hero.pos == heroPos) {
 										jumpConfirmed = true;
 										hero.resume();

@@ -6,7 +6,6 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.MagicImmune;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
@@ -177,7 +176,7 @@ public abstract class Scroll extends Item {
 	public abstract void doRead();
 
 	public void readAnimation() {
-		Invisibility.dispel();
+//		Invisibility.dispel();
 		curUser.spend( readTime() );
 		curUser.busy();
 		((HeroSprite)curUser.sprite).read();

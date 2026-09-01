@@ -333,7 +333,7 @@ public class WndHero extends WndTabbed {
 //					pos+=GAP;
 					statSlot("_视野+光照范围_",hero.视野范围get+"+"+hero.光照范围());
 					statSlot("!!搜索/感知范围!!",hero.搜索范围()+"/"+hero.感知范围());
-					statSlot("隐匿/地牢视野",kw2(hero.stealth()*100)+"%/"+Dungeon.level.视野范围);
+					statSlot("隐匿/地牢视野",kw2(hero.stealth())+"/"+Dungeon.level.视野范围);
 					statSlot("_商店打折_",kw2(6000f/Shopkeeper.售价(100)));
 //					pos+=GAP;
 					statSlot("**吸血/全能吸血**",kw2(hero.吸血()*100)+"%"+"/"+kw2(hero.全能吸血()*100)+"%");

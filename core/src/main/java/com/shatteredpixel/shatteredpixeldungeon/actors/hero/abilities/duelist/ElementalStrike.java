@@ -47,7 +47,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.curses.Wayward;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blazing;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.招架;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Blooming;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Chilling;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.寒霜;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.腐化;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.Elastic;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.电击;
@@ -82,7 +82,7 @@ public class ElementalStrike extends ArmorAbility {
 	private static final HashMap<Class<?extends Weapon.Enchantment>, Integer> effectTypes = new HashMap<>();
 	static {
 		effectTypes.put(Blazing.class,      MagicMissile.FIRE_CONE);
-		effectTypes.put(Chilling.class,     MagicMissile.FROST_CONE);
+		effectTypes.put(寒霜.class,MagicMissile.FROST_CONE);
 		effectTypes.put(恒动.class,MagicMissile.FORCE_CONE);
 		effectTypes.put(电击.class,MagicMissile.SPARK_CONE);
 		effectTypes.put(招架.class,MagicMissile.WARD_CONE);
@@ -276,7 +276,7 @@ public class ElementalStrike extends ArmorAbility {
 			}
 
 		//*** Chilling ***
-		} else if (ench instanceof Chilling){
+		} else if (ench instanceof 寒霜){
 			for (int cell : cone.cells) {
 				GameScene.add(Blob.seed(cell, Math.round(8 * powerMulti), Freezing.class));
 			}

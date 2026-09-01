@@ -1694,7 +1694,7 @@ public class GameScene extends PixelScene {
 		}
 	}
 
-	private static ArrayList<Object> getObjectsAtCell( int cell ){
+	public static ArrayList<Object> getObjectsAtCell(int cell){
 		ArrayList<Object> objects = new ArrayList<>();
 
 		if (cell == Dungeon.hero.pos) {

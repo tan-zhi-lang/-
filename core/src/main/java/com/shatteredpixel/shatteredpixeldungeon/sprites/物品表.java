@@ -132,7 +132,7 @@ public class 物品表 {
         assignItemRect(霰弹枪子弹, 5,10);
         assignItemRect(狙击枪子弹, 5,14);
         assignItemRect(火炮子弹, 12,8);
-        assignItemRect(石子, 6);
+        assignItemRect(石子, 8);
 
         assignItemRect(魄罗, 9);
         assignItemRect(拳击手套, 12,10);

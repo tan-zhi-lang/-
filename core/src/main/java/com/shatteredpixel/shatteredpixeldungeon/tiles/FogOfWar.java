@@ -19,19 +19,19 @@ public class FogOfWar extends Image {
 	private static final int FOG_COLORS[][] = new int[][]{{
 			//visible看见了
 
-			SPDSettings.颜色区块()?0x2244FF44:0x00000000, //-1 brightness
-			SPDSettings.颜色区块()?0x1144FF44:0x00000000, //0  brightness
-			SPDSettings.颜色区块()?0x0044FF44:0x00000000, //1  brightness
+			SPDSettings.视野辅助()?0x2244FF44:0x00000000, //-1 brightness
+			SPDSettings.视野辅助()?0x1144FF44:0x00000000, //0  brightness
+			SPDSettings.视野辅助()?0x0044FF44:0x00000000, //1  brightness
 			}, {
 			//visited探索过不在视野
-			SPDSettings.颜色区块()?0x33FF4444:0xCC000000,
-			SPDSettings.颜色区块()?0x22FF4444:0x99000000,
-			SPDSettings.颜色区块()?0x11FF4444:0x55000000
+			SPDSettings.视野辅助()?0x33FF4444:0xCC000000,
+			SPDSettings.视野辅助()?0x22FF4444:0x99000000,
+			SPDSettings.视野辅助()?0x11FF4444:0x55000000
 			}, {
 			//mapped地图透视
-			SPDSettings.颜色区块()?0x333399FF:0xCC112244,
-			SPDSettings.颜色区块()?0x223399FF:0x99193366,
-			SPDSettings.颜色区块()?0x113399FF:0x55224488
+			SPDSettings.视野辅助()?0x333399FF:0xCC112244,
+			SPDSettings.视野辅助()?0x223399FF:0x99193366,
+			SPDSettings.视野辅助()?0x113399FF:0x55224488
 			}, {
 			//invisible完全没探索
 			0xFF000000,

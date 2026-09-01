@@ -9,7 +9,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Roots;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.WebParticle;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
-import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 
 public class Web extends Blob {
@@ -47,7 +46,7 @@ public class Web extends Blob {
 
 	//affects characters as they step on it. See Level.OccupyCell and Level.PressCell
 	public static void affectChar( Char ch ){
-		Buff.延长( ch, Roots.class, Roots.DURATION );
+		Buff.延长( ch, Roots.class, Roots.DURATION/2f );
 	}
 	
 	@Override

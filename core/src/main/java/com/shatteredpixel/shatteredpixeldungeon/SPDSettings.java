@@ -40,7 +40,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 透明界面x = "透明界面";
 	public static final String 更多按钮x = "更多按钮";
 	public static final String 四舍五入x = "四舍五入";
-	public static final String 颜色区块x = "颜色区块";
+	public static final String 视野辅助 = "视野辅助";
 	public static final String 固定攻速x = "固定攻速";
 	public static final String 固定移速x = "固定移速";
 	public static final String 休息速度x = "休息速度";
@@ -56,6 +56,7 @@ public class SPDSettings extends GameSettings {
 	public static final String 装备武器x = "装备武器";
 	public static final String 主要战技x = "主要战技";
 	public static final String 从不过节x = "从不过节";
+	public static final String 辅助格子x = "辅助格子";
 	public static final String 隐藏细节x = "隐藏细节";
 	public static final String 画面同步x = "画面同步";
 	public static final String 游戏帧率x = "游戏帧率";
@@ -141,12 +142,12 @@ public class SPDSettings extends GameSettings {
 		return getBoolean(透明界面x, false );
 	}
 
-	public static void 颜色区块(boolean value ){
-		put(颜色区块x, value );
+	public static void 视野辅助(boolean value ){
+		put(视野辅助, value );
 	}
 
-	public static boolean 颜色区块() {
-		return getBoolean(颜色区块x, true );
+	public static boolean 视野辅助() {
+		return getBoolean(视野辅助, true );
 	}
 	public static void 更多按钮(boolean value ){
 		put(更多按钮x, value );
@@ -291,6 +292,13 @@ public class SPDSettings extends GameSettings {
 	}
 	public static boolean 从不过节() {
 		return getBoolean( 从不过节x, false);
+	}
+	public static void 辅助格子( boolean value ) {
+		put( 辅助格子x, value );
+
+	}
+	public static boolean 辅助格子() {
+		return getBoolean( 辅助格子x, true);
 	}
 	public static void 隐藏细节( boolean value ) {
 		put( 隐藏细节x, value );

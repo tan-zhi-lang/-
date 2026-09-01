@@ -408,23 +408,14 @@ public class StatusPane extends Component {
 		HP缓冲=oldHP-health;
 		绿缓冲=old绿-hunger;
 		法力缓冲=old法力-护甲;
-		if((时间+=Game.elapsed)>=0.33f){
+		if((时间+=Game.elapsed)>=2f){
 			if(HP缓冲>0){
-				oldHP-=HP缓冲/1.11f;
-			}
-			if(HP缓冲<0){
 				oldHP-=HP缓冲/1.11f;
 			}
 			if(绿缓冲>0){
 				old绿-=绿缓冲/1.11f;
 			}
-			if(绿缓冲<0){
-				old绿-=绿缓冲/1.11f;
-			}
 			if(法力缓冲>0){
-				old法力-=法力缓冲/1.11f;
-			}
-			if(法力缓冲<0){
 				old法力-=法力缓冲/1.11f;
 			}
 			

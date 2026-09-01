@@ -33,6 +33,9 @@ public class Blob extends Actor {
 	
 	public boolean alwaysVisible = false;
 
+	public int borderColor = 0xFFFF5544;
+	public int evolveVersion = 0;
+
 	private static final String CUR		= "cur";
 	private static final String START	= "start";
 	private static final String LENGTH	= "length";
@@ -121,7 +124,8 @@ public class Blob extends Actor {
 				System.arraycopy(cur, 0, off, 0, cur.length);
 			}
 		}
-		
+
+		evolveVersion++;
 		return true;
 	}
 
@@ -198,12 +202,14 @@ public class Blob extends Actor {
 		volume += amount;
 
 		area.union(cell%level.width(), cell/level.width());
+		evolveVersion++;
 	}
-	
+
 	public void clear( int cell ) {
 		if (volume == 0) return;
 		volume -= cur[cell];
 		cur[cell] = 0;
+		evolveVersion++;
 	}
 
 	public void fullyClear(){
@@ -211,6 +217,7 @@ public class Blob extends Actor {
 		area.setEmpty();
 		cur = new int[Dungeon.level.length()];
 		off = new int[Dungeon.level.length()];
+		evolveVersion++;
 	}
 
 	public void onBuildFlagMaps( Level l ){

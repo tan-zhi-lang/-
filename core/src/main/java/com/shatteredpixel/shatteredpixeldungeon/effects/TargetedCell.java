@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.effects;
 
+import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.watabou.noosa.Game;
@@ -27,6 +28,7 @@ public class TargetedCell extends Image {
 
 	@Override
 	public void update() {
+		visible = SPDSettings.辅助格子();
 		if ((alpha -= Game.elapsed/2f) > 0) {
 			alpha( alpha );
 			scale.set( alpha/2f );//1

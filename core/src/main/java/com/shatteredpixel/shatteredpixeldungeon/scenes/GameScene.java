@@ -29,6 +29,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告15秒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告5秒;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
+import com.shatteredpixel.shatteredpixeldungeon.effects.BlobBorder;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.EmoIcon;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Flare;
@@ -1053,6 +1054,9 @@ public class GameScene extends PixelScene {
 	private void addBlobSprite( final Blob gas ) {
 		if (gas.emitter == null) {
 			gases.add( new BlobEmitter( gas ) );
+			if (gas.borderColor != 0) {
+				gases.add( new BlobBorder( gas ) );
+			}
 		}
 	}
 	

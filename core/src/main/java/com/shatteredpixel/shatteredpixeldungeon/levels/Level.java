@@ -891,7 +891,7 @@ public abstract class Level implements Bundlable {
 		}
 		if(Dungeon.更快刷怪)
 			x*=3;
-
+		x/=2f;
 		return 1f/x;
 	}
 	public static float 刷怪数量(){

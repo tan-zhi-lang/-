@@ -232,7 +232,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 						CheckBox optUIMode;
 						CheckBox 动画加快;
 						CheckBox 透明界面;
-						CheckBox 颜色区块;
 						CheckBox 更多按钮;
 						CheckBox 四舍五入;
 						CheckBox chkFont;
@@ -295,16 +294,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 							};
 							透明界面.checked(SPDSettings.透明界面());
 							add(透明界面);
-
-							颜色区块 = new CheckBox("颜色区块(完全重启刷新)") {
-								@Override
-								protected void onClick() {
-									super.onClick();
-									SPDSettings.颜色区块(checked());
-								}
-							};
-							颜色区块.checked(SPDSettings.颜色区块());
-							add(颜色区块);
 
 
 							更多按钮 = new CheckBox("更多按钮(快捷栏位、上下楼栏)") {
@@ -382,8 +371,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							optUIMode.setRect(0,  chkFullscreen.bottom()+GAP, width, BTN_HEIGHT);
 							动画加快.setRect(0,  optUIMode.bottom()+GAP, width, BTN_HEIGHT);
 							透明界面.setRect(0,  动画加快.bottom()+GAP, width, BTN_HEIGHT);
-							颜色区块.setRect(0,  透明界面.bottom()+GAP, width, BTN_HEIGHT);
-							更多按钮.setRect(0,  颜色区块.bottom()+GAP, width, BTN_HEIGHT);
+							更多按钮.setRect(0,  透明界面.bottom()+GAP, width, BTN_HEIGHT);
 							四舍五入.setRect(0,  更多按钮.bottom()+GAP, width, BTN_HEIGHT);
 							chkFont.setRect(0,  四舍五入.bottom()+GAP, width, BTN_HEIGHT);
 							chkVibrate.setRect(0,  chkFont.bottom()+GAP, width, BTN_HEIGHT);
@@ -758,6 +746,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 										CheckBox 隐藏细节;
 										CheckBox 打断英雄;
 										CheckBox 从不过节;
+										CheckBox 辅助格子;
+										CheckBox 视野辅助;
 
 										{
 
@@ -811,18 +801,40 @@ public class WndSettings extends WndTabbed {//WndSettings
 											从不过节.checked(SPDSettings.从不过节());
 											add(从不过节);
 
+											辅助格子 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "辅助格子")){
+												@Override
+												protected void onClick() {
+													super.onClick();
+													SPDSettings.辅助格子(checked());
+												}
+											};
+											辅助格子.checked(SPDSettings.辅助格子());
+											add(辅助格子);
+
+											视野辅助 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "视野辅助")){
+												@Override
+												protected void onClick() {
+													super.onClick();
+													SPDSettings.视野辅助(checked());
+												}
+											};
+											视野辅助.checked(SPDSettings.视野辅助());
+											add(视野辅助);
+
 											resize(WIDTH_P, 0);
 
 											物品命名.setRect(0,  GAP, width, BTN_HEIGHT);
 											主要战技.setRect(0,  物品命名.bottom()+GAP, width, BTN_HEIGHT);
 
-											隐藏细节.setRect(0,  从不过节.bottom()+GAP, width, BTN_HEIGHT);
+											隐藏细节.setRect(0,  主要战技.bottom()+GAP, width, BTN_HEIGHT);
 
 											打断英雄.setRect(0,隐藏细节.bottom()+GAP,width,BTN_HEIGHT);
 											从不过节.setRect(0,打断英雄.bottom()+GAP,width,BTN_HEIGHT);
+											辅助格子.setRect(0,从不过节.bottom()+GAP,width,BTN_HEIGHT);
+											视野辅助.setRect(0,辅助格子.bottom()+GAP,width,BTN_HEIGHT);
 
 
-											resize(WIDTH_P, (int) 从不过节.bottom());
+											resize(WIDTH_P, (int) 视野辅助.bottom());
 
 										}
 									});

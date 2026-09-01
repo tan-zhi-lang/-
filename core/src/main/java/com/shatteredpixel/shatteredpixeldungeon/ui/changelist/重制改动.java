@@ -10,9 +10,11 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollTrickster;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotLasher;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Skeleton;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Slime;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Spinner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
@@ -51,10 +53,12 @@ public class 重制改动{
 
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS),"怪物",
 											"所有远程魔法攻击伤害-20%。\n"+
-											"变异2%概率=>6%。\n"+
+											"变异1%概率->6%。\n"+
+											"大部分怪物正确获得属性。\n"+
 											"大部分怪物正确获得属性。\n"+
 											"1楼不会刷怪->25x25回合后才会刷怪(幸福结局回来除外)。\n"+
 											"1楼刷怪数量8->10。\n"+
+											"刷怪速度减半。\n"+
 											"刷怪速度最短1回合，最长450回合。\n"+
 											"大部分单位的最小防御和最大防御+1。\n"+
 
@@ -116,6 +120,9 @@ public class 重制改动{
 																	   "最大闪避-4。 "));
 
 
+		changes.addButton( new ChangeButton(new RotLasher(),"每回合回血-1。\n" +
+															"攻击必定施加残废->50%"));
+		changes.addButton( new ChangeButton(new Spinner(),"蜘蛛网缠绕回合减半。 "));
 		changes.addButton( new ChangeButton(new Wraith(),"最大生命1->地牢层数/2。 "));
 		changes.addButton( new ChangeButton(new Bat(),"攻击恢复血量1~14(攻击-4)->2~8(吸血40%)。\n"+
 													  "最大生命+5，最大攻击+3，最大命中+2，最大闪避+1，移速2->1.5，最大经验和最大等级+1。"));

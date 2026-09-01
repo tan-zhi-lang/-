@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.RotLasherSprite;
+import com.watabou.utils.Random;
 
 public class RotLasher extends Mob {
 
@@ -36,7 +37,7 @@ public class RotLasher extends Mob {
 	@Override
 	protected boolean act() {
 		if (生命 < 最大生命 && (enemy == null || !Dungeon.level.相邻(pos,enemy.pos))) {
-			回血(5);
+			回血(4);
 		}
 		return super.act();
 	}
@@ -62,6 +63,7 @@ public class RotLasher extends Mob {
 	@Override
 	public float 攻击时(final Char enemy, float damage) {
 		damage = super.攻击时( enemy, damage );
+		if(Random.Int(1)==0)
 		Buff.施加( enemy, Cripple.class, 2f );
 		return super.攻击时(enemy, damage);
 	}

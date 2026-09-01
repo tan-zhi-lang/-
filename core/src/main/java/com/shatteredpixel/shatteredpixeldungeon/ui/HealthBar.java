@@ -129,12 +129,6 @@ public class HealthBar extends Component {
 		Bg.x = Shld.x = Hp.x = x;
 		Bg.y = Shld.y = Hp.y = y;
 		Bg.size( width, height*框大小 );
-		
-		//logic here rounds up to the nearest pixel
-		float pixelWidth = width;
-		if (camera() != null) pixelWidth *= camera().zoom;
-		Shld.size( width * (float)Math.ceil(shield * pixelWidth)/pixelWidth, height*框大小 );
-		Hp.size( width * (float)Math.ceil(health * pixelWidth)/pixelWidth, height*框大小 );
 
 		hpText.scale.set(PixelScene.align(文本大小));
 		hpText.x = Bg.x+0.5f;

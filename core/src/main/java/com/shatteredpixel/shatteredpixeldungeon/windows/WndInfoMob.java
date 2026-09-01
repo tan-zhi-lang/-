@@ -35,8 +35,10 @@ public class WndInfoMob extends WndTitledMessage {
 		private ResistanceIndicator resistances;
 
 		boolean 是否显示文本框=true;
+		private Mob mob;
 		public MobTitle( Mob mob ) {
-			
+
+			this.mob = mob;
 			name = PixelScene.renderTextBlock2( Messages.titleCase( mob.name() ), 9 );
 //			name.hardlight( TITLE_COLOR );
 			name.hardlight( 0xFFFFFF );
@@ -94,6 +96,12 @@ public class WndInfoMob extends WndTitledMessage {
 			height = resistances.bottom();
 			else
 			height = Math.max(image.y + image.height(), health.bottom());
+		}
+
+		@Override
+		public void update() {
+			health.level(mob);
+			super.update();
 		}
 	}
 }

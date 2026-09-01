@@ -17,7 +17,7 @@ import com.watabou.noosa.audio.Sample;
 
 public class 射拳 extends 武技{
 	{
-		目标=true;
+		
 		desc="发射拳击手套对攻击范围+4内一个目标进行150%伤害必中的攻击，并花费攻击延迟的回合，如果击杀敌人则不消耗能量";
 	}
 	@Override

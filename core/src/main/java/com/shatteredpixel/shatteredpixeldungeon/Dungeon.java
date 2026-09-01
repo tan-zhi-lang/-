@@ -104,6 +104,13 @@ import java.util.TimeZone;
 
 public class Dungeon {
 
+	public static float 缓冲(){
+		float 缓冲 =0.15f;
+		if(SPDSettings.缓冲()==2)缓冲=0.015f;
+		if(SPDSettings.缓冲()==3)缓冲=0;
+		return 缓冲;
+	}
+
 	//enum of items which have limited spawns, records how many have spawned
 	//could all be their own separate numbers, but this allows iterating, much nicer for bundling/initializing.
 	public static enum LimitedDrops {

@@ -37,7 +37,7 @@ public class WandOfWarding extends Wand {
 
 	{
 		image = 物品表.WAND_WARDING;
-		usesTargeting = false; //player usually targets wards or spaces, not enemies
+		 //player usually targets wards or spaces, not enemies
 	}
 
 	@Override

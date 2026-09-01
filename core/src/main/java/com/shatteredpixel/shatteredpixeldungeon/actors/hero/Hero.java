@@ -2373,7 +2373,7 @@ public class Hero extends Char {
                 new 海克斯宝典().放背包();
                 return;
             case "远航":
-                if(等级==1)return;
+                if(等级!=1)return;
 
                 new 升级卷轴().数量(15).放背包();
                 new 潜力药剂().数量(10).放背包();
@@ -9316,7 +9316,10 @@ public class Hero extends Char {
                 boolean[] 搜索过 = Dungeon.level.搜索过;
                 boolean[] passable = new boolean[len];
                 for (int i = 0; i < len; i++) {
-                    passable[i] = p[i] && (v[i] || m[i])&&搜索过[i];
+                    if(SPDSettings.安全行走())
+                        passable[i] = p[i] && (搜索过[i]||v[i] || m[i]);
+                    else
+                        passable[i] = p[i] && (v[i] || m[i]);
                 }
 
                 PathFinder.Path newpath = Dungeon.findPath(this, target, passable, fieldOfView, true);

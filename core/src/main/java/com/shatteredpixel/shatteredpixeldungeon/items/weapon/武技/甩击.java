@@ -13,7 +13,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 
 public class 甩击 extends 武技{
 	{
-		目标=true;
+		
 		desc="对攻击范围的一个目标进行一次100%伤害必中的攻击，产生冲击波震击前方90度扇形范围3格距离内的区，并花费攻击延迟的回合";
 	}
 	@Override

@@ -18,7 +18,7 @@ import com.watabou.utils.Callback;
 public class 镐击 extends 武技{
 	
 	{
-		目标=true;
+		
 		desc="对攻击范围内的一个目标进行一次150%伤害+力量的攻击，并花费攻击延迟1.25倍的回合";
 	}
 	@Override

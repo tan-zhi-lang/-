@@ -35,7 +35,6 @@ public abstract class 武技{
 				斩击.class,//
 				重击.class//
 	};
-	public boolean 目标=false;
 	public int 消耗=1;
 	public abstract void 武技(Hero hero,Weapon wep);
 	public String name(){

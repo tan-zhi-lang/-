@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
 
+import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
@@ -82,12 +83,12 @@ public class HealthBar extends Component {
 		Bg.y = Shld.y = Hp.y = y;
 		Bg.size( width, height*框大小 );
 
-		//缓冲：掉值时缓慢跟随，恢复时立即跟上
+		//缓冲：数值变化时缓慢跟随（掉血和回血都缓冲）
 		if (oldHealth < 0) oldHealth = health;
 		if (oldShield < 0) oldShield = shield;
-		float k = (float)Math.pow( 0.0175f, Game.elapsed );
-		oldHealth = health > oldHealth ? health : health + (oldHealth - health) * k;
-		oldShield = shield > oldShield ? shield : shield + (oldShield - shield) * k;
+		float k = (float)Math.pow(Dungeon.缓冲(),Game.elapsed);
+		oldHealth = health + (oldHealth - health) * k;
+		oldShield = shield + (oldShield - shield) * k;
 
 		//logic here rounds up to the nearest pixel
 		float pixelWidth = width;

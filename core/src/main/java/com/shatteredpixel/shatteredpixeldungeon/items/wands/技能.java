@@ -7,7 +7,7 @@ import com.shatteredpixel.shatteredpixeldungeon.mechanics.Ballistica;
 public class 技能 extends Wand {
 	{
 		不能丢扔=true;
-		usesTargeting=false;
+
 		curCharges=0;
 	}
 	int 充能=0;

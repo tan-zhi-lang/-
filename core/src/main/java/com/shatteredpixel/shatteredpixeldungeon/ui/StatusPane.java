@@ -401,11 +401,11 @@ public class StatusPane extends Component {
 		if (old法力 ==0)
 			old法力 = 护甲;
 
-		//缓冲：掉血/掉绿/掉蓝时缓慢跟随，恢复时立即跟上
-		float k = (float)Math.pow( 0.0175f, Game.elapsed );
-		oldHP = health > oldHP ? health : health + (oldHP - health) * k;
-		old绿 = hunger > old绿 ? hunger : hunger + (old绿 - hunger) * k;
-		old法力 = 护甲 > old法力 ? 护甲 : 护甲 + (old法力 - 护甲) * k;
+		//缓冲：数值变化时缓慢跟随（掉血和回血都缓冲）
+		float k = (float)Math.pow( Dungeon.缓冲(), Game.elapsed );
+		oldHP = health + (oldHP - health) * k;
+		old绿 = hunger + (old绿 - hunger) * k;
+		old法力 = 护甲 + (old法力 - 护甲) * k;
 
 		血条.scale.x = Math.max( 0, Math.min( 1, oldHP / max ) );
 		绿条.scale.x = Math.max( 0, Math.min( 1, old绿 / 450f ) );

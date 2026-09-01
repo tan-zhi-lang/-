@@ -36,7 +36,7 @@ public class 灵能短弓 extends Weapon {
 	{
 		image = 物品表.短弓;
 		defaultAction = AC_SHOOT;
-		usesTargeting = true;
+
 		tier=1;
 
 		绿色 = true;

@@ -17,6 +17,7 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.CheckBox;
 import com.shatteredpixel.shatteredpixeldungeon.ui.GameLog;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.OptionSlider;
+import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Toolbar;
@@ -399,6 +400,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 						OptionSlider 游戏帧率;
 						OptionSlider 文字寿命;
 						OptionSlider 保留位数;
+						OptionSlider 缓冲效果;
 						OptionSlider 提示行数;
 						OptionSlider 新手提示;
 						OptionSlider optUIScale;
@@ -481,6 +483,17 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(保留位数);
 
 
+							缓冲效果= new OptionSlider("血条缓冲",//(包含敌人和老鬼、英雄红绿蓝条的缓冲效果)
+													   "更慢","更快",1,3) {
+								@Override
+								protected void onChange() {
+									SPDSettings.缓冲(getSelectedValue());
+								}
+							};
+							缓冲效果.setSelectedValue(SPDSettings.缓冲());
+							add(缓冲效果);
+
+
 							提示行数 = new OptionSlider("提示行数",
 														"0", "7", 0, 7) {
 								@Override
@@ -527,7 +540,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 							文字寿命.setRect(0,  游戏帧率.bottom()+GAP, width, BTN_HEIGHT);
 							保留位数.setRect(0,文字寿命.bottom()+GAP,width,BTN_HEIGHT);
-							提示行数.setRect(0,保留位数.bottom()+GAP,width,BTN_HEIGHT);
+							缓冲效果.setRect(0,保留位数.bottom()+GAP,width,BTN_HEIGHT);
+							提示行数.setRect(0,缓冲效果.bottom()+GAP,width,BTN_HEIGHT);
 							新手提示.setRect(0,提示行数.bottom()+GAP,width,BTN_HEIGHT);
 
 							optUIScale.setRect(0,  新手提示.bottom()+GAP, width, BTN_HEIGHT);
@@ -859,6 +873,8 @@ public class WndSettings extends WndTabbed {//WndSettings
 										RenderedTextBlock 装备武器str;
 										CheckBox 战斗快速;
 										RenderedTextBlock 战斗快速str;
+										RedButton 目标优先;
+										RenderedTextBlock 目标优先str;
 										{
 
 											安全行走 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "安全行走")){
@@ -904,17 +920,32 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 
 											战斗快速 = new CheckBox(Messages.get(WndSettings.游戏设置.this, "战斗快速")){
-												@Override
-												protected void onClick() {
-													super.onClick();
-													SPDSettings.战斗快速(checked());
-												}
-											};
-											战斗快速.checked(SPDSettings.战斗快速());
-											add(战斗快速);
-											战斗快速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "战斗快速str"), 5);
-											战斗快速str.hardlight(0x888888);
-											add(战斗快速str);
+											@Override
+											protected void onClick() {
+												super.onClick();
+												SPDSettings.战斗快速(checked());
+											}
+										};
+										战斗快速.checked(SPDSettings.战斗快速());
+										add(战斗快速);
+										战斗快速str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "战斗快速str"), 5);
+										战斗快速str.hardlight(0x888888);
+										add(战斗快速str);
+
+
+										目标优先 = new RedButton(目标优先文本()){
+											@Override
+											protected void onClick() {
+												super.onClick();
+												SPDSettings.目标优先级((SPDSettings.目标优先级() + 1) % 3);
+												目标优先.text(目标优先文本());
+												layout();
+											}
+										};
+										add(目标优先);
+										目标优先str = PixelScene.renderTextBlock(Messages.get(WndSettings.游戏设置.this, "目标优先str"), 5);
+										目标优先str.hardlight(0x888888);
+										add(目标优先str);
 
 
 											resize(WIDTH_P, 0);
@@ -932,13 +963,30 @@ public class WndSettings extends WndTabbed {//WndSettings
 											装备武器str.setPos(0, 装备武器.bottom()+1);
 
 											战斗快速.setRect(0,  装备武器str.bottom()+GAP, width, BTN_HEIGHT);
-											战斗快速str.maxWidth(width);
-											战斗快速str.setPos(0, 战斗快速.bottom()+1);
+										战斗快速str.maxWidth(width);
+										战斗快速str.setPos(0, 战斗快速.bottom()+1);
 
-											resize(WIDTH_P, (int) 战斗快速str.bottom());
+										目标优先.setRect(0,  战斗快速str.bottom()+GAP, width, BTN_HEIGHT);
+										目标优先str.maxWidth(width);
+										目标优先str.setPos(0, 目标优先.bottom()+1);
 
+										resize(WIDTH_P, (int) 目标优先str.bottom());
+
+									}
+
+									//当前目标优先级的显示文本
+									private String 目标优先文本(){
+										String 模式;
+										if (SPDSettings.目标优先级() == QuickSlotButton.目标优先_最远){
+											模式 = "距离最远";
+										} else if (SPDSettings.目标优先级() == QuickSlotButton.目标优先_残血){
+											模式 = "残血优先";
+										} else {
+											模式 = "距离最近";
 										}
-									});
+										return Messages.get(WndSettings.游戏设置.this, "目标优先") + "：" + 模式;
+									}
+								});
 
 								}
 							};

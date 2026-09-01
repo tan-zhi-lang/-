@@ -76,7 +76,7 @@ public class 算法 {
 	//endregion
 
     public static String 日期(){
-        return "9.1/13:18";
+        return "9.1/19:44";
     }
 
     public static float 金额=5;
@@ -144,27 +144,25 @@ public class 算法 {
 
             if(digits==0){
                 scale=0;
-            }else
-                if(digits==1){
+            }else if(digits==1){
                     if(SPDSettings.四舍五入()){
                         // 整数 或 小数 ≥0.5 -> 舍入到整数，否则保留一位小数
                         if(fracBD.compareTo(BigDecimal.ZERO)==0||fracBD.compareTo(new BigDecimal("0.5"))>=0){
-                            scale=0;
+                            scale=1;
                         }else{
                             scale=1;
                         }
                     }else{
                         scale=1;
                     }
-                }else
-                    if(digits==2){
+                }else if(digits==2){
                         if(SPDSettings.四舍五入()){
                             // 整数 或 小数 ≥0.5 -> 整数
                             if(fracBD.compareTo(BigDecimal.ZERO)==0||fracBD.compareTo(new BigDecimal("0.5"))>=0){
                                 scale=0;
                             }else
                                 if(fracBD.compareTo(new BigDecimal("0.05"))>=0){
-                                    scale=1;          // 小数 ≥0.05 -> 保留一位
+                                    scale=2;          // 小数 ≥0.05 -> 保留一位
                                 }else{
                                     scale=2;          // 其他 -> 保留两位
                                 }

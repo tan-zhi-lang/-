@@ -23,7 +23,7 @@ import com.watabou.utils.PathFinder;
 
 public class 突刺 extends 武技{
 	{
-		目标=true;
+		
 		desc="瞬移至一个距离攻击范围+1的目标并进行一次150%伤害必中的攻击，并花费攻击延迟的回合";
 	}
 	@Override

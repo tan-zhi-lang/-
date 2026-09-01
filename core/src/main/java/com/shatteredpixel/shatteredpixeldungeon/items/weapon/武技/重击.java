@@ -18,7 +18,7 @@ import com.watabou.utils.Callback;
 public class 重击 extends 武技{
 	
 	{
-		目标=true;
+		
 		desc="对攻击范围内的一个目标进行一次125%伤害+力量的必中攻击，并花费攻击延迟1.125倍的回合";
 	}
 	@Override

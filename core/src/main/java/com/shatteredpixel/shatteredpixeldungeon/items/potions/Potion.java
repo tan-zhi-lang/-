@@ -63,7 +63,7 @@ import java.util.LinkedHashMap;
 
 public class Potion extends Item {
 	{
-		usesTargeting=true;
+
 	}
 	public static final String AC_DRINK = "DRINK";
 

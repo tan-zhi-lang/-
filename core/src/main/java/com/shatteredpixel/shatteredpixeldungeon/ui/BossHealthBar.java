@@ -168,10 +168,10 @@ public class BossHealthBar extends Component {
 				if (oldshield == 0)
 					oldshield = shield;
 
-				//缓冲：掉值时缓慢跟随，恢复时立即跟上
-				float k = (float)Math.pow( 0.0175f, Game.elapsed );
-				oldhp = health > oldhp ? health : health + (oldhp - health) * k;
-				oldshield = shield > oldshield ? shield : shield + (oldshield - shield) * k;
+				//缓冲：数值变化时缓慢跟随（掉血和回血都缓冲）
+			float k = (float)Math.pow( Dungeon.缓冲(), Game.elapsed );
+			oldhp = health + (oldhp - health) * k;
+			oldshield = shield + (oldshield - shield) * k;
 
 				hp.scale.x = Math.max( 0, Math.min( 1, oldhp / (float)max ) );
 				shieldedHP.scale.x = Math.max( 0, Math.min( 1, oldshield / (float)max ) );

@@ -64,6 +64,8 @@ public class SPDSettings extends GameSettings {
 	public static final String 保留位数x= "保留位数";
 	public static final String 提示行数x = "提示行数";
 	public static final String 新手提示x = "新手提示";
+	public static final String 目标优先级x = "目标优先级";
+	public static final String 缓冲x = "缓冲";
 	public static void fullscreen( boolean value ) {
 		put( KEY_FULLSCREEN, value );
 
@@ -293,6 +295,19 @@ public class SPDSettings extends GameSettings {
 	public static boolean 从不过节() {
 		return getBoolean( 从不过节x, false);
 	}
+
+	public static void 目标优先级( int value ) {
+		put( 目标优先级x, value );
+	}
+	public static int 目标优先级() {
+		return getInt( 目标优先级x, 0 );
+	}
+	public static void 缓冲( int value ) {
+		put( 缓冲x, value );
+	}
+	public static int 缓冲() {
+		return getInt(缓冲x, 2,1,3 );
+	}
 	public static void 辅助格子( boolean value ) {
 		put( 辅助格子x, value );
 
@@ -305,7 +320,7 @@ public class SPDSettings extends GameSettings {
 
 	}
 	public static boolean 隐藏细节() {
-		return getBoolean( 隐藏细节x, true);
+		return getBoolean( 隐藏细节x, false);
 	}
 	public static void 画面同步(boolean value ){
 		put(画面同步x, value );

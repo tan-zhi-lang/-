@@ -297,13 +297,68 @@ public class QuickSlotButton extends Button {
 		instance[idx].useTargeting();
 	}
 
+	//目标优先级模式
+	public static final int 目标优先_残血 = 0;
+	public static final int 目标优先_最近 = 1;
+	public static final int 目标优先_最远 = 2;
+	public static final int 目标优先_满血 = 3;
+
+	/**
+	 * 目标是否有效（存活、非友方、在视野内）
+	 */
+	public static boolean 目标有效(Char target) {
+		return target != null
+				&& Actor.chars().contains(target)
+				&& target.isAlive()
+				&& target.alignment != Char.Alignment.ALLY
+				&& Dungeon.level != null
+				&& Dungeon.level.heroFOV[target.pos];
+	}
+
+	/**
+	 * 按设置的目标优先级，从视野内敌人中自动选取目标。
+	 * 找到后同步更新 lastTarget（含 InventoryPane.lastTarget），无敌人时返回 null。
+	 */
+	public static Char 自动选目标() {
+		if (Dungeon.hero == null || Dungeon.level == null) return null;
+
+		Char 最优 = null;
+		float 最优值 = Float.MAX_VALUE;
+
+		for (Char ch : Actor.chars()) {
+			if (ch == Dungeon.hero || !目标有效(ch)) {
+				continue;
+			}
+
+			int 距离 = Dungeon.hero.距离(ch);
+			float 值;
+
+			if (SPDSettings.目标优先级() == 目标优先_最近) {
+				值 = 距离;                     //距离越远越优先
+			} else {// if (SPDSettings.目标优先级() == 目标优先_残血)
+				值 = ch.生命 * 1000f / Math.max(1, ch.最大生命) + 距离; //血量比例低者优先，同比例近者优先
+			}
+
+			if (值 < 最优值) {
+				最优值 = 值;
+				最优 = ch;
+			}
+		}
+
+		if (最优 != null) {
+			target(最优);
+		}
+		return 最优;
+	}
+
 	private void useTargeting() {
 
-		if (lastTarget != null &&
-				Actor.chars().contains( lastTarget ) &&
-				lastTarget.isAlive() &&
-				lastTarget.alignment != Char.Alignment.ALLY &&
-				Dungeon.level.heroFOV[lastTarget.pos]) {
+		//上一次目标已失效时，按目标优先级自动选取，修复准星不出现的问题
+		if (!目标有效(lastTarget)) {
+			自动选目标();
+		}
+
+		if (目标有效(lastTarget)) {
 
 			targetingSlot = slotNum;
 			CharSprite sprite = lastTarget.sprite;

@@ -33,7 +33,7 @@ public class Honeypot extends Item {
 		image = 物品表.HONEYPOT;
 
 		defaultAction = AC_THROW;
-		usesTargeting = true;
+
 
 		黄色 = true;
 		可堆叠= true;

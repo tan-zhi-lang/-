@@ -54,7 +54,7 @@ public class Bomb extends Item {
 		image = 物品表.BOMB;
 
 		defaultAction = AC_CHOOSE;
-		usesTargeting = true;
+
 		
 		可堆叠= true;
 		物品 = true;

@@ -49,7 +49,7 @@ public abstract class 枪械 extends Weapon{
 		tier = 1;
 		伤害=0.6f;
 
-		usesTargeting = true;
+
 	}
 	public float 枪伤= 1.75f;
 	public boolean 无限子弹 = false;
@@ -381,14 +381,24 @@ public abstract class 枪械 extends Weapon{
 		}
 
 		@Override
+		public float 最小投掷攻击() {
+			return 枪().最小枪械攻击();
+		}
+
+		@Override
 		public float 最小投掷攻击(int lvl) {
 			return 枪().最小枪械攻击(lvl);
 		}
-		
+
+		@Override
+		public float 最大投掷攻击() {
+			return 枪().最大枪械攻击();
+		}
+
 		@Override
 		public float 最大投掷攻击(int lvl) {
 			return 枪().最大枪械攻击(lvl);
-			
+
 		}
 		
 		@Override

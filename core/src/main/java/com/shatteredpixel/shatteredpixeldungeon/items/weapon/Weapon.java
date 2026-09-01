@@ -328,7 +328,6 @@ abstract public class Weapon extends KindOfWeapon {
 			}else if (charger.charges + charger.partialCharge < 技能().消耗) {
 				GLog.橙(Messages.get(this,"ability_no_charge"));
 			}else{
-				usesTargeting=技能()!=null&&技能().目标;
 				技能().武技(hero,this);
 			}
 		}
@@ -1196,7 +1195,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	{
-		usesTargeting=true;
+
 	}
 	
 	public float 命中 = 1f;	// Accuracy modifier

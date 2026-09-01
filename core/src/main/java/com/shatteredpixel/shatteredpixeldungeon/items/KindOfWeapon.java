@@ -420,7 +420,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if (action.equals(AC_EQUIP)){//武器大师
 
 
-			usesTargeting = false;
+
 			String primaryName = Messages.titleCase(hero.belongings.weapon != null ? hero.belongings.weapon.trueName() : Messages.get(KindOfWeapon.class, "empty"));
 			String secondaryName = Messages.titleCase(hero.belongings.secondWep != null ? hero.belongings.secondWep.trueName() : Messages.get(KindOfWeapon.class, "empty"));
 			if (primaryName.length() > 18) primaryName = primaryName.substring(0, 15) + "...";

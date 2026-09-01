@@ -24,7 +24,7 @@ public class 虫箭 extends Artifact {
 
 	{
 		image = 物品表.虫箭;
-		usesTargeting=false;
+
 		levelCap=10;
 		增强方式="暗影替身攻击";
 	}

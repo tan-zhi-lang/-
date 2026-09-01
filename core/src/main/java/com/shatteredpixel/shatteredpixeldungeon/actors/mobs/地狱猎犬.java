@@ -16,7 +16,7 @@ public class 地狱猎犬 extends Mob {
 		spriteClass = 地狱猎犬动画.class;
 		
 		生命 = 最大生命 = 100;
-		defenseSkill = 25;
+		defenseSkill = 20;
 		baseSpeed=2f;
 		经验 = 12;
 		最大等级 = 25;

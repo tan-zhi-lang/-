@@ -21,7 +21,7 @@ public class PhaseShift extends TargetedSpell {
 		image = 物品表.PHASE_SHIFT;
 		icon = 物品表.Icons.转移;
 
-		usesTargeting = true;
+
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;
 	}

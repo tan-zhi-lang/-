@@ -25,7 +25,7 @@ public class WildEnergy extends TargetedSpell {
 	{
 		image = 物品表.WILD_ENERGY;
 
-		usesTargeting = true;
+
 		icon = 物品表.Icons.强能;
 
 		talentChance = 1/(float)Recipe.OUT_QUANTITY;

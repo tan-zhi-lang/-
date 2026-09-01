@@ -434,9 +434,15 @@ public class InventoryPane extends Component {
 	}
 
 	public static void useTargeting(){
+		//上一次目标已失效时，按目标优先级自动选取，修复准星不出现的问题
+		if (instance != null && instance.visible
+				&& !QuickSlotButton.目标有效(lastTarget)){
+			QuickSlotButton.自动选目标();
+		}
+
 		if (instance != null &&
 				instance.visible &&
-				lastTarget != null &&
+				QuickSlotButton.目标有效(lastTarget) &&
 				targetingSlot != null &&
 				Actor.chars().contains( lastTarget ) &&
 				lastTarget.isAlive() &&

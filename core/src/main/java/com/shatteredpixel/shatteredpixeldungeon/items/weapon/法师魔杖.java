@@ -55,7 +55,7 @@ public class 法师魔杖 extends Weapon{
 		魔法=0.3f;
 
 		defaultAction = AC_ZAP;
-		usesTargeting = true;
+
 		
 		特别= true;
 		遗产= false;

@@ -75,14 +75,14 @@ public class MasterThievesArmband extends Artifact {
 
 			if (!isEquipped( hero )) {
 				GLog.白(Messages.get(Artifact.class,"need_to_equip"));
-				usesTargeting = false;
+
 
 			} else if (charge < 1) {
 				GLog.白(Messages.get(this,"no_charge"));
-				usesTargeting = false;
+
 
 			} else {
-				usesTargeting = true;
+
 				GameScene.selectCell(targeter);
 			}
 

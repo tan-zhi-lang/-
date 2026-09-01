@@ -48,7 +48,7 @@ public class 虚空锁链 extends Artifact {
 		charge = 5;
 
 		defaultAction = AC_CAST;
-		usesTargeting = true;
+
 	}
 
 	@Override
@@ -77,14 +77,14 @@ public class 虚空锁链 extends Artifact {
 
 			if (!isEquipped( hero )) {
 				GLog.白(Messages.get(Artifact.class,"need_to_equip"));
-				usesTargeting = false;
+
 
 			} else if (charge < 1) {
 				GLog.白(Messages.get(this,"no_charge"));
-				usesTargeting = false;
+
 
 			} else {
-				usesTargeting = true;
+
 				GameScene.selectCell(caster);
 			}
 

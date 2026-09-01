@@ -171,10 +171,10 @@ abstract public class ClassArmor extends Armor {
 			if (hero.armorAbility == null){
 				GameScene.show(new WndChooseAbility(null, this, hero));
 			} else if (!isEquipped( hero )) {
-				usesTargeting = false;
+
 				GLog.橙(Messages.get(this,"not_equipped"));
 			} else if (charge < hero.armorAbility.chargeUse(hero)) {
-				usesTargeting = false;
+
 				GLog.橙(Messages.get(this,"low_charge"));
 			} else  {
 				usesTargeting = hero.armorAbility.useTargeting();

@@ -20,7 +20,7 @@ import com.watabou.utils.Callback;
 
 public class 刺退 extends 武技{
 	{
-		目标=true;
+		
 		desc="对攻击范围内的一个目标进行一次150%伤害必中的攻击，击退目标1格，并花费攻击延迟的回合";
 	}
 	@Override

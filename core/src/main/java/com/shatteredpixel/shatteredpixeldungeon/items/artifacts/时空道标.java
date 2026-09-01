@@ -51,7 +51,7 @@ public class 时空道标 extends Artifact {
 		chargeCap = 3+ 等级();
 
 		defaultAction = AC_ZAP;
-		usesTargeting = true;
+
 	}
 	
 	private static final String DEPTH	= "depth";

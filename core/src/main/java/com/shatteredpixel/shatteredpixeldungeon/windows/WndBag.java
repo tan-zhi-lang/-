@@ -114,6 +114,7 @@ public class WndBag extends WndTabbed {
 		resize( windowWidth, windowHeight );   // 先把 Window.camera 放到正确位置
 
 		ScrollPane scroll = new ScrollPane( itemsGrid );
+		scroll.neverBlockPointer();   // 物品格先于滚动面板创建，需放行指针事件才能点击
 		add( scroll );   // 先 add 进父链（camera() 才能向上找到 Window.camera），再 setRect 触发 layout
 		scroll.setRect( 0, TITLE_HEIGHT, windowWidth, windowHeight - TITLE_HEIGHT );
 

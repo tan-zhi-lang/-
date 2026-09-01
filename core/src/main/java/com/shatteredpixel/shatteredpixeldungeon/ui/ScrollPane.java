@@ -12,6 +12,7 @@ import com.watabou.input.ScrollEvent;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.PointerArea;
 import com.watabou.noosa.ScrollArea;
 import com.watabou.noosa.ui.Component;
 import com.watabou.utils.GameMath;
@@ -137,6 +138,15 @@ public class ScrollPane extends Component {
 
 	public Component content() {
 		return content;
+	}
+
+	/**
+	 * 让滚动控制器不拦截指针事件（PointerArea.NEVER_BLOCK）。
+	 * 用于内容中的按钮先于本组件创建的场景：指针事件分发为栈模式（后注册优先），
+	 * 若不设置，控制器会优先收到事件并拦截，导致内容中的按钮收不到点击。
+	 */
+	public void neverBlockPointer() {
+		controller.blockLevel = PointerArea.NEVER_BLOCK;
 	}
 
 	public void onClick( float x, float y ) {

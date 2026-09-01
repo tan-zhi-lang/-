@@ -15,7 +15,9 @@ public class PointerArea extends Visual implements Signal.Listener<PointerEvent>
 
 	public int blockLevel = BLOCK_WHEN_ACTIVE;
 	public static final int ALWAYS_BLOCK = 0;       //Always block input to overlapping elements
+
 	public static final int BLOCK_WHEN_ACTIVE = 1;  //Only block when active (default)
+	//滚动时能按
 	public static final int NEVER_BLOCK = 2;        //Never block (handy for buttons in scroll areas)
 	
 	public PointerArea( Visual target ) {

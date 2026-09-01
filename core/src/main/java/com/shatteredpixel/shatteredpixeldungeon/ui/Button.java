@@ -3,6 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.watabou.input.ControllerHandler;
 import com.watabou.input.GameAction;
 import com.watabou.input.KeyBindings;
@@ -12,6 +13,7 @@ import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.PointerArea;
 import com.watabou.noosa.ui.Component;
+import com.watabou.utils.PointF;
 import com.watabou.utils.Signal;
 
 public class Button extends Component {
@@ -62,6 +64,18 @@ public class Button extends Component {
 							break;
 					}
 
+				}
+			}
+
+			@Override
+			protected void onDrag( PointerEvent event ) {
+				//拖动超过阈值时取消点击和长按，避免在滚动面板内拖动滚动后松手误触发按钮
+				if (clickReady && PointF.distance( event.current, event.start ) > PixelScene.defaultZoom * 8) {
+					clickReady = false;
+					if (pressedButton == Button.this) {
+						pressedButton = null;
+						Button.this.onPointerUp();   // 外部 Button 的无参方法：恢复按压视觉状态
+					}
 				}
 			}
 

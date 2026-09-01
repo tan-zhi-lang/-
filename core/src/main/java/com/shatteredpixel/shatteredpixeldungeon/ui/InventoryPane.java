@@ -170,6 +170,7 @@ public class InventoryPane extends Component {
 			bagGrid.add(btn);
 		}
 		bagScroll = new ScrollPane(bagGrid);
+		bagScroll.neverBlockPointer();   // 物品格先于滚动面板创建，需放行指针事件才能点击
 		add(bagScroll);
 
 		bags = new ArrayList<>();

@@ -16,8 +16,8 @@ public class 弹弓 extends 枪械{
 		枪伤=1f;
 		子弹 = new 石子();
 		image2 = 物品表.石子;
-		hitSound2 = Assets.Sounds.卡牌;
-		item_Miss2 = Assets.Sounds.卡牌;
+		hitSound2 = Assets.Sounds.弹弓;
+		item_Miss2 = Assets.Sounds.弹弓;
 		换弹声音 = Assets.Sounds.拉弓;
 		掉落子弹=true;
 		箭矢发射=true;

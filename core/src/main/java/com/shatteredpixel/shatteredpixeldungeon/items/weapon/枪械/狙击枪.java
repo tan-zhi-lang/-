@@ -7,8 +7,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.狙击枪子
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 
 public class 狙击枪 extends 枪械{
-	public static final String AC_SHOOT		= "SHOOT";
-	public static final String AC_换弹		= "换弹";
 	
 	{
 		image = 物品表.狙击枪;
@@ -32,4 +30,5 @@ public class 狙击枪 extends 枪械{
 	protected int chargesPerCast() {
 		return 1;
 	}
+
 }

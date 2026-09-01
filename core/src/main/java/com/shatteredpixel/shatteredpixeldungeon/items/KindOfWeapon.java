@@ -40,6 +40,7 @@ import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
 abstract public class KindOfWeapon extends EquipableItem {
 

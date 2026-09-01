@@ -27,4 +27,9 @@ public class 火炮 extends 枪械{
 	public int initialCharges() {
 		return 1;
 	}
+	@Override
+	public float 换弹回合() {
+		return 0;
+	}
+
 }

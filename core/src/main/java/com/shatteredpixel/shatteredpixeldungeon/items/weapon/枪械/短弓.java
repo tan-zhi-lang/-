@@ -31,4 +31,8 @@ public class 短弓 extends 枪械{
 		return 1;
 	}
 
+	@Override
+	public float 换弹回合() {
+		return 0;
+	}
 }

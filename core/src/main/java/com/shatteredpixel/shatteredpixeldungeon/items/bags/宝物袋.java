@@ -45,7 +45,7 @@ public class 宝物袋 extends Bag {
 	}
 	
 	public int capacity(){
-		return 19+(Dungeon.解压(解压设置.高级背包)?5:0);
+		return 19+Dungeon.背包格子();
 	}
 	
 	@Override

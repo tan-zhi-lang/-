@@ -628,6 +628,7 @@ public class 重制改动{
 
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.BACKPACK),"背包",
 											"武器、防具显示和副武器一样，并且新增副防具仅仅30%效果。\n"+
+											"背包格子+10。\n"+
 											"新增5个杂项栏位。\n"+
 											"绒布袋金币价值30->20。\n"+
 											"药剂带金币价值40->30。\n"+

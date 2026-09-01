@@ -25,8 +25,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RightClickMenu;
 import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
-import com.watabou.noosa.ui.Component;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.input.GameAction;
 import com.watabou.input.KeyBindings;
 import com.watabou.input.KeyEvent;
@@ -34,6 +32,7 @@ import com.watabou.input.PointerEvent;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.ui.Component;
 import com.watabou.utils.PointF;
 
 public class WndBag extends WndTabbed {
@@ -65,7 +64,9 @@ public class WndBag extends WndTabbed {
 	protected int count;
 	protected int col;
 	protected int row;
-	
+
+	private Component itemsGrid;
+
 	private static Bag lastBag;
 
 	public WndBag( Bag bag ) {
@@ -89,33 +90,32 @@ public class WndBag extends WndTabbed {
 		slotHeight = PixelScene.横屏() ? SLOT_HEIGHT_L : SLOT_HEIGHT_P;
 
 		nCols = PixelScene.横屏() ? COLS_L : COLS_P;
-		nRows = COLS_P+(Dungeon.解压(解压设置.高级背包)?3:2); //we expect to lay out 25 slots in all cases
-//		nRows = (int)Math.ceil(25/(float)nCols); //we expect to lay out 25 slots in all cases
+		int totalSlots = 10 + bag.capacity();
+		nRows = (int)Math.ceil( totalSlots / (float)nCols );
+		int desiredRows = COLS_P+2;
+		if (nRows > desiredRows) nRows = desiredRows;
+		if (nRows < 4) nRows = 4;
 
 		int windowWidth = slotWidth * nCols + SLOT_MARGIN * (nCols - 1);
 		int windowHeight = TITLE_HEIGHT + slotHeight * nRows + SLOT_MARGIN * (nRows - 1);
 
-//		if (PixelScene.横屏()){
-//			while (slotHeight >= 24 && (windowHeight + 20 + chrome.marginTop()) > PixelScene.uiCamera.height){
-////				slotHeight--;
-//				slotHeight--;slotWidth--;
-//				windowHeight -= nRows;
-//				windowWidth -= nCols;//
-//			}
-//		} else {
-			while (slotWidth >= 26 && (windowWidth + chrome.marginHor()) > PixelScene.uiCamera.width){
-//				slotWidth--;
-				slotWidth--;slotHeight--;
-				windowWidth -= nCols;
-				windowHeight -= nRows;//
-			}
-//		}
+		while (slotWidth >= 26 && (windowWidth + chrome.marginHor()) > PixelScene.uiCamera.width){
+			slotWidth--;slotHeight--;
+			windowWidth -= nCols;
+			windowHeight -= nRows;
+		}
+
+		itemsGrid = new Component();
+		itemsGrid.setSize( windowWidth, slotHeight * nRows + SLOT_MARGIN * (nRows - 1) );
+		placeItems( bag );   // placeItem 通过 Math.max 把 itemsGrid 扩展到容纳所有物品
 
 		placeTitle( bag, windowWidth );
-		
-		placeItems( bag );
 
-		resize( windowWidth, windowHeight );
+		resize( windowWidth, windowHeight );   // 先把 Window.camera 放到正确位置
+
+		ScrollPane scroll = new ScrollPane( itemsGrid );
+		add( scroll );   // 先 add 进父链（camera() 才能向上找到 Window.camera），再 setRect 触发 layout
+		scroll.setRect( 0, TITLE_HEIGHT, windowWidth, windowHeight - TITLE_HEIGHT );
 
 		int i = 1;
 		for (Bag b : Dungeon.hero.belongings.getBags()) {
@@ -311,9 +311,9 @@ public class WndBag extends WndTabbed {
 	protected void placeItem( final Item item ) {
 
 		count++;
-		
+
 		int x = col * (slotWidth + SLOT_MARGIN);
-		int y = TITLE_HEIGHT + row * (slotHeight + SLOT_MARGIN);
+		int y = row * (slotHeight + SLOT_MARGIN);
 
 		InventorySlot slot = new InventorySlot( item ){
 			@Override
@@ -357,7 +357,7 @@ public class WndBag extends WndTabbed {
 							WndBag.this.hide();
 						}
 					};
-					parent.addToFront(r);
+					Game.scene().addToFront(r);
 					r.camera = camera();
 					PointF mousePos = PointerEvent.currentHoverPos();
 					mousePos = camera.screenToCamera((int)mousePos.x, (int)mousePos.y);
@@ -381,12 +381,14 @@ public class WndBag extends WndTabbed {
 			}
 		};
 		slot.setRect( x, y, slotWidth, slotHeight );
-		add(slot);
+		itemsGrid.add(slot);
+		itemsGrid.setSize( Math.max(itemsGrid.width(), x + slotWidth),
+				Math.max(itemsGrid.height(), y + slotHeight) );
 
 		if (item == null || (selector != null && !selector.itemSelectable(item))){
 			slot.enable(false);
 		}
-		
+
 		if (++col >= nCols) {
 			col = 0;
 			row++;

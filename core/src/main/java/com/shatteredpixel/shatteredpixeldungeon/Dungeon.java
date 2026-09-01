@@ -440,6 +440,10 @@ public class Dungeon {
 
 	}
 
+	public static int 背包格子() {
+		return (Dungeon.解压(解压设置.高级背包)?20:10);
+	}
+
 	public static boolean isChallenged( int mask ) {
 		if(符文("大错特错")&&Random.Int(9)==0)return false;
 		return (challenges & mask) != 0;

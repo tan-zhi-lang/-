@@ -20,11 +20,9 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
-import com.shatteredpixel.shatteredpixeldungeon.ui.ScrollPane;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoItem;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUseItem;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.GameAction;
 import com.watabou.input.KeyBindings;
@@ -32,6 +30,7 @@ import com.watabou.input.KeyEvent;
 import com.watabou.input.PointerEvent;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.ColorBlock;
+import com.watabou.noosa.Game;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.PointerArea;
@@ -56,6 +55,9 @@ public class InventoryPane extends Component {
 	private ArrayList<InventorySlot> equipped;
 	private ArrayList<InventorySlot> bagItems;
 
+	private Component bagGrid;
+	private ScrollPane bagScroll;
+
 	private Image gold;
 	private BitmapText goldTxt;
 	private Image energy;
@@ -65,7 +67,7 @@ public class InventoryPane extends Component {
 	private ArrayList<BagButton> bags;
 
 	public static final int WIDTH = 20*10+17;
-	public static final int HEIGHT = 82+20+4;
+	public static final int HEIGHT = 82+4;
 
 	private static final int SLOT_WIDTH = 20;//17
 	private static final int SLOT_HEIGHT = 20;//24
@@ -161,11 +163,14 @@ public class InventoryPane extends Component {
 		add(promptTxt);
 
 		bagItems = new ArrayList<>();
-		for (int i=0; i < 20+(Dungeon.解压(解压设置.高级背包)?5:0);i++){
+		bagGrid = new Component();
+		for (int i=0; i < 20+Dungeon.背包格子();i++){
 			InventorySlot btn = new InventoryPaneSlot(null);
 			bagItems.add(btn);
-			add(btn);
+			bagGrid.add(btn);
 		}
+		bagScroll = new ScrollPane(bagGrid);
+		add(bagScroll);
 
 		bags = new ArrayList<>();
 		for (int i = 0; i < 6; i++){//背包
@@ -232,17 +237,25 @@ public class InventoryPane extends Component {
 			left = b.right()+1;
 		}
 
-		left = x+4;
-		float top = y+4+SLOT_HEIGHT+1
-					+(4+SLOT_HEIGHT/2f+1);
+		float scrollWidth = width - 17;
+		float slotsPerRow = Math.max( 1, scrollWidth / (SLOT_WIDTH + 1) );
+		float scrollTop = y+4+SLOT_HEIGHT+1+(4+SLOT_HEIGHT/2f+1);
+		float scrollHeight = height - (int)(scrollTop - y) - 1;
+		bagScroll.setRect( x+4, scrollTop, scrollWidth, scrollHeight );
+
+		float localLeft = 0;
+		float localTop = 0;
 		for (InventorySlot b : bagItems){
-			b.setRect(left, top, SLOT_WIDTH, SLOT_HEIGHT);
-			left = b.right()+1;
-			if (left - x > width - 17){
-				left = x+4;
-				top += SLOT_HEIGHT+1;
+			b.setRect( localLeft, localTop, SLOT_WIDTH, SLOT_HEIGHT );
+			localLeft += SLOT_WIDTH + 1;
+			if (localLeft + SLOT_WIDTH > scrollWidth){
+				localLeft = 0;
+				localTop += SLOT_HEIGHT + 1;
 			}
 		}
+		int totalRows = (int)Math.ceil( bagItems.size() / (float)slotsPerRow );
+		int gridHeight = totalRows * (SLOT_HEIGHT + 1) - 1;
+		bagGrid.setSize( scrollWidth, Math.max(gridHeight, scrollHeight) );
 
 		super.layout();
 	}
@@ -324,7 +337,7 @@ public class InventoryPane extends Component {
 		}
 
 		int j = 0;
-		for (int i = 0; i < 20+(Dungeon.解压(解压设置.高级背包)?5:0); i++){
+		for (int i = 0; i < 20+Dungeon.背包格子(); i++){
 			if (i == 0 && lastBag != stuff.backpack){
 				bagItems.get(i).item(lastBag);
 				continue;
@@ -608,7 +621,7 @@ public class InventoryPane extends Component {
 			if (selector == null){
 				targetingSlot = this;
 				RightClickMenu r = new RightClickMenu(item);
-				parent.addToFront(r);
+				Game.scene().addToFront(r);
 				r.camera = camera();
 				PointF mousePos = PointerEvent.currentHoverPos();
 				mousePos = camera.screenToCamera((int)mousePos.x, (int)mousePos.y);

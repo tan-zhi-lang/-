@@ -15,6 +15,8 @@ import com.shatteredpixel.shatteredpixeldungeon.scenes.StartScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Icons;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
+import com.shatteredpixel.shatteredpixeldungeon.utils.存档工具;
 import com.watabou.noosa.Game;
 
 import java.io.IOException;
@@ -86,6 +88,23 @@ public class WndGame extends Window {
 		} );
 		curBtn.icon(Icons.get(Icons.JOURNAL));
 
+		//存档导出/导入
+		addButton(curBtn = new RedButton("导出存档") {
+				@Override
+				protected void onClick() {
+					try {
+						Dungeon.saveAll();
+					} catch (IOException e) {
+						ShatteredPixelDungeon.reportException(e);
+					}
+					java.io.File dst = 存档工具.导出();
+					if (dst != null) GLog.黄("已导出到：" + dst.getAbsolutePath());
+					else GLog.橙("导出失败");
+				}
+			}
+		);
+		curBtn.icon(Icons.get(Icons.DISPLAY));
+
 		// Challenges window
 		if (Dungeon.challenges > 0) {
 			addButton( curBtn = new RedButton( Messages.get(this, "challenges") ) {
@@ -105,7 +124,6 @@ public class WndGame extends Window {
 					GameScene.show( new 炼狱( Dungeon.炼狱, false ) );
 				}
 			} );
-			curBtn.icon(Icons.get(Icons.炼狱开));
 		}
 		if (Dungeon.解压 > 0) {
 			addButton( curBtn = new RedButton( Messages.get(this, "解压") ) {

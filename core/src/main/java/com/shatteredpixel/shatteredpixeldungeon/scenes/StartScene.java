@@ -18,6 +18,8 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock;
 import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TitleBackground;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.shatteredpixel.shatteredpixeldungeon.utils.存档工具;
+import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGameInProgress;
 import com.watabou.noosa.BitmapText;
@@ -93,6 +95,13 @@ public class StartScene extends PixelScene {
 			yPos += SLOT_HEIGHT + slotGap;
 			align(newGame);
 			add(newGame);
+
+			SaveSlotButton importGame = new SaveSlotButton();
+			importGame.setImport();
+			importGame.setRect(slotLeft, yPos, SLOT_WIDTH, SLOT_HEIGHT);
+			yPos += SLOT_HEIGHT + slotGap;
+			align(importGame);
+			add(importGame);
 		}
 		
 		GamesInProgress.curSlot = 0;
@@ -154,6 +163,28 @@ public class StartScene extends PixelScene {
 		
 		private int slot;
 		private boolean newGame;
+		private boolean importMode;
+
+		//导入存档模式：标记为特殊槽位，点击触发存档工具.导入()
+		public void setImport(){
+			importMode = true;
+			newGame = true;
+			slot = 0;
+			name.text("导入存档");
+			//清掉存档相关的子元素
+			if (hero != null){
+				remove(hero);
+				hero = null;
+				remove(steps);
+				steps = null;
+				remove(depth);
+				depth = null;
+				remove(classIcon);
+				classIcon = null;
+				remove(level);
+				level = null;
+			}
+		}
 		
 		@Override
 		protected void createChildren() {
@@ -174,8 +205,8 @@ public class StartScene extends PixelScene {
 			GamesInProgress.Info info = GamesInProgress.check(slot);
 			newGame = info == null;
 			if (newGame){
-				name.text( Messages.get(StartScene.class, "new"));
-				
+				if (!importMode) name.text( Messages.get(StartScene.class, "new"));
+
 				if (hero != null){
 					remove(hero);
 					hero = null;
@@ -329,7 +360,13 @@ public class StartScene extends PixelScene {
 		
 		@Override
 		protected void onClick() {
-			if (newGame) {
+			if (importMode) {
+				if (存档工具.导入()) {
+					ShatteredPixelDungeon.seamlessResetScene();
+				} else {
+					GLog.橙("导入失败：没有可用的导出存档");
+				}
+			} else if (newGame) {
 				GamesInProgress.selectedClass = null;
 				GamesInProgress.curSlot = slot;
 				ShatteredPixelDungeon.switchScene(HeroSelectScene.class);

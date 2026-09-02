@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import com.badlogic.gdx.Gdx;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
@@ -150,7 +151,41 @@ public class WndGameInProgress extends Window {
 		} else if (!info.customSeed.isEmpty()){
 			statSlot( Messages.get(this, "custom_seed"), "_" + info.customSeed + "_" );
 		} else {
-			statSlot( Messages.get(this, "dungeon_seed"), DungeonSeed.convertToCode(info.seed) );
+			//种子行：数值列留出右侧空间，行尾放复制按钮（同 WndTextInput 的 btnCopy）
+			String seedCode = DungeonSeed.convertToCode(info.seed);
+
+			int size = 8;
+			RenderedTextBlock txt;
+			do {
+				txt = PixelScene.renderTextBlock( Messages.get(this, "dungeon_seed"), size );
+				size--;
+			} while (txt.width() >= WIDTH * 0.55f);
+			txt.setPos(0, pos + (6 - txt.height())/2);
+			PixelScene.align(txt);
+			add( txt );
+
+			size = 8;
+			do {
+				txt = PixelScene.renderTextBlock( seedCode, size );
+				size--;
+			} while (txt.width() >= WIDTH * 0.35f);
+			txt.setPos(WIDTH * 0.55f, pos + (6 - txt.height())/2);
+			PixelScene.align(txt);
+			add( txt );
+
+			RedButton btnSeedCopy = new RedButton("") {
+				@Override
+				protected void onClick() {
+					super.onClick();
+					Gdx.app.getClipboard().setContents(seedCode);
+					Game.scene().add(new Wndinfo("复制成功",seedCode));
+				}
+			};
+			btnSeedCopy.icon(Icons.get(Icons.COPY));
+			add( btnSeedCopy );
+			btnSeedCopy.setRect(WIDTH - 18, pos + (6 - 18)/2f, 18, 18);
+
+			pos += GAP + txt.height();
 		}
 		
 		pos += GAP;

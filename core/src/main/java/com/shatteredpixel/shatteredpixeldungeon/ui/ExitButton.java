@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.ui;
 
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
+import com.shatteredpixel.shatteredpixeldungeon.scenes.StartScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.TitleScene;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndKeyBindings;
 import com.watabou.input.GameAction;
@@ -22,8 +23,8 @@ public class ExitButton extends IconButton {
 	protected void onClick() {
 		if (Game.scene() instanceof TitleScene) {
 			Game.instance.finish();
-		} else {
-			ShatteredPixelDungeon.switchNoFade( TitleScene.class );
+		} else {//退出到存档
+			ShatteredPixelDungeon.switchNoFade( StartScene.class );//TitleScene
 		}
 	}
 

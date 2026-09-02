@@ -26,6 +26,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘�
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.玄武秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.血怒秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.丛林之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.仓鼠之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.利害之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.府备之戒;
@@ -572,6 +573,7 @@ public class 重制新增{
 		changes.addButton(new ChangeButton("府备","府备之戒",new 府备之戒().statsInfo()));
 		changes.addButton(new ChangeButton("身法","身法之戒",new 身法之戒().statsInfo()));
 		changes.addButton(new ChangeButton("神知","神知之戒",new 神知之戒().statsInfo()));
+		changes.addButton(new ChangeButton("仓鼠","仓鼠之戒",new 仓鼠之戒().statsInfo()));
 		changes.addButton(new ChangeButton("镜钓","镜钓之戒",new 镜钓之戒().statsInfo()));
 		changes.addButton(new ChangeButton("丛林","丛林之戒",new 丛林之戒().statsInfo()));
 		changes.addButton(new ChangeButton("利害","利害之戒",new 利害之戒().statsInfo()));

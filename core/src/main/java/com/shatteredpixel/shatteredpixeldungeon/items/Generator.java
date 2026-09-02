@@ -50,6 +50,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.RingOfTenacity;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.丛林之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.仓鼠之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.元素之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.六神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.利害之戒;
@@ -654,6 +655,7 @@ public class Generator {
 					杀戮之戒.class,
 					丛林之戒.class,
 					法爆之戒.class,
+					仓鼠之戒.class,
 
 			};
 			RING.defaultProbs = new float[]{ 3, 3, 3,
@@ -668,6 +670,7 @@ public class Generator {
 										 3,3,3,
 										 3,3,3,
 										3,3,3,
+					3,
 
 			};
 			RING.probs = RING.defaultProbs.clone();

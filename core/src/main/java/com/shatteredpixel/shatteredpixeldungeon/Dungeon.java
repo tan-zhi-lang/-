@@ -43,6 +43,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.仓鼠之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.府备之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.升级卷轴;
@@ -452,7 +453,11 @@ public class Dungeon {
 	}
 
 	public static int 背包格子() {
-		return (Dungeon.解压(解压设置.高级背包)?30:10);
+		int x=10;
+		if(Dungeon.hero())
+		x+=仓鼠之戒.格子(Dungeon.hero);
+		if(Dungeon.解压(解压设置.高级背包))x+=20;
+		return x;
 	}
 
 	public static boolean isChallenged( int mask ) {

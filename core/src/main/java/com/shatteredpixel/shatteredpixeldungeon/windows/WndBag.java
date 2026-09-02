@@ -74,17 +74,23 @@ public class WndBag extends WndTabbed {
 	}
 
 	public WndBag( Bag bag, ItemSelector selector ) {
-		
+
 		super();
-		
+
 		if( INSTANCE != null ){
 			INSTANCE.hide();
 		}
 		INSTANCE = this;
-		
+
 		this.selector = selector;
-		
+
 		lastBag = bag;
+
+		//容量变动时把超出 capacity 的物品 drop 到地面（背包/绒布袋等）；
+		//当前选中的 Bag 除外（避免打开瞬间里面的东西被 drop）
+		for (Bag b : Dungeon.hero.belongings.getBags()) {
+			b.处理容量();
+		}
 
 		slotWidth = PixelScene.横屏() ? SLOT_WIDTH_L : SLOT_WIDTH_P;
 		slotHeight = PixelScene.横屏() ? SLOT_HEIGHT_L : SLOT_HEIGHT_P;

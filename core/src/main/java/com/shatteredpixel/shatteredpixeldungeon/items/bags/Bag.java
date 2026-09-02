@@ -7,10 +7,10 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndQuickBag;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 
@@ -182,6 +182,31 @@ public class Bag extends Item implements Iterable<Item> {
 			}
 		}
 		return false;
+	}
+
+	//capacity 变动后调用：若已有物品数超出新 capacity，把多余物品 drop 到地面
+	//Bag 本身是容器，跳过 Bag 不 drop（宝物袋等保留在背包里）
+	public void 处理容量(){
+		if (Dungeon.hero == null || Dungeon.level == null) return;
+		int cap = capacity();
+		while (items.size() > cap) {
+			//从后往前找第一个非 Bag 物品；找不到说明全是 Bag，跳出循环
+			int dropIdx = -1;
+			for (int i = items.size() - 1; i >= 0; i--) {
+				Item it = items.get(i);
+				if (it != null && !(it instanceof Bag)) {
+					dropIdx = i;
+					break;
+				}
+			}
+			if (dropIdx < 0) break;
+			Item dropped = items.get(dropIdx).detachAll(this);
+
+			if (dropped != null) {
+				Heap h = Dungeon.level.drop(dropped,Dungeon.hero.pos);
+				if (h != null && h.sprite != null) h.sprite.drop();
+			}
+		}
 	}
 
 	@Override

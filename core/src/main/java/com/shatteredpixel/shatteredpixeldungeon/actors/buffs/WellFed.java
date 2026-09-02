@@ -4,6 +4,7 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.仓鼠之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.SaltCube;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -65,6 +66,8 @@ public class WellFed extends Buff {
 		int x=450;
 		
 		if(Dungeon.符文("大胃王"))x+=900;
+		if(Dungeon.hero())
+		x+=仓鼠之戒.饱腹(Dungeon.hero);
 		return x;
 	}
 	@Override

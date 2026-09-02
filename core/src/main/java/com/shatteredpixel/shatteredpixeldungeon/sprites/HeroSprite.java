@@ -36,6 +36,9 @@ public class HeroSprite extends CharSprite {
 	private Animation fly;
 	private Animation read;
 
+	//记录上次刷新贴图时的护甲外观等级，用于自动检测tier变化
+	private int armorTier = -1;
+
 	public HeroSprite() {
 		super();
 		
@@ -263,7 +266,9 @@ public class HeroSprite extends CharSprite {
 
 		read = new Animation( 20, false );
 		read.frames( film, 19, 20, 20, 20, 20, 20, 20, 20, 20, 19 );
-		
+
+		armorTier = Dungeon.hero.tier();
+
 		if (Dungeon.hero.isAlive())
 			idle();
 		else
@@ -326,6 +331,14 @@ public class HeroSprite extends CharSprite {
 	@Override
 	public void update() {
 		sleeping = ch.isAlive() && ((Hero)ch).resting;
+
+		//自动检测护甲外观等级变化并刷新贴图，
+		//覆盖升级变专属、丢失背包、换装等未显式调用updateArmor的路径
+		if (armorTier != -1
+				&& !Dungeon.派对(派对设置.重生怪物)
+				&& Dungeon.hero.tier() != armorTier) {
+			updateArmor();
+		}
 
 		if(ch instanceof Hero hero){
 			if(hero.符文("黄金忍者")&&(

@@ -106,6 +106,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.寒冰鱼剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.封印之杖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.尼泊尔弯刀;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.岩砾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.彩虹猫之刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.投掷手套;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.指虎;
@@ -473,6 +474,7 @@ public class 重制新增{
 		ChangeInfo changes = new ChangeInfo("新物品", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new 岩砾(),"三区每层必定生成1个，50%概率额外一个"));
 		changes.addButton(new ChangeButton(new 财富炸弹()));
 		changes.addButton(new ChangeButton(new 面包(),"替换商店的口粮为此"));
 		changes.addButton(new ChangeButton(new 星之果实(),"23层，周围4个活动雕像"));

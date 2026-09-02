@@ -293,14 +293,12 @@ public class Armor extends EquipableItem {
 					usesLeftToID-=Talent.鉴定速度(hero,this);
 				}
 //				hero.belongings.armor = null;
-				((HeroSprite)hero.sprite).updateArmor();
 
-				//			破损纹章.WarriorShield sealBuff = hero.buff(破损纹章.WarriorShield.class);
-				//			if (sealBuff != null) sealBuff.setArmor(null);
-
+				//必须在armor置空后再刷新贴图，否则tier()仍读到旧护甲导致外观不更新
 				if (!second){
 					hero.belongings.armor= null;
 				}
+				((HeroSprite)hero.sprite).updateArmor();
 				return true;
 
 			} else {
@@ -596,12 +594,7 @@ public class Armor extends EquipableItem {
 			}
 		}
 
-//		if (荣誉纹章!=null&&荣誉纹章.等级()<荣誉纹章.最大等级()) {
-//			荣誉纹章.额外升级();//优先纹章
-//		}else{
 			super.额外升级();
-//		}
-
 		return this;
 	}
 
@@ -613,11 +606,7 @@ public class Armor extends EquipableItem {
 			}
 		}
 
-//		if (荣誉纹章!=null&&荣誉纹章.等级()<荣誉纹章.最大等级()) {
-//			荣誉纹章.升级();//优先纹章
-//		}else{
 			super.升级();
-//		}
 
 		return this;
 	}

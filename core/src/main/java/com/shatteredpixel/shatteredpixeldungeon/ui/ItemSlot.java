@@ -60,6 +60,7 @@ public class ItemSlot extends Button {
 
 	private static final String TXT	= "%s";
 	private static final String ADD_INT= "+%d";
+	private static final String ADD2_INT= "%d";
 	// Special "virtual items"
 	public static final Item CHEST = new Item() {
 		public int image() { return 物品表.CHEST; }
@@ -375,6 +376,9 @@ public class ItemSlot extends Button {
 		   item instanceof Wand||
 		   item instanceof Artifact){
 			if (trueLvl != 0 || buffedLvl != 0) {
+				if(buffedLvl<0)
+				center.text(Messages.format(ADD2_INT,buffedLvl));
+				else
 				center.text(Messages.format(ADD_INT,buffedLvl));
 				center.measure();
 				if (trueLvl == buffedLvl || buffedLvl <= 0) {
@@ -400,6 +404,9 @@ public class ItemSlot extends Button {
 			}
 		}else {
 				if (trueLvl != 0 || buffedLvl != 0) {
+					if(buffedLvl<0)
+						level.text(Messages.format(ADD2_INT,buffedLvl));
+					else
 					level.text(Messages.format(ADD_INT,buffedLvl));
 					level.measure();
 					if (trueLvl == buffedLvl || buffedLvl <= 0) {

@@ -69,6 +69,11 @@ public class 算法 {
 		Sample.INSTANCE.play( Assets.Sounds.CHARGEUP );
 		
 
+    任务:某某
+    即刻:获得1个刷新次数为0海克斯秘卷
+    需求:以非升级方式获得1个海克斯秘卷
+    奖励:获得2个海克斯秘卷
+
 		Buff.施加( hero, PhysicalEmpower.class).set(Math.max(2, hero.等级 /3), 2);
 		Sample.INSTANCE.play(Assets.Sounds.UNLOCK);
 
@@ -76,7 +81,7 @@ public class 算法 {
 	//endregion
 
     public static String 日期(){
-        return "9.2/9:46";
+        return "9.2/11:46";
     }
 
     public static int 最小数值=1;

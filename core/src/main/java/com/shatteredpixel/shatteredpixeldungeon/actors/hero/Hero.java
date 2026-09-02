@@ -542,6 +542,7 @@ public class Hero extends Char {
         {
             put1("内部传感器",2);
             put1("叶绿体",2);
+            put1("你已有取死之道",2);
             put1("不再错过海克斯",2);
             put1("我让你诅咒",2);
             put1("命运绳子",2);
@@ -1172,6 +1173,7 @@ public class Hero extends Char {
         }
         //33333333333333
         {
+            put3("经验地牢",2);
             put3("荣耀升级",2);
             put3("升级升级:等级",2);
             put3("广告双倍",2);
@@ -1726,6 +1728,7 @@ public class Hero extends Char {
             case "股市":return "你的金币每300回合在0.01~200倍变化";
             case "动漫量":return "获得金液x25";
             case "叶绿体":return "白天时每回合吃饭2";
+            case "你已有取死之道":return "敌人暴击时会对自己造成魔法伤害";
             case "内部传感器":return "视野范围固定为1，但攻击必定命中和暴击";
             case "不再错过海克斯":return "没拥有过的海克斯会重新出现在池子，未选择的海克斯也不会移除";
             case "我让你诅咒":return "诅咒的装备新增祛邪按钮直接移除诅咒";
@@ -2215,6 +2218,7 @@ public class Hero extends Char {
             case "海克斯获取:海克斯获取":return "获得海克斯时，50%概率获得海克斯秘卷";
             case "黑暗森林":return "每回合对可见的敌人造成敌人3%最大生命值的魔法伤害";
             case "鞭尸":return "击杀敌人会额外触发4次";
+            case "经验地牢":return "根据获得的经验概率获得升级卷轴";
             case "炒能力":return "综合属性+金币/600";
             case "300颗够吗":return "获得300颗坠牢之星";
             case "亮出你的枪":return "攻击范围+6/攻击范围，每超过1攻击范围，则-5%最大生命，+15%攻击，10%攻速";
@@ -9610,6 +9614,9 @@ public class Hero extends Char {
         }
         if(符文("升级经验")){
             exp*=等级*0.35;
+        }
+        if(符文("经验地牢")){
+            if(算法.概率学(exp))new 升级卷轴().放背包();
         }
 
         Buff.施加(this,经验累计.class).set(exp);

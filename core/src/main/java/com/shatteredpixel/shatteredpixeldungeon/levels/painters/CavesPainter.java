@@ -106,9 +106,6 @@ public class CavesPainter extends RegularPainter {
 				if (Random.Int( 6 ) <= n) {
 					map[i] = Terrain.EMPTY_DECO;
 				}
-				if (Random.Int( 6 ) <= n) {
-					map[i] = Terrain.MINE_BOULDER;
-				}
 			}
 		}
 		

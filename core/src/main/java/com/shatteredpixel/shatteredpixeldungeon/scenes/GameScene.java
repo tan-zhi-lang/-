@@ -957,12 +957,6 @@ public class GameScene extends PixelScene {
 
 		scene.gameLog2.setRect(Tag.SIZE*1.85f,scene.status.bottom()+ Tag.SIZE*1.5f,uiCamera.width-tagWidth-Tag.SIZE*2,0);
 
-		if (scene.tagLoot) {
-			scene.loot.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*3, tagWidth, Tag.SIZE );
-		}
-		if (scene.tagResume) {
-			scene.resume.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*4, tagWidth, Tag.SIZE );
-		}
 		if(SPDSettings.interfaceSize()){
 
 			if (scene.tagAction) {
@@ -988,6 +982,12 @@ public class GameScene extends PixelScene {
 			scene.副武器.flip(true);
 		}
 
+		if (scene.tagLoot) {
+			scene.loot.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*4, tagWidth, Tag.SIZE );
+		}
+		if (scene.tagResume) {
+			scene.resume.setRect( tagLeft, scene.status.bottom() + Tag.SIZE*5, tagWidth, Tag.SIZE );
+		}
 		if(SPDSettings.interfaceSize()){
 
 			if (scene.tag上楼标) {

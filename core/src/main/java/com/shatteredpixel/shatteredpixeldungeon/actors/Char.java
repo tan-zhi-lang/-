@@ -944,6 +944,9 @@ public abstract class Char extends Actor {
 		if(enemy!=null){
 			if((hasbuff(必定暴击.class)||算法.概率学(暴击率()))){
 				dmg*=(1+暴击伤害());
+				if(this instanceof Mob m&&m.alignment==Alignment.ENEMY)
+					if(Dungeon.符文("你已有取死之道")&&isAlive())
+						受伤时(dmg);
 				Buff.detach(this,必定暴击.class);
 				x次必暴=0;
 				if(sprite!=null){
@@ -1519,7 +1522,10 @@ public abstract class Char extends Actor {
 			}
 		}
 
-		if (生命 < 0) 生命 = 0;
+		if (生命 < 0) {
+			生命 = 0;
+			护甲=0;
+		}
 
 		if (!isAlive()) {
 			死亡时(来源);

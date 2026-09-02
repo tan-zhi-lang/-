@@ -78,6 +78,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.手枪子弹
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.火炮子弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.狙击枪子弹;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.子弹.霰弹枪子弹;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.岩砾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.冲锋枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.手枪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.枪械.火炮;
@@ -269,6 +270,10 @@ public abstract class Level implements Bundlable {
 				Dungeon.LimitedDrops.神盾果.count++;
 			}
 			if(Dungeon.区域()==3){
+				addItemToSpawn(new 岩砾());
+				if(Random.Int(1)==0)
+				addItemToSpawn(new 岩砾());
+
 				addItemToSpawn(new 石头());
 				if(Random.Int(2)==0)
 				addItemToSpawn(new 石头());

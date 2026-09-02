@@ -312,6 +312,7 @@ public class StatusPane extends Component {
 			绿条文本.alpha0();
 			绿条框.alpha0();
 		}
+
 		护盾.alpha0();
 		heroInfoOnBar.setRect(heroInfo.right(), y, 50, 9);
 			
@@ -378,8 +379,14 @@ public class StatusPane extends Component {
 		float 护甲 = Dungeon.hero.护甲;
 		float 最大护甲 = Dungeon.hero.最大护甲;
 
-		float 恢复速度=Dungeon.hero.护甲恢复();
+		float 恢复速度=0;
 		//+40%即2->2.8，50->35
+		if(Dungeon.hero.isAlive())恢复速度=Dungeon.hero.护甲恢复();
+
+		if(!Dungeon.hero.isAlive()){
+			绿条阈值150.alpha0();
+			绿条阈值300.alpha0();
+		}
 
 		if (!Dungeon.hero.isAlive()) {
 			avatar.tint(0x000000, 0.5f);

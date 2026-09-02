@@ -2137,7 +2137,7 @@ public class Hero extends Char {
             case "法杖收集家":return "背包每把法杖1+等级，+10%法杖充能";
             case "神器收集家":return "背包每件神器的1+等级，+20%神器充能";
             case "击杀击杀":return "击杀敌人会额外触发一次击杀";
-            case "献血":return "攻击消耗1.5%当前生命，同时攻击伤害+7.5%最大生命";
+            case "献血":return "攻击消耗1.5%生命，同时攻击伤害+7.5%最大生命";
             case "???":return "使用放大镜消耗4回合，如果是敌人对进行攻击且为造成15%已损失生命的伤害，如果是友军，则恢复5%最大生命";
             case "!!!":return "惊醒敌人同时会对其造成攻速倍的必定攻击";
             case "草丛伦":return "在草丛时获得隐形，隐形时综合属性+10%";
@@ -9174,7 +9174,7 @@ public class Hero extends Char {
 //        if(Dungeon.level.在陷阱(target)){
 //            final boolean[] 不踩={false};
 //            float 按时;
-//            if(SPDSettings.安全行走())按时=2;
+//            if(SPDSettings.安全行走())按时=1.6f;
 //            else{
 //                按时=0.2f;
 //            }

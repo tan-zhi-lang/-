@@ -82,8 +82,10 @@ public class 九龙拉管 extends Artifact {
 					deathChance=1;
 				}
 			}
-			if(deathChance>0.85f){
-				GameScene.show(new WndOptions(new ItemSprite(this),Messages.titleCase(name()),Messages.get(this,"prick_warn",minDmg,maxDmg,100*deathChance),Messages.get(this,"yes"),Messages.get(this,"no")){
+
+				GameScene.show(new WndOptions(new ItemSprite(this),Messages.titleCase(name()),
+											  Messages.get(this,"prick_warn",
+								   kw2(minDmg),kw2(maxDmg),Math.round(100*deathChance)),Messages.get(this,"yes"),Messages.get(this,"no")){
 					@Override
 					protected void onSelect(int index){
 						if(index==0)
@@ -91,9 +93,7 @@ public class 九龙拉管 extends Artifact {
 					}
 					
 				});
-			}else{
-				prick(Dungeon.hero);
-			}
+
 		}
 	}
 

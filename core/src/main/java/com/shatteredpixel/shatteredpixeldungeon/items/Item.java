@@ -1269,7 +1269,7 @@ public class Item implements Bundlable {
 			s+="、"+"法杖";
 		}
 		String 扔="";
-		if(!(this instanceof Weapon)){
+		if(!(this instanceof Weapon)&&!(this instanceof Runestone)){
 			扔+="\n"+"扔出伤害"+kw2(武力之戒.heromin())+"~"+kw2(武力之戒.heromax());
 		}
 
@@ -1528,6 +1528,7 @@ public class Item implements Bundlable {
 								finalEnemy.受伤时(user.力量()/2f,Item.this);
 
 							if(!(Item.this instanceof Weapon)
+							   &&!(Item.this instanceof Runestone)
 							   &&finalEnemy.isAlive()){
 								finalEnemy.受伤时(user.空手伤害(),Item.this);
 							}

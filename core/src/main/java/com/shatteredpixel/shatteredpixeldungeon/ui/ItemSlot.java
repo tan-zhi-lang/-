@@ -11,9 +11,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.ChaliceOfBlood;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.九龙拉管;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.生命蜡烛;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.荆棘斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfShielding;
@@ -342,18 +339,6 @@ public class ItemSlot extends Button {
 				center.text( Messages.format( TXT, Math.round(Dungeon.hero.最大生命(0.3f))) );
 				center.measure();
 				center.hardlight( UPGRADED );
-			}else if (item instanceof ChaliceOfBlood x&&x.等级()<10) {
-				extra.text( Messages.format( TXT, Math.round(1.5f*x.等级()*x.等级())) );
-				extra.measure();
-				extra.hardlight( WARNING );
-			}else if (item instanceof 九龙拉管 x&&x.等级()<10) {
-				extra.text( Messages.format( TXT, Math.round(3*(x.等级()+1))) );
-				extra.measure();
-				extra.hardlight( WARNING );
-			}else if (item instanceof 生命蜡烛 x&&x.等级()<10) {
-				extra.text( Messages.format( TXT, Math.round(2.5f*(x.等级()+1))) );
-				extra.measure();
-				extra.hardlight( WARNING );
 			}else if (item instanceof 荆棘斗篷 x) {
 				extra.text( Messages.format( TXT, Math.round(Dungeon.hero.最大护甲((1+x.等级())/3f) )));
 				extra.measure();

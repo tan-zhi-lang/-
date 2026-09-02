@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.artifacts;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -82,8 +84,10 @@ public class 生命蜡烛 extends Artifact {
 					deathChance=1;
 				}
 			}
-			if(deathChance>0.85f){
-				GameScene.show(new WndOptions(new ItemSprite(this),Messages.titleCase(name()),Messages.get(this,"prick_warn",minDmg,maxDmg,100*deathChance),Messages.get(this,"yes"),Messages.get(this,"no")){
+
+				GameScene.show(new WndOptions(new ItemSprite(this),
+											  Messages.titleCase(name()),
+											  Messages.get(this,"prick_warn",kw2(minDmg),kw2(maxDmg),Math.round(100*deathChance)),Messages.get(this,"yes"),Messages.get(this,"no")){
 					@Override
 					protected void onSelect(int index){
 						if(index==0)
@@ -91,9 +95,6 @@ public class 生命蜡烛 extends Artifact {
 					}
 
 				});
-			}else{
-			prick(Dungeon.hero);
-		}
 	}
 	}
 

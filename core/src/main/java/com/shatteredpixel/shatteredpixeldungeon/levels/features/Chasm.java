@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.levels.features;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -47,17 +49,20 @@ public class Chasm implements Hero.Doom {
 
 		heroPos = hero.pos;
 		float 按时;
-		if(SPDSettings.安全行走())按时=2f;
+		if(SPDSettings.安全行走())按时=1.6f;
 		else{
 			按时=0.2f;
 		}
+		float 流血= hero.最大生命 / (6f + (6f*(hero.生命 /hero.最大生命)));
+		float 受伤=Math.max( hero.生命 / 2f, Random.NormalFloat( hero.生命 / 2f, hero.最大生命 / 4f ))-hero.护甲;
+
 		Game.runOnRenderThread(new Callback() {
 			@Override
 			public void call() {
 				GameScene.show(
 						new WndOptions( new Image(Dungeon.level.tilesTex(), 176, 16, 16, 16),
 								Messages.get(Chasm.class, "chasm"),
-								Messages.get(Chasm.class, "jump"),
+								Messages.get(Chasm.class, "jump",kw2(受伤),kw2(流血)),
 								Messages.get(Chasm.class, "yes"),
 								Messages.get(Chasm.class, "no") ) {
 

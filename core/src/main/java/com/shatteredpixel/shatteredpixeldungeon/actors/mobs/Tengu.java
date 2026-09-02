@@ -124,7 +124,7 @@ public class Tengu extends Mob {
 
 		float hpBracket = 最大生命(0.125f);
 
-		float curbracket = 生命 / hpBracket;//当前生命能承受1/8多少次
+		float curbracket = 生命 / hpBracket;//生命能承受1/8多少次
 
 		float beforeHitHP = 生命;
 		super.受伤时(dmg,来源);

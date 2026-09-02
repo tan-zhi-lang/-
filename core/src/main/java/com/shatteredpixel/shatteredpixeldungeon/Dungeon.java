@@ -1432,6 +1432,7 @@ public class Dungeon {
 	}
 
 	//时间回溯：把当前存档文件夹（game.dat + 各层depth文件）快照到存档文件夹的子目录（默认 回溯）
+	//路径走 GameFolder + FileUtils，跨 Desktop / Android；Android 上位于 Context.getFilesDir()/slotN/回溯/
 	public static void 备份回溯存档(){
 		备份回溯存档("回溯");
 	}

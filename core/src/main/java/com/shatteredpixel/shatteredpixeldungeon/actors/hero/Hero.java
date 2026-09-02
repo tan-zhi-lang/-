@@ -2016,7 +2016,7 @@ public class Hero extends Char {
             case "装备黄金之心":return "最大生命+25，10最大防御，且每回合50%概率获得1金币";
             case "超强大脑":return "最大护甲+3倍魔力";
             case "飞升":return "升级到满级时会获得2个海克斯秘卷";
-            case "巨石强森":return "石头的攻击伤害x30";
+            case "巨石强森":return "石头的攻击伤害x10";
             case "缚法宝珠":return "+45%护甲穿透，+45%法术穿透";
             case "浪客之道":return "+25%暴击率，并且总暴击几率x2.5，但是暴击伤害x0.9";
             case "灵魂虹吸":return "+25%暴击率，作用于暴击的12.5%吸血";
@@ -2318,7 +2318,7 @@ public class Hero extends Char {
             case "蛋白粉奶昔":return "+17.5%治疗护盾，每2最大防御+1%治疗护盾";
             case "我独自升级":return "获得等级x1.5数量的升级卷轴，并升级至满级";
             case "内部恐怖":return "攻击对相邻敌人必定暴击，且额外55%暴击伤害，对非相邻敌人仅50%伤害";
-            case "陨石":return "石头的攻击伤害x50";
+            case "陨石":return "石头的攻击伤害x20";
             case "海克斯宝典":return "获得一个海克斯宝典";
             case "淬炼血液":return "永久+受伤的3%伤害最大生命";
             case "淬炼皮肤":return "永久+护甲减免的6%伤害最大护甲";

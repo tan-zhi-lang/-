@@ -3,7 +3,7 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
 public class Assets {
-	public static final String 赞助      = "赞助.png";
+	public static final String 赞助      = "zz.bin";
 
 	public static class Effects {
 		public static final String EFFECTS      = "effects/effects.png";

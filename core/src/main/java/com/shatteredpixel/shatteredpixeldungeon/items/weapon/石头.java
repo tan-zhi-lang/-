@@ -48,9 +48,9 @@ public class 石头 extends Weapon{
 			if(Dungeon.符文("石头剪刀布")&&算法.概率学(1/3f))
 				damage*=9;
 			if(Dungeon.符文("巨石强森"))
-				damage*=30;
+				damage*=10;
 			if(Dungeon.符文("陨石"))
-				damage*=50;
+				damage*=20;
 		}
 		return super.攻击时( attacker, defender, damage );
 	}

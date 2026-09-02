@@ -157,6 +157,7 @@ public class 灵月法杖 extends Wand {
 					GameScene.handleCell( QuickSlotButton.lastTarget.pos );
 				}
 			} else {
+				updateLevel();
 				quickSpell.onCast(灵月法杖.this,Dungeon.hero);
 				
 				if (quickSpell.targetingFlags() != -1 && Dungeon.quickslot.contains(灵月法杖.this)){

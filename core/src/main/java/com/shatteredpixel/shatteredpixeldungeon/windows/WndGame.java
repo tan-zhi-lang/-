@@ -202,7 +202,7 @@ public class WndGame extends Window {
 				Game.switchScene(StartScene.class);
 			}
 		});
-		curBtn.icon(Icons.get(Icons.DISPLAY));
+//		curBtn.icon(Icons.get(Icons.DISPLAY));
 		if (SPDSettings.intro()) curBtn.enable(false);
 
 		resize( WIDTH, pos );

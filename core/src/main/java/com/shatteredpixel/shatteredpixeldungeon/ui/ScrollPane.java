@@ -122,7 +122,14 @@ public class ScrollPane extends Component {
 		controller.width = width;
 		controller.height = height;
 
-		Point p = camera().cameraToScreen( x, y );
+		//组件未加入场景/父节点时 camera() 返回 null，跳过相机相关布局避免 NPE
+		Camera cm = camera();
+		if (cm == null) {
+			thumb.visible = false;
+			return;
+		}
+
+		Point p = cm.cameraToScreen( x, y );
 		Camera cs = content.camera;
 		cs.x = p.x;
 		cs.y = p.y;

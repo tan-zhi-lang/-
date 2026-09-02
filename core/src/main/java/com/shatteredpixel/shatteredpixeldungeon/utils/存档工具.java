@@ -1,5 +1,7 @@
 package com.shatteredpixel.shatteredpixeldungeon.utils;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.watabou.utils.FileUtils;
@@ -7,21 +9,28 @@ import com.watabou.utils.FileUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
 
-//存档导出/导入工具：把当前槽位存档（game.dat + depth*.dat）复制到 用户目录/SPD存档导出/
+//存档导出/导入工具：把当前槽位存档（game.dat + depth*.dat）复制到导出根目录
 public class 存档工具 {
 
-	//导出根目录：用户主目录下 SPD存档导出（Android 上为应用私有外部存储下的同名目录）
+	//固定目录名（不再带时间戳）：导出的存档写到 当前可导出存档/；导入时从 当前可导入存档/ 读
+	private static final String 导出目录名 = "当前可导出存档";
+	private static final String 导入目录名 = "当前可导入存档";
+
+	//导出根目录：跨平台用户可见存储区
+	//Desktop：Gdx.files.external = 用户主目录；Android：Context.getExternalFilesDir(null) 应用外部私有目录
+	//外存不可用时回退到 Gdx.files.local（Android：应用内部 files/ 目录）
 	public static File 导出根目录(){
-		return new File(System.getProperty("user.home"), "SPD存档导出");
+		try {
+			FileHandle ext = Gdx.files.external("SPD存档导出");
+			if (!ext.exists()) ext.mkdirs();
+			if (ext.exists() && ext.isDirectory()) return ext.file();
+		} catch (Throwable ignored) {}
+		return Gdx.files.local("SPD存档导出").file();
 	}
 
-	//导出当前槽位存档到带时间戳的子文件夹，成功返回该文件夹
+	//导出当前槽位存档到固定目录（覆盖旧内容），成功返回该文件夹
 	public static File 导出(){
 		try {
 			int slot = GamesInProgress.curSlot;
@@ -30,9 +39,13 @@ public class 存档工具 {
 			File src = FileUtils.getFileHandle(GamesInProgress.gameFolder(slot)).file();
 			if (src == null || !src.isDirectory()) return null;
 
-			String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-			File dst = new File(导出根目录(), "slot" + slot + "_" + time);
-			if (!dst.exists() && !dst.mkdirs()) return null;
+			File dst = new File(导出根目录(), 导出目录名);
+			if (dst.exists()) {
+				//清空旧内容（保留回溯/回档快照），再写入新内容
+				for (File f : 文件列表(dst)) f.delete();
+			} else if (!dst.mkdirs()) {
+				return null;
+			}
 
 			int count = 0;
 			for (File f : 文件列表(src)) {
@@ -46,7 +59,7 @@ public class 存档工具 {
 		}
 	}
 
-	//导入最近一次导出的存档到当前槽位，成功返回true
+	//从固定导入目录读取存档到当前槽位，成功返回true
 	//注意：仅应在死亡后（存档已被删）或返回标题前导入；活着时导入会被当前局的下一次保存/死亡覆盖
 	public static boolean 导入(){
 		try {
@@ -54,13 +67,8 @@ public class 存档工具 {
 			if (slot <= 0) slot = GamesInProgress.firstEmpty();
 			if (slot <= 0) return false;
 
-			File root = 导出根目录();
-			File[] subs = root.listFiles(File::isDirectory);
-			if (subs == null || subs.length == 0) return false;
-
-			//按修改时间取最新的导出文件夹
-			Arrays.sort(subs, (a, b) -> Long.compare(b.lastModified(), a.lastModified()));
-			File src = subs[0];
+			File src = new File(导出根目录(), 导入目录名);
+			if (!src.isDirectory()) return false;
 
 			//导出内容必须含 game.dat
 			if (!new File(src, "game.dat").isFile()) return false;

@@ -63,6 +63,8 @@ public enum Icons {
     MAGNIFY,
     命中,
     BUFFS,
+    真好的,
+    真坏的,
     CATALOG,
     ALCHEMY,
     GRASS,
@@ -299,20 +301,26 @@ public enum Icons {
             case BUFFS:
                 icon.frame(icon.texture.uvRectBySize(64, 48, 16, 15));
                 break;
+            case 真好的:
+                icon.frame(icon.texture.uvRectBySize(80, 48, 16, 15));
+                break;
+            case 真坏的:
+                icon.frame(icon.texture.uvRectBySize(96, 48, 16, 15));
+                break;
             case CATALOG:
-                icon.frame(icon.texture.uvRectBySize(80, 48, 13, 16));
+                icon.frame(icon.texture.uvRectBySize(112, 48, 13, 16));
                 break;
             case ALCHEMY:
-                icon.frame(icon.texture.uvRectBySize(96, 48, 16, 16));
-                break;
-            case GRASS:
-                icon.frame(icon.texture.uvRectBySize(112, 48, 16, 16));
-                break;
-            case 锁门:
                 icon.frame(icon.texture.uvRectBySize(128, 48, 16, 16));
                 break;
-            case 深渊:
+            case GRASS:
                 icon.frame(icon.texture.uvRectBySize(144, 48, 16, 16));
+                break;
+            case 锁门:
+                icon.frame(icon.texture.uvRectBySize(160, 48, 16, 16));
+                break;
+            case 深渊:
+                icon.frame(icon.texture.uvRectBySize(176, 48, 16, 16));
                 break;
 
             case 上楼:

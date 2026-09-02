@@ -659,7 +659,7 @@ public class Dungeon {
 	}
 	public static float 难度攻速(Char c){
 		float x=1;
-		if(跟随强度&&hero())x/=hero.攻击延迟();
+		if(跟随强度&&hero()&&hero.攻击延迟()<1) x = 1f / (hero.攻击延迟() * 1.25f);
 		x*=综合属性(c);
 		return x;
 //		if(赛季(赛季设置.刷子地牢)&&循环()>0){

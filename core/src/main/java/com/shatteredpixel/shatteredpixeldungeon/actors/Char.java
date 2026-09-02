@@ -442,8 +442,11 @@ public abstract class Char extends Actor {
 			float mind=enemy.最小防御();
 			float maxd=enemy.最大防御();
 
-			if(enemy instanceof Hero hero)
-				mind=Math.min(maxd,mind+maxd*hero.幸运机制());
+			if(enemy instanceof Hero hero){
+				//只取一次幸运值，避免"时来运转"符文的随机数在同一次判定中漂移
+				float[] r=幸运修正区间(mind,maxd,hero.幸运机制());
+				mind=r[0];maxd=r[1];
+			}
 
 			float dr = Random.NormalFloat(mind, maxd);
 
@@ -458,9 +461,6 @@ public abstract class Char extends Actor {
 				}
 				if(Dungeon.符文("三国杀:吕布"))dr/=2;
 			}
-
-			if(enemy.hasbuff(灵焰.class))
-				dr*=0.7f;
 
 			if (this instanceof Hero hero){
 				if (hero.buff(MonkEnergy.MonkAbility.UnarmedAbilityTracker.class)!=null){
@@ -484,9 +484,12 @@ public abstract class Char extends Actor {
 				if(this instanceof Hero hero){
 					dmg=hero.英雄伤害(最小攻击(),最大攻击());
 				}else{
-					dmg=Random.NormalFloat(最小攻击(),最大攻击());
-					dmg*=Dungeon.难度攻击(this);
-				}
+				float minda=最小攻击();
+				float maxda=最大攻击();
+
+				dmg=Random.NormalFloat(minda,maxda);
+				dmg*=Dungeon.难度攻击(this);
+			}
 			}
 
 			dmg = dmg*dmgMulti;
@@ -525,6 +528,9 @@ public abstract class Char extends Actor {
 
 
 			float effectiveDamage = enemy.防御时( this, dmg );
+			//防御时内的固定减伤（近卫-3/战士-1/未知防御-幸运*10等）可能把伤害减成负数，
+			//负伤害传入受伤时会变成回血，必须钳为0（与物理受伤路径的clamp保持一致）
+			if (effectiveDamage < 0) effectiveDamage = 0;
 			//do not trigger on-hit logic if defenseProc returned a negative value
 			if (effectiveDamage >= 0) {
 				//LOL护甲
@@ -649,6 +655,16 @@ public abstract class Char extends Actor {
 		return hit(attacker, defender, magic ? 2f : 1f, magic);
 	}
 
+	/** 幸运区间修正：幸运>1抬高roll下限，幸运<0压低roll上限，均以区间宽度为基数，返回{min,max} */
+	public static float[] 幸运修正区间(float min, float max, float 幸运){
+		if(幸运>1){
+			min = Math.min(max, min+(max-min)*(幸运-1));
+		}else if(幸运<0){
+			max = Math.max(min, max-(max-min)*(-幸运));
+		}
+		return new float[]{min,max};
+	}
+
 	public static boolean hit( Char attacker, Char defender, float accMulti, boolean magic ){
 		float min命=attacker.最小命中(attacker);
 		float max命=attacker.最大命中(defender);
@@ -656,11 +672,16 @@ public abstract class Char extends Actor {
 		float min闪=defender.最小闪避(attacker);
 		float max闪=defender.最大闪避(attacker);
 
-		if(attacker instanceof Hero hero)
-		min命=Math.min(max命,min命+max命*hero.幸运机制());
+		if(attacker instanceof Hero hero){
+			//只取一次幸运值，避免"时来运转"符文的随机数在同一次判定中漂移
+			float[] r=幸运修正区间(min命,max命,hero.幸运机制());
+			min命=r[0];max命=r[1];
+		}
 
-		if(defender instanceof Hero hero)
-		min闪=Math.min(max闪,min闪+max闪*hero.幸运机制());
+		if(defender instanceof Hero hero){
+			float[] r=幸运修正区间(min闪,max闪,hero.幸运机制());
+			min闪=r[0];max闪=r[1];
+		}
 
 		float acuStat=Random.Float(min命,max命);
 		float defStat=Random.Float(min闪,max闪);
@@ -682,9 +703,7 @@ public abstract class Char extends Actor {
 			if(defender.hasbuff(TalismanOfForesight.CharAwareness.class)){
 				defStat=0;
 			}
-			if(算法.isDebug()){
-				defStat=0;
-			}
+
 			if(hero.符文("我让你闪避"))defStat=0;
 			defStat*=Dungeon.难度闪避(defender);
 		}else{
@@ -692,6 +711,12 @@ public abstract class Char extends Actor {
 				acuStat*=10;
 
 			acuStat*=Dungeon.难度命中(attacker);
+
+			//数值锚定：英雄闪避成长远超怪物命中时，按膨胀比例抬高怪的命中roll，
+			//使命中率维持在合理下限（约25%），前期（膨胀不足2倍）不受影响
+//			if(defender instanceof Hero && max命 > 0 && max闪 > max命*2f){
+//				acuStat *= max闪/(max命*2f);
+//			}
 		}
 		if(defender instanceof Hero hero){
 			if(hero.符文("三国杀:赵云"))defStat+=acuStat;
@@ -2044,10 +2069,10 @@ public abstract class Char extends Actor {
 	}
 	public void 护甲(float x){
 		if(sprite!=null){
-			if(x>最大护甲(SPDSettings.数值显示()*0.025f))
+			if(x>最大护甲(SPDSettings.数值显示()*0.02f))
 				sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.护盾护甲数值);
 
-			if(x<-最大护甲(SPDSettings.数值显示()*0.025f))
+			if(x<-最大护甲(SPDSettings.数值显示()*0.02f))
 				sprite.showStatusWithIcon(CharSprite.削弱红,kw2(x),FloatingText.护盾护甲数值);
 		}
 		护甲=Math.min(Math.max(护甲+x,0),最大护甲);
@@ -2064,9 +2089,12 @@ public abstract class Char extends Actor {
 			if (护甲<=最大护甲(0.5f)&&!Document.ADVENTURERS_GUIDE.isPageRead(Document.护甲)){
 				GameScene.flashForDocument(Document.ADVENTURERS_GUIDE,Document.护甲);
 			}
+			//记录扣盾前的护甲值，用"实际扣除量"结算：Hero重写的护甲(x)内有硬肤等减免乘区，
+			//若按名义dmg结算会导致伤害凭空消失（护甲成了无限盾）
+			float pre护甲=护甲;
 			if(护甲>=dmg){
 				护甲(-dmg);
-				dmg=0;
+				dmg-=Math.min(pre护甲-护甲,dmg);
 			}else{
 				dmg-=护甲;
 				护甲=0;
@@ -2171,7 +2199,7 @@ public abstract class Char extends Actor {
 
 			if(sprite!=null)
 			if (pos!=-1&&Dungeon.level!=null&&Dungeon.level.heroFOV[pos]){
-				if(x>最大生命(SPDSettings.数值显示()*0.025f)&&sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
+				if(x>最大生命(SPDSettings.数值显示()*0.02f)&&sprite!=null&&sprite.visible&&x>=25&&!Dungeon.赛季(赛季设置.地牢塔防)){
 					sprite.showStatusWithIcon(CharSprite.增强绿,kw2(x),FloatingText.回血数值);
 					sprite.emitter().burst(Speck.factory(Speck.HEALING),Math.min(6,x/25));
 				}

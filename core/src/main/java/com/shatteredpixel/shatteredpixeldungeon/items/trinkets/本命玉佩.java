@@ -38,7 +38,7 @@ public class 本命玉佩 extends Trinket {
 
 	public static float 防御(int level){
 		if (level < 0){
-			return 0;
+			return 1;
 		} else {
 			return 0.75f-0.15f*level;
 		}

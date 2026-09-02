@@ -1431,7 +1431,7 @@ _-_ 改变的有以下：
                 desc.setRect( 0, 0, 120, 12 );
                 add(desc);
 
-                optChals = new OptionSlider("幸运值", "0", "7", 0, 6) {
+                optChals = new OptionSlider("幸运值", "0", "2", 0, 2) {
                     @Override
                     protected void onChange() {
                         SPDSettings.幸运值(optChals.getSelectedValue());
@@ -1542,7 +1542,7 @@ _-_ 改变的有以下：
                 跟随强度.checked(Dungeon.跟随强度);
                 跟随强度.setRect(0, desc.bottom()+23, 120, 16);
                 add(跟随强度);
-                跟随强度str = PixelScene.renderTextBlock("敌人的强度随英雄的强度而变化\n最大生命、攻击、防御、命中、闪避、攻速、移速", 5);
+                跟随强度str = PixelScene.renderTextBlock("敌人的强度随英雄的强度而变化\n最大生命、攻击、防御、命中、闪避、攻速(-25%)、移速", 5);
                 跟随强度str.hardlight(0x888888);
                 跟随强度str.setPos(0, 跟随强度.bottom()+1);
                 add(跟随强度str);

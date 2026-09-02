@@ -15,6 +15,8 @@
 @rem
 
 @if "%DEBUG%"=="" @echo off
+@rem 切换控制台代码页到UTF-8，修复中文输出乱码（JVM以UTF-8输出，控制台默认GBK）
+@chcp 65001 >nul
 @rem ##########################################################################
 @rem
 @rem  Gradle startup script for Windows

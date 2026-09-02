@@ -41,9 +41,9 @@ public class 桃木剑 extends Trinket {
 
 	public static float 伤害(int level){
 		if (level < 0){
-			return 1;
+			return 0;
 		} else {
-			return 1.25f+0.5f*level;
+			return 0.5f+0.25f*level;
 		}
 	}
 

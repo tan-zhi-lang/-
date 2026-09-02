@@ -937,7 +937,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 											@Override
 											protected void onClick() {
 												super.onClick();
-												SPDSettings.目标优先级((SPDSettings.目标优先级() + 1) % 3);
+												SPDSettings.目标优先级(SPDSettings.目标优先级());
 												目标优先.text(目标优先文本());
 												layout();
 											}
@@ -980,11 +980,13 @@ public class WndSettings extends WndTabbed {//WndSettings
 										if (SPDSettings.目标优先级() == QuickSlotButton.目标优先_最远){
 											模式 = "距离最远";
 										} else if (SPDSettings.目标优先级() == QuickSlotButton.目标优先_残血){
-											模式 = "残血优先";
+											模式 = "残血最近";
+										} else if (SPDSettings.目标优先级() == QuickSlotButton.目标优先_满血){
+											模式 = "满血最近";
 										} else {
 											模式 = "距离最近";
 										}
-										return Messages.get(WndSettings.游戏设置.this, "目标优先") + "：" + 模式;
+										return Messages.get(WndSettings.游戏设置.this, "目标优先") + ":" + 模式;
 									}
 								});
 
@@ -1073,7 +1075,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 
 
 							数值显示 = new OptionSlider("数值显示",
-														"2.5%", "25%", 1, 5) {
+														"2%", "10%", 1, 5) {
 								@Override
 								protected void onChange() {
 									SPDSettings.数值显示(getSelectedValue());

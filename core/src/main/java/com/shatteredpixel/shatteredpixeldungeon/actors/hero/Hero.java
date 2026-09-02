@@ -4,7 +4,6 @@ package com.shatteredpixel.shatteredpixeldungeon.actors.hero;
 
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.hero;
 import static com.shatteredpixel.shatteredpixeldungeon.Dungeon.时间;
-import static com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene.getObjectsAtCell;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
@@ -428,7 +427,6 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.HeroSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.tiles.DungeonTilemap;
-import com.shatteredpixel.shatteredpixeldungeon.tiles.TerrainFeaturesTilemap;
 import com.shatteredpixel.shatteredpixeldungeon.ui.AttackIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
 import com.shatteredpixel.shatteredpixeldungeon.ui.QuickSlotButton;
@@ -3163,17 +3161,26 @@ public class Hero extends Char {
         if(符文("时来运转"))幸运+=Random.Int(-1,2);
         if(符文("算你倒霉"))幸运--;
         if(符文("幸运"))幸运++;
-        if(符文("地牢原点")&&Dungeon.depth==13)幸运+=3;
+        if(符文("地牢原点")&&Dungeon.相对层数()==13)幸运+=3;
 
         if(Dungeon.派对(派对设置.幸运转世))
             幸运++;
 
         if(算法.彩蛋("非酋"))幸运--;
         if(算法.彩蛋("欧皇"))幸运++;
-        if(幸运==0)幸运--;
-        if(幸运>1)幸运=1+幸运/4;
-        if(幸运<1)幸运=1+幸运/4f;
+        //输出语义：1=中性；>1=欧皇(强度=输出-1)；<0=非酋(强度=-输出，下限-1)
+        //基线raw=1，每偏离4点=±1强度，单调映射，永不反转
+        if(幸运==1)return 1;
+        if(幸运>1)return 1+(幸运-1)/4f;
+        if(幸运==0)幸运=-1;
+
+        if(幸运<0)return -1+(幸运+2)/4f;
+
         return 幸运;
+    }/** 幸运区间修正：幸运>1抬高roll下限，幸运<0压低roll上限，均以区间宽度为基数 */
+    public static float[] 幸运修正区间(float min, float max){
+        //只取一次幸运值，避免"时来运转"符文的随机数在同一次判定中漂移
+        return Char.幸运修正区间(min, max, Dungeon.hero != null ? Dungeon.hero.幸运机制() : 1f);
     }
     public String 种族天赋 = "";
     public String 重生怪物 = "";
@@ -3383,7 +3390,7 @@ public class Hero extends Char {
             if(符文("全副武装"))
                 最大生命*=0.3f;
         }
-        最大生命=GameMath.之内(0.001f,最大生命,10_0000_000);
+        最大生命=GameMath.之内(算法.最小数值,最大生命,算法.最大数值);
 
 //        生命 = Math.min(生命, 最大生命);//取消生命更新变动
     }
@@ -3411,13 +3418,6 @@ public class Hero extends Char {
         最大护甲+=护甲成长;
         最大护甲+=暗影飞刀.护甲();
 
-        if(belongings.armor1()!=null&&
-           belongings.armor1().荣誉纹章!=null)最大护甲+=
-                belongings.armor1().tier()+belongings.armor1().强化等级()-1;
-
-        if(belongings.armor2()!=null&&
-           belongings.armor2().荣誉纹章!=null)最大护甲+=
-                belongings.armor2().tier()+belongings.armor2().强化等级()-1;
 
         if(heroClass(HeroClass.逐姝))最大护甲+=等级/2f;
         if(符文("超强大脑"))最大护甲+=魔力()*3;
@@ -3437,7 +3437,7 @@ public class Hero extends Char {
             最大护甲get=最大护甲;
             最大护甲=0;
         }
-        最大护甲 =GameMath.之内(0.001f,最大护甲,10_0000_000);
+        最大护甲 =GameMath.之内(算法.最小数值,最大护甲,算法.最大数值);
         return 最大护甲;
     }
 	//endregion
@@ -3534,7 +3534,7 @@ public class Hero extends Char {
         if(符文("投影魔术"))m*=0.9f;
 
         魔力get=m;
-        return Math.max(0.001f,m);
+        return GameMath.之内(算法.最小数值,m,算法.最大数值);
     }
     public float 魔力(Object o,float x) {
         if(o instanceof 火球术||
@@ -3604,7 +3604,7 @@ public class Hero extends Char {
         x*=所有属性倍();
 
 
-        return Math.max(0.001f,x);
+        return GameMath.之内(算法.最小数值,x,算法.最大数值);
     }
     public float 力量(float x) {
 
@@ -3688,7 +3688,7 @@ public class Hero extends Char {
         if(heroClass(HeroClass.机器))str*=1.25f;
         //最后结算
         力量get=str;
-        return Math.max(0.001f,str);
+        return GameMath.之内(算法.最小数值,str,算法.最大数值);
     }
     public void 主属性(float 增加){
         if(主属性("力量"))力量+=增加;
@@ -3850,7 +3850,7 @@ public class Hero extends Char {
     protected static final String 攻速getx    = "攻速get";
     protected static final String 移速getx    = "移速get";
     protected static final String 命中getx    = "命中get";
-    protected static final String 闪避getx    = "命中get";
+    protected static final String 闪避getx    = "闪避get";
     protected static final String 攻击getx    = "攻击get";
     protected static final String 防御getx    = "防御get";
     protected static final String 力量getx    = "力量get";
@@ -4546,7 +4546,7 @@ public class Hero extends Char {
     //变相削弱
     @Override
     public float 最大防御() {
-        float dr =super.最大防御();
+        float dr =0;
 
         dr+=天赋点数(Talent.武装,2);
 
@@ -6691,12 +6691,12 @@ public class Hero extends Char {
     //region 命中
     @Override
     public int 最小命中(Char target ) {
-        float x=0;
+        int x=0;
 
         x*=增加命中(target);
 
         if(符文("原神:不屈"))return 最大命中(target);
-        return Math.round(x);
+        return GameMath.之内(算法.最小数值,x,算法.最大数值);
     }
     @Override
     public float 增加命中(Char target) {
@@ -6736,7 +6736,7 @@ public class Hero extends Char {
     @Override
     public int 最大命中(Char target) {
         KindOfWeapon wep = belongings.attackingWeapon();
-        float accuracy=最大命中 + (等级>=最大等级?等级+1:等级-1);
+        int accuracy=最大命中 + (等级>=最大等级?等级+1:等级-1);
         accuracy+=敏捷();
         accuracy+=命中成长;
         accuracy+=天赋点数(Talent.顶福精华, 10);
@@ -6790,7 +6790,7 @@ public class Hero extends Char {
 
 
         命中get=accuracy;
-        return Math.max(1, Math.round(accuracy));
+        return GameMath.之内(算法.最小数值,accuracy,算法.最大数值);
     }
     //endregion
 
@@ -7248,7 +7248,10 @@ public class Hero extends Char {
 
     //damage rolls that come from the hero can have their RNG influenced by clover
     public static float 英雄伤害(float min,float max) {
-        min=Math.min(max,min+max*Dungeon.hero.幸运机制());
+        //只取一次幸运值，避免"时来运转"符文的随机数在同一次判定中漂移
+        float[] r=幸运修正区间(min,max);
+        min=r[0];max=r[1];
+
         if (Random.Float() < ThirteenLeafClover.alterHeroDamageChance()) {
             return ThirteenLeafClover.alterDamageRoll(min, max);
         } else {
@@ -8559,8 +8562,12 @@ public class Hero extends Char {
         if(重生怪物.equals("下水道巨蛇"))x+=5f;
 
         if (belongings.armor(忍服.class)) {
-            x+= .03f;
+            x*= 1.03f;
         }
+        if (belongings.armor(风衣.class)) {
+            x*=1.1f;
+        }
+
         x+=天赋点数(Talent.猫反应7,0.175f)*根据已损失生命();
         if(符文("最后生还者")&&半血以下())x*=1.45;
         if(符文("唯物主义者")&&target!=null&&target instanceof Wraith) x*=1.75f;
@@ -8615,17 +8622,13 @@ public class Hero extends Char {
             evasionx+=(力量()-10)*属性增幅()/2f;
         }
         evasionx+=英精英雄成长;
-        if (belongings.armor(风衣.class)) {
-            evasionx+=.1f;
-        }
-
         if(英精英雄==4)evasionx*=4;
         if (paralysed > 0) {
             evasionx /= 2;
         }
         evasion*=evasionx*增加闪避(enemy);
 
-        命中get=evasion;
+        闪避get=evasion;
         return Math.max(1, Math.round(evasion));
     }
     //endregion
@@ -9167,7 +9170,7 @@ public class Hero extends Char {
 //        if(Dungeon.level.在陷阱(target)){
 //            final boolean[] 不踩={false};
 //            float 按时;
-//            if(SPDSettings.安全行走())按时=4;
+//            if(SPDSettings.安全行走())按时=2;
 //            else{
 //                按时=0.2f;
 //            }
@@ -9912,7 +9915,7 @@ public class Hero extends Char {
                 if(玉龙!=null){
                     玉龙.降级();
                     回百分比血(0.05f);
-                }if(符文("广告复活")){
+                }else if(符文("广告复活")){
                     回满血();
                     Buff.施加(this,广告15秒.class);
                     Buff.施加(this,广告复活冷却.class,2400);

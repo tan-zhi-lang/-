@@ -333,10 +333,15 @@ public class QuickSlotButton extends Button {
 			int 距离 = Dungeon.hero.距离(ch);
 			float 值;
 
+			float 血量比例 = ch.生命 * 1000f / Math.max(1, ch.最大生命);
 			if (SPDSettings.目标优先级() == 目标优先_最近) {
-				值 = 距离;                     //距离越远越优先
-			} else {// if (SPDSettings.目标优先级() == 目标优先_残血)
-				值 = ch.生命 * 1000f / Math.max(1, ch.最大生命) + 距离; //血量比例低者优先，同比例近者优先
+				值 = 距离;
+			}else if (SPDSettings.目标优先级() == 目标优先_最远) {
+				值 = -距离;
+			}else if (SPDSettings.目标优先级() == 目标优先_满血) {
+				值 = -血量比例 + 距离;
+			}  else {
+				值 = 血量比例 + 距离;
 			}
 
 			if (值 < 最优值) {

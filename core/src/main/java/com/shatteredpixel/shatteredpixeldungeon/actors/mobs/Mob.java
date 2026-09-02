@@ -187,6 +187,9 @@ public abstract class Mob extends Char{
 
 	protected boolean firstAdded=true;
 
+	public void 更新生命() {
+		最大生命=最大生命;
+	}
 	protected void onAdd(){
 		if(firstAdded){
 			//modify health for ascension challenge if applicable, only on first add
@@ -1965,24 +1968,23 @@ public abstract class Mob extends Char{
 			state=HUNTING;
 			target=enemy.pos;
 
-			if(alignment==Alignment.ENEMY&&Dungeon.isChallenged(Challenges.SWARM_INTELLIGENCE)){
+		if(alignment==Alignment.ENEMY&&Dungeon.赛季(赛季设置.开团秒跟)){
 				for(Mob mob: Dungeon.level.mobs){
-					if(mob.paralysed<=0&&Dungeon.level.距离(pos,mob.pos)<=8&&mob.state!=mob.HUNTING){
+				if(mob.paralysed<=0&&Dungeon.level.距离(pos,mob.pos)<=8&&mob.state!=mob.HUNTING){
+					if(传送卷轴.周身瞬移(target)){
+						Buff.延长(mob,Vulnerable.class,4f);
+						传送卷轴.周身瞬移(mob,target);
 						mob.beckon(target);
 					}
 				}
 			}
-			if(alignment==Alignment.ENEMY&&Dungeon.赛季(赛季设置.开团秒跟)){
-				for(Mob mob: Dungeon.level.mobs){
-					if(mob.paralysed<=0&&Dungeon.level.距离(pos,mob.pos)<=8&&mob.state!=mob.HUNTING){
-						if(传送卷轴.周身瞬移(target)){
-							Buff.延长(mob,Vulnerable.class,4f);
-							传送卷轴.周身瞬移(mob,target);
-							mob.beckon(target);
-						}
-					}
+		}else if(alignment==Alignment.ENEMY&&Dungeon.isChallenged(Challenges.SWARM_INTELLIGENCE)){
+			for(Mob mob: Dungeon.level.mobs){
+				if(mob.paralysed<=0&&Dungeon.level.距离(pos,mob.pos)<=8&&mob.state!=mob.HUNTING){
+					mob.beckon(target);
 				}
 			}
+		}
 
 			return true;
 		}

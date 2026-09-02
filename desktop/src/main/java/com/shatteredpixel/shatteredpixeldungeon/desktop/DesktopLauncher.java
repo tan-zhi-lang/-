@@ -20,6 +20,9 @@ import com.watabou.utils.Point;
 
 import org.lwjgl.util.tinyfd.TinyFileDialogs;
 
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Locale;
@@ -27,6 +30,15 @@ import java.util.Locale;
 public class DesktopLauncher {
 
 	public static void main (String[] args) {
+
+		//强制标准输出/错误流使用UTF-8，修复中文Windows下控制台乱码
+		//（JDK 18+ 管道输出时 System.out 默认用系统本地编码GBK，与UTF-8控制台不匹配）
+		try {
+			System.setOut( new PrintStream( new FileOutputStream( FileDescriptor.out ), true, "UTF-8" ) );
+			System.setErr( new PrintStream( new FileOutputStream( FileDescriptor.err ), true, "UTF-8" ) );
+		} catch (Exception e) {
+			//编码设置失败时保持默认流，不影响游戏运行
+		}
 
 		if (!DesktopLaunchValidator.verifyValidJVMState(args)){
 			return;

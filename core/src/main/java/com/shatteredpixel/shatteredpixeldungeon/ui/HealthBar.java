@@ -101,7 +101,7 @@ public class HealthBar extends Component {
 //		hpText.measure();
 		hpText.x = Bg.x+0.5f;
 		hpText.y = Bg.y +0.5f+ (Bg.height - (hpText.baseLine()+hpText.scale.y))/2f;
-		if(护盾>=max*(SPDSettings.数值显示()*0.025f)&&false){
+		if(护盾>=max*(SPDSettings.数值显示()*0.02f)&&false){
 			护盾t.scale.set(PixelScene.align(文本大小));
 			护盾t.text(kw2(护盾));
 //			护盾t.measure();

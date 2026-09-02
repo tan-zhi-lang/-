@@ -24,7 +24,9 @@ public class Gold extends Item{
 	}
 
 	public Gold() {
-		this(Math.round(Random.IntRange(Math.min(160,Math.round(80*Dungeon.hero.幸运机制())), 160)/金额));
+		//英雄可能尚未初始化（如改动界面实例化怪物掉落物），此时按基础幸运1计算
+		this(Math.round(Random.IntRange(Math.min(160,
+				Math.round(80*(Dungeon.hero != null ? Dungeon.hero.幸运机制() : 1f))), 160)/金额));
 	}
 	
 	public Gold( int value ) {

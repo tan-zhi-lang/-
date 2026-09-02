@@ -532,7 +532,7 @@ public class SPDSettings extends GameSettings {
 	}
 
 	public static int 幸运值() {
-		return getInt(幸运值x,0,0,6);
+		return getInt(幸运值x,0,0,2);
 	}
 
 	public static void customSeed( String value ){

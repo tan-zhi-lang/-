@@ -9,6 +9,10 @@ allprojects {
     tasks.withType(JavaExec) {
         systemProperty 'file.encoding', 'UTF-8'
         systemProperty 'sun.jnu.encoding', 'UTF-8'
+        // JDK 18+ 的 System.out/err 编码由 stdout/stderr.encoding 决定，
+        // 经 Gradle 管道输出时默认为系统本地编码(GBK)，导致 UTF-8 控制台乱码
+        systemProperty 'stdout.encoding', 'UTF-8'
+        systemProperty 'stderr.encoding', 'UTF-8'
     }
 }
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'

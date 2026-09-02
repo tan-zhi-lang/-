@@ -47,7 +47,7 @@ public class Chasm implements Hero.Doom {
 
 		heroPos = hero.pos;
 		float 按时;
-		if(SPDSettings.安全行走())按时=2.5f;
+		if(SPDSettings.安全行走())按时=2f;
 		else{
 			按时=0.2f;
 		}

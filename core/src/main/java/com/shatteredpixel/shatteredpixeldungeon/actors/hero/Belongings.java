@@ -214,15 +214,13 @@ public class Belongings implements Iterable<Item> {
 		if (!lostInventory() ){
 			//if the hero has two weapons (champion), pick the stronger one
 			Armor item =null;
-			if((armor != null && armor.keptThroughLostInventory()))
-				item=armor;
+			if(armor1()!=null)
+				item=armor1();
 
-			if((armor2 != null && armor2.keptThroughLostInventory()))
-				item=armor2;
 
-			if(armor!=null&&armor2!=null)
-				if (armor2.DR()>armor.DR()){
-					item = armor2;
+			if(armor1()!=null&&armor2()!=null)
+				if (armor2().DR()>armor1().DR()){
+					item = armor2();
 				}
 
 			if(item!=null)
@@ -774,43 +772,53 @@ public class Belongings implements Iterable<Item> {
 	private class ItemIterator implements Iterator<Item> {
 
 		private int index = 0;
-		
+		//最近一次next()返回的物品所在的装备槽位，-1表示来自背包
+		private int lastIndex = -1;
+
 		private Iterator<Item> backpackIterator = backpack.iterator();
-		
+
 		private Item[] equipped = {weapon, armor, misc, misc2, misc3, 幸运,
 				secondWep, armor2, misc4, misc5
 				,misc6,misc7,misc8,misc9,misc10
 		};
 		private int backpackIndex = equipped.length;
-		
+
 		@Override
 		public boolean hasNext() {
-			
+
 			for (int i=index; i < backpackIndex; i++) {
 				if (equipped[i] != null) {
 					return true;
 				}
 			}
-			
+
 			return backpackIterator.hasNext();
 		}
 
 		@Override
 		public Item next() {
-			
+
 			while (index < backpackIndex) {
 				Item item = equipped[index++];
 				if (item != null) {
+					lastIndex = index - 1;
 					return item;
 				}
 			}
-			
+
+			lastIndex = -1;
 			return backpackIterator.next();
 		}
 
 		@Override
 		public void remove() {
-			switch (index) {
+			//必须清除"最近返回的槽位"：next()中的index++已把index推进到下一槽，
+			//旧的switch(index)会错删下一个未读取的装备槽，导致物品被移除但字段残留
+			if (lastIndex < 0) {
+				backpackIterator.remove();
+				return;
+			}
+			switch (lastIndex) {
 			case 0:
 				equipped[0] = weapon = null;
 				break;
@@ -839,11 +847,11 @@ public class Belongings implements Iterable<Item> {
 					equipped[8] = misc4 = null;
 					break;
 			case 9:
-					equipped[9] = misc5 = null;
-					break;
+				equipped[9] = misc5 = null;
+				break;
 			case 10:
-					equipped[10] = misc6 = null;
-					break;
+				equipped[10] = misc6 = null;
+				break;
 			case 11:
 				equipped[11] = misc7 = null;
 				break;
@@ -856,8 +864,6 @@ public class Belongings implements Iterable<Item> {
 			case 14:
 				equipped[14] = misc10 = null;
 				break;
-			default:
-				backpackIterator.remove();
 			}
 		}
 	}

@@ -99,6 +99,15 @@ public class Statistics {
 		sneakAttacks    = 0;
 		thrownAttacks   = 0;
 		物理防御   = 0;
+		item1 = null;
+		item2 = null;
+		item3 = null;
+		item4 = null;
+		item5 = null;
+		item6 = null;
+		item7 = null;
+		item8 = null;
+		item9 = null;
 		spawnersAlive   = 0;
 		
 		duration	    = 0;
@@ -201,15 +210,7 @@ public class Statistics {
 		bundle.put( SNEAKS,		sneakAttacks );
 		bundle.put( THROWN,     thrownAttacks);
 		bundle.put( 物理防御x,     物理防御);
-		if (item1!=null) bundle.put(ITEM1,item1);
-		if (item2!=null) bundle.put(ITEM2,item2);
-		if (item3!=null) bundle.put(ITEM3,item3);
-		if (item4!=null) bundle.put(ITEM4,item4);
-		if (item5!=null) bundle.put(ITEM5,item5);
-		if (item6!=null) bundle.put(ITEM6,item6);
-		if (item7!=null) bundle.put(ITEM7,item7);
-		if (item8!=null) bundle.put(ITEM8,item8);
-		if (item9!=null) bundle.put(ITEM9,item9);
+		//item1~9 不再随存档序列化，改由 未来空间器 全局文件统一保存（跨存档互通且不会复制物品）
 
 		bundle.put( SPAWNERS,	spawnersAlive );
 		
@@ -273,15 +274,7 @@ public class Statistics {
 		sneakAttacks    = bundle.getInt( SNEAKS );
 		thrownAttacks   = bundle.getInt( THROWN );
 		物理防御   = bundle.getInt( 物理防御x );
-		if (bundle.contains(ITEM1)) item1= (Item)bundle.get(ITEM1);
-		if (bundle.contains(ITEM2)) item2= (Item)bundle.get(ITEM2);
-		if (bundle.contains(ITEM3)) item3= (Item)bundle.get(ITEM3);
-		if (bundle.contains(ITEM4)) item4= (Item)bundle.get(ITEM4);
-		if (bundle.contains(ITEM5)) item5= (Item)bundle.get(ITEM5);
-		if (bundle.contains(ITEM6)) item6= (Item)bundle.get(ITEM6);
-		if (bundle.contains(ITEM7)) item7= (Item)bundle.get(ITEM7);
-		if (bundle.contains(ITEM8)) item8= (Item)bundle.get(ITEM8);
-		if (bundle.contains(ITEM9)) item9= (Item)bundle.get(ITEM9);
+		//item1~9 不从存档恢复，由 未来空间器.loadGlobal() 统一加载（防止跨存档复制）
 
 		spawnersAlive   = bundle.getInt( SPAWNERS );
 		

@@ -441,7 +441,7 @@ public class Generator {
 					
 					单手剑.class,//1
 					长匕首.class,//0.8
-					锏.class,//1.2
+					锏.class,//0.7
 					
 					弯刀.class,//0.8
 					长鞭.class,//0.7

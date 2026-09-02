@@ -51,6 +51,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.圣金之沙;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.皇室佩剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfRegrowth;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfWarding;
+import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Journal;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.levels.CavesBossLevel;
@@ -399,6 +400,9 @@ public class Dungeon {
 		
 		Statistics.reset();
 		Notes.reset();
+
+		//新开局也从全局文件载入空间物品（跨存档互通）
+		未来空间器.loadGlobal();
 
 		quickslot.reset();
 		QuickSlotButton.reset();
@@ -1218,6 +1222,9 @@ public class Dungeon {
 			Badges.saveLocal( badges );
 			bundle.put( BADGES, badges );
 			
+			//空间内物品写入全局文件（跨存档互通，各存档不再各自携带副本）
+			未来空间器.saveGlobal();
+
 			FileUtils.bundleToFile( GamesInProgress.gameFile(save), bundle);
 			
 		} catch (IOException e) {
@@ -1262,6 +1269,9 @@ public class Dungeon {
 	public static void loadGame( int save, boolean fullLoad ) throws IOException {
 		
 		Bundle bundle = FileUtils.bundleFromFile( GamesInProgress.gameFile( save ) );
+
+		//加载全局空间物品（跨存档互通，防止静态残留/复制）
+		未来空间器.loadGlobal();
 
 		initialVersion = bundle.getInt( INIT_VER );
 		version = bundle.getInt( VERSION );

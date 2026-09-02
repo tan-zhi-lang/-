@@ -474,7 +474,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 麻痹(){
 		float 麻痹=super.麻痹;
-		if(钝器()){
+		if(锤()){
 			麻痹+=0.15f;
 		}
 		if(Dungeon.符文("柔术"))
@@ -1269,8 +1269,6 @@ abstract public class Weapon extends KindOfWeapon {
 					damage += Hero.英雄伤害(0,exStr);
 			}
 		}
-		if(defender!=null&&流血()>0)
-		Buff.施加( defender, 流血.class).set(damage*流血());
 
 		if(defender!=null){
 			boolean becameAlly=false;

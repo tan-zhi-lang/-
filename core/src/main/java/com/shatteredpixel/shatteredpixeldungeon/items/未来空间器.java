@@ -3,7 +3,10 @@
 package com.shatteredpixel.shatteredpixeldungeon.items;
 
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
+import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.未来空间器冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Belongings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
@@ -18,7 +21,10 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndBag;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndInfoItem;
+import com.watabou.utils.Bundle;
+import com.watabou.utils.FileUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class 未来空间器 extends Item {
@@ -44,6 +50,45 @@ public class 未来空间器 extends Item {
 	}
 	
 	private static WndBag parentWnd;
+
+	//全局存档文件：空间内物品跨存档互通的唯一数据源，不写入各存档，避免复制
+	private static final String 空间存档文件 = "未来空间器.dat";
+
+	public static void saveGlobal(){
+		Bundle bundle = new Bundle();
+		if (Statistics.item1!=null) bundle.put( "item1", Statistics.item1 );
+		if (Statistics.item2!=null) bundle.put( "item2", Statistics.item2 );
+		if (Statistics.item3!=null) bundle.put( "item3", Statistics.item3 );
+		if (Statistics.item4!=null) bundle.put( "item4", Statistics.item4 );
+		if (Statistics.item5!=null) bundle.put( "item5", Statistics.item5 );
+		if (Statistics.item6!=null) bundle.put( "item6", Statistics.item6 );
+		if (Statistics.item7!=null) bundle.put( "item7", Statistics.item7 );
+		if (Statistics.item8!=null) bundle.put( "item8", Statistics.item8 );
+		if (Statistics.item9!=null) bundle.put( "item9", Statistics.item9 );
+		try {
+			FileUtils.bundleToFile( 空间存档文件, bundle );
+		} catch (IOException e) {
+			ShatteredPixelDungeon.reportException(e);
+		}
+	}
+
+	public static void loadGlobal(){
+		try {
+			Bundle bundle = FileUtils.bundleFromFile( 空间存档文件 );
+			Statistics.item1 = bundle.contains("item1") ? (Item)bundle.get("item1") : null;
+			Statistics.item2 = bundle.contains("item2") ? (Item)bundle.get("item2") : null;
+			Statistics.item3 = bundle.contains("item3") ? (Item)bundle.get("item3") : null;
+			Statistics.item4 = bundle.contains("item4") ? (Item)bundle.get("item4") : null;
+			Statistics.item5 = bundle.contains("item5") ? (Item)bundle.get("item5") : null;
+			Statistics.item6 = bundle.contains("item6") ? (Item)bundle.get("item6") : null;
+			Statistics.item7 = bundle.contains("item7") ? (Item)bundle.get("item7") : null;
+			Statistics.item8 = bundle.contains("item8") ? (Item)bundle.get("item8") : null;
+			Statistics.item9 = bundle.contains("item9") ? (Item)bundle.get("item9") : null;
+		} catch (IOException e) {
+			//文件不存在（首次使用）：保持空槽
+		}
+	}
+
 	@Override
 	public void execute( Hero hero, String action ) {
 
@@ -93,10 +138,9 @@ public class 未来空间器 extends Item {
 				@Override
 				protected void onClick() {
 					if (Statistics.item1!=null){
-						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Statistics.item1.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Statistics.item1,Dungeon.hero.pos);
-						}
+
+						Statistics.item1.放背包();
+						btnitem.item(new WndBag.Placeholder(物品表.ITEM));
 						Statistics.item1= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
@@ -113,19 +157,19 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return item.可以空间;
+								return item.可以空间&&!item.isEquipped(Dungeon.hero);
 							}
 							
 							@Override
 							public void onSelect(Item item) {
 								
 								if(item!=null){
-									if(item.isEquipped(Dungeon.hero)){
-										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
-									}else{
-										item.detach(Dungeon.hero.belongings.backpack);
+									if(item.可堆叠&&Dungeon.hero.nobuff(未来空间器.class)&&Dungeon.hero.符文("真未来空间器")){
+										item.数量(item.数量()*2);
+										Buff.施加(Dungeon.hero,未来空间器冷却.class,1350f );
 									}
-									Statistics.item1= item;
+								Statistics.item1= item;
+								item.detachAll(Dungeon.hero.belongings.backpack);
 									item(Statistics.item1);
 								}
 							}
@@ -156,10 +200,9 @@ public class 未来空间器 extends Item {
 				@Override
 				protected void onClick() {
 					if (Statistics.item2!=null){
-						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Statistics.item2.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Statistics.item2,Dungeon.hero.pos);
-						}
+
+						Statistics.item2.放背包();
+						btnitem2.item(new WndBag.Placeholder(物品表.ITEM));
 						Statistics.item2= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
@@ -176,19 +219,19 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return item.可以空间;
+								return item.可以空间&&!item.isEquipped(Dungeon.hero);
 							}
 							
 							@Override
 							public void onSelect(Item item) {
 								
 								if(item!=null){
-									if(item.isEquipped(Dungeon.hero)){
-										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
-									}else{
-										item.detach(Dungeon.hero.belongings.backpack);
+									if(item.可堆叠&&Dungeon.hero.nobuff(未来空间器.class)&&Dungeon.hero.符文("真未来空间器")){
+										item.数量(item.数量()*2);
+										Buff.施加(Dungeon.hero,未来空间器冷却.class,1350f );
 									}
-									Statistics.item2= item;
+								Statistics.item2= item;
+								item.detachAll(Dungeon.hero.belongings.backpack);
 									item(Statistics.item2);
 								}
 							}
@@ -219,10 +262,9 @@ public class 未来空间器 extends Item {
 				@Override
 				protected void onClick() {
 					if (Statistics.item3!=null){
-						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Statistics.item3.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Statistics.item3,Dungeon.hero.pos);
-						}
+
+						Statistics.item3.放背包();
+						btnitem3.item(new WndBag.Placeholder(物品表.ITEM));
 						Statistics.item3= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
@@ -239,19 +281,19 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return item.可以空间;
+								return item.可以空间&&!item.isEquipped(Dungeon.hero);
 							}
 							
 							@Override
 							public void onSelect(Item item) {
 								
 								if(item!=null){
-									if(item.isEquipped(Dungeon.hero)){
-										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
-									}else{
-										item.detach(Dungeon.hero.belongings.backpack);
+									if(item.可堆叠&&Dungeon.hero.nobuff(未来空间器.class)&&Dungeon.hero.符文("真未来空间器")){
+										item.数量(item.数量()*2);
+										Buff.施加(Dungeon.hero,未来空间器冷却.class,1350f );
 									}
-									Statistics.item3= item;
+								Statistics.item3= item;
+								item.detachAll(Dungeon.hero.belongings.backpack);
 									item(Statistics.item3);
 								}
 							}
@@ -283,10 +325,9 @@ public class 未来空间器 extends Item {
 				@Override
 				protected void onClick() {
 					if (Statistics.item4!=null){
-						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Statistics.item4.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Statistics.item4,Dungeon.hero.pos);
-						}
+
+						Statistics.item4.放背包();
+						btnitem4.item(new WndBag.Placeholder(物品表.ITEM));
 						Statistics.item4= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
@@ -303,19 +344,19 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return item.可以空间;
+								return item.可以空间&&!item.isEquipped(Dungeon.hero);
 							}
 							
 							@Override
 							public void onSelect(Item item) {
 								
 								if(item!=null){
-									if(item.isEquipped(Dungeon.hero)){
-										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
-									}else{
-										item.detach(Dungeon.hero.belongings.backpack);
+									if(item.可堆叠&&Dungeon.hero.nobuff(未来空间器.class)&&Dungeon.hero.符文("真未来空间器")){
+										item.数量(item.数量()*2);
+										Buff.施加(Dungeon.hero,未来空间器冷却.class,1350f );
 									}
-									Statistics.item4= item;
+								Statistics.item4= item;
+								item.detachAll(Dungeon.hero.belongings.backpack);
 									item(Statistics.item4);
 								}
 							}
@@ -346,10 +387,9 @@ public class 未来空间器 extends Item {
 				@Override
 				protected void onClick() {
 					if (Statistics.item5!=null){
-						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Statistics.item5.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Statistics.item5,Dungeon.hero.pos);
-						}
+
+						Statistics.item5.放背包();
+						btnitem5.item(new WndBag.Placeholder(物品表.ITEM));
 						Statistics.item5= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
@@ -366,19 +406,19 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return item.可以空间;
+								return item.可以空间&&!item.isEquipped(Dungeon.hero);
 							}
 							
 							@Override
 							public void onSelect(Item item) {
 								
 								if(item!=null){
-									if(item.isEquipped(Dungeon.hero)){
-										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
-									}else{
-										item.detach(Dungeon.hero.belongings.backpack);
+									if(item.可堆叠&&Dungeon.hero.nobuff(未来空间器.class)&&Dungeon.hero.符文("真未来空间器")){
+										item.数量(item.数量()*2);
+										Buff.施加(Dungeon.hero,未来空间器冷却.class,1350f );
 									}
-									Statistics.item5= item;
+								Statistics.item5= item;
+								item.detachAll(Dungeon.hero.belongings.backpack);
 									item(Statistics.item5);
 								}
 							}
@@ -409,10 +449,9 @@ public class 未来空间器 extends Item {
 				@Override
 				protected void onClick() {
 					if (Statistics.item6!=null){
-						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Statistics.item6.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Statistics.item6,Dungeon.hero.pos);
-						}
+
+						Statistics.item6.放背包();
+						btnitem6.item(new WndBag.Placeholder(物品表.ITEM));
 						Statistics.item6= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
@@ -429,19 +468,19 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return item.可以空间;
+								return item.可以空间&&!item.isEquipped(Dungeon.hero);
 							}
 							
 							@Override
 							public void onSelect(Item item) {
 								
 								if(item!=null){
-									if(item.isEquipped(Dungeon.hero)){
-										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
-									}else{
-										item.detach(Dungeon.hero.belongings.backpack);
+									if(item.可堆叠&&Dungeon.hero.nobuff(未来空间器.class)&&Dungeon.hero.符文("真未来空间器")){
+										item.数量(item.数量()*2);
+										Buff.施加(Dungeon.hero,未来空间器冷却.class,1350f );
 									}
-									Statistics.item6= item;
+								Statistics.item6= item;
+								item.detachAll(Dungeon.hero.belongings.backpack);
 									item(Statistics.item6);
 								}
 							}
@@ -472,10 +511,9 @@ public class 未来空间器 extends Item {
 				@Override
 				protected void onClick() {
 					if (Statistics.item7!=null){
-						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Statistics.item7.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Statistics.item7,Dungeon.hero.pos);
-						}
+
+						Statistics.item7.放背包();
+						btnitem7.item(new WndBag.Placeholder(物品表.ITEM));
 						Statistics.item7= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
@@ -492,19 +530,19 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return item.可以空间;
+								return item.可以空间&&!item.isEquipped(Dungeon.hero);
 							}
 							
 							@Override
 							public void onSelect(Item item) {
 								
 								if(item!=null){
-									if(item.isEquipped(Dungeon.hero)){
-										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
-									}else{
-										item.detach(Dungeon.hero.belongings.backpack);
+									if(item.可堆叠&&Dungeon.hero.nobuff(未来空间器.class)&&Dungeon.hero.符文("真未来空间器")){
+										item.数量(item.数量()*2);
+										Buff.施加(Dungeon.hero,未来空间器冷却.class,1350f );
 									}
-									Statistics.item7= item;
+								Statistics.item7= item;
+								item.detachAll(Dungeon.hero.belongings.backpack);
 									item(Statistics.item7);
 								}
 							}
@@ -535,10 +573,9 @@ public class 未来空间器 extends Item {
 				@Override
 				protected void onClick() {
 					if (Statistics.item8!=null){
-						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Statistics.item8.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Statistics.item8,Dungeon.hero.pos);
-						}
+
+						Statistics.item8.放背包();
+						btnitem8.item(new WndBag.Placeholder(物品表.ITEM));
 						Statistics.item8= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
@@ -555,19 +592,19 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return item.可以空间;
+								return item.可以空间&&!item.isEquipped(Dungeon.hero);
 							}
 							
 							@Override
 							public void onSelect(Item item) {
 								
 								if(item!=null){
-									if(item.isEquipped(Dungeon.hero)){
-										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
-									}else{
-										item.detach(Dungeon.hero.belongings.backpack);
+									if(item.可堆叠&&Dungeon.hero.nobuff(未来空间器.class)&&Dungeon.hero.符文("真未来空间器")){
+										item.数量(item.数量()*2);
+										Buff.施加(Dungeon.hero,未来空间器冷却.class,1350f );
 									}
-									Statistics.item8= item;
+								Statistics.item8= item;
+								item.detachAll(Dungeon.hero.belongings.backpack);
 									item(Statistics.item8);
 								}
 							}
@@ -598,10 +635,9 @@ public class 未来空间器 extends Item {
 				@Override
 				protected void onClick() {
 					if (Statistics.item9!=null){
-						item(new WndBag.Placeholder(物品表.ITEM));
-						if (!Statistics.item9.doPickUp(Dungeon.hero)){
-							Dungeon.level.drop(Statistics.item9,Dungeon.hero.pos);
-						}
+
+						Statistics.item9.放背包();
+						btnitem9.item(new WndBag.Placeholder(物品表.ITEM));
 						Statistics.item9= null;
 					} else {
 						GameScene.selectItem(new WndBag.ItemSelector() {
@@ -618,19 +654,19 @@ public class 未来空间器 extends Item {
 							
 							@Override
 							public boolean itemSelectable(Item item) {
-								return item.可以空间;
+								return item.可以空间&&!item.isEquipped(Dungeon.hero);
 							}
 							
 							@Override
 							public void onSelect(Item item) {
 								
 								if(item!=null){
-									if(item.isEquipped(Dungeon.hero)){
-										((EquipableItem)item).doUnequip(Dungeon.hero,false,false);
-									}else{
-										item.detach(Dungeon.hero.belongings.backpack);
+									if(item.可堆叠&&Dungeon.hero.nobuff(未来空间器.class)&&Dungeon.hero.符文("真未来空间器")){
+										item.数量(item.数量()*2);
+										Buff.施加(Dungeon.hero,未来空间器冷却.class,1350f );
 									}
-									Statistics.item9= item;
+								Statistics.item9= item;
+								item.detachAll(Dungeon.hero.belongings.backpack);
 									item(Statistics.item9);
 								}
 							}

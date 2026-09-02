@@ -113,7 +113,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.本命玉佩;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.皇室佩剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.WandOfMagicMissile;
 import com.shatteredpixel.shatteredpixeldungeon.items.wands.灵月法杖;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.书包;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.修理扳手;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.冰门重盾;
@@ -913,8 +912,8 @@ public enum HeroClass{
 	
 	private static void 初始来世(Hero hero){
 
-		飞镖 x=new 飞镖();
-		(hero.belongings.weapon=x).鉴定();
+//		飞镖 x=new 飞镖();
+//		(hero.belongings.weapon=x).鉴定();
 
 		Item i=new 未来空间器();
 		i.放背包();

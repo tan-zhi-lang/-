@@ -390,6 +390,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.魄罗;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.龙牙锤;
+import com.shatteredpixel.shatteredpixeldungeon.items.未来空间器;
 import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.涂药.电击药物;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
@@ -1302,6 +1303,7 @@ public class Hero extends Char {
 
         {
 
+            put1("真未来空间器",1);
             put1("猴子给给",1);
             put1("黄金忍者",1);
             put1("没坐",1);
@@ -1512,6 +1514,11 @@ public class Hero extends Char {
             权重3海克斯("猴子给给");
         }
 
+        if(belongings.hasItem(未来空间器.class)
+           ){
+            权重3海克斯("真未来空间器");
+        }
+
         if(Dungeon.区域()<4){
             权重3海克斯("没坐");
         }
@@ -1537,6 +1544,7 @@ public class Hero extends Char {
         switch(选择){
             default:return "What?";
             //1111111111111111
+            case "真未来空间器":return "未来空间器在放入物品，可堆叠物品数量x2，但是之后需要1350回合冷却";
             case "水到渠成":return "在水中时，每回合恢复1%最大生命";
             case "猴子给给":return "配刺剑、武士刀的技能伤害+50%，恢复8%最大生命，并且击杀敌人不消耗充能";
             case "家园卫士":return "未战斗状态时，移速+50%";

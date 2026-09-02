@@ -15,6 +15,7 @@ public class 自残绳 extends 用品{
 		image = 物品表.自残绳;
 		遗产=false;
 		可堆叠=false;
+		可以空间=false;
 		重复使用=true;
 		红色=true;
 	}

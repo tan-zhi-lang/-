@@ -13,7 +13,7 @@ public class 锏 extends Weapon{
 		hitSound = Assets.Sounds.锤打;
 		
 		技能=new 重击();
-		麻痹=0.15f;
+
 		tier = 2;
 		伤害=0.7f;
 	}

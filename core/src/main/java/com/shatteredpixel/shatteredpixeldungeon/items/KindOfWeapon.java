@@ -8,9 +8,10 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Frost;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Paralysis;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.Frost;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroSubClass;
@@ -40,7 +41,6 @@ import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.BArray;
 import com.watabou.utils.PathFinder;
-import com.watabou.utils.Random;
 
 abstract public class KindOfWeapon extends EquipableItem {
 
@@ -261,6 +261,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(盾())return true;
 		if(棍())return true;
 		if(鞭())return true;
+		if(锤())return true;
 		if(this instanceof 石头)return true;
 		if(this instanceof 雪球)return true;
 		if(this instanceof 金铲铲)return true;
@@ -275,6 +276,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		return false;
 	}
 	public boolean 锤(){
+		if(this instanceof 锏)return true;
 		if(this instanceof 硬头锤)return true;
 		if(this instanceof 链枷)return true;
 		if(this instanceof 猪鲨链球)return true;
@@ -659,12 +661,15 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(defender!=null&&defender.第x次防御==1&&迅速()){
 			攻击不消耗回合=true;
 		}
-		if(defender!=null&&麻痹()>0){
+		if(defender!=null&&流血()>0)
+			Buff.施加( defender, 流血.class).set(damage*流血());
+
+		if(defender!=null&&算法.概率学(麻痹())){
 				算法.修复效果(()->{
 					Buff.施加(defender,Paralysis.class,Paralysis.DURATION*麻痹());
 				});
 		}
-		if(defender!=null&&冻结()>0){
+		if(defender!=null&&算法.概率学(冻结())){
 				算法.修复效果(()->{
 					Buff.施加(defender,Frost.class,Frost.DURATION*冻结());
 				});

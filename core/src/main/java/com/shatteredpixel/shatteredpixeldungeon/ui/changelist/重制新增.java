@@ -159,6 +159,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金铲铲;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.钻石镐;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锈右斧;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锏;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锯齿剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.锻造锤;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.闪电双截棍;
@@ -408,6 +409,7 @@ public class 重制新增{
 		changes.addButton(new ChangeButton(new 破甲锥()));
 		changes.addButton(new ChangeButton(new 爪()));
 		changes.addButton(new ChangeButton(new 狼筅()));
+		changes.addButton(new ChangeButton(new 锏()));
 		//1
 		changes = new ChangeInfo("1阶", false, null);
 		changes.hardlight(Window.TITLE_COLOR);

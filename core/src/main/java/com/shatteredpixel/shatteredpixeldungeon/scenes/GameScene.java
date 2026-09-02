@@ -19,6 +19,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ChampionEnemy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Invisibility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告15秒;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告5秒;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DemonSpawner;
@@ -26,8 +28,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mimic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告15秒;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.广告5秒;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BannerSprites;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobBorder;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
@@ -112,6 +112,7 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.WndMessage;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndOptions;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndResurrect;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndUpgrade;
+import com.shatteredpixel.shatteredpixeldungeon.windows.时间回溯;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.glwrap.Blending;
 import com.watabou.input.ControllerHandler;
@@ -1524,6 +1525,28 @@ public class GameScene extends PixelScene {
 		);
 		scene.add(restart);
 
+		StyledButton 时间回溯按钮=null;
+		if(true){
+			时间回溯按钮=new StyledButton(Chrome.Type.GREY_BUTTON_TR,"我要回档",9){
+				@Override
+				protected void onClick(){
+					GameScene.show(new 时间回溯());
+				}
+
+				@Override
+				public void update(){
+					alpha((float)Math.pow(gameOver.am,2));
+					super.update();
+				}
+			};
+			时间回溯按钮.alpha(0);
+			时间回溯按钮.camera=uiCamera;
+			时间回溯按钮.setSize(Math.max(80,时间回溯按钮.reqWidth()),20);
+			时间回溯按钮.setPos(align(uiCamera,(时间回溯按钮.camera.width-时间回溯按钮.width())/2),restart.bottom()+2);
+
+			scene.add(时间回溯按钮);
+		}
+
 		StyledButton menu = new StyledButton(Chrome.Type.GREY_BUTTON_TR, Messages.get(WndKeyBindings.class, "menu"), 9){
 			@Override
 			protected void onClick() {
@@ -1542,7 +1565,7 @@ public class GameScene extends PixelScene {
 		menu.setSize(Math.max(80, menu.reqWidth()), 20);
 		menu.setPos(
 				align(uiCamera, (menu.camera.width - menu.width()) / 2),
-				restart.bottom() + 2
+				(时间回溯按钮!=null?时间回溯按钮.bottom():restart.bottom()) + 2
 		);
 		scene.add(menu);
 	}

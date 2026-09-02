@@ -708,7 +708,7 @@ public abstract class Char extends Actor {
 			defStat*=Dungeon.难度闪避(defender);
 		}else{
 			if(attacker.诡异)
-				acuStat*=10;
+				acuStat*=5;
 
 			acuStat*=Dungeon.难度命中(attacker);
 
@@ -733,7 +733,7 @@ public abstract class Char extends Actor {
 			}
 		}else{
 			if(defender.诡异)
-				defStat*=10;
+				defStat*=5;
 			if(Dungeon.符文("三国杀:吕布"))defStat/=2f;
 		}
 
@@ -1006,7 +1006,7 @@ public abstract class Char extends Actor {
 			buff.onAttackProc( enemy );
 		}
 		if(折叠屏)damage*=0.8f;
-		if(诡异)damage*=10;
+		if(诡异)damage*=5;
 		if(Dungeon.符文("辐射")&&首次死亡)damage*=1.35f;
 		return damage;
 	}
@@ -1058,7 +1058,7 @@ public abstract class Char extends Actor {
 
 		speed*=重力场球.移速(this);
 
-		if(诡异)speed*=10f;
+		if(诡异)speed*=5;
 
 
 		if(移速翻倍){
@@ -1350,7 +1350,7 @@ public abstract class Char extends Actor {
 		//			}
 	//		}
 
-		if(诡异)dmg/=10f;
+		if(诡异)dmg/=5;
 
 		Class<?> srcClass = 来源.getClass();
 		if (免疫( srcClass )) {
@@ -1630,7 +1630,7 @@ public abstract class Char extends Actor {
 	
 	public float 攻击延迟() {
 		float delay = 攻击延迟;
-		if(诡异)delay/=10f;
+		if(诡异)delay/=5;
 		delay*=重力场球.攻速(this);
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			delay/=buff.攻速();

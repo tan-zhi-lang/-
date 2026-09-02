@@ -172,6 +172,7 @@ public class 嬗变卷轴 extends InventoryScroll {
 				result.levelKnown = item.levelKnown;
 				result.cursed = item.cursed;
 				result.cursedKnown = item.cursedKnown;
+				GLog.橙("你的神器已经无法变出其他神器，只能变出戒指(原版就有)！");
 				if (item.visiblyUpgraded() == 10){
 					result.等级(2);
 				} else if (item.visiblyUpgraded() >= 5){

@@ -18,6 +18,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每10回合;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每150回合;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每300回合;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每450回合;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每45回合备份;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每900回合回档;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
@@ -343,6 +345,8 @@ public enum HeroClass{
 			Buff.施加(hero,上楼.class);
 			Buff.施加(hero,下楼.class);
 
+			Buff.施加(hero,每45回合备份.class);
+			Buff.施加(hero,每900回合回档.class);
 			Buff.施加(hero,每10回合.class);
 			Buff.施加(hero,每150回合.class);
 			Buff.施加(hero,每300回合.class);

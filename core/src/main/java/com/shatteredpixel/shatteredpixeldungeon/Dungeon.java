@@ -545,6 +545,10 @@ public class Dungeon {
 			if(符文("这不合理"))
 				if(c.老鬼()||c.小老鬼())x*=3f;
 				else x*=0.3f;
+
+			if(符文("Boss阴到没边但是我能回档"))
+				if(c.老鬼()||c.小老鬼())x*=8;
+
 			if(符文("太合理了"))
 				if(c.老鬼()||c.小老鬼())x*=0.2f;
 				else x*=2;
@@ -1418,8 +1422,100 @@ public class Dungeon {
 		}
 
 		FileUtils.overwriteFile(GamesInProgress.gameFile(save), 1);
-		
+
 		GamesInProgress.delete( save );
+	}
+
+	//时间回溯：把当前存档文件夹（game.dat + 各层depth文件）快照到存档文件夹的子目录（默认 回溯）
+	public static void 备份回溯存档(){
+		备份回溯存档("回溯");
+	}
+
+	public static void 备份回溯存档(String 快照名){
+		try {
+			int slot = GamesInProgress.curSlot;
+			if (slot <= 0 || hero == null || !hero.isAlive()) return;
+
+			String folder = GamesInProgress.gameFolder(slot);
+			String back = folder + "/" + 快照名;
+
+			//清掉旧快照，避免残留过期的 depth 文件
+			FileUtils.deleteDir(back);
+
+			//复制存档文件夹内所有文件到 快照
+			for (String f : FileUtils.filesInDir(folder)) {
+				if (f.equals("回溯") || f.equals("回档")) continue;
+				byte[] data = FileUtils.getFileHandle(folder + "/" + f).readBytes();
+				FileUtils.getFileHandle(back + "/" + f).writeBytes(data, false);
+			}
+
+			//快照不完整（game.dat 缺失）则不留脏快照
+			if (!FileUtils.fileExists(back + "/game.dat")) {
+				FileUtils.deleteDir(back);
+				return;
+			}
+
+			//元数据：记录快照对应的层数
+			Bundle meta = new Bundle();
+			meta.put("depth", depth);
+			FileUtils.bundleToFile(back + "/meta.dat", meta);
+
+		} catch (Exception e) {
+			ShatteredPixelDungeon.reportException(e);
+		}
+	}
+
+	//读取快照的元数据（层数），快照不完整（缺 game.dat）视为无效并清除，返回null
+	public static Bundle 回溯元数据(){
+		return 回溯元数据("回溯");
+	}
+
+	public static Bundle 回溯元数据(String 快照名){
+		try {
+			String folder = GamesInProgress.gameFolder(GamesInProgress.curSlot);
+			String back = folder + "/" + 快照名;
+			if (!FileUtils.dirExists(back)) return null;
+			if (!FileUtils.fileExists(back + "/game.dat")) {
+				//旧版本残留的无效快照（只有 meta.dat），清除
+				FileUtils.deleteDir(back);
+				return null;
+			}
+			return FileUtils.bundleFromFile(back + "/meta.dat");
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	//把快照文件覆盖回存档文件夹，成功返回true
+	public static boolean 恢复回溯存档(){
+		return 恢复回溯存档("回溯");
+	}
+
+	public static boolean 恢复回溯存档(String 快照名){
+		try {
+			int slot = GamesInProgress.curSlot;
+			String folder = GamesInProgress.gameFolder(slot);
+			String back = folder + "/" + 快照名;
+			if (!FileUtils.dirExists(back)) return false;
+			//快照必须含 game.dat，否则不动现有文件夹
+			if (!FileUtils.fileExists(back + "/game.dat")) return false;
+
+			//清空当前（死亡后残缺的）存档文件夹
+			for (String f : FileUtils.filesInDir(folder)) {
+				if (f.equals("回溯") || f.equals("回档")) continue;
+				FileUtils.deleteFile(folder + "/" + f);
+			}
+			//复制快照内容回去（meta.dat 除外）
+			for (String f : FileUtils.filesInDir(back)) {
+				if (f.equals("meta.dat")) continue;
+				byte[] data = FileUtils.getFileHandle(back + "/" + f).readBytes();
+				FileUtils.getFileHandle(folder + "/" + f).writeBytes(data, false);
+			}
+			return FileUtils.fileExists(GamesInProgress.gameFile(slot));
+		} catch (Exception e) {
+			ShatteredPixelDungeon.reportException(e);
+			return false;
+		}
 	}
 	
 	public static void preview( GamesInProgress.Info info, Bundle bundle ) {

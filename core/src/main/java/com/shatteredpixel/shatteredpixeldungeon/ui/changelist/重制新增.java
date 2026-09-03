@@ -34,6 +34,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.强健之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.杀戮之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.果刚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.法爆之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.破防之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.神知之戒;
@@ -41,6 +42,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.身法之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.钢壁之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.镜钓之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.门神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.分解菱晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.spells.清洁菱晶;
@@ -252,7 +254,7 @@ public class 重制新增{
 			"每点力量：1%治疗护盾，0.4%暴击率，+2最大生命(但会从最基础的-1)，影响力量的空手伤害和满适配武器的额外伤害。",
 
 			"敏捷\n"+
-			"初始是10+0.32x升级等级(满级额外+0.2)，每点敏捷+1命中和0.5闪避，+1最大护甲(但会从最基础的-1)，影响命中、攻速、闪避、移速\n"+
+			"初始是10+0.2x升级等级(满级额外+0.2)，每点敏捷+1命中和0.5闪避，+1最大护甲(但会从最基础的-1)，影响命中、攻速、闪避、移速\n"+
 				"武器满适配：命中(力量-武器力量)×0.1%x敏捷，攻速(力量-武器力量)×0.1%x敏捷\n"+
 				"防具满适配：闪避(力量-防具力量)×0.05%x敏捷，移速(力量-防具力量)×0.05x敏捷\n"+
 				"裸身状态：闪避(力量-10)×0.05%x敏捷，移速(力量-10)×0.05%x敏捷\n"+
@@ -580,11 +582,13 @@ public class 重制新增{
 		changes.addButton(new ChangeButton("强健","强健之戒",new 强健之戒().statsInfo()));
 		changes.addButton(new ChangeButton("钢壁","钢壁之戒",new 钢壁之戒().statsInfo()));
 		changes.addButton(new ChangeButton("府备","府备之戒",new 府备之戒().statsInfo()));
+		changes.addButton(new ChangeButton("果刚","果刚之戒",new 果刚之戒().statsInfo()));
 		changes.addButton(new ChangeButton("身法","身法之戒",new 身法之戒().statsInfo()));
 		changes.addButton(new ChangeButton("神知","神知之戒",new 神知之戒().statsInfo()));
 		changes.addButton(new ChangeButton("仓鼠","仓鼠之戒",new 仓鼠之戒().statsInfo()));
 		changes.addButton(new ChangeButton("镜钓","镜钓之戒",new 镜钓之戒().statsInfo()));
 		changes.addButton(new ChangeButton("丛林","丛林之戒",new 丛林之戒().statsInfo()));
+		changes.addButton(new ChangeButton("门神","门神之戒",new 门神之戒().statsInfo()));
 		changes.addButton(new ChangeButton("利害","利害之戒",new 利害之戒().statsInfo()));
 		changes.addButton(new ChangeButton("破防","破防之戒",new 破防之戒().statsInfo()));
 		changes.addButton(new ChangeButton("法爆","法爆之戒",new 法爆之戒().statsInfo()));

@@ -61,6 +61,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.强健之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.杀戮之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.果刚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.根骨之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.汲取之戒;
@@ -76,6 +77,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.财富之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.身法之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.钢壁之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.镜钓之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.门神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
@@ -659,7 +661,10 @@ public class Generator {
 					杀戮之戒.class,
 					丛林之戒.class,
 					法爆之戒.class,
+
 					仓鼠之戒.class,
+					果刚之戒.class,
+					门神之戒.class,
 
 			};
 			RING.defaultProbs = new float[]{ 3, 3, 3,
@@ -674,7 +679,7 @@ public class Generator {
 										 3,3,3,
 										 3,3,3,
 										3,3,3,
-					3,
+					3,3,3,
 
 			};
 			RING.probs = RING.defaultProbs.clone();

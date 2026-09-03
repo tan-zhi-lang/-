@@ -45,8 +45,8 @@ public class Terrain {
 	//These decorations are environment-specific
 	public static final int REGION_DECO		= 33;
 	public static final int REGION_DECO_ALT = 34; //alt visual for region deco, sometimes SP, sometimes other
-	public static final int MINE_CRYSTAL    = 35;
-	public static final int MINE_BOULDER    = 36;
+	public static final int MINE_CRYSTAL    = 35;//水晶
+	public static final int MINE_BOULDER    = 36;//岩
 
 	public static final int WATER		    = 29;//水
 	

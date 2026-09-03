@@ -8,6 +8,8 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.watabou.utils.Random;
 
+import java.util.ArrayList;
+
 public class 自残绳 extends 用品{
 	
 	
@@ -35,8 +37,10 @@ public class 自残绳 extends 用品{
 		}
 		if(x>0){
 			if(hero.符文("伤敌100自损100")){
-				for(Mob m: Dungeon.level.mobs){
-					m.受伤时(m.最大生命(x));
+				for(Mob m : new ArrayList<>(Dungeon.level.mobs)){
+					if(m.isAlive()) {
+						m.受伤时(m.最大生命(x));
+					}
 				}
 			}
 

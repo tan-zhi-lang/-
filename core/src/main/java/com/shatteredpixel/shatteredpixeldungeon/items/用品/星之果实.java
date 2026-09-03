@@ -23,6 +23,7 @@ public class 星之果实 extends 用品{
 		hero.回满血();
 		hero.回满护甲();
 		hero.生命成长+=25;
+		hero.敏捷+=3;
 		hero.buff(Hunger.class).吃饭(Hunger.STARVING+WellFed.上限());
 		super.使用(hero);
 	}

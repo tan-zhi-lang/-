@@ -268,6 +268,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.强健之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.果刚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.根骨之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.汲取之戒;
@@ -282,6 +283,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.装甲之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.身法之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.钢壁之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.镜钓之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.门神之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.魔攻之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
@@ -3593,8 +3595,8 @@ public class Hero extends Char {
         return 敏捷()*x;
     }
     public float 敏捷() {
-        float x =敏捷 + 0.32f* (等级 - 1);
-        if(等级==最大等级)x+=0.32f;
+        float x =敏捷 + 0.2f* (等级 - 1);
+        if(等级==最大等级)x+=0.2f;
         if(进阶)x+=2;
         if(符文("生命跃动"))x+=0.03f*最大生命;
         if(符文("神速力"))x+=15;
@@ -5672,6 +5674,23 @@ public class Hero extends Char {
                     丛林之戒.showFlareForBonusDrop(sprite);
             }
         }
+
+        if(在门上()&&!Dungeon.bossLevel()&&Dungeon.branch==0){
+            ArrayList<Item> bonus=门神之戒.tryForBonusDrop(this,
+                                                           门神之戒.累计(this));
+            if(bonus!=null&&Dungeon.level!=null&&!bonus.isEmpty()){
+                for(Item b: bonus)
+                    Dungeon.level.dropRandomCell(b,pos);
+
+                Dungeon.level.dropRandomCell(new Gold(),pos);
+
+                Sample.INSTANCE.play(Assets.Sounds.GHOST);
+
+                if(sprite!=null)
+                    门神之戒.showFlareForBonusDrop(sprite);
+            }
+        }
+
         if(Dungeon.赛季(赛季设置.地牢塔防)&&地牢塔防开关){
             地牢塔防生成速度++;
             Mob mob=new Rat();//第一波
@@ -8893,6 +8912,9 @@ public class Hero extends Char {
         if (Dungeon.相对层数() > 15 && Dungeon.branch == 1){
             dmg = 0;
         }
+        if (!(来源 instanceof Hunger)){
+            if( 最大生命(果刚之戒.免疫(this))<dmg)dmg=0;
+        }
 
         //regular damage interrupt, triggers on any damage except specific mild DOT effects
         // unless the player recently hit 'continue moving', in which case this is ignored
@@ -8966,6 +8988,7 @@ public class Hero extends Char {
     }
 
     private float 受伤特效(float dmg,Object 来源){
+
         if(符文("守护灵")&&hasbuff(守护灵次数.class)&&buff(守护灵次数.class).count>0){
             buff(守护灵次数.class).set(-1);
             dmg/=2;

@@ -107,10 +107,12 @@ public class 传说之戒 extends Item {
 
 					@Override
 					public void onSelect(Item item) {
-						转移等级(item);
-						hero.sprite.operate(hero.pos);
-						hero.spend(1f);
-						hero.busy();
+						if(item!=null){
+							转移等级(item);
+							hero.sprite.operate(hero.pos);
+							hero.spend(1f);
+							hero.busy();
+						}
 					}
 				});
 		}

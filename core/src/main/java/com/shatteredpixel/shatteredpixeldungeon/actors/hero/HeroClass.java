@@ -28,7 +28,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Fe
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.huntress.SpiritHawk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.mage.WildMagic;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.rogue.ShadowClone;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.CrystalSpire;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.CrystalWisp;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DM0;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Elemental;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
@@ -243,7 +243,9 @@ public enum HeroClass{
 		Notes.怪物备注(new RotLasher(),"树妖应对技巧","用电和火伤害能更快击杀它！");
 		Notes.怪物备注(new Piranha(),"海妖应对技巧","用电和毒伤害能更快击杀它！");
 		Notes.怪物备注(new Rat(),"动物应对技巧","用冰火、电毒、毒、流血伤害能更快击杀它！");
-		Notes.怪物备注(new CrystalSpire(),"应对技巧","用镐子伤害能更快击杀它！");
+
+
+		Notes.怪物备注(new CrystalWisp(),"应对技巧","用镐子伤害能更快击杀它！");
 
 		Notes.怪物备注(new DM0(),"应对技巧","用麻痹、眩晕、魅惑、恐惧、魂飞魄散、冻结能直接秒杀他！");
 		Notes.怪物备注(new 毒气宝箱怪(),"应对技巧","用毒气、中毒伤害能直接秒杀它！");

@@ -98,7 +98,7 @@ public class WndGame extends Window {
 						ShatteredPixelDungeon.reportException(e);
 					}
 					java.io.File dst = 存档工具.导出();
-					if (dst != null) GLog.黄("已导出到：" + dst.getAbsolutePath());
+					if (dst != null) GLog.黄("已导出到：" + 存档工具.友好路径(dst.getAbsolutePath()));
 					else GLog.橙("导出失败");
 				}
 			}

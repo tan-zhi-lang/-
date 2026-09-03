@@ -27,7 +27,7 @@ public class 时间回溯 extends Window{
 		加按钮("海克斯回档", "海克斯回档");
 
 		if (pos == 0) {
-			GLog.橙("回溯失败：没有可用的快照");
+			GLog.橙("回档失败：没有可用的快照");
 			hide();
 			return;
 		}
@@ -55,7 +55,7 @@ public class 时间回溯 extends Window{
 						return;
 					}
 				}
-				GLog.橙("回溯失败：快照不存在或已损坏");
+				GLog.橙("回档失败：快照不存在或已损坏");
 			}
 		};
 		add(btn);

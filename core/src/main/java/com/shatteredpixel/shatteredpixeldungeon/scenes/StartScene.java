@@ -22,6 +22,7 @@ import com.shatteredpixel.shatteredpixeldungeon.utils.存档工具;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGameInProgress;
+import com.shatteredpixel.shatteredpixeldungeon.windows.Wndinfo;
 import com.watabou.noosa.BitmapText;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.Game;
@@ -38,7 +39,7 @@ public class StartScene extends PixelScene {
 	@Override
 	public void create() {
 		super.create();
-		
+
 		Badges.loadGlobal();
 		Journal.loadGlobal();
 		
@@ -140,7 +141,11 @@ public class StartScene extends PixelScene {
 		if (games.size() >= 2) add(btnSort);
 
 		fadeIn();
-		
+
+		Game.scene().add(new Wndinfo("看字","每次进群确认自己是新版本，不要清朝Bug来现代反馈。\n\n" +
+									"遇到属性问题点击关键字可以弹出文本注解，比如点左上角的属性面/敏捷，就会弹出来。\n\n" +
+											"有问题，一般右上角备注，想设置东西，设置自己找！"));
+
 	}
 
 	@Override
@@ -364,7 +369,7 @@ public class StartScene extends PixelScene {
 				if (存档工具.导入()) {
 					ShatteredPixelDungeon.seamlessResetScene();
 				} else {
-					GLog.橙("导入失败：没有可用的导出存档");
+					GLog.橙("导入失败：未找到 game.dat，请把 game.dat 放到 " + 存档工具.导出根目录().getAbsolutePath());
 				}
 			} else if (newGame) {
 				GamesInProgress.selectedClass = null;

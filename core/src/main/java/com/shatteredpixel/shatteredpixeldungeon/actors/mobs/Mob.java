@@ -846,7 +846,12 @@ public abstract class Mob extends Char{
 	@Override
 	public float 防御时(Char enemy,float damage){
 		if(enemy!=null){
-			if(Dungeon.赛季(赛季设置.生化模式))Buff.施加(this,生化特性.class).set(1);
+			if(Dungeon.赛季(赛季设置.生化模式)){
+				生化特性 layer = Buff.施加(this,生化特性.class);
+				//CrystalSpire 等 add(Buff)==false 的 boss 会让施加返回游离实例，避免对 null 读 count
+				if(layer != null)
+					layer.set(1);
+			}
 		}
 		if(enemy instanceof Hero h&&!enemySeen){//防止惊醒距离被打不惊醒
 			enemySeen=true;
@@ -1056,8 +1061,12 @@ public abstract class Mob extends Char{
 			}
 		}
 		if(Dungeon.hero()&&Dungeon.hero.天赋(Talent.机体解构)){
-			Buff.施加(this,机体解构层数.class).set(1);
-			dmg*=1+buff(机体解构层数.class).count*Dungeon.hero.天赋点数(Talent.机体解构,0.03f);
+			机体解构层数 layer = Buff.施加(this,机体解构层数.class);
+			//CrystalSpire 等 add(Buff)==false 的 boss 会让施加返回游离实例，避免对 null 读 count
+			if(layer != null){
+				layer.set(1);
+				dmg*=1+layer.count*Dungeon.hero.天赋点数(Talent.机体解构,0.03f);
+			}
 		}
 		if(Dungeon.符文("收集者")&&生命<=最大生命(0.05f))
 			Buff.施加(this, 死神.GrimTracker.class).maxChance = 100f;

@@ -108,6 +108,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.无终恨意
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.星蚀;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.星蚀冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.月影神读;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.生化特性;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.疾射火炮;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.神圣干预冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.赐死剑气冷却;
@@ -5575,12 +5576,19 @@ public class Hero extends Char {
                 Char c= Actor.findChar(pos+n);
                 if(c!=null&&c.alignment == Alignment.ENEMY&&Dungeon.level.heroFOV[c.pos]){
                     if(符文("快炖")){
-                        Buff.施加(c,快炖.class).set(1);
-                        c.受伤时(最大生命(0.01f)*c.buff(快炖.class).count);
+                        快炖 layer = Buff.施加(this,快炖.class);
+                        //CrystalSpire 等 add(Buff)==false 的 boss 会让施加返回游离实例，避免对 null 读 count
+                        if(layer != null){
+                            layer.set(1);
+                            c.受伤时(最大生命(0.01f)*c.buff(快炖.class).count);
+                        }
                     }
                     if(符文("慢炖")){
-                        Buff.施加(c,慢炖.class).set(1);
-                        c.受伤时(最大生命(0.005f)*c.buff(慢炖.class).count);
+                        慢炖 layer = Buff.施加(this,慢炖.class);
+                        if(layer != null){
+                            layer.set(1);
+                            c.受伤时(最大生命(0.005f)*c.buff(慢炖.class).count);
+                        }
                     }
                 }
             }

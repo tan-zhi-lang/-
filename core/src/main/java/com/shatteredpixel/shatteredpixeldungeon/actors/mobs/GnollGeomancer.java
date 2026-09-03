@@ -676,19 +676,8 @@ public class GnollGeomancer extends Mob {
 
 	private static int rocksInFlight = 0;
 	private static ArrayList<Char> knockedChars = new ArrayList<>();
-	//记录计数所属的层对象：切层后旧 MissileSprite 销毁、回调丢失，计数会残留导致 source.next() 永不执行（卡回合）
-	private static Level flightLevel = null;
 
 	public static void doRockThrowAttack( Char source, int from, int to ){
-
-		//层切换重置：进入新层后旧在飞计数全部失效
-		if (flightLevel != Dungeon.level){
-			flightLevel = Dungeon.level;
-			rocksInFlight = 0;
-			knockedChars.clear();
-		}
-		//入口 clamp：防止任何残留负值/正值破坏回调清零逻辑
-		rocksInFlight = Math.max(0, rocksInFlight);
 
 		Level.set(from, Terrain.EMPTY);
 		GameScene.updateMap(from);
@@ -743,11 +732,6 @@ public class GnollGeomancer extends Mob {
 							}
 						} else if (ch == null) {
 							Dungeon.level.pressCell(rockPath.collisionPos);
-						}
-
-						//旧层飞石回调：计数已被新层重置，忽略，避免把新层计数减成负数或提前 next()
-						if (flightLevel != Dungeon.level){
-							return;
 						}
 
 						rocksInFlight--;

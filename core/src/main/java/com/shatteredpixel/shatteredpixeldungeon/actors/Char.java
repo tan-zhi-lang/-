@@ -11,6 +11,7 @@ import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.ToxicGas;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Adrenaline;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Amok;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArcaneArmor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.ArtifactRecharge;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
@@ -1240,6 +1241,16 @@ public abstract class Char extends Actor {
 	}
 	public void 电受伤时(float dmg){
 		受伤时(dmg,电击.class);
+	}
+
+	public boolean cellIsPathable(int cell){
+		if(!Dungeon.level.passable[cell]){
+			if(flying||buff(Amok.class)!=null){
+				if(Dungeon.level.avoid[cell]) return false;
+			}else return false;
+		}
+		if(Char.hasProp(this,Char.Property.LARGE)&&!Dungeon.level.openSpace[cell]) return false;
+		return Actor.findChar(cell)==null;
 	}
 	public void 受伤时(float dmg,Object 来源){
 

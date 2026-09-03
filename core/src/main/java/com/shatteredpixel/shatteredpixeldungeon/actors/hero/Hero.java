@@ -108,7 +108,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.无终恨意
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.星蚀;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.星蚀冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.月影神读;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.生化特性;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.疾射火炮;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.神圣干预冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.赐死剑气冷却;
@@ -902,6 +901,7 @@ public class Hero extends Char {
         //22222222222222222
         {
             put2("安内",2);
+            put2("敏敏敏敏敏敏敏",2);
             put2("暴击邦！",2);
             put2("登神长阶",2);
             put2("人皇步",2);
@@ -1957,6 +1957,7 @@ public class Hero extends Char {
             case "六脉神剑":return "武器是剑时，命中+65%，且攻击范围+2，攻速+45%";
             case "心之力":return "首次攻击+0.2力量";
             case "人皇步":return "你向非东南西北方向移动速度x2";
+            case "敏敏敏敏敏敏敏":return "敏捷+100%";
             case "登神长阶":return "升级所需经验x2。攻击+0.6%魔力的攻速，持续战斗状态回合，最多5层，满层+10%移速。8级之后+4攻击范围，并且攻击对相邻敌人造成20%的魔法伤害，22级之后+1攻击范围，并且永久满层";
             case "还是躲在水里最自在":return "水上每回合恢复2%最大生命和护甲";
             case "士兵男孩":return "受到致命伤害产生爆炸效果(不过不会和炸弹一样炸弹英雄以及破坏物品，且伤害减半)";
@@ -3592,8 +3593,9 @@ public class Hero extends Char {
         return 敏捷()*x;
     }
     public float 敏捷() {
-        float x =敏捷 + 0.4f* (等级 - 1);
-        if(等级==最大等级)x+=0.4f;
+        float x =敏捷 + 0.32f* (等级 - 1);
+        if(等级==最大等级)x+=0.32f;
+        if(进阶)x+=2;
         if(符文("生命跃动"))x+=0.03f*最大生命;
         if(符文("神速力"))x+=15;
         x +=身法之戒.敏捷(this);
@@ -3605,7 +3607,7 @@ public class Hero extends Char {
         x+=断魂佛珠.敏捷();
 
         float x2=1;
-
+        if(符文("敏敏敏敏敏敏敏"))x2++;
 
 
         x*=x2;
@@ -7965,6 +7967,9 @@ public class Hero extends Char {
         if(enemy!=null&&神知之戒.范围(this)>0)
             enemy.受伤时(光照范围()*攻击效果());
 
+        if(enemy!=null&&heroClass(HeroClass.凌云))
+            enemy.受伤时(空手伤害()*攻击效果());
+
         if(enemy!=null&&subClass(HeroSubClass.战斗法师)&&职业精通())
             Recharging.chargeWands(0.625f*攻击效果());
 
@@ -10359,25 +10364,26 @@ public class Hero extends Char {
     }
 	//endregion
 
-    public boolean cellIsPathable(int cell){
-        if(!Dungeon.level.passable[cell]){
-            if(flying||buff(Amok.class)!=null){
-                if(!Dungeon.level.avoid[cell]){
-                    return false;
-                }
-            }else{
-                return false;
-            }
-        }
-        if(Char.hasProp(this,Char.Property.LARGE)&&!Dungeon.level.openSpace[cell]){
-            return false;
-        }
-        if(Actor.findChar(cell)!=null){
-            return false;
-        }
 
-        return true;
+    //搜索拾取可达性：从英雄当前位置能否沿可通行路径走到目标格（含飞行/体型/占用判定）
+    private boolean[] 能搜索拾取(){
+        int len=Dungeon.level.length();
+        int w=Dungeon.level.width(), h=Dungeon.level.height();
+        boolean[] 可达=new boolean[len];
+        java.util.ArrayDeque<Integer> 队列=new java.util.ArrayDeque<>();
+        队列.add(pos);
+        可达[pos]=true;
+        while(!队列.isEmpty()){
+            int 当前=队列.poll();
+            int x=当前%w, y=当前/w;
+            if(y>0){ int n=当前-w; if(!可达[n]&&cellIsPathable(n)){可达[n]=true; 队列.add(n);} }
+            if(y<h-1){ int n=当前+w; if(!可达[n]&&cellIsPathable(n)){可达[n]=true; 队列.add(n);} }
+            if(x>0){ int n=当前-1; if(!可达[n]&&cellIsPathable(n)){可达[n]=true; 队列.add(n);} }
+            if(x<w-1){ int n=当前+1; if(!可达[n]&&cellIsPathable(n)){可达[n]=true; 队列.add(n);} }
+        }
+        return 可达;
     }
+
 
     public boolean search(boolean intentional) {
 
@@ -10399,6 +10405,8 @@ public class Hero extends Char {
         }
 
         Point c = Dungeon.level.cellToPoint(pos);
+
+        boolean[] 搜索可达阵 = 能搜索拾取();
 
         TalismanOfForesight.Foresight talisman = buff(TalismanOfForesight.Foresight.class);
 
@@ -10442,9 +10450,8 @@ public class Hero extends Char {
                     }
                     Dungeon.level.搜索过[curr]=true;
 					//region 搜索拾取
-					if(Dungeon.level.solid[curr]||//墙体
-                       //参观了、可通行的路径
-                       (Dungeon.level.visited[curr]&&cellIsPathable(curr)))
+					if((Dungeon.level.visited[curr]||Dungeon.level.mapped[curr])
+                       &&搜索可达阵[curr])//参观了、可通行的路径
                     if(Dungeon.level.map[curr]!=Terrain.SECRET_TRAP&&//陷阱
                        Dungeon.level.map[curr]!=Terrain.TRAP){
                         Heap heap = Dungeon.level.heaps.get(curr);

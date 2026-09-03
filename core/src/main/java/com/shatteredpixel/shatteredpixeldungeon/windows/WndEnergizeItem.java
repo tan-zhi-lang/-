@@ -170,7 +170,7 @@ public class WndEnergizeItem extends WndInfoItem {
 
 		@Override
 		public boolean itemSelectable(Item item) {
-			if(!item.提炼||item.专属) {
+			if(!item.提炼) {
 				return false;
 			}
 			if(item instanceof EquipableItem e&&e.isEquipped(Dungeon.hero)){

@@ -80,6 +80,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.MysteryMeat;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.噩梦粮食;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.纯净粮食;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.ExoticPotion;
@@ -118,6 +119,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.魔法箭矢;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.日炎链刃;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.猪鲨链球;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蘑菇长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.金纹拐;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.饮血之剑;
@@ -1201,6 +1203,10 @@ public abstract class Mob extends Char{
 						}
 						if(Dungeon.hero.belongings.weapon(日炎链刃.class)){
 							new Bomb.ConjuredBomb().heroexplode(pos);
+						}
+						if(Dungeon.hero.belongings.weapon(蘑菇长矛.class)){
+							Dungeon.level.drop(new 蓝蘑菇(),pos).sprite().drop();
+
 						}
 						if(Dungeon.hero.belongings.weapon(金纹拐.class)){
 							Dungeon.gold(new Gold().random().数量(),pos);

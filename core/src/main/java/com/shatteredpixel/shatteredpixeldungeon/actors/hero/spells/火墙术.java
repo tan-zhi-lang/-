@@ -57,6 +57,7 @@ public class 火墙术 extends 目标法术 {
 
 		hero.spend( 1f );
 		hero.next();
+		onSpellCast(tome, hero);
 		float damage = Random.NormalFloat(
 				hero.魔力(this,0.3f)
 				,

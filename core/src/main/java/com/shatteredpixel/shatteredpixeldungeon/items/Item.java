@@ -70,6 +70,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.疯狂斧;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.真铜短剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.致胜拳炮;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蘑菇长矛;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.蜜剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.血荆棘;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.裂天剑;
@@ -242,6 +243,7 @@ public class Item implements Bundlable {
 		if(this instanceof 投掷手套)return true;
 		if(this instanceof 猪鲨链球)return true;
 		if(this instanceof 致胜拳炮)return true;
+		if(this instanceof 蘑菇长矛)return true;
 		if(this instanceof 猩红散华)return true;
 		if(this instanceof 角斗链枷)return true;
 		if(this instanceof 真铜短剑)return true;

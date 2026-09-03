@@ -580,6 +580,9 @@ public class 物品表 {
     public static final int 黑暗剑=WEP_TIER52+23;
 
     public static final int 大王=WEP_TIER52+24;
+    public static final int 燧石=WEP_TIER52+25;
+    public static final int 蘑菇长矛=WEP_TIER52+26;
+    public static final int 臭虎爪=WEP_TIER52+27;
 
     static{
         assignItemRect(联合盾,15);
@@ -607,6 +610,9 @@ public class 物品表 {
         assignItemRect(圣剑,16);
         assignItemRect(黑暗剑,16);
         assignItemRect(大王,9,12);
+        assignItemRect(燧石);
+        assignItemRect(蘑菇长矛,15);
+        assignItemRect(臭虎爪,16,15);
 
 
     }

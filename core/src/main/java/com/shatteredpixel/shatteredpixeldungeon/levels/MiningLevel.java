@@ -55,6 +55,8 @@ public class MiningLevel extends CavesLevel {
 		switch (Blacksmith.Quest.Type()){
 			default:
 				return Assets.Environment.TILES_CAVES;
+			case Blacksmith.Quest.FUNGI:
+				return Assets.Environment.TILES_CAVES_蘑菇;
 			case Blacksmith.Quest.CRYSTAL:
 				return Assets.Environment.TILES_CAVES_CRYSTAL;
 			case Blacksmith.Quest.GNOLL:

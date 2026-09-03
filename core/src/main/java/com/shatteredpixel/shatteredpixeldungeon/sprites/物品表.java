@@ -112,7 +112,7 @@ public class 物品表 {
         assignItemRect(GOLD, 15, 13);
         assignItemRect(ENERGY);
 
-        assignItemRect(DEWDROP, 10);
+        assignItemRect(DEWDROP, 10,9);
         assignItemRect(SANDBAG, 10);
 
         assignItemRect(TENGU_BOMB, 10);

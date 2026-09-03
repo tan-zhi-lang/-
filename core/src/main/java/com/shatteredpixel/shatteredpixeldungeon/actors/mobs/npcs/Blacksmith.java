@@ -348,8 +348,8 @@ public class Blacksmith extends NPC {
 				spawned = true;
 
 				//Currently cannot roll the fungi quest, as it is not fully implemented
-				type = 1;//水晶没问题
-//				type = Random.IntRange(1, 2);
+				type = 2;//水晶没问题
+//				type = Random.IntRange(1, 3);
 
 				given = false;
 				generateRewards( true );

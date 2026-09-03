@@ -19,7 +19,6 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.StyledButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.TitleBackground;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.存档工具;
-import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.windows.IconTitle;
 import com.shatteredpixel.shatteredpixeldungeon.windows.WndGameInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.windows.Wndinfo;
@@ -369,7 +368,10 @@ public class StartScene extends PixelScene {
 				if (存档工具.导入()) {
 					ShatteredPixelDungeon.seamlessResetScene();
 				} else {
-					GLog.橙("导入失败：未找到 game.dat，请把 game.dat 放到 " + 存档工具.导出根目录().getAbsolutePath());
+
+					Game.scene().add(new Wndinfo("导入失败",
+	 "未找到 game.dat，请把 game.dat 放到 "
+ + 存档工具.导出根目录().getAbsolutePath()));
 				}
 			} else if (newGame) {
 				GamesInProgress.selectedClass = null;

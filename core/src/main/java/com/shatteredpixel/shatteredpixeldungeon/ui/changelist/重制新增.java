@@ -145,6 +145,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.weapon.碎缘剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.神农锄;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.联合盾;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.腐化灾兵;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.臭虎爪;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.致胜拳炮;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.英雄断剑;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.草剃;

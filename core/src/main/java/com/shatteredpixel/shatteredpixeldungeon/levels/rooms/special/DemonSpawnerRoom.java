@@ -34,6 +34,7 @@ public class DemonSpawnerRoom extends SpecialRoom {
 		spawner.spawnRecorded = true;
 		level.mobs.add( spawner );
 
+
 		CustomFloor vis = new CustomFloor();
 		vis.setRect(left+1, top+1, width()-2, height()-2);
 		level.customTiles.add(vis);

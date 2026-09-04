@@ -19,6 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.红蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.金苹果;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.面包;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.圣魄秘药;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.暴刹秘药;
@@ -488,10 +489,10 @@ public class 重制新增{
 		ChangeInfo changes = new ChangeInfo("新物品", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
+		changes.addButton(new ChangeButton(new 金苹果(),"替换恶魔血巢的治疗药剂掉落。"));
 		changes.addButton(new ChangeButton(new 岩砾(),"三区每层必定生成1个，50%概率额外一个"));
 		changes.addButton(new ChangeButton(new 财富炸弹()));
 		changes.addButton(new ChangeButton(new 面包(),"替换商店的口粮为此"));
-		changes.addButton(new ChangeButton(new 星之果实(),"23层，周围4个活动雕像"));
 		changes.addButton(new ChangeButton(new 封禁卷轴(),"升级卷轴消耗10能量合成"));
 		changes.addButton(new ChangeButton(new 进级卷轴(),"升级卷轴+激泥酞酶消耗8能量合成"));
 		changes.addButton(new ChangeButton(new 血药(),
@@ -610,7 +611,8 @@ public class 重制新增{
 		ChangeInfo changes = new ChangeInfo("新房间", true, null);
 		changes.hardlight(Window.TITLE_COLOR);
 		changeInfos.add(changes);
-		
+
+		changes.addButton(new ChangeButton(new 星之果实(),"23层，周围4个活动雕像"));
 		changes.addButton( new ChangeButton(new ItemSprite(物品表.SEED_ICECAP),"魔法冰霜房间",
 											"必定生成液火药剂和烈焰花种子。\n" +
 											"奖励同魔法火焰房间。"));

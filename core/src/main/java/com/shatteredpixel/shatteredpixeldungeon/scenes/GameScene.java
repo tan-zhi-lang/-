@@ -502,7 +502,7 @@ public class GameScene extends PixelScene {
 		Camera.main.panTo(hero.center(), 2.5f);
 
 		if((Dungeon.相对层数()>15&&Dungeon.相对层数()<20)&&Dungeon.branch==1){
-			GLog.橙("背包又回去的道具。");
+			GLog.黄("背包有回去的道具！");
 		}
 
 		GLog2.黄("依次点击:右上角第2个图标->设置自己找相关设置一目了然");

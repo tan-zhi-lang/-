@@ -1268,6 +1268,7 @@ public class 物品表 {
     public static final int 蓝蘑菇 = FOOD + 17;
     public static final int 绿蘑菇 = FOOD + 18;
     public static final int 面包 = FOOD + 19;
+    public static final int 金苹果 = FOOD + 20;
 
     static {
         assignItemRect(MEAT, 15, 11);
@@ -1290,6 +1291,7 @@ public class 物品表 {
         assignItemRect(蓝蘑菇, 16, 13);
         assignItemRect(绿蘑菇, 16, 15);
         assignItemRect(面包, 14);
+        assignItemRect(金苹果, 12,15);
     }
 
     private static final int HOLIDAY_FOOD = xy(0, 29);  //16 slots

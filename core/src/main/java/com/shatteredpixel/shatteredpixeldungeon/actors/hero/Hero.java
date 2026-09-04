@@ -6392,7 +6392,6 @@ public class Hero extends Char {
         }
 
 
-        // ========== 主逻辑 ==========
         if (Dungeon.区域() == 3) {
             int t = Dungeon.level.map[dst];
             if (t == Terrain.WALL_DECO) {
@@ -6426,6 +6425,12 @@ public class Hero extends Char {
             } else if (t == Terrain.MINE_BOULDER) {
                 Splash.at(dst, 0x555555, 5);
                 Sample.INSTANCE.play(Assets.Sounds.挖矿, 0.6f);
+                transformMinedTile(dst);
+            }else if (t == Terrain.WALL) {
+                PixelScene.shake(0.5f, 0.5f);
+                CellEmitter.get(dst).burst(Speck.factory(Speck.ROCK), 2);
+                Sample.INSTANCE.play(Assets.Sounds.挖矿);
+                破坏物体++;
                 transformMinedTile(dst);
             }
 

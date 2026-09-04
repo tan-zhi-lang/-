@@ -1529,7 +1529,9 @@ public abstract class Char extends Actor {
 //					sprite.showStatusWithIcon(CharSprite.默认白,dmg+shielded,icon);
 //				else if (来源 instanceof 流血)
 //					sprite.showStatusWithIcon(CharSprite.削弱红,dmg+shielded,icon);
-				else sprite.showStatusWithIcon(CharSprite.削弱红,kw2(dmg+shielded),icon);//物理
+				else {
+					sprite.showStatusWithIcon(CharSprite.削弱红,kw2(dmg+shielded),icon);//物理
+				}
 			}
 		}
 

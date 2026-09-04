@@ -1,12 +1,19 @@
 
 
-package com.shatteredpixel.shatteredpixeldungeon.items;
+package com.shatteredpixel.shatteredpixeldungeon.items.food;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AllyBuff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.LostInventory;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.修理;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs.永生秘药;
+import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite.Glowing;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -16,13 +23,14 @@ import com.watabou.utils.Bundle;
 
 import java.util.ArrayList;
 
-public class Ankh extends Item {
+public class 金苹果 extends Food{
 
 	public static final String AC_BLESS = "BLESS";
 	private boolean blessed = false;
 
 	{
-		image = 物品表.ANKH;
+		image = 物品表.金苹果;
+		energy =Hunger.STARVING*2;
 
 		//You tell the ankh no, don't revive me, and then it comes back to revive you again in another run.
 		//I'm not sure if that's enthusiasm or passive-aggression.
@@ -42,6 +50,29 @@ public class Ankh extends Item {
 		return actions;
 	}
 
+	@Override
+	protected void satisfy(Hero hero) {
+		for (Buff b : hero.buffs()){
+			if(b.type==Buff.buffType.NEGATIVE&&!(b instanceof AllyBuff)&&!(b instanceof LostInventory)){
+				b.detach();
+			}
+		}
+		float 治疗=0.8f*2;
+		float 修复=1.6f*4f*2;
+		if(isBlessed()){
+			hero.belongings.uncurseEquipped();
+			治疗*=2;
+			修复*=2;
+		}
+		Healing healing = Buff.施加(hero,Healing.class);
+		healing.setHeal(hero.最大生命(治疗), 0.05f*2, 0);
+
+		修理 护甲修理 = Buff.施加(hero,修理.class);
+		护甲修理.setHeal(hero.最大护甲(修复), 0.05f*2, 0);
+
+
+		super.satisfy(hero);
+		}
 	@Override
 	public void execute( final Hero hero, String action ) {
 
@@ -73,7 +104,7 @@ public class Ankh extends Item {
 	@Override
 	public String name(){
 		if (blessed)
-			return "祝福"+super.name();
+			return "附魔"+super.name();
 		else
 			return super.name();
 	}

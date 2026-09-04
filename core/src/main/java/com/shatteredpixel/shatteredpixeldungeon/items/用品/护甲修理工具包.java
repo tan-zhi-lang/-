@@ -26,7 +26,7 @@ public class 护甲修理工具包 extends 用品{
 //			return;
 //		}
 		修理 护甲修理 = Buff.施加(hero,修理.class);
-		护甲修理.setHeal(hero.最大生命(0.9f), 0.45f, 0);
+		护甲修理.setHeal(hero.最大护甲(0.9f), 0.45f, 0);
 		super.使用(hero);
 	}
 	

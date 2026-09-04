@@ -5,18 +5,10 @@ package com.shatteredpixel.shatteredpixeldungeon.items.potions.elixirs;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Blindness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Cripple;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Drowsy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Healing;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Hunger;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Poison;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vertigo;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.血药;
@@ -41,7 +33,7 @@ public class 永生秘药 extends Elixir {
 	
 	@Override
 	public void apply( Hero hero ) {
-		cure( hero );
+		治疗药剂.cure( hero );
 		heal( hero );
 		hero.belongings.uncurseEquipped();
 		if(hero.符文("恢复的宠爱"))hero.治疗成长+=0.25f;
@@ -71,17 +63,6 @@ public class 永生秘药 extends Elixir {
 	public String desc(){
 		if(Dungeon.isChallenged(Challenges.NO_HEALING)&&已鉴定())return "你对此过敏，会中毒。";
 		return super.desc();
-	}
-	public static void cure( Char ch ) {
-		Buff.detach( ch, Poison.class );
-		Buff.detach( ch, Cripple.class);
-		Buff.detach( ch, Weakness.class);
-		Buff.detach( ch, Vulnerable.class);
-		Buff.detach( ch, 流血.class);
-		Buff.detach( ch, Blindness.class);
-		Buff.detach( ch, Drowsy.class);
-		Buff.detach( ch, Slow.class);
-		Buff.detach( ch, Vertigo.class);
 	}
 	
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe {

@@ -72,6 +72,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.food.纯净粮食;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.绿蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蓝蘑菇;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.蜂蜜;
+import com.shatteredpixel.shatteredpixeldungeon.items.food.金苹果;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.CrystalKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
@@ -147,6 +148,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.水袋;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.坠牢之星;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.奥术水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.护甲修理工具包;
+import com.shatteredpixel.shatteredpixeldungeon.items.用品.星之果实;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.活力水晶;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命果;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.生命水晶;
@@ -154,6 +156,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.用品.神盾果;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.自残绳;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.进阶宝典;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.魔力水晶;
+import com.shatteredpixel.shatteredpixeldungeon.items.秘银;
 import com.shatteredpixel.shatteredpixeldungeon.items.荣誉纹章;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.watabou.utils.Bundle;
@@ -359,12 +362,18 @@ public enum Catalog {
 				ReclaimTrap.class, SummonElemental.class, BeaconOfReturning.class, BeaconOfReturning.class);
 
 		MISC_CONSUMABLES.addItems(Gold.class,EnergyCrystal.class,Dewdrop.class,
+
 								  IronKey.class,GoldenKey.class,CrystalKey.class,磨损钥匙.class,
+
 								  TrinketCatalyst.class,Stylus.class,Torch.class,Honeypot.class,Ankh.class,
 								  CorpseDust.class,Embers.class,CeremonialCandle.class,DarkGold.class,矮人徽章.class,
 								  GooBlob.class,TengusMask.class,MetalShard.class,//矮人国王的皇冠
 								  ArcaneResin.class,
-								  进阶宝典.class,商人信标.class,自残绳.class,护甲修理工具包.class,
+								  进阶宝典.class,
+								  星之果实.class,
+								  金苹果.class,
+								  秘银.class,
+								  商人信标.class,自残绳.class,护甲修理工具包.class,
 
 								  生命水晶.class,生命果.class,
 								  坠牢之星.class,魔力水晶.class,

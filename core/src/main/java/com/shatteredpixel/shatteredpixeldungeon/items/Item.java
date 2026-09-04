@@ -162,8 +162,6 @@ public class Item implements Bundlable {
 	public boolean 价值提升 = false;
 	public boolean 能量提升 = false;
 	public boolean 炼金全放 = false;
-	public boolean 炼金 = true;
-	public boolean 提炼 = true;
 	public boolean 可以空间 = true;
 	protected int quantity = 1;
 	public boolean dropsDownHeap = false;//?

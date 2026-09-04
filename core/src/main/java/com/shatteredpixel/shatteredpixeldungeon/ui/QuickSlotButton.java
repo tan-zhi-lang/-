@@ -285,6 +285,10 @@ public class QuickSlotButton extends Button {
 	}
 	
 	private void enableSlot() {
+		if (Dungeon.hero == null || Dungeon.hero.belongings == null) {
+			slot.enable(false);
+			return;
+		}
 		slot.enable(Dungeon.quickslot.isNonePlaceholder( slotNum )
 				&& (!Dungeon.hero.belongings.lostInventory() || Dungeon.quickslot.getItem(slotNum).keptThroughLostInventory()));
 	}

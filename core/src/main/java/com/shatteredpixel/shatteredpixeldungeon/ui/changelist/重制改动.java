@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bat;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Crab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eye;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollGuard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollTrickster;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
@@ -19,13 +20,16 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.BlacksmithSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhoulSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ThiefSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.WandmakerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIcon;
 import com.shatteredpixel.shatteredpixeldungeon.ui.BuffIndicator;
@@ -106,6 +110,8 @@ public class 重制改动{
 											"最大防御-2\n" +
 											"最大生命-10\n" +
 															 "相邻时不会施法。"));
+		changes.addButton( new ChangeButton(new GnollGuard(),"豺狼守卫",
+											"最大命中和最大闪避-2。"));
 		changes.addButton( new ChangeButton(new Monk(),"矮人武僧",
 											"最大生命-10。"));
 		changes.addButton( new ChangeButton(new GhoulSprite(),"矮人尸群","复活的生命10%->12.5%，但是每次死亡都会使复活的生命x0.6。\n" +
@@ -603,6 +609,12 @@ public class 重制改动{
 										   "祛邪卷轴\n" +
 										   "特别物品。\n\n" +
 
+										   "镜像卷轴\n" +
+										   "镜像强度统一为50%英雄强度，最大生命值仅你的5%\n\n" +
+
+										   "虹卫秘卷\n" +
+										   "虹光幻像强度统一为50%英雄强度，最大生命仅你10%\n\n" +
+
 										   "蜕变秘卷\n" +
 										   "移除蜕变天赋，而是改变英雄的特性。\n\n" +
 
@@ -858,14 +870,19 @@ public class 重制改动{
 											"只卖一个武器。\n" +
 											"商店的武器和防具，戒指和法杖有概率拥有等级。\n" +
 											"商店的小包口粮x2->口粮+50%概率小包口粮。"));
-		changes.addButton( new ChangeButton(new GhostSprite(),"NPC",
-											"悲伤幽灵的任务奖励武器和防具的随机等级使用同一个随机->不同随机。\n"+
-											"老杖匠的奖励额外一个选择，获得3个酶优树酯。\n"+
-											"巨魔铁匠任务要求数量40->20，携带的数量越多，增加的好感度越多，并且给的镐子是鉴定的。\n" +
-											"巨魔铁匠移除硬化。\n"+
-											"巨魔铁匠任务恢复菌群任务。\n"+
-											"巨魔铁匠新增额外选项，不需要人情，会赠送锻造锤。\n"+
-											"野心勃勃的小恶魔不再半透明。"));
+		changes.addButton( new ChangeButton(new GhostSprite(),"悲伤幽灵",
+											"任务奖励武器和防具的随机等级使用同一个随机->不同随机。"));
+		changes.addButton( new ChangeButton(new ImpSprite(),"野心勃勃的小恶魔",
+											"不再半透明。"));
+		changes.addButton( new ChangeButton(new WandmakerSprite(),"老杖匠",
+											"奖励额外一个选择，获得3个酶优树酯。"));
+	changes.addButton( new ChangeButton(new BlacksmithSprite(),"巨魔铁匠",
+											"任务要求数量40->20，携带的数量越多，增加的好感度越多，并且给的镐子是鉴定的。\n" +
+											"好感度最多10000->5000，1人情=1枚金币->10人情。\n"+
+											"移除硬化。\n"+
+											"豺狼任务怪生成速度-3/2倍。\n"+
+											"任务恢复菌群任务，但是怪生成速度-3/2倍。\n"+
+											"新增额外选项，不需要人情，会赠送锻造锤。"));
 
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.PICKAXE), "挖矿",
 										   "挖墙体必定是装饰地板或普通地板->1/4概率是装饰地板\n" +

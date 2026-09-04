@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
+import static com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴.teleportPreferringUnseen;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
@@ -48,6 +50,12 @@ public class WndGame extends Window {
 			@Override
 			protected void onClick() {
 				hide();
+//				for(Mob m : new ArrayList<>(Dungeon.level.mobs)){
+////					if(m.enemy==Dungeon.hero) {
+//						m.受伤时(m.最大生命);
+////					}
+//				}
+				teleportPreferringUnseen( Dungeon.hero );
 				ShatteredPixelDungeon.seamlessResetScene();
 			}
 		} );
@@ -64,7 +72,10 @@ public class WndGame extends Window {
 		} );
 		curBtn.icon(Icons.get(Icons.GOLD));
 
-		addButton( curBtn = new RedButton("备注存档") {
+		// ========== 模式按钮：自动每行排 2 个 ==========
+		java.util.ArrayList<RedButton> modeBtns = new java.util.ArrayList<>();
+
+		modeBtns.add(new RedButton("备注存档") {
 			@Override
 			protected void onClick() {
 				hide();
@@ -85,11 +96,11 @@ public class WndGame extends Window {
 				});
 //				邮件系统.发送邮件("");//问题/建议
 			}
-		} );
-		curBtn.icon(Icons.get(Icons.JOURNAL));
+		});
+		modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.JOURNAL));
 
 		//存档导出/导入
-		addButton(curBtn = new RedButton("导出存档") {
+		modeBtns.add(new RedButton("导出存档") {
 				@Override
 				protected void onClick() {
 					try {
@@ -103,67 +114,86 @@ public class WndGame extends Window {
 				}
 			}
 		);
-		curBtn.icon(Icons.get(Icons.DISPLAY));
+		modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.DISPLAY));
 
-		// Challenges window
 		if (Dungeon.challenges > 0) {
-			addButton( curBtn = new RedButton( Messages.get(this, "challenges") ) {
+			modeBtns.add(new RedButton( Messages.get(this, "challenges") ) {
 				@Override
 				protected void onClick() {
 					hide();
 					GameScene.show( new WndChallenges( Dungeon.challenges, false ) );
 				}
-			} );
-			curBtn.icon(Icons.get(Icons.CHALLENGE_COLOR));
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.CHALLENGE_COLOR));
 		}
 		if (Dungeon.炼狱 > 0) {
-			addButton( curBtn = new RedButton( Messages.get(this, "炼狱") ) {
+			modeBtns.add(new RedButton( Messages.get(this, "炼狱") ) {
 				@Override
 				protected void onClick() {
 					hide();
 					GameScene.show( new 炼狱( Dungeon.炼狱, false ) );
 				}
-			} );
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.炼狱开));
 		}
 		if (Dungeon.解压 > 0) {
-			addButton( curBtn = new RedButton( Messages.get(this, "解压") ) {
+			modeBtns.add(new RedButton( Messages.get(this, "解压") ) {
 				@Override
 				protected void onClick() {
 					hide();
 					GameScene.show( new 解压( Dungeon.解压, false ) );
 				}
-			} );
-			curBtn.icon(Icons.get(Icons.解压开));
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.解压开));
 		}
 		if (Dungeon.系统 > 0) {
-			addButton( curBtn = new RedButton( Messages.get(this, "系统") ) {
+			modeBtns.add(new RedButton( Messages.get(this, "系统") ) {
 				@Override
 				protected void onClick() {
 					hide();
 					GameScene.show( new 系统( Dungeon.系统, false ) );
 				}
-			} );
-			curBtn.icon(Icons.get(Icons.系统开));
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.系统开));
 		}
 		if (Dungeon.派对 > 0) {
-			addButton( curBtn = new RedButton( Messages.get(this, "派对") ) {
+			modeBtns.add(new RedButton( Messages.get(this, "派对") ) {
 				@Override
 				protected void onClick() {
 					hide();
 					GameScene.show( new 派对( Dungeon.派对, false ) );
 				}
-			} );
-			curBtn.icon(Icons.get(Icons.派对开));
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.派对开));
 		}
-		if (Dungeon.赛季>0) {
-			addButton( curBtn = new RedButton( Messages.get(this, "赛季") ) {
+		if (Dungeon.赛季 > 0) {
+			modeBtns.add(new RedButton( Messages.get(this, "赛季") ) {
 				@Override
 				protected void onClick() {
 					hide();
-					GameScene.show( new 赛季(Dungeon.赛季,false ));
+					GameScene.show( new 赛季( Dungeon.赛季, false ) );
 				}
-			} );
-			curBtn.icon(Icons.get(Icons.赛季开));
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.赛季开));
+		}
+
+		//两列布局：奇数个时最后一行占半宽靠左
+		if (!modeBtns.isEmpty()) {
+			pos += GAP;
+			float colW = (WIDTH - GAP) / 2f;
+			for (int i = 0; i < modeBtns.size(); i += 2) {
+				RedButton left = modeBtns.get(i);
+				left.setRect(0, pos, colW, BTN_HEIGHT);
+				add(left);
+
+				if (i + 1 < modeBtns.size()) {
+					RedButton right = modeBtns.get(i + 1);
+					right.setRect(left.right() + GAP, pos, WIDTH - left.right() - GAP, BTN_HEIGHT);
+					add(right);
+				}
+				pos += BTN_HEIGHT+ GAP;
+			}
+			pos -= GAP;
 		}
 
 		// Restart

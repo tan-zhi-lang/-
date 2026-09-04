@@ -39,6 +39,7 @@ public class RenderedTextBlock2 extends Button{
 		TERM_EXPLAIN.put("半血", "_半血_ :生命值低于等于60%并且高于等于40%的状态\n");
 		TERM_EXPLAIN.put("残血", "_残血_ :生命值低于40%的状态\n");
 		TERM_EXPLAIN.put("康血", "_康血_ :生命值高于60%的状态\n");
+		TERM_EXPLAIN.put("副武器", "副武器:攻击距离只取DPS最高的一把\n");
 
 		TERM_EXPLAIN.put("综合属性", "++综合属性++ :影响生命和护甲、命中和闪避、攻速和移速\n");
 		TERM_EXPLAIN.put("治疗护盾", "++治疗护盾++ :影响恢复生命、恢复护甲、获得护盾的加成\n");

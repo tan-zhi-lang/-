@@ -19,7 +19,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每150回合
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每300回合;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每450回合;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每45回合备份;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每900回合回档;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.每600回合回档;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.白猫保护;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.duelist.Challenge;
@@ -225,14 +225,14 @@ public enum HeroClass{
 
 		Notes.物品类别备注(new 净化药剂(),"使用技巧","可以无视很多负面效果，如直接去毒气房一探究竟");
 
-		Notes.物品类别备注(new Bomb(),"使用技巧","可以把很多物品扔地上堆起来，炸一下看看是不是稀有物品，不是稀有物品会被炸没");
-		Notes.物品类别备注(new 水袋(),"使用技巧","装满水可以合成永生秘药");
-
 		Notes.物品类别备注(new 毒气药剂(),"使用技巧","只有毒气能杀死毒气宝箱怪(必刷毒气药剂)");
 		Notes.物品类别备注(new 麻痹药剂(),"使用技巧","只有麻痹能让DM0停止飞行(必刷麻痹药剂)");
 		Notes.物品类别备注(new 灵视药剂(),"使用技巧","只有灵视能看到超级魔法绵羊(必刷灵视药剂)");
-		
+
 		Notes.物品类别备注(new PotionOfCleansing(),"使用技巧","饥饿值为0时饮用可以填充450饥饿");
+
+		Notes.物品类别备注(new Bomb(),"使用技巧","可以把很多物品扔地上堆起来，炸一下看看是不是稀有物品，不是稀有物品会被炸没");
+		Notes.物品类别备注(new 水袋(),"使用技巧","装满水可以合成永生秘药");
 
 		Notes.怪物备注(new Elemental.FireElemental(),"火焰怪物应对技巧","用冰霜伤害能更快击杀它！");
 		Notes.怪物备注(new Elemental.FrostElemental(),"冰霜怪物应对技巧","用火焰伤害能更快击杀它！");
@@ -348,7 +348,7 @@ public enum HeroClass{
 			Buff.施加(hero,下楼.class);
 
 			Buff.施加(hero,每45回合备份.class);
-			Buff.施加(hero,每900回合回档.class);
+			Buff.施加(hero,每600回合回档.class);
 			Buff.施加(hero,每10回合.class);
 			Buff.施加(hero,每150回合.class);
 			Buff.施加(hero,每300回合.class);

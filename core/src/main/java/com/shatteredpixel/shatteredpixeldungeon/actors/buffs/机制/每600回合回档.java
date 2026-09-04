@@ -6,8 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.FlavourBuff;
 
 import java.io.IOException;
 
-//每2400回合自动把当前存档快照到 回档/ 子目录，供玩家死亡后回到更早的存档
-public class 每900回合回档 extends FlavourBuff{
+public class 每600回合回档 extends FlavourBuff{
     @Override
     public boolean act(){
 
@@ -17,7 +16,7 @@ public class 每900回合回档 extends FlavourBuff{
         } catch (IOException e) {
             ShatteredPixelDungeon.reportException(e);
         }
-        spend( 900 );
+        spend( 600 );
         return true;
     }
 }

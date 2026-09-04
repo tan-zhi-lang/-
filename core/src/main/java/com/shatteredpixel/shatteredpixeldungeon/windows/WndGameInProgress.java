@@ -52,89 +52,82 @@ public class WndGameInProgress extends Window {
 		
 		pos = title.bottom() + GAP;
 		
+		// ========== 模式按钮：自动每行排 2 个 ==========
+		java.util.ArrayList<RedButton> modeBtns = new java.util.ArrayList<>();
+
 		if (info.challenges > 0) {
-			RedButton btnChallenges = new RedButton( Messages.get(this, "challenges") ) {
+			modeBtns.add(new RedButton( Messages.get(this, "challenges") ) {
 				@Override
 				protected void onClick() {
 					Game.scene().add( new WndChallenges( info.challenges, false ) );
 				}
-			};
-			btnChallenges.icon(Icons.get(Icons.CHALLENGE_COLOR));
-			float btnW = btnChallenges.reqWidth() + 2;
-			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
-			add( btnChallenges );
-			
-			pos = btnChallenges.bottom() + GAP;
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.CHALLENGE_COLOR));
 		}
 		if (info.炼狱 > 0) {
-			RedButton btnChallenges = new RedButton( Messages.get(this, "炼狱") ) {
+			modeBtns.add(new RedButton( Messages.get(this, "炼狱") ) {
 				@Override
 				protected void onClick() {
 					Game.scene().add( new 炼狱( info.炼狱, false ) );
 				}
-			};
-			btnChallenges.icon(Icons.get(Icons.炼狱开));
-			float btnW = btnChallenges.reqWidth() + 2;
-			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
-			add( btnChallenges );
-			
-			pos = btnChallenges.bottom() + GAP;
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.炼狱开));
 		}
 		if (info.解压 > 0) {
-			RedButton btnChallenges = new RedButton( Messages.get(this, "解压") ) {
+			modeBtns.add(new RedButton( Messages.get(this, "解压") ) {
 				@Override
 				protected void onClick() {
 					Game.scene().add( new 解压( info.解压, false ) );
 				}
-			};
-			btnChallenges.icon(Icons.get(Icons.解压开));
-			float btnW = btnChallenges.reqWidth() + 2;
-			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
-			add( btnChallenges );
-			
-			pos = btnChallenges.bottom() + GAP;
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.解压开));
 		}
 		if (info.系统 > 0) {
-			RedButton btnChallenges = new RedButton( Messages.get(this, "系统") ) {
+			modeBtns.add(new RedButton( Messages.get(this, "系统") ) {
 				@Override
 				protected void onClick() {
 					Game.scene().add( new 系统( info.系统, false ) );
 				}
-			};
-			btnChallenges.icon(Icons.get(Icons.系统开));
-			float btnW = btnChallenges.reqWidth() + 2;
-			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
-			add( btnChallenges );
-			
-			pos = btnChallenges.bottom() + GAP;
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.系统开));
 		}
 		if (info.派对 > 0) {
-			RedButton btnChallenges = new RedButton( Messages.get(this, "派对") ) {
+			modeBtns.add(new RedButton( Messages.get(this, "派对") ) {
 				@Override
 				protected void onClick() {
 					Game.scene().add( new 派对( info.派对, false ) );
 				}
-			};
-			btnChallenges.icon(Icons.get(Icons.派对开));
-			float btnW = btnChallenges.reqWidth() + 2;
-			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
-			add( btnChallenges );
-
-			pos = btnChallenges.bottom() + GAP;
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.派对开));
 		}
-		if (info.赛季>0) {
-			RedButton btnChallenges = new RedButton( Messages.get(this, "赛季") ) {
+		if (info.赛季 > 0) {
+			modeBtns.add(new RedButton( Messages.get(this, "赛季") ) {
 				@Override
 				protected void onClick() {
-					Game.scene().add( new 赛季(info.赛季,false ));
+					Game.scene().add( new 赛季( info.赛季, false ) );
 				}
-			};
-			btnChallenges.icon(Icons.get(Icons.赛季开));
-			float btnW = btnChallenges.reqWidth() + 2;
-			btnChallenges.setRect( (WIDTH - btnW)/2, pos, btnW , 18 );
-			add( btnChallenges );
-			
-			pos = btnChallenges.bottom() + GAP;
+			});
+			modeBtns.get(modeBtns.size()-1).icon(Icons.get(Icons.赛季开));
+		}
+
+		//两列布局：奇数个时最后一行占半宽，不足整行靠左
+		float colW = (WIDTH - GAP) / 2f;
+		for (int i = 0; i < modeBtns.size(); i += 2) {
+			RedButton left = modeBtns.get(i);
+			left.setRect(0, pos, colW, 18);
+			add(left);
+
+			if (i + 1 < modeBtns.size()) {
+				RedButton right = modeBtns.get(i + 1);
+				right.setRect(colW + GAP, pos, WIDTH - colW - GAP, 18);
+				add(right);
+			}
+			pos += 18 + GAP;
+		}
+		if (!modeBtns.isEmpty()) {
+			pos += GAP;
+		}else{
+			pos -= GAP;
 		}
 		
 		pos += GAP;
@@ -164,12 +157,17 @@ public class WndGameInProgress extends Window {
 			PixelScene.align(txt);
 			add( txt );
 
+			//行内布局：标签(左) | 种子码(中) | 复制按钮(右)，三者互不重叠
+			float seedX = WIDTH * 0.55f;
+			float copyX = WIDTH - 18;
+			float seedMax = copyX - GAP - seedX;
+
 			size = 8;
 			do {
 				txt = PixelScene.renderTextBlock( seedCode, size );
 				size--;
-			} while (txt.width() >= WIDTH * 0.35f);
-			txt.setPos(WIDTH * 0.55f, pos + (6 - txt.height())/2);
+			} while (txt.width() >= seedMax);
+			txt.setPos(seedX, pos + (6 - txt.height())/2);
 			PixelScene.align(txt);
 			add( txt );
 
@@ -183,9 +181,10 @@ public class WndGameInProgress extends Window {
 			};
 			btnSeedCopy.icon(Icons.get(Icons.COPY));
 			add( btnSeedCopy );
-			btnSeedCopy.setRect(WIDTH - 18, pos + (6 - 18)/2f, 18, 18);
+			btnSeedCopy.setRect(copyX, pos + (6 - 18)/2f, 18, 18);
 
-			pos += GAP + txt.height();
+			//行高以复制按钮 18px 为准，避免与下方继续/删除按钮重叠
+			pos += GAP + Math.max(txt.height(), 18);
 		}
 		
 		pos += GAP;

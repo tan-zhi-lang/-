@@ -230,21 +230,14 @@ public enum Icons {
             case RIGHTARROW:
                 icon.frame(icon.texture.uvRectBySize(208, 16, 14, 9));
                 break;
+
             case CALENDAR:
-                icon.frame(icon.texture.uvRectBySize(224, 16, 15, 12));
+                icon.frame(icon.texture.uvRectBySize(224, 16, 12, 12));
                 break;
             case CHEVRON:
                 icon.frame(icon.texture.uvRectBySize(240, 16, 13, 10));
                 break;
-            case 好的:
-                icon.frame(icon.texture.uvRectBySize( 208, 32, 9, 11 ) );
-                break;
-            case 坏的:
-                icon.frame(icon.texture.uvRectBySize( 224, 32, 9, 11 ) );
-                break;
-            case SHUFFLE:
-                icon.frame(icon.texture.uvRectBySize( 240, 32, 15, 12 ) );
-                break;
+
 
             case TARGET:
                 icon.frame(icon.texture.uvRectBySize(0, 32, 16, 16));
@@ -284,6 +277,15 @@ public enum Icons {
                 break;
             case PASTE:
                 icon.frame(icon.texture.uvRectBySize(192, 32, 13, 13));
+                break;
+            case 好的:
+                icon.frame(icon.texture.uvRectBySize( 208, 32, 9, 11 ) );
+                break;
+            case 坏的:
+                icon.frame(icon.texture.uvRectBySize( 224, 32, 9, 11 ) );
+                break;
+            case SHUFFLE:
+                icon.frame(icon.texture.uvRectBySize( 240, 32, 15, 12 ) );
                 break;
 
             case BACKPACK_LRG:

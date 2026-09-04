@@ -220,6 +220,7 @@ public class Dungeon {
 	public static boolean 老鼠蝙蝠=false;
 	public static boolean 神英=false;
 	public static boolean 跟随强度=false;
+	public static boolean 限制速度=false;
 	public static boolean 成长属性=false;
 	public static boolean 高耐久度=false;
 	public static boolean 更多怪物=false;
@@ -1125,6 +1126,7 @@ public class Dungeon {
 	private static final String 老鼠蝙蝠x= "老鼠蝙蝠";
 	private static final String 神英x= "神英";
 	private static final String 跟随强度x= "跟随强度";
+	private static final String 限制速度x= "限制速度";
 	private static final String 成长属性x= "成长属性";
 	private static final String 高耐久度x= "高耐久度";
 	private static final String 更多怪物x= "更多怪物";
@@ -1170,6 +1172,7 @@ public class Dungeon {
 			bundle.put(老鼠蝙蝠x,老鼠蝙蝠);
 			bundle.put(神英x,神英);
 			bundle.put(跟随强度x,跟随强度);
+			bundle.put(限制速度x,限制速度);
 			bundle.put(成长属性x,成长属性);
 			bundle.put(高耐久度x,高耐久度);
 			bundle.put(更多怪物x,更多怪物);
@@ -1311,6 +1314,7 @@ public class Dungeon {
 		Dungeon.老鼠蝙蝠= bundle.getBoolean(老鼠蝙蝠x);
 		Dungeon.神英= bundle.getBoolean(神英x);
 		Dungeon.跟随强度= bundle.getBoolean(跟随强度x);
+		Dungeon.限制速度= bundle.getBoolean(限制速度x);
 		Dungeon.成长属性= bundle.getBoolean(成长属性x);
 		Dungeon.高耐久度= bundle.getBoolean(高耐久度x);
 		Dungeon.更多怪物= bundle.getBoolean(更多怪物x);
@@ -1798,6 +1802,10 @@ public class Dungeon {
 	}
 	public static boolean 跟随强度(boolean b){
 		跟随强度=b;
+		return b;
+	}
+	public static boolean 限制速度(boolean b){
+		限制速度=b;
 		return b;
 	}
 	public static boolean 成长属性(boolean b){

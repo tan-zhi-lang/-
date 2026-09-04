@@ -4982,7 +4982,7 @@ public class Hero extends Char {
             移速get=speed;
             return speed >= 4 ? 4 : speed;
         }
-        if (SPDSettings.固定移速() == 3) {
+        if (SPDSettings.固定移速() == 3||Dungeon.限制速度) {
             增加闪避的移速=speed >= 3 ? speed-3 : speed;
             移速get=speed;
             return speed >= 3 ? 3 : speed;
@@ -5684,7 +5684,7 @@ public class Hero extends Char {
 
                 Dungeon.level.dropRandomCell(new Gold(),pos);
 
-                Sample.INSTANCE.play(Assets.Sounds.GHOST);
+                Sample.INSTANCE.play(Assets.Sounds.GOLD);
 
                 if(sprite!=null)
                     门神之戒.showFlareForBonusDrop(sprite);
@@ -6368,6 +6368,20 @@ public class Hero extends Char {
     private void 挖矿处理(int dst){
         挖矿处理(dst,true);
     }
+
+    private void transformMinedTile(int dst) {
+        if (Dungeon.branch == 1) {
+            Level.set(dst, 算法.概率学(1/4f) ? Terrain.EMPTY_DECO : Terrain.EMPTY);
+        } else {
+            if (算法.概率学(1/8f)) {
+                Level.set(dst, Terrain.CHASM);
+            } else if (算法.概率学(1/4f)) {
+                Level.set(dst, Terrain.EMPTY_DECO);
+            } else {
+                Level.set(dst, Terrain.EMPTY);
+            }
+        }
+    }
     private boolean 挖矿处理(int dst,boolean 单挖){
         boolean crystalAdjacent = false;
         for (int i : PathFinder.相邻) {
@@ -6377,109 +6391,52 @@ public class Hero extends Char {
             }
         }
 
-        //1 hunger spent total
-        if (Dungeon.level.map[dst]==Terrain.WALL_DECO) {
 
-                Item gold = new 秘银();
-                if(Dungeon.branch==1)gold = new DarkGold();
+        // ========== 主逻辑 ==========
+        if (Dungeon.区域() == 3) {
+            int t = Dungeon.level.map[dst];
+            if (t == Terrain.WALL_DECO) {
+                // ----- 秘银/暗金拾取（仅 WALL_DECO）-----
+                Item gold = (Dungeon.branch == 1) ? new DarkGold() : new 秘银();
                 if (gold.doPickUp(Dungeon.hero)) {
                     Item existing = belongings.getItem(秘银.class);
-                    if(Dungeon.branch==1)existing = belongings.getItem(DarkGold.class);
+
+                    if(Dungeon.branch == 1)existing = belongings.getItem(DarkGold.class);
+
                     if (existing != null) {
-                        if(Dungeon.branch==1)
-                        GLog.绿(Messages.get(DarkGold.class,"you_now_have",existing.数量()));
-                        else
-                            GLog.绿(Messages.get(秘银.class,"you_now_have",existing.数量()));
+                        GLog.绿(Messages.get(Dungeon.branch == 1 ? DarkGold.class : 秘银.class,
+                                             "you_now_have", existing.数量()));
                     }
-                    spend(-Actor.TICK); //picking up the gold doesn't spend a turn here
+                    spend(-Actor.TICK); // 拾取不消耗回合
                 } else {
                     Dungeon.level.drop(gold, pos).sprite().drop();
                 }
                 PixelScene.shake(0.5f, 0.5f);
-                CellEmitter.center(dst).burst(Speck.factory(Speck.STAR),7);
+                CellEmitter.center(dst).burst(Speck.factory(Speck.STAR), 7);
                 Sample.INSTANCE.play(Assets.Sounds.挖爆);
                 破坏物体++;
-                //                            Sample.INSTANCE.play(Assets.Sounds.EVOKE);
-
-            if(Dungeon.branch==1){
-                if(算法.概率学(1/4f))
-                    Level.set(dst,Terrain.EMPTY_DECO);
-                else
-                    Level.set(dst,Terrain.EMPTY);
-            }
-            else{
-                if(算法.概率学(1/8f))
-                    Level.set(dst,Terrain.CHASM);
-                else if(算法.概率学(1/4f))
-                    Level.set(dst,Terrain.EMPTY_DECO);
-                else
-                    Level.set(dst,Terrain.EMPTY);
-            }
-
-                //mining gold doesn't break crystals
+                transformMinedTile(dst);
                 crystalAdjacent = false;
 
-                //4 hunger spent total
+            } else if (t == Terrain.MINE_CRYSTAL) {
+                Splash.at(dst, 0xFFFFFF, 5);
+                Sample.INSTANCE.play(Assets.Sounds.水晶碎, 1, Random.Float(0.75f, 1.25f));
+                transformMinedTile(dst);
 
-        } else if (Dungeon.level.map[dst]==Terrain.WALL) {
-//                            buff(Hunger.class).吃饭(-3);
-            PixelScene.shake(0.5f, 0.5f);
-            CellEmitter.get(dst).burst(Speck.factory(Speck.ROCK),2);
-            Sample.INSTANCE.play(Assets.Sounds.挖矿);
-            破坏物体++;
-            if(Dungeon.branch==1){
-                if(算法.概率学(1/4f))
-                    Level.set(dst,Terrain.EMPTY_DECO);
-                else
-                    Level.set(dst,Terrain.EMPTY);
-            }
-            else{
-                if(算法.概率学(1/8f))
-                    Level.set(dst,Terrain.CHASM);
-                else if(算法.概率学(1/4f))
-                    Level.set(dst,Terrain.EMPTY_DECO);
-                else
-                    Level.set(dst,Terrain.EMPTY);
+            } else if (t == Terrain.MINE_BOULDER) {
+                Splash.at(dst, 0x555555, 5);
+                Sample.INSTANCE.play(Assets.Sounds.挖矿, 0.6f);
+                transformMinedTile(dst);
             }
 
-            //1 hunger spent total
-        } else if (Dungeon.level.map[dst]==Terrain.MINE_CRYSTAL) {
-            Splash.at(dst,0xFFFFFF,5);
-            Sample.INSTANCE.play(Assets.Sounds.水晶碎, 1, Random.Float(0.75f, 1.25f));
-
-            if(Dungeon.branch==1){
-                if(算法.概率学(1/4f))
-                    Level.set(dst,Terrain.EMPTY_DECO);
-                else
-                    Level.set(dst,Terrain.EMPTY);
-            }
-            else{
-                if(算法.概率学(1/8f))
-                    Level.set(dst,Terrain.CHASM);
-                else if(算法.概率学(1/4f))
-                    Level.set(dst,Terrain.EMPTY_DECO);
-                else
-                    Level.set(dst,Terrain.EMPTY);
-            }
-
-            //1 hunger spent total
-        } else if (Dungeon.level.map[dst]==Terrain.MINE_BOULDER) {
-            Splash.at(dst,0x555555,5);
-            Sample.INSTANCE.play(Assets.Sounds.挖矿, 0.6f);
-
-            if(Dungeon.branch==1){
-                if(算法.概率学(1/4f))
-                    Level.set(dst,Terrain.EMPTY_DECO);
-                else
-                    Level.set(dst,Terrain.EMPTY);
-            }
-            else{
-                if(算法.概率学(1/8f))
-                    Level.set(dst,Terrain.CHASM);
-                else if(算法.概率学(1/4f))
-                    Level.set(dst,Terrain.EMPTY_DECO);
-                else
-                    Level.set(dst,Terrain.EMPTY);
+        } else {
+            int t = Dungeon.level.map[dst];
+            if (t == Terrain.WALL_DECO || t == Terrain.WALL) {
+                PixelScene.shake(0.5f, 0.5f);
+                CellEmitter.get(dst).burst(Speck.factory(Speck.ROCK), 2);
+                Sample.INSTANCE.play(Assets.Sounds.挖矿);
+                破坏物体++;
+                transformMinedTile(dst);
             }
         }
 
@@ -7257,23 +7214,9 @@ public class Hero extends Char {
             攻速get=2/delay;
             return delay <= 2 ? 2 : delay;
         }
-        if (SPDSettings.固定攻速() == 1||subClass(HeroSubClass.灵月杀手)) {
-            增加攻击的攻速=delay;
-
+        if (SPDSettings.固定攻速() >= 5) {
             攻速get=1/delay;
-            return delay <= 1 ? 1 : delay;
-        }
-        if (SPDSettings.固定攻速() ==2) {
-            增加攻击的攻速=delay <= 1 ? 1/2f-delay : delay;
-
-            攻速get=1/delay;
-            return delay <= 1/2f ? 1/2f : delay;
-        }
-        if (SPDSettings.固定攻速() ==3) {
-            增加攻击的攻速=delay <= 1/3f ? 1/3f-delay : delay;
-
-            攻速get=1/delay;
-            return delay <= 1/3f ? 1/3f : delay;
+            return delay;
         }
         if (SPDSettings.固定攻速() ==4) {
             增加攻击的攻速=delay <= 1/4f ? 1/4f-delay : delay;
@@ -7281,9 +7224,23 @@ public class Hero extends Char {
             攻速get=1/delay;
             return delay <= 1/4f ? 1/4f : delay;
         }
-        if (SPDSettings.固定攻速() >= 5) {
+        if (SPDSettings.固定攻速() ==3||Dungeon.限制速度) {
+            增加攻击的攻速=delay <= 1/3f ? 1/3f-delay : delay;
+
             攻速get=1/delay;
-            return delay;
+            return delay <= 1/3f ? 1/3f : delay;
+        }
+        if (SPDSettings.固定攻速() ==2) {
+            增加攻击的攻速=delay <= 1 ? 1/2f-delay : delay;
+
+            攻速get=1/delay;
+            return delay <= 1/2f ? 1/2f : delay;
+        }
+        if (SPDSettings.固定攻速() == 1||subClass(HeroSubClass.灵月杀手)) {
+            增加攻击的攻速=delay;
+
+            攻速get=1/delay;
+            return delay <= 1 ? 1 : delay;
         }
         攻速get=1/delay;
         return delay;

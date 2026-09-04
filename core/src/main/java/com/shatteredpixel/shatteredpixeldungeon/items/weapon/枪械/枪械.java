@@ -48,7 +48,6 @@ public abstract class 枪械 extends Weapon{
 
 		tier = 1;
 		伤害=0.6f;
-		炼金=true;
 
 	}
 	public float 枪伤= 1.75f;

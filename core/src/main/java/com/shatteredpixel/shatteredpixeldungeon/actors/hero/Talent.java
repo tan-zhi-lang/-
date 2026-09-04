@@ -45,19 +45,19 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Slow;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Vulnerable;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Weakness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.护盾;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.醍醐灌顶冷却;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.静止状态;
+import com.shatteredpixel.shatteredpixeldungeon.actors.hero.abilities.ArmorAbility;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.Dewdrop;
 import com.shatteredpixel.shatteredpixeldungeon.items.Generator;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.KindofMisc;
 import com.shatteredpixel.shatteredpixeldungeon.items.LiquidMetal;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.叛忍护额;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.四叶草法典;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.暗影斗篷;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.神圣法典;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.骷髅钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.鬼帝钟;
@@ -67,7 +67,17 @@ import com.shatteredpixel.shatteredpixeldungeon.items.keys.GoldenKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.IronKey;
 import com.shatteredpixel.shatteredpixeldungeon.items.keys.磨损钥匙;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.Potion;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfCleansing;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.冰霜药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.净化药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.极速药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.毒气药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.potions.治疗药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.浮空药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.液火药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.灵视药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.隐形药剂;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.麻痹药剂;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.Scroll;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.exotic.来去秘卷;
@@ -78,6 +88,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.紫色心情;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.变态刀;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Document;
+import com.shatteredpixel.shatteredpixeldungeon.journal.Notes;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.plants.Swiftthistle;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
@@ -664,6 +675,41 @@ public enum Talent {
 
 	public static void 饮用药剂(Hero hero,int cell,float factor,Item item){
 		hero.回血(hero.天赋点数(Talent.备战));
+
+		if (item instanceof 治疗药剂)
+			Notes.物品类别备注(new 治疗药剂(), "使用技巧", "能够站在献祭之火并扔向献祭之火即可直接完成献祭");
+
+		if (item instanceof 浮空药剂)
+			Notes.物品类别备注(new 浮空药剂(), "使用技巧", "浮空时可以无伤跳楼");
+
+		if (item instanceof 隐形药剂)
+			Notes.物品类别备注(new 隐形药剂(), "使用技巧", "隐形时巨型食人鱼就不会攻击你");
+
+		if (item instanceof 极速药剂)
+			Notes.物品类别备注(new 极速药剂(), "使用技巧", "只要你跑得够快血色哨卫攻击不到你");
+
+		if (item instanceof 液火药剂)
+			Notes.物品类别备注(new 液火药剂(), "使用技巧", "火焰可以燃烧障碍墙和融化魔法冰霜墙(必刷烈焰花)");
+
+		if (item instanceof 冰霜药剂)
+			Notes.物品类别备注(new 冰霜药剂(),"使用技巧","可以熄灭魔法火焰墙(必刷冰冠花)");
+
+		if (item instanceof 净化药剂)
+			Notes.物品类别备注(new 净化药剂(),"使用技巧","可以无视很多负面效果，如直接去毒气房一探究竟");
+
+		if (item instanceof 毒气药剂)
+			Notes.物品类别备注(new 毒气药剂(),"使用技巧","只有毒气能杀死毒气宝箱怪(必刷毒气药剂)");
+
+		if (item instanceof 麻痹药剂)
+			Notes.物品类别备注(new 麻痹药剂(), "使用技巧", "只有麻痹能让DM0停止飞行(必刷麻痹药剂)");
+
+		if (item instanceof 灵视药剂)
+			Notes.物品类别备注(new 灵视药剂(), "使用技巧", "只有灵视能看到超级魔法绵羊(必刷灵视药剂)");
+
+		if (item instanceof PotionOfCleansing)
+			Notes.物品类别备注(new PotionOfCleansing(),"使用技巧","饥饿值为0时饮用可以填充450饥饿");
+
+
 		if(hero.天赋(药剂测试))hero.回百分比血(hero.天赋点数(Talent.药剂测试,0.04f));
 		if(hero.符文("止渴"))hero.回百分比血(0.08f);
 if(hero.符文("备用治疗药剂")&&item instanceof 治疗药剂&&Random.Int(1)==0)new 治疗药剂().放背包();

@@ -284,7 +284,7 @@ public class 重制新增{
 		changes.addButton( new ChangeButton(Icons.get(Icons.PREFS), "新增杂项",
 											"设置可调整各种设定。"));
 		changes.addButton( new ChangeButton(Icons.get(Icons.DISPLAY), "存档功能",
-											"可以回档(900回合之前)。\n" +
+											"可以回档(600回合之前)。\n" +
 											"可以导出和导入存档"));
 	}
 

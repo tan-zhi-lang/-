@@ -265,9 +265,9 @@ public class ItemSlot extends Button {
 					}else{
 						extra.hardlight( DEGRADED );
 					}
-				} else if (item instanceof Weapon && str > Dungeon.hero.力量()&& ((Weapon) item).神力){
+				} else if (Dungeon.hero() && item instanceof Weapon && str > Dungeon.hero.力量()&& ((Weapon) item).神力){
 					extra.hardlight( MASTERED );
-				} else if (item instanceof Armor && str > Dungeon.hero.力量()&& ((Armor) item).神力) {
+				} else if (Dungeon.hero() && item instanceof Armor && str > Dungeon.hero.力量()&& ((Armor) item).神力) {
 					extra.hardlight( MASTERED );
 				} else {
 					if(extra.text!=null){
@@ -285,9 +285,9 @@ public class ItemSlot extends Button {
 					}else{
 						extra.hardlight( DEGRADED );
 					}
-				} else if (item instanceof Weapon && str > Dungeon.hero.力量()&&((Weapon) item).神力){
+				} else if (Dungeon.hero() && item instanceof Weapon && str > Dungeon.hero.力量()&&((Weapon) item).神力){
 					extra.hardlight( MASTERED );
-				} else if (item instanceof Armor && str > Dungeon.hero.力量()&&((Armor) item).神力) {
+				} else if (Dungeon.hero() && item instanceof Armor && str > Dungeon.hero.力量()&&((Armor) item).神力) {
 					extra.hardlight( MASTERED );
 				} else {
 					if(extra.text!=null){
@@ -306,7 +306,7 @@ public class ItemSlot extends Button {
 		}
 		
 		//装备图标
-		if(item.已鉴定()){
+		if(Dungeon.hero() && item.已鉴定()){
 			if (item instanceof Food food){
 				float f=food.energy;
 				f*=Hunger.吃饭效果();

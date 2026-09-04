@@ -1500,6 +1500,8 @@ _-_ 改变的有以下：
             OptionSlider optChals;
             CheckBox 跟随强度;
             RenderedTextBlock 跟随强度str;
+            CheckBox 限制速度;
+            RenderedTextBlock 限制速度str;
             CheckBox 成长属性;
             RenderedTextBlock 成长属性str;
             CheckBox 高耐久度;
@@ -1555,10 +1557,25 @@ _-_ 改变的有以下：
                 跟随强度.checked(Dungeon.跟随强度);
                 跟随强度.setRect(0, desc.bottom()+23, 120, 16);
                 add(跟随强度);
-                跟随强度str = PixelScene.renderTextBlock("敌人的强度随英雄的强度而变化\n最大生命、攻击、防御、命中、闪避、攻速(-25%)、移速", 5);
+                跟随强度str = PixelScene.renderTextBlock("敌人的强度随英雄的强度而变化\n最大生命、攻击防御、命中闪避、攻速移速", 5);
                 跟随强度str.hardlight(0x888888);
                 跟随强度str.setPos(0, 跟随强度.bottom()+1);
                 add(跟随强度str);
+
+                限制速度 = new CheckBox("限制速度"){
+                    @Override
+                    protected void onClick() {
+                        super.onClick();
+                        Dungeon.限制速度(checked());
+                    }
+                };
+                限制速度.checked(Dungeon.限制速度);
+                限制速度.setRect(0, 跟随强度.bottom()+23, 120, 16);
+                add(限制速度);
+                限制速度str = PixelScene.renderTextBlock("英雄的攻速和移速最多每回合3", 5);
+                限制速度str.hardlight(0x888888);
+                限制速度str.setPos(0, 限制速度.bottom()+1);
+                add(限制速度str);
 
                 成长属性 = new CheckBox("成长属性"){
                     @Override
@@ -1568,7 +1585,7 @@ _-_ 改变的有以下：
                     }
                 };
                 成长属性.checked(Dungeon.成长属性);
-                成长属性.setRect(0, 跟随强度.bottom()+13, 120, 16);
+                成长属性.setRect(0, 限制速度.bottom()+13, 120, 16);
                 add(成长属性);
                 成长属性str = PixelScene.renderTextBlock("敌人的强度随地牢层数变化，每层+5%\n最大生命、攻击、防御、命中、闪避、攻速、移速", 5);
                 成长属性str.hardlight(0x888888);

@@ -154,8 +154,15 @@ public class MiningLevel extends CavesLevel {
 
 	@Override
 	public float respawnCooldown() {
-		//normal enemies respawn much more slowly here
-		return 3*TIME_TO_RESPAWN;
+		switch (Blacksmith.Quest.Type()){
+			default:
+				//normal enemies respawn much more slowly here
+				return 3*TIME_TO_RESPAWN;
+			case Blacksmith.Quest.GNOLL:
+				return 5*TIME_TO_RESPAWN;
+			case Blacksmith.Quest.FUNGI:
+				return 5*TIME_TO_RESPAWN;
+		}
 	}
 
 	@Override

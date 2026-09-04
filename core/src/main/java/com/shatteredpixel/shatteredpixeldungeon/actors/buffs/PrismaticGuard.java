@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.buffs;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Actor;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -21,7 +23,8 @@ public class PrismaticGuard extends Buff {
 		type = buffType.POSITIVE;
 	}
 	
-	private float HP;
+	private float 生命;
+	private float 强度=1;
 
 	private float powerOfManyTurns = 0;
 	
@@ -54,7 +57,7 @@ public class PrismaticGuard extends Buff {
 			}
 			if (bestPos != -1) {
 				PrismaticImage pris = new PrismaticImage();
-				pris.duplicate(hero, (int)Math.floor(HP) );
+				pris.duplicate(hero);
 
 				pris.state = pris.HUNTING;
 				GameScene.add(pris, 1);
@@ -70,8 +73,9 @@ public class PrismaticGuard extends Buff {
 			spend(TICK);
 		}
 		
-		if (HP < maxHP() && 再生.regenOn()){
-			HP += 0.1f;
+		if (生命<maxHP()&&再生.regenOn()){
+			if(Dungeon.hero()&&Dungeon.hero.hasbuff(再生.class))
+			生命+= Dungeon.hero.buff(再生.class).再生生命()*强度;
 		}
 		if (powerOfManyTurns > 0){
 			powerOfManyTurns--;
@@ -84,22 +88,23 @@ public class PrismaticGuard extends Buff {
 		return true;
 	}
 	
-	public void set( int HP ){
-		this.HP = HP;
+	public void set( float HP ){
+		this.生命= HP;
 		powerOfManyTurns = 0;
 	}
 
 	public void set( PrismaticImage img){
-		this.HP = img.生命;
+		this.生命= img.生命;
+		this.强度= img.强度();
 		powerOfManyTurns = 0;
 	}
 	
-	public int maxHP(){
+	public float maxHP(){
 		return maxHP((Hero)target);
 	}
 	
-	public static int maxHP( Hero hero ){
-		return 10 + (int)Math.floor(hero.等级 * 2.5f); //half of hero's HP
+	public static float maxHP( Hero hero ){
+		return hero.最大生命(0.1f); //half of hero's HP
 	}
 
 	public boolean isEmpowered(){
@@ -122,37 +127,40 @@ public class PrismaticGuard extends Buff {
 
 	@Override
 	public float iconFadePercent() {
-		return 1f - HP/(float)maxHP();
+		return 1f-生命/maxHP();
 	}
 
 	@Override
 	public String iconTextDisplay() {
-		return Math.round(HP)+"";
+		return Math.round(生命)+"";
 	}
 	
 	@Override
 	public String desc() {
-		String desc = Messages.get(this, "desc", (int)HP, maxHP());
+		String desc = Messages.get(this,"desc",kw2(生命),kw2(maxHP()));
 		if (isEmpowered()){
 			desc += "\n\n" + Messages.get(this, "desc_many", (int)powerOfManyTurns);
 		}
 		return desc;
 	}
-	
+
 	private static final String HEALTH = "hp";
+	private static final String 强度x = "强度";
 	private static final String POWER_TURNS = "power_turns";
 	
 	@Override
 	public void storeInBundle(Bundle bundle) {
 		super.storeInBundle(bundle);
-		bundle.put(HEALTH, HP);
+		bundle.put(HEALTH,生命);
+		bundle.put(强度x,强度);
 		bundle.put(POWER_TURNS, powerOfManyTurns);
 	}
 	
 	@Override
 	public void restoreFromBundle(Bundle bundle) {
 		super.restoreFromBundle(bundle);
-		HP = bundle.getFloat(HEALTH);
+		生命= bundle.getFloat(HEALTH);
+		强度= bundle.getFloat(强度x);
 		powerOfManyTurns = bundle.getFloat(POWER_TURNS);
 	}
 }

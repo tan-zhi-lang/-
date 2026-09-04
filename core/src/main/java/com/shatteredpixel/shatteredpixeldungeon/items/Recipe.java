@@ -10,6 +10,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.armor.LeatherArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.MailArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.PlateArmor;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.ScaleArmor;
+import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.bombs.Bomb;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Blandfruit;
 import com.shatteredpixel.shatteredpixeldungeon.items.food.Food;
@@ -429,14 +430,12 @@ public abstract class Recipe {
 	
 	public static boolean usableInRecipe(Item item){//可以放入 炼金条件
 		//only upgradeable thrown weapons and wands allowed among equipment items
-		if(item.专属)
-			return false;
 
 		if (item instanceof EquipableItem&&item.isEquipped(Dungeon.hero))
 			return false;
-
+		if(item instanceof Bag)return false;
 		//other items can be unidentified, but not cursed
-		return item.炼金;
+		return true;
 
 	}
 }

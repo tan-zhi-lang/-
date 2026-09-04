@@ -13,20 +13,14 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PrismaticGuard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.元素.燃烧;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Talent;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
-import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.rings.闪避之戒;
-import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.PrismaticSprite;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
-import com.watabou.utils.Random;
 
 public class PrismaticImage extends NPC {
 	
@@ -41,13 +35,11 @@ public class PrismaticImage extends NPC {
 		state = HUNTING;
 		
 		WANDERING = new Wandering();
-		
+		跟随英雄=true;
 		//before other mobs
 		actPriority = MOB_PRIO + 1;
 	}
-	
-	private Hero hero;
-	private int heroID;
+
 	public int armTier;
 	
 	private int deathTimer = -1;
@@ -133,103 +125,14 @@ public class PrismaticImage extends NPC {
 		deathTimer = bundle.getInt( TIMER );
 	}
 	
-	public void duplicate( Hero hero, int HP ) {
+	public void duplicate( Hero hero) {
 		this.hero = hero;
 		heroID = this.hero.id();
-		this.生命 = HP;
-		最大生命 = PrismaticGuard.maxHP( hero );
-	}
-	
-	@Override
-	public float 最大攻击() {
-		if (hero != null) {
-			return Random.NormalFloat( 2 + hero.等级 /4f, 4 + hero.等级 /2f );
-		} else {
-			return Random.NormalFloat( 2, 4 );
-		}
-	}
-	
-	@Override
-	public int 最小命中(Char target ) {
-		if (hero != null) {
-			return 命中之戒.getBuffedBonus(hero,命中之戒.Accuracy.class)*2;
-		}else{
-			return 0;
-		}
-	}
-	@Override
-	public int 最大命中(Char target ) {
-		if (hero != null) {
-			//same base attack skill as hero, benefits from accuracy ring
-			return 9 + Math.round(hero.等级*1.25f);
-		} else {
-			return 0;
-		}
-	}
-	@Override
-	public int 最小闪避(Char target ) {
-		if (hero != null) {
-			return 闪避之戒.getBuffedBonus(hero,闪避之戒.Evasion.class)*2;
-		} else {
-			return 0;
-		}
-	}
-	@Override
-	public int 最大闪避(Char enemy) {
-		if (hero != null) {
-			int baseEvasion = 4 + Math.round(hero.等级*1.25f);
-			if (hero.belongings.armor() != null){
-				baseEvasion = (int)hero.belongings.armor().evasionFactor(this, baseEvasion);
-			}
-
-			//if the hero has more/less evasion, 50% of it is applied
-			//includes ring of evasion and armor boosts
-			return baseEvasion;
-		} else {
-			return 0;
-		}
-	}
-	
-	@Override
-	public float 最大防御() {
-		float dr = super.最大防御();
-		if (hero != null){
-			return dr + hero.最大防御();
-		} else {
-			return dr;
-		}
-	}
-	
-	@Override
-	public float 防御时(Char enemy, float damage) {
-		if (hero != null && hero.belongings.armor() != null){
-			damage = hero.belongings.armor().防御时( enemy, this, damage );
-		}
-		return super.防御时(enemy, damage);
-	}
-
-	@Override
-	public float glyphLevel(Class<? extends Armor.Glyph> cls) {
-		if (hero != null){
-			return hero.glyphLevel(cls);
-		} else {
-			return super.glyphLevel(cls);
-		}
-	}
-
-	@Override
-	public float enchantmentlevel(Class<? extends Weapon.Enchantment> cls) {
-		if (hero != null){
-			return hero.enchantmentlevel(cls);
-		} else {
-			return super.enchantmentlevel(cls);
-		}
+		this.生命 = 最大生命 = hero.最大生命(0.1f);
 	}
 
 	@Override
 	public float 攻击时(final Char enemy, float damage ) {
-
-		if(Dungeon.hero())damage*=1+Dungeon.hero.天赋点数(Talent.分身升力,0.35f);
 		if (enemy instanceof Mob) {
 			((Mob)enemy).aggro( this );
 		}

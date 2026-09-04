@@ -20,7 +20,7 @@ public class GnollGuard extends Mob {
 		spriteClass = GnollGuardSprite.class;
 
 		生命 = 最大生命 = Math.round(35*Dungeon.难度生命(this));
-		defenseSkill = 15;
+		defenseSkill = 13;
 
 		经验 = 7;
 		最大等级 = -2;
@@ -91,7 +91,7 @@ public class GnollGuard extends Mob {
 
 	@Override
 	public int 最大命中(Char target ) {
-		return 20;
+		return 18;
 	}
 
 	@Override

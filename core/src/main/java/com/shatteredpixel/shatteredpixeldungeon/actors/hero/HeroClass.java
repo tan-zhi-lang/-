@@ -614,28 +614,6 @@ public enum HeroClass{
 
 	}
 	
-	public Badges.Badge masteryBadge(){
-		switch(this){
-			case WARRIOR:
-				return Badges.Badge.MASTERY_WARRIOR;
-			case MAGE:
-				return Badges.Badge.MASTERY_MAGE;
-			case 盗贼:
-				return Badges.Badge.MASTERY_ROGUE;
-			case HUNTRESS:
-				return Badges.Badge.MASTERY_HUNTRESS;
-			case DUELIST:
-				return Badges.Badge.MASTERY_DUELIST;
-			case CLERIC:
-				return Badges.Badge.MASTERY_CLERIC;
-			case 巫女:
-				return Badges.Badge.巫女;
-			case 重武:
-				return Badges.Badge.重武;
-		}
-		return null;
-	}
-	
 	private static void initWarrior(Hero hero){
 		(hero.belongings.weapon=new 短剑()).鉴定();
 		

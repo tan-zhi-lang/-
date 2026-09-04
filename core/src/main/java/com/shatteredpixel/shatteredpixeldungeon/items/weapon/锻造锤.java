@@ -80,7 +80,7 @@ public class 锻造锤 extends Weapon {
 		@Override
 		public void onSelect(Item item) {
 			if (item != null) {
-				item.额外升级();
+				item.升级();
 				
 				Sample.INSTANCE.play(Assets.Sounds.EVOKE);
 				升级卷轴.upgrade(Dungeon.hero);

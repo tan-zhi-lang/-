@@ -32,7 +32,7 @@ public class ArmoredStatue extends Statue {
 
 		armor = Generator.randomArmor();
 		armor.cursed = false;
-		armor.inscribe(Armor.Glyph.random());
+		armor.升级(2);
 	}
 
 	private static final String ARMOR	= "armor";

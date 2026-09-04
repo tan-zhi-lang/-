@@ -2,7 +2,6 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.mobs.npcs;
 
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
@@ -134,7 +133,6 @@ public class RatKing extends NPC {
 				}
 
 				yell("国库都归你你了！皇冠归我！而且我的子民也不会攻击你了，除了可恶的变异白鼠！");
-				Badges.validateRatmogrify();
 				
 				if(false){
 					Game.runOnRenderThread(()->GameScene.show(new WndOptions(sprite(),Messages.titleCase(name()),Messages.get(RatKing.class,"crown_desc"),Messages.get(RatKing.class,"crown_yes"),Messages.get(RatKing.class,"crown_info"),Messages.get(RatKing.class,"crown_no")){

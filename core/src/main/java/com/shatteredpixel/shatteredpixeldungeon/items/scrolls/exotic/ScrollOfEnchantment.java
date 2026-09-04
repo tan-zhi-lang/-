@@ -95,7 +95,7 @@ public class ScrollOfEnchantment extends ExoticScroll {
 		public void onSelect(final Item item) {
 
 			if(item!=null)
-			item.额外升级();
+			item.升级();
 
 			if (item instanceof Weapon){
 				if (!identifiedByUse) {

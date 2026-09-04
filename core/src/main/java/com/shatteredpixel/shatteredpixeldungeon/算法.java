@@ -81,7 +81,7 @@ public class 算法 {
 	//endregion
 
     public static String 日期(){
-        return "9.3/19:30";
+        return "9.4/13:30";
     }
 
     public static int 最小数值=1;
@@ -261,7 +261,7 @@ public class 算法 {
 
                     item.鉴定();
                 if (需设数量 && item.可堆叠) item.数量(数量);
-                if (需设等级 && item.真可升级()) item.等级(等级);
+                if (需设等级 && item.可升级()) item.等级(等级);
                 return item;
             } catch (Exception ignored) {}
         }

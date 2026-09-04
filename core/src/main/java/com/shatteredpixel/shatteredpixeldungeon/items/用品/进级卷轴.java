@@ -47,7 +47,7 @@ public class 进级卷轴 extends 用品{
 	}
 
 	protected void onItemSelected(Item item) {
-		item.额外升级(2);
+		item.升级(2);
 	}
 	public WndBag.ItemSelector itemSelector = new WndBag.ItemSelector() {
 

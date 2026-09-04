@@ -94,24 +94,24 @@ public class 升级卷轴 extends InventoryScroll {
 		
 		if (item instanceof Weapon){
 			Weapon w = (Weapon) item;
-			item = w.额外升级();
+			item = w.升级();
 
-			if(Dungeon.符文("升级升级卷轴:武器专精"))item.额外升级();
+			if(Dungeon.符文("升级升级卷轴:武器专精"))item.升级();
 
 
 		} else if (item instanceof Armor){
 			Armor a = (Armor) item;
-			item = a.额外升级();
+			item = a.升级();
 
 		} else if (item instanceof Wand || item instanceof Ring) {
 
-			item = item.额外升级();
+			item = item.升级();
 			if(item instanceof Wand&&Dungeon.符文("升级升级卷轴:武器专精")){
-				item.额外升级(3);
+				item.升级(3);
 			}
 
 		} else {
-			item = item.额外升级();
+			item = item.升级();
 		}
 
 		Badges.validateItemLevelAquired( item );

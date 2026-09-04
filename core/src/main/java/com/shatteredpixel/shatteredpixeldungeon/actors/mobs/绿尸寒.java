@@ -13,7 +13,6 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.Pushing;
 import com.shatteredpixel.shatteredpixeldungeon.items.Gold;
 import com.shatteredpixel.shatteredpixeldungeon.levels.features.Chasm;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.GhoulSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.绿尸寒动画;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -151,7 +150,7 @@ public class 绿尸寒 extends Ghoul {
 				Actor.remove(this);
 				Dungeon.level.mobs.remove( this );
 				Buff.新增(nearby, GhoulLifeLink.class).set(timesDowned*5, this);
-				((GhoulSprite)sprite).crumple();
+				((绿尸寒动画)sprite).crumple();
 				return;
 			}
 		}
@@ -313,7 +312,7 @@ public class 绿尸寒 extends Ghoul {
 		public void fx(boolean on) {
 			if (on && ghoul != null && ghoul.sprite == null){
 				GameScene.addSprite(ghoul);
-				((GhoulSprite)ghoul.sprite).crumple();
+				((绿尸寒动画)ghoul.sprite).crumple();
 			}
 		}
 

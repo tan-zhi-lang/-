@@ -42,11 +42,7 @@ import com.shatteredpixel.shatteredpixeldungeon.windows.炼狱;
 import com.shatteredpixel.shatteredpixeldungeon.windows.系统;
 import com.shatteredpixel.shatteredpixeldungeon.windows.解压;
 import com.shatteredpixel.shatteredpixeldungeon.windows.赛季;
-import com.shatteredpixel.shatteredpixeldungeon.派对设置;
 import com.shatteredpixel.shatteredpixeldungeon.炼狱设置;
-import com.shatteredpixel.shatteredpixeldungeon.系统设置;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
-import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.gltextures.TextureCache;
 import com.watabou.input.PointerEvent;
 import com.watabou.noosa.Camera;
@@ -899,13 +895,23 @@ public class HeroSelectScene extends PixelScene {
                 @Override
                 protected void onClick() {
                     ShatteredPixelDungeon.scene().addToFront(new Wnd简单有趣());
+
+                }
+                @Override
+                public void update(){
+                    icon((
+                                 SPDSettings.解压()>0||
+                                 SPDSettings.系统()>0||
+                                 SPDSettings.派对()>0
+                         )?Icons.真好的.get():Icons.好的.get());
+                    super.update();
                 }
             };
             变简单有趣.leftJustify = true;
             变简单有趣.icon((
-                                    解压设置.使用()>0||
-                                    系统设置.使用()>0||
-                                    派对设置.使用()>0
+                                    SPDSettings.解压()>0||
+                                    SPDSettings.系统()>0||
+                                    SPDSettings.派对()>0
                             )?Icons.真好的.get():Icons.好的.get());
             buttons.add(变简单有趣);
             add(变简单有趣);
@@ -915,13 +921,23 @@ public class HeroSelectScene extends PixelScene {
                 protected void onClick() {
                     ShatteredPixelDungeon.scene().addToFront(new Wnd困难复杂());
                 }
+
+                @Override
+                public void update(){
+                    icon((
+                                 SPDSettings.challenges()>0||
+                                 SPDSettings.炼狱()>0||
+                                 SPDSettings.赛季()>0
+                         )?Icons.真坏的.get():Icons.坏的.get());
+                    super.update();
+                }
             };
             变困难复杂.leftJustify = true;
             变困难复杂.icon(Icons.坏的.get());
-            变简单有趣.icon((
-                                    Challenges.activeChallenges()>0||
-                                    炼狱设置.使用()>0||
-                                    赛季设置.使用()>0
+            变困难复杂.icon((
+                                    SPDSettings.challenges()>0||
+                                    SPDSettings.炼狱()>0||
+                                    SPDSettings.赛季()>0
                             )?Icons.真坏的.get():Icons.坏的.get());
             buttons.add(变困难复杂);
             add(变困难复杂);

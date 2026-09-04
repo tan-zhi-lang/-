@@ -4,8 +4,8 @@ package com.shatteredpixel.shatteredpixeldungeon.ui.changelist;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Bat;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Crab;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Eye;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Ghoul;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollGuard;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.GnollTrickster;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Guard;
@@ -13,21 +13,22 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Monk;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Piranha;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.RotLasher;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Skeleton;
-import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Slime;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Snake;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Spinner;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Statue;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Wraith;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.巨鼠头骨;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.mis.飞镖;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.镐子;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.BlacksmithSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.CrabSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GhostSprite;
-import com.shatteredpixel.shatteredpixeldungeon.sprites.GhoulSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.GooSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ImpSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ItemSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.NecromancerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ShopkeeperSprite;
+import com.shatteredpixel.shatteredpixeldungeon.sprites.SlimeSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.ThiefSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.WandmakerSprite;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -98,7 +99,7 @@ public class 重制改动{
 											"老鬼\n"+
 											"获得的最大生命统统转换为伤害减免(如果增加生命会出现意外Bug)。\n"+
 											"古神会播放古神低语。\n"+
-											"粘咕获得史莱姆物理减伤，但是回血只有1/10。\n"+
+											"粘咕获得史莱姆物理减伤。\n"+
 											"天狗陷阱多显示2秒。\n"+
 											"DM300最大攻击+5。\n"+
 											"矮人国王死亡掉落矮人国王的皇冠->狂妄皇冠，且金币价值160。\n"+
@@ -106,18 +107,20 @@ public class 重制改动{
 											"矮人国王在召唤2个矮人尸群时，有一个将是骷髅。\n"+
 											"矮人国王最小和最大攻击+10。"));
 
-		changes.addButton( new ChangeButton(new Eye(),"邪眼",
+		changes.addButton( new ChangeButton(new Eye(),
 											"最大防御-2\n" +
 											"最大生命-10\n" +
 															 "相邻时不会施法。"));
-		changes.addButton( new ChangeButton(new GnollGuard(),"豺狼守卫",
+		changes.addButton( new ChangeButton(new Statue(),
+											"武器不带附魔、防具不带刻印，但是等级+2。"));
+		changes.addButton( new ChangeButton(new GnollGuard(),
 											"最大命中和最大闪避-2。"));
-		changes.addButton( new ChangeButton(new Monk(),"矮人武僧",
+		changes.addButton( new ChangeButton(new Monk(),
 											"最大生命-10。"));
-		changes.addButton( new ChangeButton(new GhoulSprite(),"矮人尸群","复活的生命10%->12.5%，但是每次死亡都会使复活的生命x0.6。\n" +
-																		 "替换3区2层的一个元素怪"));
-		changes.addButton( new ChangeButton(new Slime(),"所有史莱姆","史莱姆受到伤害减伤->物理减伤。"));
-		changes.addButton( new ChangeButton(new Crab(),"所有螃蟹","下水道螃蟹移速初始1.5倍，且所有螃蟹敌人水平移动速度x2.5倍。"));
+		changes.addButton( new ChangeButton(new Ghoul(),"复活的生命10%->12.5%，但是每次死亡都会使复活的生命x0.6。\n"+
+														"替换3区2层的一个元素怪"));
+		changes.addButton( new ChangeButton(new SlimeSprite(),"所有史莱姆","史莱姆受到伤害减伤->物理减伤。"));
+		changes.addButton( new ChangeButton(new CrabSprite(),"所有螃蟹","下水道螃蟹移速初始1.5倍，且所有螃蟹敌人水平移动速度x2.5倍。"));
 		changes.addButton( new ChangeButton(new ThiefSprite(),"所有小偷","没偷东西移速9/6。"));
 		changes.addButton( new ChangeButton(new NecromancerSprite(),"所有法师",
 											"骷髅傀儡属性-20%，但是回血从20%最大生命->40%\n"+
@@ -126,7 +129,7 @@ public class 重制改动{
 																	   "最大闪避-4。 "));
 
 
-		changes.addButton( new ChangeButton(new RotLasher(),"每回合回血-1。\n" +
+		changes.addButton( new ChangeButton(new RotLasher(),"每回合回血5->每回合恢复5%最大生命。\n" +
 															"攻击必定施加残废->50%"));
 		changes.addButton( new ChangeButton(new Spinner(),"蜘蛛网缠绕回合减半。 "));
 		changes.addButton( new ChangeButton(new Wraith(),"最大生命1->地牢层数/2。 "));
@@ -252,7 +255,6 @@ public class 重制改动{
 		changes.addButton(new ChangeButton(new ItemSprite(物品表.ARMOR_HOLDER,new ItemSprite.Glowing( 0xFFFFFF )), "刻印",
 										   "所有诅咒刻印改成正面更多，并且移除诅咒刻印机制，诅咒防具移速和最大闪避-30%\n" +
 										   "删除一些刻印，并且不分常见、罕见统一在一起\n" +
-										   "石像不能触发\n" +
 										   "刻印发光颜色一致\n" +
 										   "每级都会提供3%强度\n" +
 
@@ -302,7 +304,6 @@ public class 重制改动{
 										   "所有诅咒附魔改成正面更多，并且移除诅咒附魔机制，诅咒武器攻速和最大命中-30%\n" +
 										   "每级都会提供3%强度\n" +
 										   "刻印发光颜色一致\n" +
-										   "石像不能触发\n" +
 										   "删除一些附魔，并且不分常见、罕见统一在一起\n" +
 
 										   "极化\n"+
@@ -814,6 +815,8 @@ public class 重制改动{
 		changeInfos.add(changes);
 
 //		new RenderedText(cleanStr,size)
+		changes.addButton( new ChangeButton(Icons.勋章.get(),"勋章",
+											"移除一些，以及改动一些勋章。"));
 		changes.addButton( new ChangeButton(Icons.泉.get(),"井水房",
 											"出现概率翻倍。"));
 		changes.addButton(new ChangeButton(Icons.get(Icons.下楼), "地牢",

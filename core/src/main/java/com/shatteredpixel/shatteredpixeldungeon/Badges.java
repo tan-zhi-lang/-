@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon;
 
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.AscensionChallenge;
-import com.shatteredpixel.shatteredpixeldungeon.actors.hero.HeroClass;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
 import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.MagicalHolster;
@@ -32,7 +31,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Badges {
@@ -45,17 +43,10 @@ public class Badges {
 	}
 
 	public enum Badge {
-		MASTERY_WARRIOR,
-		MASTERY_MAGE,
-		MASTERY_ROGUE,
-		MASTERY_HUNTRESS,
-		MASTERY_DUELIST,
-		MASTERY_CLERIC,
-		巫女,
-		重武,
-		FOUND_RATMOGRIFY,
-
 		//bronze
+
+		//region 解锁英雄
+		解锁战士                 ( 0 ),
 		UNLOCK_MAGE                 ( 1 ),
 		解锁盗贼( 2 ),
 		UNLOCK_HUNTRESS             ( 3 ),
@@ -79,132 +70,119 @@ public class Badges {
 		解锁凌云               ( 21 ),
 		解锁血鬼               ( 22 ),
 		解锁来世(23 ),
-		MONSTERS_SLAIN_1            ( 24 ),
-		MONSTERS_SLAIN_2            ( 25 ),
-		GOLD_COLLECTED_1            ( 26 ),
-		GOLD_COLLECTED_2            ( 27 ),
-		ITEM_LEVEL_1                ( 28 ),
-		LEVEL_REACHED_1             ( 29 ),
-		STRENGTH_ATTAINED_1         ( 30 ),
-		FOOD_EATEN_1                ( 31 ),
-		ITEMS_CRAFTED_1             ( 32 ),
-		BOSS_SLAIN_1                ( 33 ),
-		CATALOG_ONE_EQUIPMENT       ( 34, BadgeType.JOURNAL ),
-		DEATH_FROM_FIRE             ( 35 ),
-		DEATH_FROM_POISON           ( 36 ),
-		DEATH_FROM_GAS              ( 37 ),
-		DEATH_FROM_HUNGER           ( 38 ),
-		DEATH_FROM_FALLING          ( 39 ),
-		RESEARCHER_1                ( 40, BadgeType.JOURNAL ),
-		GAMES_PLAYED_1              ( 41, BadgeType.GLOBAL ),
-		HIGH_SCORE_1                ( 42 ),
+		//endregion
+		//黄铜
+		MONSTERS_SLAIN_1(32),
+		MONSTERS_SLAIN_2(33),
+		GOLD_COLLECTED_1(34),
+		GOLD_COLLECTED_2(27),
+		ITEM_LEVEL_1(28),
+		LEVEL_REACHED_1(29),
+		STRENGTH_ATTAINED_1(30),
+		FOOD_EATEN_1(31),
+		ITEMS_CRAFTED_1(32),
+		BOSS_SLAIN_1(33),
+		CATALOG_ONE_EQUIPMENT(34, BadgeType.JOURNAL),
+		DEATH_FROM_FIRE(35),
+		DEATH_FROM_POISON(36),
+		DEATH_FROM_GAS(37),
+		DEATH_FROM_HUNGER(38),
+		DEATH_FROM_FALLING(39),
+		RESEARCHER_1(40, BadgeType.JOURNAL),
+		GAMES_PLAYED_1(41, BadgeType.GLOBAL),
+		HIGH_SCORE_1(50),
 
-		//silver
-		NO_MONSTERS_SLAIN           ( 48 ),
-		BOSS_SLAIN_REMAINS          ( 49 ),
-		MONSTERS_SLAIN_3            ( 50 ),
-		MONSTERS_SLAIN_4            ( 51 ),
-		GOLD_COLLECTED_3            ( 52 ),
-		GOLD_COLLECTED_4            ( 53 ),
-		ITEM_LEVEL_2                ( 54 ),
-		ITEM_LEVEL_3                ( 55 ),
-		LEVEL_REACHED_2             ( 56 ),
-		LEVEL_REACHED_3             ( 57 ),
-		STRENGTH_ATTAINED_2         ( 58 ),
-		STRENGTH_ATTAINED_3         ( 59 ),
-		FOOD_EATEN_2                ( 60 ),
-		FOOD_EATEN_3                ( 61 ),
-		ITEMS_CRAFTED_2             ( 62 ),
-		ITEMS_CRAFTED_3             ( 63 ),
-		BOSS_SLAIN_2                ( 64 ),
-		BOSS_SLAIN_3                ( 65 ),
-		ALL_POTIONS_IDENTIFIED      , //still exists internally for pre-2.5 saves
-		ALL_SCROLLS_IDENTIFIED      , //still exists internally for pre-2.5 saves
-		CATALOG_POTIONS_SCROLLS     ( 66 ),
-		DEATH_FROM_ENEMY_MAGIC      ( 67 ),
-		DEATH_FROM_FRIENDLY_MAGIC   ( 68 ),
-		DEATH_FROM_SACRIFICE        ( 69 ),
-		BOSS_SLAIN_1_WARRIOR,
-		BOSS_SLAIN_1_MAGE,
-		BOSS_SLAIN_1_ROGUE,
-		BOSS_SLAIN_1_HUNTRESS,
-		BOSS_SLAIN_1_ALL_CLASSES    ( 70, BadgeType.GLOBAL ),
-		RESEARCHER_2                ( 71, BadgeType.JOURNAL ),
-		GAMES_PLAYED_2              ( 72, BadgeType.GLOBAL ),
-		HIGH_SCORE_2                ( 73 ),
+		//silver 白银
+		NO_MONSTERS_SLAIN           (64),
+		BOSS_SLAIN_REMAINS          (65),
+		MONSTERS_SLAIN_3            (66),
+		MONSTERS_SLAIN_4            (67),
+		GOLD_COLLECTED_3            (68),
+		GOLD_COLLECTED_4            (69),
+		ITEM_LEVEL_2                (70),
+		ITEM_LEVEL_3                (71),
+		LEVEL_REACHED_2             (72),
+		LEVEL_REACHED_3             (73),
+		STRENGTH_ATTAINED_2         (74),
+		STRENGTH_ATTAINED_3         (75),
+		FOOD_EATEN_2                (76),
+		FOOD_EATEN_3                (77),
+		ITEMS_CRAFTED_2             (78),
+		ITEMS_CRAFTED_3             (79),
+		BOSS_SLAIN_2                (80),
+		BOSS_SLAIN_3                (81),
+		ALL_POTIONS_IDENTIFIED      , // still exists internally for pre-2.5 saves
+		ALL_SCROLLS_IDENTIFIED      , // still exists internally for pre-2.5 saves
+		CATALOG_POTIONS_SCROLLS     (82),
+		DEATH_FROM_ENEMY_MAGIC      (83),
+		DEATH_FROM_FRIENDLY_MAGIC   (84),
+		DEATH_FROM_SACRIFICE        (85),
+		RESEARCHER_2                (86, BadgeType.JOURNAL),
+		GAMES_PLAYED_2              (87, BadgeType.GLOBAL),
+		HIGH_SCORE_2                (88),
 
-		//gold
-		ENEMY_HAZARDS               ( 80 ),
-		PIRANHAS                    ( 81 ),
-		GRIM_WEAPON                 ( 82 ),
+		//gold 黄金
+		ENEMY_HAZARDS               (104),
+		PIRANHAS                    (105),
+		GRIM_WEAPON                 (106),
 		BAG_BOUGHT_VELVET_POUCH,
 		BAG_BOUGHT_SCROLL_HOLDER,
 		BAG_BOUGHT_POTION_BANDOLIER,
 		BAG_BOUGHT_MAGICAL_HOLSTER,
 		BAG_杂物袋,
-		ALL_BAGS_BOUGHT             ( 83 ),
-		MASTERY_COMBO               ( 84 ),
-		MONSTERS_SLAIN_5            ( 85 ),
-		GOLD_COLLECTED_5            ( 86 ),
-		ITEM_LEVEL_4                ( 87 ),
-		LEVEL_REACHED_4             ( 88 ),
-		STRENGTH_ATTAINED_4         ( 89 ),
-		STRENGTH_ATTAINED_5         ( 90 ),
-		FOOD_EATEN_4                ( 91 ),
-		FOOD_EATEN_5                ( 92 ),
-		ITEMS_CRAFTED_4             ( 93 ),
-		ITEMS_CRAFTED_5             ( 94 ),
-		BOSS_SLAIN_4                ( 95 ),
-		ALL_RINGS_IDENTIFIED        , //still exists internally for pre-2.5 saves
-		ALL_ARTIFACTS_IDENTIFIED    , //still exists internally for pre-2.5 saves
-		ALL_RARE_ENEMIES            ( 96, BadgeType.JOURNAL ), //no longer all, just 10 as of v3.1
-		DEATH_FROM_GRIM_TRAP        ( 97 ), //also disintegration traps
-		VICTORY                     ( 98 ),
-		BOSS_CHALLENGE_1            ( 99 ),
-		BOSS_CHALLENGE_2            ( 100 ),
-		RESEARCHER_3                ( 101, BadgeType.JOURNAL ),
-		GAMES_PLAYED_3              ( 102, BadgeType.GLOBAL ),
-		HIGH_SCORE_3                ( 103 ),
+		ALL_BAGS_BOUGHT             (107),
+		MASTERY_COMBO               (108),
+		MONSTERS_SLAIN_5            (109),
+		GOLD_COLLECTED_5            (110),
+		ITEM_LEVEL_4                (111),
+		LEVEL_REACHED_4             (112),
+		STRENGTH_ATTAINED_4         (113),
+		STRENGTH_ATTAINED_5         (114),
+		FOOD_EATEN_4                (115),
+		FOOD_EATEN_5                (116),
+		ITEMS_CRAFTED_4             (117),
+		ITEMS_CRAFTED_5             (118),
+		BOSS_SLAIN_4                (119),
+		ALL_RINGS_IDENTIFIED        , // still exists internally for pre-2.5 saves
+		ALL_ARTIFACTS_IDENTIFIED    , // still exists internally for pre-2.5 saves
+		ALL_RARE_ENEMIES            (120, BadgeType.JOURNAL), // no longer all, just 10 as of v3.1
+		DEATH_FROM_GRIM_TRAP        (121), // also disintegration traps
+		VICTORY                     (122),
+		BOSS_CHALLENGE_1            (123),
+		BOSS_CHALLENGE_2            (124),
+		RESEARCHER_3                (125, BadgeType.JOURNAL),
+		GAMES_PLAYED_3              (126, BadgeType.GLOBAL),
+		HIGH_SCORE_3                (127),
 
-		//platinum
-		MANY_BUFFS                  ( 104 ),
-		ITEM_LEVEL_5                ( 105 ),
-		LEVEL_REACHED_5             ( 106 ),
-		HAPPY_END                   ( 107 ),
-		VICTORY_RANDOM              ( 108 ),
-		HAPPY_END_REMAINS           ( 109 ),
-		RODNEY                      ( 110, BadgeType.JOURNAL ),
-		ALL_WEAPONS_IDENTIFIED      , //still exists internally for pre-2.5 saves
-		ALL_ARMOR_IDENTIFIED        , //still exists internally for pre-2.5 saves
-		ALL_WANDS_IDENTIFIED        , //still exists internally for pre-2.5 saves
-		ALL_ITEMS_IDENTIFIED        , //still exists internally for pre-2.5 saves
-		VICTORY_WARRIOR,
-		VICTORY_MAGE,
-		VICTORY_ROGUE,
-		VICTORY_HUNTRESS,
-		VICTORY_ALL_CLASSES         ( 111, BadgeType.GLOBAL ),
-		DEATH_FROM_ALL              ( 112, BadgeType.GLOBAL ),
-		BOSS_SLAIN_3_WARRIOR,
-		BOSS_SLAIN_3_MAGE,
-		BOSS_SLAIN_3_ROGUE,
-		BOSS_SLAIN_3_HUNTRESS,
-		BOSS_SLAIN_3_ALL_SUBCLASSES ( 113, BadgeType.GLOBAL ),
-		BOSS_CHALLENGE_3            ( 114 ),
-		BOSS_CHALLENGE_4            ( 115 ),
-		RESEARCHER_4                ( 116, BadgeType.JOURNAL ),
-		GAMES_PLAYED_4              ( 117, BadgeType.GLOBAL ),
-		HIGH_SCORE_4                ( 118 ),
-		CHAMPION_1                  ( 119 ),
+		//platinum 铂金
+		MANY_BUFFS                  (136),
+		ITEM_LEVEL_5                (137),
+		LEVEL_REACHED_5             (138),
+		HAPPY_END                   (139),
+		VICTORY_RANDOM              (140),
+		HAPPY_END_REMAINS           (141),
+		RODNEY                      (142, BadgeType.JOURNAL),
+		ALL_WEAPONS_IDENTIFIED      , // still exists internally for pre-2.5 saves
+		ALL_ARMOR_IDENTIFIED        , // still exists internally for pre-2.5 saves
+		ALL_WANDS_IDENTIFIED        , // still exists internally for pre-2.5 saves
+		ALL_ITEMS_IDENTIFIED        , // still exists internally for pre-2.5 saves
+		DEATH_FROM_ALL              (143, BadgeType.GLOBAL),
+		BOSS_CHALLENGE_3            (144),
+		BOSS_CHALLENGE_4            (145),
+		RESEARCHER_4                (146, BadgeType.JOURNAL),
+		GAMES_PLAYED_4              (147, BadgeType.GLOBAL),
+		HIGH_SCORE_4                (148),
+		CHAMPION_1                  (149),
 
-		//diamond
-		PACIFIST_ASCENT             ( 120 ),
-		TAKING_THE_MICK             ( 121 ), //This might be the most obscure game reference I've made
-		BOSS_CHALLENGE_5            ( 122 ),
-		RESEARCHER_5                ( 123, BadgeType.JOURNAL ),
-		GAMES_PLAYED_5              ( 124, BadgeType.GLOBAL ),
-		HIGH_SCORE_5                ( 125 ),
-		CHAMPION_2                  ( 126 ),
-		CHAMPION_3                  ( 127 );
+		// diamond 钻石
+		PACIFIST_ASCENT             (160),
+		TAKING_THE_MICK             (161), // This might be the most obscure game reference I've made
+		BOSS_CHALLENGE_5            (162),
+		RESEARCHER_5                (163, BadgeType.JOURNAL),
+		GAMES_PLAYED_5              (164, BadgeType.GLOBAL),
+		HIGH_SCORE_5                (165),
+		CHAMPION_2                  (166),
+		CHAMPION_3                  (167);
 
 		public boolean meta;
 
@@ -791,32 +769,6 @@ public class Badges {
 		}
 	}
 
-	private static LinkedHashMap<HeroClass, Badge> firstBossClassBadges = new LinkedHashMap<>();
-	static {
-		firstBossClassBadges.put(HeroClass.WARRIOR, Badge.BOSS_SLAIN_1_WARRIOR);
-		firstBossClassBadges.put(HeroClass.MAGE, Badge.BOSS_SLAIN_1_MAGE);
-		firstBossClassBadges.put(HeroClass.盗贼, Badge.BOSS_SLAIN_1_ROGUE);
-		firstBossClassBadges.put(HeroClass.HUNTRESS, Badge.BOSS_SLAIN_1_HUNTRESS);
-	}
-
-	private static LinkedHashMap<HeroClass, Badge> victoryClassBadges = new LinkedHashMap<>();
-	static {
-		victoryClassBadges.put(HeroClass.WARRIOR, Badge.VICTORY_WARRIOR);
-		victoryClassBadges.put(HeroClass.MAGE, Badge.VICTORY_MAGE);
-		victoryClassBadges.put(HeroClass.盗贼, Badge.VICTORY_ROGUE);
-		victoryClassBadges.put(HeroClass.HUNTRESS, Badge.VICTORY_HUNTRESS);
-	}
-
-	
-	private static LinkedHashMap<HeroClass, Badge> thirdBossSubclassBadges = new LinkedHashMap<>();
-	static {
-		thirdBossSubclassBadges.put(HeroClass.WARRIOR, Badge.BOSS_SLAIN_3_WARRIOR);
-		thirdBossSubclassBadges.put(HeroClass.MAGE, Badge.BOSS_SLAIN_3_MAGE);
-		thirdBossSubclassBadges.put(HeroClass.盗贼, Badge.BOSS_SLAIN_3_ROGUE);
-		thirdBossSubclassBadges.put(HeroClass.HUNTRESS, Badge.BOSS_SLAIN_3_HUNTRESS);
-	}
-
-	
 	public static void validateBossSlain() {
 		Badge badge = null;
 		switch (Dungeon.相对层数()) {
@@ -839,45 +791,12 @@ public class Badges {
 			displayBadge( badge );
 			
 			if (badge == Badge.BOSS_SLAIN_1) {
-				badge = firstBossClassBadges.get(Dungeon.hero.heroClass);
-				if (badge == null) return;
 				local.add( badge );
 				unlock(badge);
 
-				boolean allUnlocked = true;
-				for (Badge b : firstBossClassBadges.values()){
-					if (!isUnlocked(b)){
-						allUnlocked = false;
-						break;
-					}
-				}
-				if (allUnlocked) {
-					
-					badge = Badge.BOSS_SLAIN_1_ALL_CLASSES;
-					if (!isUnlocked( badge )) {
-						displayBadge( badge );
-					}
-				}
 			} else if (badge == Badge.BOSS_SLAIN_3) {
-
-				badge = thirdBossSubclassBadges.get(Dungeon.hero.heroClass);
-				if (badge == null) return;
 				local.add( badge );
 				unlock(badge);
-
-				boolean allUnlocked = true;
-				for (Badge b : thirdBossSubclassBadges.values()){
-					if (!isUnlocked(b)){
-						allUnlocked = false;
-						break;
-					}
-				}
-				if (allUnlocked) {
-					badge = Badge.BOSS_SLAIN_3_ALL_SUBCLASSES;
-					if (!isUnlocked( badge )) {
-						displayBadge( badge );
-					}
-				}
 			}
 
 			if (Statistics.qualifiedForBossRemainsBadge){
@@ -915,51 +834,20 @@ public class Badges {
 		}
 	}
 	
-	public static void validateMastery() {
-		
-		Badge badge = null;
-		switch (Dungeon.hero.heroClass) {
-			default:
-				return;
-			case WARRIOR:
-				badge = Badge.MASTERY_WARRIOR;
-				break;
-			case MAGE:
-				badge = Badge.MASTERY_MAGE;
-				break;
-			case 盗贼:
-				badge = Badge.MASTERY_ROGUE;
-				break;
-			case HUNTRESS:
-				badge = Badge.MASTERY_HUNTRESS;
-				break;
-			case DUELIST:
-				badge = Badge.MASTERY_DUELIST;
-				break;
-			case CLERIC:
-				badge = Badge.MASTERY_CLERIC;
-				break;
-			case 巫女:
-				badge = Badge.巫女;
-				break;
-			case 重武:
-				badge = Badge.重武;
-				break;
+
+	
+	public static void 解锁战士(){
+		if (!isUnlocked(Badge.解锁战士)){
+			displayBadge( Badge.解锁战士 );
 		}
-		
-		unlock(badge);
 	}
 
-	public static void validateRatmogrify(){
-		unlock(Badge.FOUND_RATMOGRIFY);
-	}
-	
 	public static void validateMageUnlock(){
 		if (!isUnlocked(Badge.UNLOCK_MAGE)){
 			displayBadge( Badge.UNLOCK_MAGE );
 		}
 	}
-	
+
 	public static void validateRogueUnlock(){
 		if (Statistics.sneakAttacks >= 5 && !isUnlocked(Badge.解锁盗贼)){
 			displayBadge( Badge.解锁盗贼);
@@ -1106,23 +994,10 @@ public class Badges {
 			local.add( badge );
 			displayBadge( badge );
 		}
-		
-		badge = victoryClassBadges.get(Dungeon.hero.heroClass);
-		if (badge == null) return;
+
 		local.add( badge );
 		unlock(badge);
 
-		boolean allUnlocked = true;
-		for (Badge b : victoryClassBadges.values()){
-			if (!isUnlocked(b)){
-				allUnlocked = false;
-				break;
-			}
-		}
-		if (allUnlocked){
-			badge = Badge.VICTORY_ALL_CLASSES;
-			displayBadge( badge );
-		}
 	}
 
 	public static void validateTakingTheMick(Object cause){
@@ -1445,38 +1320,6 @@ public class Badges {
 	//used for badges with completion progress that would otherwise be hard to track
 	public static String showCompletionProgress( Badge badge ){
 		if (isUnlocked(badge)) return null;
-
-		String result = "\n";
-
-		if (badge == Badge.BOSS_SLAIN_1_ALL_CLASSES){
-			for (HeroClass cls : HeroClass.values()){
-				result += "\n";
-				if (isUnlocked(firstBossClassBadges.get(cls)))  result += "_" + Messages.titleCase(cls.title()) + "_";
-				else                                            result += Messages.titleCase(cls.title());
-			}
-
-			return result;
-
-		} else if (badge == Badge.VICTORY_ALL_CLASSES) {
-
-			for (HeroClass cls : HeroClass.values()){
-				result += "\n";
-				if (isUnlocked(victoryClassBadges.get(cls)))    result += "_" + Messages.titleCase(cls.title()) + "_";
-				else                                            result += Messages.titleCase(cls.title());
-			}
-
-			return result;
-
-		} else if (badge == Badge.BOSS_SLAIN_3_ALL_SUBCLASSES){
-
-			for (HeroClass cls : HeroClass.values()){
-				result += "\n";
-				if (isUnlocked(thirdBossSubclassBadges.get(cls)))   result += "_" + Messages.titleCase(cls.title()) + "_";
-				else                                                result += Messages.titleCase(cls.title()) ;
-			}
-
-			return result;
-		}
 
 		return null;
 	}

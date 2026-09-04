@@ -1651,7 +1651,7 @@ public class Hero extends Char {
             case "大力":return "攻击+15%";
             case "混沌":return "敌人的最大魔抗-你的最大防御";
             case "一剑破万法":return "最大魔抗+剑数量x15%最大攻击";
-            case "圣石":return "石头首次对敌人攻击或者2回合我无敌";
+            case "圣石":return "石头首次攻击获得2回合无敌";
             case "勇气":return "战斗状态获得25最大魔抗，连杀状态获得25最大魔抗";
             case "劣变":return "敌人的最大魔抗-防御次数x15";
             case "双重暴击":return "50%暴击率在暴击时额外x暴击伤害";

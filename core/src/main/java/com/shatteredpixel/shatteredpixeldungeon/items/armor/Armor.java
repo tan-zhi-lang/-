@@ -586,18 +586,6 @@ public class Armor extends EquipableItem {
 		return 升级( false );
 	}
 	
-	public Item 额外升级(boolean inscribe ) {
-
-		if (inscribe){
-			if (glyph == null){
-				inscribe( Glyph.random() );
-			}
-		}
-
-			super.额外升级();
-		return this;
-	}
-
 	public Item 升级(boolean inscribe ) {
 
 		if (inscribe){
@@ -607,10 +595,9 @@ public class Armor extends EquipableItem {
 		}
 
 			super.升级();
-
 		return this;
 	}
-	
+
 	public float 防御时(Char attacker, Char defender, float damage ) {
 		
 		if(defender instanceof Hero hero){

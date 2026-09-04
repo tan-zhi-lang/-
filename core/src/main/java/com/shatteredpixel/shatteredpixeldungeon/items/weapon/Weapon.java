@@ -18,7 +18,6 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.PinCushion;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.再生;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.无名.鬼刀;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.机制.战斗状态;
-import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.流血;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.MonkEnergy;
 import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.职业.征服;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -1126,14 +1125,6 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 投掷攻击时(Char attacker, Char defender, float damage) {
 
-		if(defender!=null)
-		if (attacker == Dungeon.hero && Random.Int(3) < Dungeon.hero.天赋点数(Talent.SHARED_ENCHANTMENT)){
-			灵能短弓 bow = Dungeon.hero.belongings.getItem(灵能短弓.class);
-			if (bow != null && bow.enchantment != null && Dungeon.hero.buff(MagicImmune.class) == null) {
-				damage = bow.enchantment.proc(this, attacker, defender, damage);
-			}
-		}
-
 		if(defender!=null){
 			if((cursed||hasCurseEnchant())&&!cursedKnown){
 				GLog.红(Messages.get(this,"curse_discover"));
@@ -1496,23 +1487,12 @@ abstract public class Weapon extends KindOfWeapon {
 		return 升级(false);
 	}
 	
-	public Item 额外升级(boolean enchant ) {
-		if (enchant){
-			if (enchantment == null){
-				enchant(Enchantment.random());
-			}
-		}
-
-		return super.额外升级();
-	}
 	public Item 升级(boolean enchant ) {
-
 		if (enchant){
 			if (enchantment == null){
 				enchant(Enchantment.random());
 			}
 		}
-
 
 		return super.升级();
 	}
@@ -1600,7 +1580,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	public boolean hasEnchant(Class<?extends Enchantment> type) {
-		if (enchantment != null) {
+		if (enchantment != null&&Dungeon.hero()&&isEquipped(Dungeon.hero)) {
 			return enchantment.getClass() == type;
 		} else {
 			return false;
@@ -1682,7 +1662,11 @@ abstract public class Weapon extends KindOfWeapon {
 					multi+=0.5f;
 				}
 				multi*=1+hero.天赋点数(Talent.附魔打击,0.25f);
-				multi*=1+hero.天赋点数(Talent.SHARED_ENCHANTMENT,0.12f);
+				int 附魔数量=0;
+				for(Item i:hero.belongings){
+					if(i instanceof Weapon w&&w.hasEnchant())
+					multi*=1.1f+hero.天赋点数(Talent.SHARED_ENCHANTMENT,0.05f);
+				}
 			}
 //			if (attacker.buff(符文之刃.RunicSlashTracker.class)!=null){
 //				multi += attacker.buff(符文之刃.RunicSlashTracker.class).boost;

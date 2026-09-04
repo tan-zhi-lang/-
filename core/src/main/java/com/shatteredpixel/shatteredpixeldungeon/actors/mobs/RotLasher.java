@@ -37,7 +37,7 @@ public class RotLasher extends Mob {
 	@Override
 	protected boolean act() {
 		if (生命 < 最大生命 && (enemy == null || !Dungeon.level.相邻(pos,enemy.pos))) {
-			回血(4);
+			回百分比血(0.05f);
 		}
 		return super.act();
 	}

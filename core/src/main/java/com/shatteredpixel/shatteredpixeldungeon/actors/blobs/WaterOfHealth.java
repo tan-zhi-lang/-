@@ -30,7 +30,7 @@ public class WaterOfHealth extends WellWater {
 	@Override
 	protected boolean affectHero( Hero hero ) {
 		
-		Badges.解锁逐姝();
+
 		if (!hero.isAlive()) return false;
 		
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );

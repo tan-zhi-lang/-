@@ -519,10 +519,10 @@ public class Armor extends EquipableItem {
 
 	public float 最大防御(int lvl){
 		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
-			return augment.defenseFactor(tier() + lvl)*防御;
+			return augment.defenseFactor(tier() + lvl)*防御*防御收益;
 		}
 
-		return augment.defenseFactor(tier()*(1+1+lvl))*防御;
+		return augment.defenseFactor(tier()*(1+1+lvl))*防御*防御收益;
 	}
 
 	public final float 最小防御(){
@@ -533,7 +533,7 @@ public class Armor extends EquipableItem {
 //		if (Dungeon.isChallenged(Challenges.NO_ARMOR)){
 //			return 0;
 //		}
-		return augment.defenseFactor(tier()+lvl)*防御;
+		return augment.defenseFactor(tier()+lvl)*防御*防御收益;
 	}
 
 	//This exists so we can test what a char's base evasion would be without armor affecting it
@@ -557,7 +557,7 @@ public class Armor extends EquipableItem {
 		if(cursed)evasion*=0.7f;
 		if(hasGlyph(轻便.class))
 		evasion*=1.2f*Glyph.genericProcChanceMultiplier(owner)*owner.glyphLevel(轻便.class);
-		return augment.evasionFactor(evasion);
+		return augment.evasionFactor(evasion)*速度收益;
 	}
 	
 	public float speedFactor( Char owner, float speed ){
@@ -568,7 +568,7 @@ public class Armor extends EquipableItem {
 			if (aEnc < 0) speed *= 1-aEnc*owner.属性增幅()/2f;
 		}
 		if(cursed)speed*=0.7f;
-		return augment.speedFactor(speed);
+		return augment.speedFactor(speed)*速度收益;
 		
 	}
 	

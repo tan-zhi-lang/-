@@ -625,8 +625,14 @@ public class 重制新增{
 		changes.addButton( new ChangeButton(new MimicSprite.毒气(),"毒气宝箱怪房",
 											"必定生成毒气药剂。\n" +
 											"宝箱毒气怪遇到毒气会死亡，死亡随机掉率武器护甲。"));
-		changes.addButton( new ChangeButton(Icons.神力之泉.get(),"神力之泉",
+		changes.addButton( new ChangeButton(Icons.大力之泉.get(),"大力之泉",
 											"英雄站上面永久+1力量，武器或护甲在上面永久减少3力量需求。"));
+		changes.addButton( new ChangeButton(Icons.玄武之泉.get(),"玄武之泉",
+											"英雄站上面永久，最大防御+5，武器或护甲在上面永久+1倍防御收益。"));
+		changes.addButton( new ChangeButton(Icons.跃动之泉.get(),"跃动之泉",
+											"英雄站上面永久+1敏捷，武器或护甲在上面永久+0.5倍命中和闪避、攻速和移速收益。"));
+		changes.addButton( new ChangeButton(Icons.智慧之泉.get(),"智慧之泉",
+											"英雄站上面永久+1魔力，神器或法杖在上面永久+1倍魔力收益"));
 		changes.addButton( new ChangeButton(Icons.天赋之泉.get(), "天赋之泉",
 											"英雄站上面永久+1天赋点，物品在上面升级一次。"));
 changes.addButton( new ChangeButton(Icons.幸运之泉.get(), "幸运之泉",

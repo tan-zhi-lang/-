@@ -5,9 +5,12 @@ package com.shatteredpixel.shatteredpixeldungeon.levels.rooms.secret;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfAwareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfHealth;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WellWater;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.大力之泉;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.天赋之泉;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.幸运之泉;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.神力之泉;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.智慧之泉;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.玄武之泉;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.跃动之泉;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Level;
 import com.shatteredpixel.shatteredpixeldungeon.levels.Terrain;
 import com.shatteredpixel.shatteredpixeldungeon.levels.painters.Painter;
@@ -17,7 +20,9 @@ import com.watabou.utils.Random;
 public class SecretWellRoom extends SecretRoom {
 	
 	private static final Class<?>[] WATERS =
-			{WaterOfAwareness.class, WaterOfHealth.class, 神力之泉.class, 天赋之泉.class, 幸运之泉.class};
+			{WaterOfAwareness.class, WaterOfHealth.class,玄武之泉.class,
+					大力之泉.class,跃动之泉.class,智慧之泉.class,
+					天赋之泉.class, 幸运之泉.class};
 	
 	@Override
 	public boolean canConnect(Point p) {

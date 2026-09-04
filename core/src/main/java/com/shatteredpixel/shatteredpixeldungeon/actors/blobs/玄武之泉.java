@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.blobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.effects.BlobEmitter;
@@ -21,19 +20,18 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
 
-public class 神力之泉 extends WellWater {
+public class 玄武之泉 extends WellWater {
 	
 	@Override
 	protected boolean affectHero( Hero hero ) {
-		Badges.解锁逐姝();
+
 		
 		if (!hero.isAlive()) return false;
 		
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );
 
-		hero.力量++;
-		if(hero.符文("真神力之泉"))hero.力量+=175;
-		hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(1),FloatingText.力量数值);
+		hero.防御成长+=5;
+		hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(1),FloatingText.玄武泉);
 		CellEmitter.get( hero.pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
 
 		Dungeon.hero.interrupt();
@@ -45,14 +43,14 @@ public class 神力之泉 extends WellWater {
 	
 	@Override
 	protected Item affectItem( Item item, int pos ) {
-		if(Dungeon.符文("真神力之泉")&&item.可升级())item.升级(35);
+
 		if((item instanceof Weapon && !((Weapon) item).神力)
 				|| (item instanceof Armor && !((Armor) item).神力)){
 			if (item instanceof Weapon) {
-				((Weapon) item).神力 = true;
+				((Weapon) item).防御收益++;
 				GLog.绿(Messages.get(PotionOfMastery.class,"weapon_easier"));
 			} else if (item instanceof Armor) {
-				((Armor) item).神力 = true;
+				((Armor) item).防御收益++;
 				GLog.绿(Messages.get(PotionOfMastery.class,"armor_easier"));
 			}
 		}
@@ -61,13 +59,13 @@ public class 神力之泉 extends WellWater {
 	
 	@Override
 	public Landmark landmark() {
-		return Landmark.神力之泉;
+		return Landmark.玄武之泉;
 	}
 	
 	@Override
 	public void use( BlobEmitter emitter ) {
 		super.use( emitter );
-		emitter.start( Speck.factory( Speck.UP ), 0.5f, 0 );
+		emitter.start( Speck.factory( Speck.STENCH ), 0.5f, 0 );
 	}
 	
 	@Override

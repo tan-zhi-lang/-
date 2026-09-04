@@ -414,12 +414,12 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 防御(){
 		float 防御=this.防御;
-		return 防御;
+		return 防御*防御收益;
 	}
 
 	public float 延迟(){
 		float 伤害=this.延迟;
-		return 延迟;
+		return 延迟/速度收益;
 	}
 
 	public float 命中(){
@@ -431,7 +431,7 @@ abstract public class Weapon extends KindOfWeapon {
 			if(延迟()<1)
 				命中*=1+(1/延迟()-1)/4f;
 		}
-		return 命中;
+		return 命中*速度收益;
 	}
 	@Override
 	public float 流血(){
@@ -651,7 +651,7 @@ abstract public class Weapon extends KindOfWeapon {
 		return 最小防御();
 	}
 	public float 最小防御(int lvl){
-		if(具备防御){
+		if(具备防御||防御收益>1){
 			if (Dungeon.isChallenged(Challenges.NO_ARMOR))return 0;
 			return lvl*防御();
 		}
@@ -666,7 +666,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	public float 最大防御(int lvl){
-		if(具备防御){
+		if(具备防御||防御收益>1){
 			int t=tier();
 
 			if (Dungeon.isChallenged(Challenges.NO_ARMOR))return (t+lvl)*防御();

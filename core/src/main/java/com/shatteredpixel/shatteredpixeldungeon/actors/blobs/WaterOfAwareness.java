@@ -25,7 +25,7 @@ public class WaterOfAwareness extends WellWater {
 
 	@Override
 	protected boolean affectHero( Hero hero ) {
-		Badges.解锁逐姝();
+
 		
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );
 		emitter.parent.add( new Identification( hero.sprite.center() ) );

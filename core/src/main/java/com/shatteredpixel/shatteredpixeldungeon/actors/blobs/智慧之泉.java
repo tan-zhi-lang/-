@@ -10,29 +10,28 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.CellEmitter;
 import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
+import com.shatteredpixel.shatteredpixeldungeon.items.ArcaneResin;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.artifacts.Artifact;
+import com.shatteredpixel.shatteredpixeldungeon.items.wands.Wand;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes.Landmark;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.windows.Wnd选择天赋层;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 
-public class 天赋之泉 extends WellWater {
+public class 智慧之泉 extends WellWater {
 	
 	@Override
 	protected boolean affectHero( Hero hero ) {
-		
 
+		
 		if (!hero.isAlive()) return false;
 		
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );
-		Game.runOnRenderThread(()->{
-			GameScene.show(new Wnd选择天赋层(hero));
-		});
-		hero.sprite.showStatusWithIcon(CharSprite.增强绿,"1",FloatingText.经验数值);
+
+		hero.魔力++;
+		hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(1),FloatingText.智慧泉);
 		CellEmitter.get( hero.pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
 
 		Dungeon.hero.interrupt();
@@ -44,24 +43,23 @@ public class 天赋之泉 extends WellWater {
 	
 	@Override
 	protected Item affectItem( Item item, int pos ) {
-		if (item.可升级()) {
-			item.升级();
-			CellEmitter.get( pos ).start( Speck.factory( Speck.UP ), 0.4f, 4 );
-			Sample.INSTANCE.play( Assets.Sounds.DRINK );
-			return item;
-		}
-		return null;
+
+			if(item instanceof Wand||item instanceof Artifact){
+				item.魔力收益++;
+				GLog.绿(Messages.get(ArcaneResin.class,"apply"));
+			}
+		return item;
 	}
 	
 	@Override
 	public Landmark landmark() {
-		return Landmark.天赋之泉;
+		return Landmark.智慧之泉;
 	}
 	
 	@Override
 	public void use( BlobEmitter emitter ) {
 		super.use( emitter );
-		emitter.start( Speck.factory( Speck.STAR ), 0.5f, 0 );
+		emitter.start( Speck.factory( Speck.BLUE_LIGHT ), 0.5f, 0 );
 	}
 	
 	@Override

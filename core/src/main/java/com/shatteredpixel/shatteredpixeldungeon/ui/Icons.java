@@ -71,6 +71,9 @@ public enum Icons {
     GRASS,
     锁门,
     深渊,
+    泉,
+    SACRIFICE_ALTAR,
+    DISTANT_WELL,
 
     上楼,
     STAIRS_CHASM,
@@ -82,12 +85,12 @@ public enum Icons {
     STAIRS_SECRETS,
     WELL_HEALTH,
     WELL_AWARENESS,
-    神力之泉,
+    玄武之泉,
+    大力之泉,
+    跃动之泉,
+    智慧之泉,
     天赋之泉,
     幸运之泉,
-    泉,
-    SACRIFICE_ALTAR,
-    DISTANT_WELL,
 
     //smaller icons, variable spacing
     SKULL,
@@ -328,6 +331,15 @@ public enum Icons {
             case 深渊:
                 icon.frame(icon.texture.uvRectBySize(192, 48, 16, 16));
                 break;
+            case 泉:
+                icon.frame(icon.texture.uvRectBySize(208, 48, 16, 16));
+                break;
+            case SACRIFICE_ALTAR:
+                icon.frame(icon.texture.uvRectBySize(224, 48, 16, 16));
+                break;
+            case DISTANT_WELL:
+                icon.frame(icon.texture.uvRectBySize(240, 48, 16, 16));
+                break;
 
             case 上楼:
                 icon.frame(icon.texture.uvRectBySize(0, 64, 15, 16));
@@ -359,22 +371,22 @@ public enum Icons {
             case WELL_AWARENESS:
                 icon.frame(icon.texture.uvRectBySize(144, 64, 16, 16));
                 break;
-            case 神力之泉:
+            case 玄武之泉:
                 icon.frame(icon.texture.uvRectBySize(160, 64, 16, 16));
                 break;
-            case 天赋之泉:
+            case 大力之泉:
                 icon.frame(icon.texture.uvRectBySize(176, 64, 16, 16));
                 break;
-            case 幸运之泉:
+            case 跃动之泉:
                 icon.frame(icon.texture.uvRectBySize(192, 64, 16, 16));
                 break;
-            case 泉:
+            case 智慧之泉:
                 icon.frame(icon.texture.uvRectBySize(208, 64, 16, 16));
                 break;
-            case SACRIFICE_ALTAR:
+            case 天赋之泉:
                 icon.frame(icon.texture.uvRectBySize(224, 64, 16, 16));
                 break;
-            case DISTANT_WELL:
+            case 幸运之泉:
                 icon.frame(icon.texture.uvRectBySize(240, 64, 16, 16));
                 break;
 

@@ -9,9 +9,12 @@ import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.Foliage;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.SacrificialFire;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfAwareness;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.WaterOfHealth;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.大力之泉;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.天赋之泉;
 import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.幸运之泉;
-import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.神力之泉;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.智慧之泉;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.玄武之泉;
+import com.shatteredpixel.shatteredpixeldungeon.actors.blobs.跃动之泉;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.DemonSpawner;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Statue;
@@ -117,7 +120,10 @@ public class Notes {
 		DISTANT_WELL,
 		WELL_OF_HEALTH,
 		WELL_OF_AWARENESS,
-		神力之泉,
+		玄武之泉,
+		大力之泉,
+		跃动之泉,
+		智慧之泉,
 		天赋之泉,
 		幸运之泉,
 		SACRIFICIAL_FIRE,
@@ -243,7 +249,10 @@ public class Notes {
 				case DISTANT_WELL:      return Messages.get(WeakFloorRoom.HiddenWell.class, "desc");
 				case WELL_OF_HEALTH:    return Messages.get(WaterOfHealth.class, "desc");
 				case WELL_OF_AWARENESS: return Messages.get(WaterOfAwareness.class, "desc");
-				case 神力之泉: return Messages.get(神力之泉.class, "desc");
+				case 玄武之泉: return Messages.get(玄武之泉.class,"desc");
+				case 大力之泉: return Messages.get(大力之泉.class,"desc");
+				case 跃动之泉: return Messages.get(跃动之泉.class,"desc");
+				case 智慧之泉: return Messages.get(智慧之泉.class,"desc");
 				case 天赋之泉: return Messages.get(天赋之泉.class,"desc");
 				case 幸运之泉: return Messages.get(幸运之泉.class,"desc");
 				case SACRIFICIAL_FIRE:  return Messages.get(SacrificialFire.class, "desc");

@@ -217,6 +217,8 @@ public class Item implements Bundlable {
 	public boolean 首次装备 = true;
 	public boolean 房间物品 = false;
 	public boolean 超级等级 = false;
+	public float 速度收益 = 1;
+	public float 防御收益 = 1;
 	public float 魔力收益 = 1;
 	public boolean 星露谷物语(){
 
@@ -1376,6 +1378,8 @@ public class Item implements Bundlable {
 	private static final String 价值提升x = "价值提升";
 	private static final String 能量提升x = "能量提升";
 	private static final String 超级等级x = "超级等级";
+	private static final String 速度收益x = "速度收益x";
+	private static final String 防御收益x = "防御收益x";
 	private static final String 魔力收益x = "魔力收益";
 	private static final String 无动作x = "无动作";
 	private static final String 幸运装备x = "幸运装备";
@@ -1398,6 +1402,8 @@ public class Item implements Bundlable {
 		bundle.put( 价值提升x, 价值提升 );
 		bundle.put( 能量提升x, 能量提升 );
 		bundle.put( 超级等级x, 超级等级 );
+		bundle.put( 速度收益x, 速度收益 );
+		bundle.put( 防御收益x, 防御收益 );
 		bundle.put( 魔力收益x, 魔力收益 );
 		bundle.put( 无动作x, 无动作 );
 		bundle.put( 幸运装备x, 幸运装备 );
@@ -1424,6 +1430,8 @@ public class Item implements Bundlable {
 		价值提升	= bundle.getBoolean( 价值提升x );
 		能量提升	= bundle.getBoolean( 能量提升x );
 		超级等级	= bundle.getBoolean( 超级等级x );
+		速度收益	= bundle.getFloat( 速度收益x );
+		防御收益	= bundle.getFloat( 防御收益x );
 		魔力收益	= bundle.getFloat( 魔力收益x );
 		无动作	= bundle.getBoolean( 无动作x );
 		幸运装备	= bundle.getBoolean( 幸运装备x );

@@ -14,45 +14,44 @@ import com.watabou.utils.Random;
 import com.watabou.utils.SparseArray;
 
 public class Speck extends Image {
+	public static final int HEALING     = 0;  // 治愈
+	public static final int STAR        = 1;  // 星星
+	public static final int LIGHT       = 2;  // 光
+	public static final int QUESTION    = 3;  // 问号
+	public static final int UP          = 4;  // 向上
+	public static final int SCREAM      = 5;  // 尖叫
+	public static final int BONE        = 6;  // 骨头
+	public static final int WOOL        = 7;  // 羊毛
+	public static final int ROCK        = 8;  // 岩石
+	public static final int NOTE        = 9;  // 音符
+	public static final int CHANGE      = 10; // 变化
+	public static final int HEART       = 11; // 心
+	public static final int BUBBLE      = 12; // 泡泡
+	public static final int STEAM       = 13; // 蒸汽
+	public static final int COIN        = 14; // 硬币
+	public static final int DOWN        = 15; // 向下
 
-	public static final int HEALING     = 0;
-	public static final int STAR        = 1;
-	public static final int LIGHT       = 2;
-	public static final int QUESTION    = 3;
-	public static final int UP          = 4;
-	public static final int SCREAM      = 5;
-	public static final int BONE        = 6;
-	public static final int WOOL        = 7;
-	public static final int ROCK        = 8;
-	public static final int NOTE        = 9;
-	public static final int CHANGE      = 10;
-	public static final int HEART       = 11;
-	public static final int BUBBLE      = 12;
-	public static final int STEAM       = 13;
-	public static final int COIN        = 14;
-	public static final int DOWN        = 15;
-	
-	public static final int DISCOVER    = 101;
-	public static final int EVOKE       = 102;
-	public static final int MASK        = 103;
-	public static final int CROWN       = 104;
-	public static final int RATTLE      = 105;
-	public static final int JET         = 106;
-	public static final int TOXIC       = 107;
-	public static final int CORROSION   = 108;
-	public static final int PARALYSIS   = 109;
-	public static final int DUST        = 110;
-	public static final int STENCH      = 111;
-	public static final int FORGE       = 112;
-	public static final int CONFUSION   = 113;
-	public static final int RED_LIGHT   = 114;
-	public static final int CALM        = 115;
-	public static final int SMOKE       = 116;
-	public static final int STORM       = 117;
-	public static final int INFERNO     = 118;
-	public static final int BLIZZARD    = 119;
-	public static final int YELLOW_LIGHT= 120;
-	public static final int BLUE_LIGHT  = 121;
+	public static final int DISCOVER    = 101; // 发现
+	public static final int EVOKE       = 102; // 唤起
+	public static final int MASK        = 103; // 面具
+	public static final int CROWN       = 104; // 王冠
+	public static final int RATTLE      = 105; // 嘎嘎声
+	public static final int JET         = 106; // 喷射
+	public static final int TOXIC       = 107; // 毒性
+	public static final int CORROSION   = 108; // 腐蚀
+	public static final int PARALYSIS   = 109; // 麻痹
+	public static final int DUST        = 110; // 灰尘
+	public static final int STENCH      = 111; // 恶臭
+	public static final int FORGE       = 112; // 锻造
+	public static final int CONFUSION   = 113; // 混乱
+	public static final int RED_LIGHT   = 114; // 红光
+	public static final int CALM        = 115; // 平静
+	public static final int SMOKE       = 116; // 烟雾
+	public static final int STORM       = 117; // 风暴
+	public static final int INFERNO     = 118; // 地狱火
+	public static final int BLIZZARD    = 119; // 暴风雪
+	public static final int YELLOW_LIGHT= 120; // 黄光
+	public static final int BLUE_LIGHT  = 121; // 蓝光
 	
 	private static final int SIZE = 7;
 	

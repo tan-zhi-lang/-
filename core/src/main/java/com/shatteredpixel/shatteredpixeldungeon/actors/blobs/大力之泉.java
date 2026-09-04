@@ -11,28 +11,28 @@ import com.shatteredpixel.shatteredpixeldungeon.effects.FloatingText;
 import com.shatteredpixel.shatteredpixeldungeon.effects.Speck;
 import com.shatteredpixel.shatteredpixeldungeon.effects.particles.ShaftParticle;
 import com.shatteredpixel.shatteredpixeldungeon.items.Item;
+import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
+import com.shatteredpixel.shatteredpixeldungeon.items.potions.exotic.PotionOfMastery;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.Weapon;
 import com.shatteredpixel.shatteredpixeldungeon.journal.Notes.Landmark;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
-import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.CharSprite;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
-import com.shatteredpixel.shatteredpixeldungeon.windows.Wnd选择天赋层;
-import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 
-public class 天赋之泉 extends WellWater {
+public class 大力之泉 extends WellWater {
 	
 	@Override
 	protected boolean affectHero( Hero hero ) {
-		
 
+		
 		if (!hero.isAlive()) return false;
 		
 		Sample.INSTANCE.play( Assets.Sounds.DRINK );
-		Game.runOnRenderThread(()->{
-			GameScene.show(new Wnd选择天赋层(hero));
-		});
-		hero.sprite.showStatusWithIcon(CharSprite.增强绿,"1",FloatingText.经验数值);
+
+		hero.力量++;
+		if(hero.符文("真大力之泉"))hero.力量+=175;
+		hero.sprite.showStatusWithIcon(CharSprite.增强绿,Integer.toString(1),FloatingText.力量数值);
 		CellEmitter.get( hero.pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
 
 		Dungeon.hero.interrupt();
@@ -44,24 +44,29 @@ public class 天赋之泉 extends WellWater {
 	
 	@Override
 	protected Item affectItem( Item item, int pos ) {
-		if (item.可升级()) {
-			item.升级();
-			CellEmitter.get( pos ).start( Speck.factory( Speck.UP ), 0.4f, 4 );
-			Sample.INSTANCE.play( Assets.Sounds.DRINK );
-			return item;
+		if(Dungeon.符文("真大力之泉")&&item.可升级())item.升级(35);
+		if((item instanceof Weapon && !((Weapon) item).神力)
+				|| (item instanceof Armor && !((Armor) item).神力)){
+			if (item instanceof Weapon) {
+				((Weapon) item).神力 = true;
+				GLog.绿(Messages.get(PotionOfMastery.class,"weapon_easier"));
+			} else if (item instanceof Armor) {
+				((Armor) item).神力 = true;
+				GLog.绿(Messages.get(PotionOfMastery.class,"armor_easier"));
+			}
 		}
-		return null;
+		return item;
 	}
 	
 	@Override
 	public Landmark landmark() {
-		return Landmark.天赋之泉;
+		return Landmark.大力之泉;
 	}
 	
 	@Override
 	public void use( BlobEmitter emitter ) {
 		super.use( emitter );
-		emitter.start( Speck.factory( Speck.STAR ), 0.5f, 0 );
+		emitter.start( Speck.factory( Speck.UP ), 0.5f, 0 );
 	}
 	
 	@Override

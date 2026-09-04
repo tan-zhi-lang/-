@@ -3,7 +3,6 @@
 package com.shatteredpixel.shatteredpixeldungeon.actors.blobs;
 
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
-import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Challenges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
@@ -31,7 +30,7 @@ public class 幸运之泉 extends WellWater {
 	
 	@Override
 	protected boolean affectHero( Hero hero ) {
-		Badges.解锁逐姝();
+
 		
 		if (!hero.isAlive()) return false;
 		

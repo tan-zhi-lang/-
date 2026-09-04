@@ -2,6 +2,7 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.actors.blobs;
 
+import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.hero.Hero;
 import com.shatteredpixel.shatteredpixeldungeon.items.Heap;
@@ -35,12 +36,14 @@ public abstract class WellWater extends Blob {
 		Heap heap;
 		
 		if (pos == Dungeon.hero.pos && affectHero( Dungeon.hero )) {
-			
+
+			Badges.解锁逐姝();
 			clear(pos);
 			return true;
 			
 		} else if ((heap = Dungeon.level.heaps.get( pos )) != null) {
-			
+
+			Badges.解锁逐姝();
 			Item oldItem = heap.peek();
 			Item newItem = affectItem( oldItem, pos );
 			
@@ -87,7 +90,7 @@ public abstract class WellWater extends Blob {
 	
 	public static void affectCell( int cell ) {
 
-		Class<?>[] waters = {WaterOfHealth.class, WaterOfAwareness.class, 神力之泉.class, 天赋之泉.class, 幸运之泉.class};
+		Class<?>[] waters = {WaterOfHealth.class, WaterOfAwareness.class, 大力之泉.class, 天赋之泉.class, 幸运之泉.class};
 		
 		for (Class<?>waterClass : waters) {
 			WellWater water = (WellWater)Dungeon.level.blobs.get( waterClass );

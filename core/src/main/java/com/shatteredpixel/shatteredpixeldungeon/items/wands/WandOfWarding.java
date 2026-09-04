@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -165,9 +167,9 @@ public class WandOfWarding extends Wand {
 	@Override
 	public String statsDesc() {
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", 魔力(0.2f,0.5f));
+			return Messages.get(this, "stats_desc", kw2(魔力(0.2f,0.5f)));
 		else
-			return Messages.get(this, "stats_desc", 魔力(0.2f,0.5f));
+			return Messages.get(this, "stats_desc", kw2(魔力(0.2f,0.5f)));
 	}
 
 	public class Ward extends NPC {//之前静态

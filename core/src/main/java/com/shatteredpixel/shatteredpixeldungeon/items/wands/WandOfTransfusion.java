@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Badges;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
@@ -150,11 +152,11 @@ public class WandOfTransfusion extends DamageWand {
 
 	@Override
 	public String statsDesc() {
-		int selfDMG = Dungeon.hero() ? Math.round(Dungeon.hero.最大生命 *0.05f): 1;
+		float selfDMG = Dungeon.hero() ? Dungeon.hero.最大生命 *0.05f: 1;
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", selfDMG, selfDMG + 3* 强化等级(), 魔力(0.5f,0.2f), min(), max());
+			return Messages.get(this, "stats_desc", kw2(selfDMG), kw2(selfDMG), kw2(魔力(0.5f,0.2f)), kw2(min()), kw2(max()));
 		else
-			return Messages.get(this, "stats_desc", selfDMG, selfDMG, 5, min(0), max(0));
+			return Messages.get(this, "stats_desc", kw2(selfDMG), kw2(selfDMG), kw2(5), kw2(min(0)), kw2(max(0)));
 	}
 
 	@Override

@@ -92,7 +92,7 @@ public class 结能菱晶 extends Spell {
 				if (parentWnd != null) {
 					parentWnd = GameScene.selectItem(itemSelector);
 				}
-				Dungeon.energy(item.能量提升()*10);
+				Dungeon.energy(item.能量提升()*5);
 				item.detachAll();
 				parentWnd.hide();
 				curItem.detach();

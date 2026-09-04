@@ -18,6 +18,7 @@ import com.shatteredpixel.shatteredpixeldungeon.sprites.SwarmSprite;
 import com.shatteredpixel.shatteredpixeldungeon.赛季设置;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -74,24 +75,28 @@ public class Swarm extends Mob {
 	public float 防御时(Char enemy, float damage ) {
 
 		if (生命 >= damage + 2) {
-			
+
 			Sample.INSTANCE.play(Assets.Sounds.苍蝇);
 			ArrayList<Integer> candidates = new ArrayList<>();
-			
+
 			int[] neighbours = {pos + 1, pos - 1, pos + Dungeon.level.width(), pos - Dungeon.level.width()};
 			for (int n : neighbours) {
-				if (!Dungeon.level.solid[n]
-						&& Actor.findChar( n ) == null
-						&& (Dungeon.level.passable[n] || Dungeon.level.avoid[n])
-						&& (!属性表().contains(Property.LARGE)||Dungeon.level.openSpace[n])) {
+				if (validSplitCell( n )) {
 					candidates.add( n );
 				}
 			}
-	
+
 			if (candidates.size() > 0) {
-				
+
 				Swarm clone = split();
 				clone.pos = Random.element( candidates );
+				if (!validSplitCell( clone.pos )) {
+					int safeCell = findSafeCell();
+					if (safeCell == -1) {
+						return super.防御时(enemy, damage);
+					}
+					clone.pos = safeCell;
+				}
 				clone.state = clone.HUNTING;
 				GameScene.add( clone, SPLIT_DELAY ); //we add before assigning HP due to ascension
 				clone.最大生命=Math.round(clone.最大生命*Dungeon.难度生命(this));
@@ -99,12 +104,33 @@ public class Swarm extends Mob {
 				Actor.add( new Pushing( clone, pos, clone.pos ) );
 
 				Dungeon.level.occupyCell(clone);
-				
+
 				生命 -= clone.生命;
 			}
 		}
-		
+
 		return super.防御时(enemy, damage);
+	}
+
+	private boolean validSplitCell( int cell ){
+		return cell >= 0
+				&& cell < Dungeon.level.length()
+				&& !Dungeon.level.solid[cell]
+				&& Actor.findChar( cell ) == null
+				&& (Dungeon.level.passable[cell] || Dungeon.level.avoid[cell])
+				&& (!属性表().contains(Property.LARGE) || Dungeon.level.openSpace[cell]);
+	}
+
+	private int findSafeCell(){
+		for (int c : PathFinder.相邻4){
+			int cell = pos + c;
+			if (cell >= 0 && cell < Dungeon.level.length()
+					&& !Dungeon.level.solid[cell]
+					&& Actor.findChar( cell ) == null){
+				return cell;
+			}
+		}
+		return -1;
 	}
 	
 	@Override

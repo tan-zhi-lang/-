@@ -92,7 +92,7 @@ public class 结金菱晶 extends Spell {
 				if (parentWnd != null) {
 					parentWnd = GameScene.selectItem(itemSelector);
 				}
-				Dungeon.gold(item.金币提升()*20);
+				Dungeon.gold(item.金币提升()*10);
 				item.detachAll();
 				parentWnd.hide();
 				curItem.detach();

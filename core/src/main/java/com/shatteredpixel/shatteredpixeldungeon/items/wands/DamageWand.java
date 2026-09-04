@@ -49,9 +49,9 @@ public abstract class DamageWand extends Wand{
 	@Override
 	public String statsDesc() {
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", String.format("%.2f",min()), String.format("%.2f",max()));
+			return Messages.get(this, "stats_desc", kw2(min()), kw2(max()));
 		else
-			return Messages.get(this, "stats_desc", String.format("%.2f",min(0)), String.format("%.2f",max(0)));
+			return Messages.get(this, "stats_desc", kw2(min(0)), kw2(max(0)));
 	}
 
 	@Override

@@ -87,7 +87,7 @@ public abstract class 枪械 extends Weapon{
 	@Override
 	public String status() {
 		if (!无限子弹) {
-			if(levelKnown){
+			if(levelKnown&&Dungeon.hero()){
 				Item 弹=Dungeon.hero.belongings.getItem(子弹.getClass());
 				if(弹!=null&&弹.数量()>0&&Dungeon.hero!=null&&isEquipped(Dungeon.hero)){
 					return curCharges+"/"+弹.数量();

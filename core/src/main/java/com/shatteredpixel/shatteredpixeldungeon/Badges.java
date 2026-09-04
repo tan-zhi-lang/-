@@ -46,7 +46,6 @@ public class Badges {
 		//bronze
 
 		//region 解锁英雄
-		解锁战士                 ( 0 ),
 		UNLOCK_MAGE                 ( 1 ),
 		解锁盗贼( 2 ),
 		UNLOCK_HUNTRESS             ( 3 ),
@@ -71,25 +70,26 @@ public class Badges {
 		解锁血鬼               ( 22 ),
 		解锁来世(23 ),
 		//endregion
+
 		//黄铜
 		MONSTERS_SLAIN_1(32),
 		MONSTERS_SLAIN_2(33),
 		GOLD_COLLECTED_1(34),
-		GOLD_COLLECTED_2(27),
-		ITEM_LEVEL_1(28),
-		LEVEL_REACHED_1(29),
-		STRENGTH_ATTAINED_1(30),
-		FOOD_EATEN_1(31),
-		ITEMS_CRAFTED_1(32),
-		BOSS_SLAIN_1(33),
-		CATALOG_ONE_EQUIPMENT(34, BadgeType.JOURNAL),
-		DEATH_FROM_FIRE(35),
-		DEATH_FROM_POISON(36),
-		DEATH_FROM_GAS(37),
-		DEATH_FROM_HUNGER(38),
-		DEATH_FROM_FALLING(39),
-		RESEARCHER_1(40, BadgeType.JOURNAL),
-		GAMES_PLAYED_1(41, BadgeType.GLOBAL),
+		GOLD_COLLECTED_2(35),
+		ITEM_LEVEL_1(36),
+		LEVEL_REACHED_1(37),
+		STRENGTH_ATTAINED_1(38),
+		FOOD_EATEN_1(39),
+		ITEMS_CRAFTED_1(40),
+		BOSS_SLAIN_1(41),
+		CATALOG_ONE_EQUIPMENT(42, BadgeType.JOURNAL),
+		DEATH_FROM_FIRE(43),
+		DEATH_FROM_POISON(44),
+		DEATH_FROM_GAS(45),
+		DEATH_FROM_HUNGER(46),
+		DEATH_FROM_FALLING(47),
+		RESEARCHER_1(48, BadgeType.JOURNAL),
+		GAMES_PLAYED_1(49, BadgeType.GLOBAL),
 		HIGH_SCORE_1(50),
 
 		//silver 白银
@@ -833,14 +833,7 @@ public class Badges {
 			displayBadge(badge);
 		}
 	}
-	
 
-	
-	public static void 解锁战士(){
-		if (!isUnlocked(Badge.解锁战士)){
-			displayBadge( Badge.解锁战士 );
-		}
-	}
 
 	public static void validateMageUnlock(){
 		if (!isUnlocked(Badge.UNLOCK_MAGE)){

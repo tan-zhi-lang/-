@@ -2,6 +2,8 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.items.wands;
 
+import static com.shatteredpixel.shatteredpixeldungeon.算法.kw2;
+
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.Statistics;
@@ -81,9 +83,9 @@ public class 浓毒法杖 extends Wand {
 	@Override
 	public String statsDesc() {
 		if (levelKnown)
-			return Messages.get(this, "stats_desc", 魔力(8,0.5f)/35f);
+			return Messages.get(this, "stats_desc", kw2(魔力(8,0.5f)/35f));
 		else
-			return Messages.get(this, "stats_desc", 魔力(8,0.5f)/35f);
+			return Messages.get(this, "stats_desc", kw2(魔力(8,0.5f)/35f));
 	}
 
 	@Override

@@ -13,7 +13,6 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.Ring;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.Trinket;
 import com.shatteredpixel.shatteredpixeldungeon.items.用品.用品;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
-import com.shatteredpixel.shatteredpixeldungeon.解压设置;
 
 public class 宝物袋 extends Bag {
 
@@ -50,7 +49,7 @@ public class 宝物袋 extends Bag {
 	
 	@Override
 	public int 金币() {
-		return 20;
+		return 35;
 	}
 
 }

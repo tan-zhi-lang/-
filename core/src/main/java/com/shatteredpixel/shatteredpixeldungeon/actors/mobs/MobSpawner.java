@@ -269,12 +269,8 @@ public class MobSpawner extends Actor {
 		if(Holiday.getCurrentHoliday()==Holiday._1024){
 			altChance*=2;
 		}
-		if(Dungeon.赛季(赛季设置.鬼怨地牢)){
-			altChance*=20;
-		}
-
 		if(Dungeon.hero()&&(Dungeon.hero.heroClass(HeroClass.鼠弟)||Dungeon.hero.heroClass(HeroClass.灵猫))){
-			altChance*=20;
+			altChance*=10;
 		}
 		for (int i = 0; i < rotation.size(); i++) {
 			if (Random.Float() < altChance) {

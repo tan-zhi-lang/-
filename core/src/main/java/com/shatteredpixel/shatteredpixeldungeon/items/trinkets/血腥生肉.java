@@ -43,7 +43,7 @@ public class 血腥生肉 extends Trinket {
 		if (level < 0){
 			return 0;
 		} else {
-			return 10-2*level;
+			return 12-2*level;
 		}
 	}
 
@@ -55,7 +55,7 @@ public class 血腥生肉 extends Trinket {
 		if (level < 0){
 			return 1;
 		} else {
-			return 1.25f+0.25f*level;
+			return 1.15f+0.15f*level;
 		}
 	}
 

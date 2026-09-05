@@ -54,8 +54,8 @@ public class 重力场球 extends Trinket {
 		if(trinketLevel(重力场球.class)>=0)
 		if(c!=null){
 			x=0.75f;
-			if(c instanceof Hero)x/=英雄();
-			if(c instanceof Mob)x/=敌人();
+			if(c instanceof Hero)x*=英雄();
+			if(c instanceof Mob)x*=敌人();
 		}
 		return x;
 	}
@@ -68,7 +68,7 @@ public class 重力场球 extends Trinket {
 		if (level < 0){
 			return 1;
 		} else {
-			return 0.95f-0.1f*level;
+			return 0.98f-0.01f*level;
 		}
 	}
 
@@ -80,7 +80,7 @@ public class 重力场球 extends Trinket {
 		if (level < 0){
 			return 1;
 		} else {
-			return 1f-0.05f*level;
+			return 1.1f+0.05f*level;
 		}
 	}
 

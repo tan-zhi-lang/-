@@ -1459,7 +1459,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	public float 力量(){
-		return 力量(等级());
+		return 力量(强化等级());
 	}
 
 	protected static float 力量(int tier, int lvl){

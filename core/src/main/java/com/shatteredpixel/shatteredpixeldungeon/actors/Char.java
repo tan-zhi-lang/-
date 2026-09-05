@@ -1644,7 +1644,7 @@ public abstract class Char extends Actor {
 	public float 攻击延迟() {
 		float delay = 攻击延迟;
 		if(诡异)delay/=5;
-		delay*=重力场球.攻速(this);
+		delay/=重力场球.攻速(this);
 		for (ChampionEnemy buff : buffs(ChampionEnemy.class)){
 			delay/=buff.攻速();
 		}

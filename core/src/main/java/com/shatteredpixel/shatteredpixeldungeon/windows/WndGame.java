@@ -2,12 +2,12 @@
 
 package com.shatteredpixel.shatteredpixeldungeon.windows;
 
-import static com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴.teleportPreferringUnseen;
-
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.GameScene;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.HeroSelectScene;
@@ -19,9 +19,11 @@ import com.shatteredpixel.shatteredpixeldungeon.ui.RedButton;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
 import com.shatteredpixel.shatteredpixeldungeon.utils.GLog;
 import com.shatteredpixel.shatteredpixeldungeon.utils.存档工具;
+import com.shatteredpixel.shatteredpixeldungeon.算法;
 import com.watabou.noosa.Game;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class WndGame extends Window {
 
@@ -50,12 +52,14 @@ public class WndGame extends Window {
 			@Override
 			protected void onClick() {
 				hide();
-//				for(Mob m : new ArrayList<>(Dungeon.level.mobs)){
-////					if(m.enemy==Dungeon.hero) {
-//						m.受伤时(m.最大生命);
-////					}
-//				}
-				teleportPreferringUnseen( Dungeon.hero );
+				if(算法.isDebug()){
+						for(Mob m : new ArrayList<>(Dungeon.level.mobs)){
+		//					if(m.enemy==Dungeon.hero) {
+								m.受伤时(m.最大生命);
+		//					}
+						}
+						传送卷轴.teleportPreferringUnseen(Dungeon.hero);
+				}
 				ShatteredPixelDungeon.seamlessResetScene();
 			}
 		} );

@@ -789,7 +789,7 @@ public class Armor extends EquipableItem {
 	}
 
 	public float 力量(){
-		return 力量(等级());
+		return 力量(强化等级());
 	}
 
 	public float 力量(int lvl){

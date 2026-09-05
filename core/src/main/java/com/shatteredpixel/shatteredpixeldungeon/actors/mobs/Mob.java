@@ -1236,7 +1236,7 @@ public abstract class Mob extends Char{
 						Dungeon.level.drop(new 升级卷轴(),pos).sprite().drop();
 					}
 					if(血腥生肉.概率()>0&&Random.Int(血腥生肉.概率()-1)==0){
-						Dungeon.level.drop(new MysteryMeat(this),pos).sprite().drop();
+						Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
 					}
 
 					if(恶魔亡灵()&&Dungeon.hero.heroClass(HeroClass.道士)){
@@ -1255,7 +1255,7 @@ public abstract class Mob extends Char{
 
 					if((this instanceof Rat||this instanceof TransmogRat)&&Dungeon.hero.subClass(HeroSubClass.巫咒王鼠)){
 						if(Random.Int(1)==0||Dungeon.hero.职业精通()){
-							Dungeon.level.drop(new MysteryMeat(this),pos).sprite().drop();
+							Dungeon.level.drop(new MysteryMeat(),pos).sprite().drop();
 						}
 					}
 

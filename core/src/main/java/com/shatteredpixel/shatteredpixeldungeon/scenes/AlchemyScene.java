@@ -609,6 +609,10 @@ public class AlchemyScene extends PixelScene {
 			combines[0].setPos(combines[0].left(), inputs[1].top()+5);
 			outputs[0].setPos(outputs[0].left(), inputs[1].top());
 			energyAddBlinking = false;
+			//无匹配配方时也要刷新炼金指南，否则从inputs取出物品后快捷配方状态不会自动更新
+			if (alchGuide != null){
+				alchGuide.updateList();
+			}
 			return;
 		}
 

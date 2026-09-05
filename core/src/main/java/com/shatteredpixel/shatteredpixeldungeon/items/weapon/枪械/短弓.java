@@ -15,7 +15,7 @@ public class 短弓 extends 枪械{
 		专属=true;
 		tier = 1;
 		伤害=0.6f;
-		枪伤=1.25f;
+		枪伤=1.5f;
 		射速=1;
 		子弹 = new 箭矢();
 		image2 = 物品表.箭矢;

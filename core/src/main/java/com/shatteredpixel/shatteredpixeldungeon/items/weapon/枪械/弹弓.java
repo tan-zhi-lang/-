@@ -13,7 +13,7 @@ public class 弹弓 extends 枪械{
 		
 		tier = 1;
 		伤害=0.6f;
-		枪伤=1f;
+		枪伤=1.25f;
 		射速=1;
 		子弹 = new 石子();
 		image2 = 物品表.石子;

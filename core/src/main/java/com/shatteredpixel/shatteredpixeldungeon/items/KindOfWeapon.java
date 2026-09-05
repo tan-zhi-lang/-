@@ -70,7 +70,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 
 	public float 投掷(){
 		float 投掷=this.投掷;
-		投掷*=1.45f;
+
 		投掷*=魔法飞刀.投掷();
 
 		if(Dungeon.hero()&&Dungeon.hero.belongings.weapon(投掷手套.class))

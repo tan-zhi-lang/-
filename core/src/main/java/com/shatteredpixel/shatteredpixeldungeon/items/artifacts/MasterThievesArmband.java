@@ -254,10 +254,6 @@ public class MasterThievesArmband extends Artifact {
 
 		@Override
 		public boolean act() {
-			if (Dungeon.gold > 0 && Random.Int(5) == 0){
-				Dungeon.gold(-1,target.pos);
-				updateQuickslot();
-			}
 
 			spend(TICK);
 			return true;

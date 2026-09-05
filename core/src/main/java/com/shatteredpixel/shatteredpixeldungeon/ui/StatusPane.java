@@ -372,7 +372,7 @@ public class StatusPane extends Component {
 		float hunger = 450f-
 				(Dungeon.hero.hasbuff(Hunger.class)?
 						Dungeon.hero.buff(Hunger.class).hunger():450f);
-		float hungerDelay = 1f/Dungeon.hero.buff(Hunger.class).饥饿速度();
+		float hungerDelay = Dungeon.hero.buff(Hunger.class).饥饿速度();
 
 		float shield = Dungeon.hero.shielding();
 
@@ -444,7 +444,7 @@ public class StatusPane extends Component {
 															("+"+kw2(恢复速度)
 		):"")+"/"+kw2(最大护甲));
 		绿条文本.text(kw2(hunger)+
-					  (hunger>0&&hungerDelay>0?kw2(-hungerDelay):"") + "/" + String.format("%.0f",450f));
+					  (hunger>0&&hungerDelay>0?kw2(-hungerDelay):"") + "/" + kw2(450f));
 	
 		exp.scale.x = (17 / exp.width) * Dungeon.hero.经验/Dungeon.hero.升级所需();
 		expText.text(Dungeon.hero.经验+"/"+Dungeon.hero.升级所需());

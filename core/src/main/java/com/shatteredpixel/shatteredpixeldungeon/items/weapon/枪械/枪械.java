@@ -50,7 +50,7 @@ public abstract class 枪械 extends Weapon{
 		伤害=0.6f;
 
 	}
-	public float 枪伤= 1.75f;
+	public float 枪伤= 2f;
 	public boolean 无限子弹 = false;
 	public boolean 掉落子弹 = false;
 	public boolean 爆炸效果 = false;

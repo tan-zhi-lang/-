@@ -14,6 +14,7 @@ public class 十字弩 extends 枪械{
 		专属=true;
 		tier = 1;
 		伤害=0.6f;
+		枪伤= 1.75f;
 		射速=2;
 		子弹 = new 箭矢();
 		image2 = 物品表.箭矢;

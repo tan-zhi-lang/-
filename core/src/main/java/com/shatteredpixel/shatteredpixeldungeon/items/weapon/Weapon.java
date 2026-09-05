@@ -30,6 +30,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.KindOfWeapon;
 import com.shatteredpixel.shatteredpixeldungeon.items.armor.Armor;
 import com.shatteredpixel.shatteredpixeldungeon.items.bags.Bag;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.狂怒之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.能量之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.trinkets.ParchmentScrap;
@@ -995,7 +996,8 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最小投掷攻击(int lvl) {
-		return Math.max(1,augment.damageFactor(最小+(tier()+lvl)*(伤害()*投掷())));
+		return Math.max(1,augment.damageFactor((Dungeon.hero()?
+														 武力之戒.heromin():0)+最小+(tier()+lvl)*(伤害()*投掷())));
 //		return Math.round(最小+(2*tier()+lvl)*(伤害()));
 	}
 	
@@ -1006,7 +1008,8 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大投掷攻击(int lvl) {
-		return augment.damageFactor(最大+(5 * (tier()+1) +(tier()+1)*lvl )*(伤害()*投掷()));
+		return augment.damageFactor((Dungeon.hero()?
+											 武力之戒.heromax():0)+最大+(5 * (tier()+1) +(tier()+1)*lvl )*(伤害()*投掷()));
 //		return Math.round(最大+(5 * tier() +tier()*lvl )*(伤害()));
 	}
 	

@@ -12,7 +12,6 @@ public class 誓刃 extends Weapon{
 		hitSound = Assets.Sounds.攻击砍;
 		延迟=1.1f;
 		流血=0.15f;
-		麻痹=0.15f;
 		tier = 5;
 	}
 

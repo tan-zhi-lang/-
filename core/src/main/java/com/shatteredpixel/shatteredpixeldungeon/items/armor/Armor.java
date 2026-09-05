@@ -661,7 +661,8 @@ public class Armor extends EquipableItem {
 		if (levelKnown) {
 
 			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", kw2(力量()), tier(),
-										  kw2(最小防御()), kw2(最大防御()));
+										  kw2(最小防御()), kw2(最大防御()),
+										  kw2(DR()));
 			
 			if (Dungeon.hero() && 力量() > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");
@@ -672,7 +673,8 @@ public class Armor extends EquipableItem {
 		} else {
 			info += "\n\n" + Messages.get(Armor.class, "curr_absorb", kw2(力量(0)), tier(),
 									  kw2(最小防御(0)),
-										  kw2(最大防御(0)));
+										  kw2(最大防御(0)),
+										  kw2(DR()));
 
 			if (Dungeon.hero() && 力量(0) > Dungeon.hero.力量()) {
 				info += " " + Messages.get(Armor.class, "too_heavy");

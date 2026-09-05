@@ -266,7 +266,9 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(棍())return true;
 		if(鞭())return true;
 		if(锤())return true;
+		if(拳套())return true;
 		if(this instanceof 石头)return true;
+		if(this instanceof 岩砾)return true;
 		if(this instanceof 雪球)return true;
 		if(this instanceof 金铲铲)return true;
 		if(this instanceof 修理扳手)return true;

@@ -268,6 +268,7 @@ import com.shatteredpixel.shatteredpixeldungeon.items.rings.命中之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.奥术之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.强健之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.恢复之戒;
+import com.shatteredpixel.shatteredpixeldungeon.items.rings.极肚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.果刚之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.根骨之戒;
 import com.shatteredpixel.shatteredpixeldungeon.items.rings.武力之戒;

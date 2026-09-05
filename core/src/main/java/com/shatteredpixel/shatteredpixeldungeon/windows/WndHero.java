@@ -409,7 +409,7 @@ public class WndHero extends WndTabbed {
 					statSlot("攻击/击杀效果",kw2(hero.攻击效果())+"/"+kw2(new Rat().击杀效果(null))+"倍");
 					statSlot("副武器/防具效果",kw2(hero.副武器效果())+"/"+kw2(hero.副防具效果())+"倍");
 					statSlot("@@附魔/刻印效果@@",kw2(奥术之戒.enchantPowerMultiplier(hero))+"倍");
-					statSlot("刷怪速度/数量",
+					statSlot("!!刷怪速度/数量!!",
 							 kw2(1/Level.刷怪速度())+"/"+kw2(Level.刷怪数量())+"倍"
 							);
 //					pos+=GAP;

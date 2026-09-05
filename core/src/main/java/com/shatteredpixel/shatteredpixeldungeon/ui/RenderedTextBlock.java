@@ -8,6 +8,7 @@ import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class RenderedTextBlock extends Component{
 
@@ -95,7 +96,7 @@ public class RenderedTextBlock extends Component{
 		boolean highlighting = false;
 		int currentDynamicColor = -1; // 当前动态颜色，-1表示未激活
 
-		for (String str : tokens) {
+		for (String str : expandColorMarkers(tokens)) {
 
 			// 原有高亮标记 _ 和 ** (切换高亮)
 			if ((str.equals("_")) && highlightingEnabled){
@@ -153,6 +154,7 @@ public class RenderedTextBlock extends Component{
 			if (str.equals("\n")){
 				words.add(NEWLINE);
 			} else if (str.equals(" ")){
+				words.add(SPACE);
 				// 空格不渲染（保持原逻辑）
 			} else {
 				RenderedText word = new RenderedText(str, size);
@@ -174,6 +176,34 @@ public class RenderedTextBlock extends Component{
 			}
 		}
 		layout();
+	}
+
+	//把粘连在文本中的颜色标记拆分成独立token，使标记无需用空格分隔也能被识别
+	private static final Pattern MARKER_SPLITTER = Pattern.compile(
+			"(?<=_)|(?=_)|(?<=\\*\\*)|(?=\\*\\*)" +
+					"|(?<===)|(?===)" +
+					"|(?<=\\+\\+)|(?=\\+\\+)" +
+					"|(?<=@@)|(?=@@)" +
+					"|(?<=\\^\\^)|(?=\\^\\^)" +
+					"|(?<=##)|(?=##)" +
+					"|(?<=--)|(?=--)" +
+					"|(?<=,,)|(?=,,)" +
+					"|(?<=;;)|(?=;;)" +
+					"|(?<=!!)|(?=!!)" +
+					"|(?<=\\?\\?)|(?=\\?\\?)");
+
+	private ArrayList<String> expandColorMarkers( String[] tokens ){
+		ArrayList<String> result = new ArrayList<>();
+		for (String token : tokens) {
+			if (token == null || token.length() <= 1) {
+				result.add(token);
+				continue;
+			}
+			for (String part : MARKER_SPLITTER.split(token)){
+				if (!part.isEmpty()) result.add(part);
+			}
+		}
+		return result;
 	}
 
 	public synchronized void zoom(float zoom){

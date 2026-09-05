@@ -473,7 +473,7 @@ abstract public class Weapon extends KindOfWeapon {
 	@Override
 	public float 麻痹(){
 		float 麻痹=super.麻痹;
-		if(锤()){
+		if(钝器()){
 			麻痹+=0.15f;
 		}
 		if(Dungeon.符文("柔术"))
@@ -557,11 +557,14 @@ abstract public class Weapon extends KindOfWeapon {
 										  kw2(范围),
 										  kw2(最小攻击()),
 											  kw2(最大攻击()),
-										  (最小防御()==0&&最大防御()==0?"":"\n防御+ ++ "+
-															 kw2(最小防御())+"~"+kw2(最大防御())+" ++ "),
-										kw2(DPS()),
+
+										  (最小防御()==0&&最大防御()==0?"":"\n防御获得++"+
+															 kw2(最小防御())+"~"+kw2(最大防御())+"++"),
+
 										  kw2(最小投掷攻击()),
-											  kw2(最大投掷攻击()));
+											  kw2(最大投掷攻击()),
+
+										  kw2(DPS()));
 			if (Dungeon.hero()) {
 				if (力量() > hero力量&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
 					info += "\n" + Messages.get(Weapon.class, "too_heavy");
@@ -575,13 +578,12 @@ abstract public class Weapon extends KindOfWeapon {
 				}
 			}
 		} else {
-			info += "\n\n" + Messages.get(Weapon.class, "stats_known", kw2(力量(0)), tier(),
+			info += "\n\n" + Messages.get(Weapon.class, "stats", kw2(力量(0)), tier(),
 										  kw2(范围),
 										  kw2(最小攻击(0)),
 											  kw2(最大攻击(0)),
-										  (最小防御()==0&&最大防御(0)==0?"":"\n防御+ ++ "+
-															 kw2(最小防御(0))+"~"+kw2(最大防御(0))+" ++ "),
-										  kw2(DPS()),
+										  (最小防御()==0&&最大防御(0)==0?"":"\n防御获得++ "+
+															 kw2(最小防御(0))+"~"+kw2(最大防御(0))+"++"),
 										  kw2(最小投掷攻击(0)),
 													  kw2(最大投掷攻击(0)));
 			if (Dungeon.hero() && 力量(0) > hero力量&&!Dungeon.hero.subClass(HeroSubClass.武器大师)) {
@@ -675,43 +677,38 @@ abstract public class Weapon extends KindOfWeapon {
 		return 0;
 	}
 	public String statsInfo(){
-		if (已鉴定()){
-			return Messages.get(this,"stats_desc",
+		//按序拼接非空属性段，不再依赖格式串占位符数量（原格式串只有10个%s，
+		//传13个参数会导致破甲/麻痹/冻结被静默丢弃）
+		ArrayList<String> segs = new ArrayList<>();
+		segs.add((伤害()==0||伤害()==1)?"":" "+kw2(伤害())+"倍伤害");
+		segs.add((命中()==0||命中()==1)?"":" "+kw2(命中())+"倍命中");
+		segs.add((延迟()==0||延迟()==1)?"":" "+kw2(延迟())+"倍攻击延迟");
 
-								(伤害()==0||伤害()==1?"":"\n"+kw2(伤害())+"倍伤害"),
-								(命中()==0||命中()==1?"":"\n"+kw2(命中())+"倍命中"),
-								(延迟()==0||延迟()==1?"":"\n"+kw2(延迟())+"倍攻击延迟"),
-								(流血()==0?"":"\n攻击施加 ** "+Math.round(流血()*100)+"%流血伤害 ** "),
-								(中毒()==0?"":"\n攻击+ ++ "+Math.round(中毒()*100)+"%中毒伤害 ++ "),
-								(魔法()==0?"":"\n攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
-								(吸血()==0?"":"\n获得 ** "+Math.round(吸血()*100)+"%吸血 ** "),
-								(伏击()==0?"":"\n伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
+		segs.add(!迅速()?"":"\n首次攻击不消耗回合");
+		segs.add(投掷粘()?"\n在命中敌人时不会粘在敌人身上":"");
+		segs.add(pickupDelay()==0?"\n在拾取不消耗回合":"");
+		segs.add(!回旋镖()?"":"\n扔出时攻速x2回合飞回来");
+		segs.add(!穿透回旋镖()?"":"\n在扔出和飞回来都会造成伤害");
 
-								(首攻()==0?"":"\n首次攻击+"+Math.round(首攻()*100)+"%伤害"),
-								(!迅速()?"":"\n首次攻击不消耗回合"),
-								(破甲()==0?"":"\n攻击伤害+敌人"+Math.round(破甲()*100)+"最大防御"),
-								(麻痹()==0?"":"\n攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
-								(冻结()==0?"":"\n攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
-							   );
-		} else {
-			return Messages.get(this,"stats_desc",
-								(伤害()==0||伤害()==1?"":"\n"+kw2(伤害())+"倍伤害"),
-								(命中()==0||命中()==1?"":"\n"+kw2(命中())+"倍命中"),
-								(延迟()==0||延迟()==1?"":"\n"+kw2(延迟())+"倍攻击延迟"),
+		segs.add(流血()==0?"":"\n攻击施加**"+Math.round(流血()*100)+"%流血伤害**");
+		segs.add(中毒()==0?"":"\n攻击施加++"+Math.round(中毒()*100)+"%中毒伤害++");
+		segs.add(魔法()==0?"":"\n攻击+@@"+Math.round(魔法()*100)+"%魔法伤害@@");
+		segs.add(吸血()==0?"":"\n获得**"+Math.round(吸血()*100)+"%吸血**");
+		segs.add(伏击()==0?"":"\n伏击+##"+Math.round(伏击()*100)+"%伤害##");
+		segs.add(首攻()==0?"":"\n首次攻击+"+Math.round(首攻()*100)+"%伤害");
+		segs.add(破甲()==0?"":"\n攻击伤害+敌人"+Math.round(破甲()*100)+"最大防御");
+		segs.add(麻痹()==0?"":"\n攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_");
+		segs.add(冻结()==0?"":"\n攻击@@"+Math.round(冻结()*100)+"%概率冻结敌人@@");
 
-								(流血()==0?"":"\n攻击+ ** "+Math.round(流血()*100)+"%流血伤害 ** "),
-								(中毒()==0?"":"\n攻击+ ++ "+Math.round(中毒()*100)+"%中毒伤害 ++ "),
-								(魔法()==0?"":"\n攻击+ @@ "+Math.round(魔法()*100)+"%魔法伤害 @@ "),
-								(吸血()==0?"":"\n攻击 ** "+Math.round(吸血()*100)+"%吸血 ** "),
-								(伏击()==0?"":"\n伏击+ ## "+Math.round(伏击()*100)+"%伤害 ##"),
-
-								(首攻()==0?"":"\n首次攻击+"+Math.round(首攻()*100)+"%伤害"),
-								(!迅速()?"":"\n首次攻击不消耗回合"),
-								(破甲()==0?"":"\n攻击伤害+敌人"+Math.round(破甲()*100)+"最大防御"),
-								(麻痹()==0?"":"\n攻击_"+Math.round(麻痹()*100)+"%概率麻痹敌人_"),
-								(冻结()==0?"":"\n攻击 @@ "+Math.round(冻结()*100)+"%概率冻结敌人 @@")
-							   );
+		StringBuilder result = new StringBuilder();
+		for (int i = 0; i < segs.size(); i++){
+			String seg = segs.get(i);
+			if (seg.isEmpty()) continue;
+			result.append(seg);
+			//保留原格式串第3、4段之间的空格分隔
+//			if (i == 2) result.append(" ");
 		}
+		return result.toString();
 	}
 	public float DPS(){
 		float hero力量=10;

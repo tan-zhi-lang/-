@@ -383,7 +383,7 @@ public abstract class Wand extends Item {
 				resinBonus--;
 			}
 			updateLevel();
-			curCharges=Math.min(curCharges+ +(curUser!=null&&curUser.heroClass(HeroClass.MAGE)?
+			curCharges=Math.min(curCharges+(curUser!=null&&curUser.heroClass(HeroClass.MAGE)?
 													  1:
 													  0),maxCharges);
 			updateQuickslot();

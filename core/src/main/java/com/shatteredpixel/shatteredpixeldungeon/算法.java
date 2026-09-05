@@ -122,9 +122,6 @@ public class 算法 {
         return s+x;
     }
     public static String kw2(float x) {
-        return kw2(SPDSettings.保留位数(),x);
-    }
-    public static String kw2(int x2,float x) {
         // 处理后缀
         float val;
         String suffix = "";
@@ -147,39 +144,21 @@ public class 算法 {
             BigDecimal fracBD=bd.remainder(BigDecimal.ONE); // 小数部分
 
             int scale=2;
-            int digits=x2;
 
-            if(digits==0){
-                scale=0;
-            }else if(digits==1){
-                    if(SPDSettings.四舍五入()){
-                        // 整数 或 小数 ≥0.5 -> 舍入到整数，否则保留一位小数
-                        if(fracBD.compareTo(BigDecimal.ZERO)==0||
-                           fracBD.compareTo(new BigDecimal("0.5"))>=0){
-                            scale=0;
-                        }else if(fracBD.compareTo(new BigDecimal("0.05"))>=0){
-                            scale=1;          // 小数 ≥0.05 -> 保留一位
-                        }else{
-                            scale=2;          // 其他 -> 保留两位
-                        }
-                    }else{
-                        scale=1;
-                    }
-                }else if(digits==2){
-                        if(SPDSettings.四舍五入()){
-                            // 整数 或 小数 ≥0.5 -> 整数
-                            if(fracBD.compareTo(BigDecimal.ZERO)==0||
-                               fracBD.compareTo(new BigDecimal("0.5"))>=0){
-                                scale=0;
-                            }else if(fracBD.compareTo(new BigDecimal("0.05"))>=0){
-                                    scale=1;          // 小数 ≥0.05 -> 保留一位
-                                }else{
-                                    scale=2;          // 其他 -> 保留两位
-                                }
-                        }else{
-                            scale=2;
-                        }
-                    }
+            if(SPDSettings.四舍五入()){
+                if(fracBD.compareTo(BigDecimal.ZERO)==0){
+                    scale=0;
+                }else if(fracBD.compareTo(new BigDecimal("0.5"))>=0){
+                    scale=1;
+                }else if(fracBD.compareTo(new BigDecimal("0.05"))>=0){
+                    scale=2;
+                }else{
+                    scale=2;
+                }
+            }else{
+                scale=2;
+            }
+
 
             BigDecimal rounded=bd.setScale(scale,RoundingMode.HALF_UP);
             String formatted=rounded.toString();

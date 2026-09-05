@@ -116,7 +116,7 @@ public class Hunger extends Buff implements Hero.Doom {
 		else target.sprite.clearAura();
 	}
 	public float 饥饿伤害(){
-		float x=饥饿速度()*0.5f*
+		float x=0.5f*
 				((float)Math.sqrt(target.最大生命(0.0005f))+
 				 (float)Math.sqrt(target.已损失生命(0.0005f)));
 		if(Dungeon.hero.种族天赋.equals("不死族"))x=0;
@@ -348,8 +348,5 @@ public class Hunger extends Buff implements Hero.Doom {
 	}
 	public boolean 空腹(){
 		return level > STARVING;
-	}
-	public boolean 饱腹(){
-		return level < STARVING-HUNGRY;
 	}
 }

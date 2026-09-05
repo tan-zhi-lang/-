@@ -5,7 +5,9 @@ package com.shatteredpixel.shatteredpixeldungeon.items.weapon;
 import com.shatteredpixel.shatteredpixeldungeon.Assets;
 import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
+import com.shatteredpixel.shatteredpixeldungeon.actors.buffs.Buff;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
+import com.shatteredpixel.shatteredpixeldungeon.items.weapon.enchantments.死神;
 import com.shatteredpixel.shatteredpixeldungeon.items.weapon.武技.连击;
 import com.shatteredpixel.shatteredpixeldungeon.items.秘银;
 import com.shatteredpixel.shatteredpixeldungeon.sprites.物品表;
@@ -41,7 +43,8 @@ public class 无限宝石拳套 extends Weapon {
 			Random.shuffle(enemies);
 			int n=enemies.size()/2;
 			for(int i=0;i<n;i++){
-				enemies.get(i).受伤时(enemies.get(i).最大生命);
+				Buff.施加(enemies.get(i),死神.GrimTracker.class).maxChance = 100f;
+//				enemies.get(i).受伤时(enemies.get(i).最大生命);
 			}
 
 			attacker.受伤时(attacker.生命(0.5f));

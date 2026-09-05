@@ -12,7 +12,5 @@ public class 镶钉手套 extends Weapon{
 		
 		技能=new 连击();
 		tier = 1;
-
-		麻痹=0.15f;
 	}
 }

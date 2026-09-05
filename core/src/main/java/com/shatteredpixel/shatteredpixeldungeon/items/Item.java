@@ -1095,7 +1095,8 @@ public class Item implements Bundlable {
 		return Math.round(x*能量价值);
 	}
 
-	public String info() {
+	//物品窗口元信息：使用备注+代码名+金币/能量价值+物品分类（独立于info()显示）
+	public String 详细信息() {
 		String n="";
 		if (Dungeon.hero()) {
 			Notes.CustomRecord note = Notes.findCustomRecord(customNoteID);
@@ -1116,27 +1117,30 @@ public class Item implements Bundlable {
 			}
 		}
 
-		String 真代码名=this.getClass().getSimpleName();
-		if(this instanceof Plant.Seed)真代码名=this.getClass().getName()
-				.replaceAll("com.shatteredpixel.shatteredpixeldungeon.plants.", "")
-				.replaceAll("\\$Seed", "");
-		String s="\n代码名"+(已鉴定()?真代码名:"待鉴定");
-		s+="\n";
+
+
+		String s="";
+		if(已鉴定()){
+			String 真代码名=this.getClass().getSimpleName();
+			if(this instanceof Plant.Seed)
+				真代码名=this.getClass().getName().replaceAll("com.shatteredpixel.shatteredpixeldungeon.plants.","").replaceAll("\\$Seed","");
+			s="\n代码名:"+真代码名;
+			s+="\n";
+		}
 		if(已鉴定()){
 			if(金币()>0){
-			s+="_"+"金币价值"+(金币()>0?
+			s+="_"+"金币价值:"+(金币()>0?
 									   金币提升()+"(出售价)/"+Shopkeeper.sellPrice(this)+"购入价":
 									   "无价")+"_";
-			s+="\n";
 			}
 			if(能量()>0){
-				s+=" @@ 能量价值"+(能量()>0?
+				s+=" @@能量价值:"+(能量()>0?
 										   ""+能量提升():
-										   "无价")+" @@ ";
-				s+="\n";
+										   "无价")+"@@";
 			}
+			s+="\n";
 		}
-		s+="物品";
+		s+="物品类型:物品";
 		if(this instanceof Bag){
 			s+="、"+"背包";
 		}
@@ -1254,12 +1258,18 @@ public class Item implements Bundlable {
 		if(this instanceof Wand||法杖){
 			s+="、"+"法杖";
 		}
+		return n+(SPDSettings.隐藏细节()?"":s);
+	}
+	public String 扔出信息(){
 		String 扔="";
 		if(!(this instanceof Weapon)&&!(this instanceof Runestone)){
-			扔+="\n"+"扔出伤害"+kw2(武力之戒.heromin())+"~"+kw2(武力之戒.heromax());
+			扔+="\n\n"+"扔出伤害"+kw2(武力之戒.heromin())+"~"+kw2(武力之戒.heromax());
 		}
+		return 扔;
+	}
+	public String info() {
 
-		return n+desc()+(SPDSettings.隐藏细节()?"":s)+扔;
+		return desc();
 	}
 
 	public String desc() {

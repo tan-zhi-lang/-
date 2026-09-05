@@ -14,7 +14,6 @@ public class 炼狱铲 extends Weapon{
 		特别=true;
 		红色=true;
 		tier=5;
-		麻痹=0.15f;
 	}
 
 }

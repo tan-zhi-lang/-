@@ -61,7 +61,6 @@ public class SPDSettings extends GameSettings {
 	public static final String 画面同步x = "画面同步";
 	public static final String 游戏帧率x = "游戏帧率";
 	public static final String 文字寿命x = "文字寿命";
-	public static final String 保留位数x= "保留位数";
 	public static final String 提示行数x = "提示行数";
 	public static final String 新手提示x = "新手提示";
 	public static final String 目标优先级x = "目标优先级";
@@ -344,13 +343,7 @@ public class SPDSettings extends GameSettings {
 	public static int 文字寿命() {
 		return getInt(文字寿命x, 0,0,6 );
 	}
-	public static void 保留位数(int value){
-		put(保留位数x,value);
-	}
 
-	public static int 保留位数() {
-		return getInt(保留位数x,2,0,2);
-	}
 	public static void 提示行数(int value ){
 		put(提示行数x, value );
 	}

@@ -226,7 +226,7 @@ public class StatusPane extends Component {
 
 		busy = new BusyIndicator();
 		add( busy );
-		busytime = new RenderedText("回合差"+ kw2(2,(1f - Actor.now()%1f)%1f)
+		busytime = new RenderedText("回合差"+ kw2((1f - Actor.now()%1f)%1f)
 				, 32);
 		add(busytime);
 
@@ -475,7 +475,7 @@ public class StatusPane extends Component {
 		day.x = counter.x-3;
 		day.y = counter.y+counter.height() + day.height()*2f+2;
 
-		busytime.text("回合差"+kw2(2,(1f - Actor.now()%1f)%1f));
+		busytime.text("回合差"+kw2((1f - Actor.now()%1f)%1f));
 		busytime.measure();
 		busytime.x = counter.x-5f;
 		busytime.y = counter.y+counter.height()-busytime.height()*2+5;

@@ -399,7 +399,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 						OptionSlider optScreenShake;
 						OptionSlider 游戏帧率;
 						OptionSlider 文字寿命;
-						OptionSlider 保留位数;
 						OptionSlider 缓冲效果;
 						OptionSlider 提示行数;
 						OptionSlider 新手提示;
@@ -472,17 +471,6 @@ public class WndSettings extends WndTabbed {//WndSettings
 							add(文字寿命);
 
 
-							保留位数= new OptionSlider("保留位数",
-													   "0位","2位",0,2) {
-								@Override
-								protected void onChange() {
-									SPDSettings.保留位数(getSelectedValue());
-								}
-							};
-							保留位数.setSelectedValue(SPDSettings.保留位数());
-							add(保留位数);
-
-
 							缓冲效果= new OptionSlider("血条缓冲",//(包含敌人和老鬼、英雄红绿蓝条的缓冲效果)
 													   "更慢","更快",1,3) {
 								@Override
@@ -539,8 +527,7 @@ public class WndSettings extends WndTabbed {//WndSettings
 							游戏帧率.setRect(0,  optScreenShake.bottom()+GAP, width, BTN_HEIGHT);
 
 							文字寿命.setRect(0,  游戏帧率.bottom()+GAP, width, BTN_HEIGHT);
-							保留位数.setRect(0,文字寿命.bottom()+GAP,width,BTN_HEIGHT);
-							缓冲效果.setRect(0,保留位数.bottom()+GAP,width,BTN_HEIGHT);
+							缓冲效果.setRect(0,文字寿命.bottom()+GAP,width,BTN_HEIGHT);
 							提示行数.setRect(0,缓冲效果.bottom()+GAP,width,BTN_HEIGHT);
 							新手提示.setRect(0,提示行数.bottom()+GAP,width,BTN_HEIGHT);
 

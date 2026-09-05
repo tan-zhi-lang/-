@@ -20,8 +20,9 @@ public class WndInfoMob extends WndTitledMessage {
 	
 	public WndInfoMob( Mob mob ) {
 
-		super( new MobTitle( mob ), mob.info() );
-		
+		//元信息（备注/属性/战斗数据/战利品）独立成块，显示在描述之前
+		super( new MobTitle( mob ), mob.详细信息(), mob.info() );
+
 	}
 	
 	private static class MobTitle extends Component {

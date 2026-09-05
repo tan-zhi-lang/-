@@ -5,6 +5,7 @@ package com.shatteredpixel.shatteredpixeldungeon.windows;
 import com.shatteredpixel.shatteredpixeldungeon.scenes.PixelScene;
 import com.shatteredpixel.shatteredpixeldungeon.ui.RenderedTextBlock2;
 import com.shatteredpixel.shatteredpixeldungeon.ui.Window;
+import com.watabou.noosa.ColorBlock;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.ui.Component;
 
@@ -22,6 +23,13 @@ public class WndTitledMessage extends Window {
 	
 	public WndTitledMessage( Component titlebar, String message ) {
 
+		this( titlebar, null, message );
+
+	}
+
+	//metaMessage非空时作为独立文本块显示在message之前
+	public WndTitledMessage( Component titlebar, String metaMessage, String message ) {
+
 		super();
 
 		int width = WIDTH_MIN;
@@ -29,10 +37,25 @@ public class WndTitledMessage extends Window {
 		titlebar.setRect( 0, 0, width, 0 );
 		add(titlebar);
 
+		RenderedTextBlock2 meta = null;
+		ColorBlock metaBg = null;
+		if (metaMessage != null && !metaMessage.isEmpty()){
+			meta = PixelScene.renderTextBlock2( 6 );
+			if (!useHighlighting()) meta.setHightlighting(false);
+			meta.text( metaMessage, width );
+			meta.setPos( titlebar.left(), titlebar.bottom() + 2*GAP );
+			//半透明底色框住元信息块（同ResistanceIndicator），先加底色再加文字保证顺序
+			metaBg = new ColorBlock(meta.width() + 2f, meta.height() + 2f, 0xd680876f);
+			metaBg.x = meta.left() - 1f;
+			metaBg.y = meta.top() - 1f;
+			add( metaBg );
+			add( meta );
+		}
+
 		RenderedTextBlock2 text = PixelScene.renderTextBlock2( 6 );
 		if (!useHighlighting()) text.setHightlighting(false);
 		text.text( message, width );
-		text.setPos( titlebar.left(), titlebar.bottom() + 2*GAP );
+		text.setPos( titlebar.left(), (meta != null ? meta.bottom() : titlebar.bottom()) + 2*GAP );
 		add( text );
 
 		while (PixelScene.横屏()
@@ -40,7 +63,14 @@ public class WndTitledMessage extends Window {
 				&& width < WIDTH_MAX){
 			width += 20;
 			titlebar.setRect(0, 0, width, 0);
-			text.setPos( titlebar.left(), titlebar.bottom() + 2*GAP );
+			if (meta != null){
+				meta.maxWidth(width);
+				meta.setPos( titlebar.left(), titlebar.bottom() + 2*GAP );
+				metaBg.size( meta.width() + 2f, meta.height() + 2f );
+				metaBg.x = meta.left() - 1f;
+				metaBg.y = meta.top() - 1f;
+			}
+			text.setPos( titlebar.left(), (meta != null ? meta.bottom() : titlebar.bottom()) + 2*GAP );
 			text.maxWidth(width);
 		}
 

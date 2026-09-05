@@ -1679,6 +1679,14 @@ public abstract class Mob extends Char{
 		for(Buff b: buffs(ChampionEnemy.class)){
 			desc+="\n\n_"+Messages.titleCase(b.name())+"_\n"+b.desc();
 		}
+
+		return desc;
+	}
+
+	//怪物窗口元信息：使用备注+属性+战斗数据+战利品（独立于info()显示）
+	public String 详细信息(){
+		String desc="";
+
 		Notes.CustomRecord note = Notes.findCustomRecord(this);
 		if (note != null){
 			desc+="\n\n"+Messages.get(this,"custom_note_type",note.title().replace('_','ˍ'),note.desc().replace('_','ˍ'));
@@ -1714,14 +1722,14 @@ public abstract class Mob extends Char{
 				属性+="/傀儡(大部分击杀效果不能触发)";
 			}
 			if(低活动度生物()){
-				属性+=" 低活动度生物";
+				属性+="低活动度生物";
 			}
 
 			if(恶魔()){
-				属性+="/ ##恶魔##";
+				属性+="/##恶魔##";
 			}
 			if(亡灵()){
-				属性+="/ -- 亡灵 -- ";
+				属性+="/--亡灵--";
 			}
 
 			if(庞大()){
@@ -1731,10 +1739,10 @@ public abstract class Mob extends Char{
 				属性+="/无机物";
 			}
 			if(海妖()){
-				属性+="/ !! 海妖 !!";
+				属性+="/!!海妖!!";
 			}
 			if(树妖()){
-				属性+="/ ++ 植物 ++";
+				属性+="/++植物++";
 			}
 			if(水晶()){
 				属性+="/植物";
@@ -1746,16 +1754,16 @@ public abstract class Mob extends Char{
 				属性+="/动物";
 			}
 			if(酸性()){
-				属性+="/ ++ 酸性 ++";
+				属性+="/++酸性++";
 			}
 			if(冰霜()){
-				属性+="/ @@ 寒冰 @@";
+				属性+="/@@寒冰@@";
 			}
 			if(火焰()){
-				属性+="/ == 火焰 ==";
+				属性+="/==火焰==";
 			}
 			if(闪电()){
-				属性+="/ _闪电_";
+				属性+="/_闪电_";
 			}
 			if(静物()){
 				属性+="/静物";
@@ -1773,22 +1781,28 @@ public abstract class Mob extends Char{
 			}
 			desc+="属性:"+属性+"(阵容"+阵容+")\n\n";
 
-				desc+=" == 攻击 == "+"/"+" ++ 防御 ++ "+kw2(最小攻击()*Dungeon.难度攻击(this))+"~"+kw2(最大攻击()*Dungeon.难度攻击(this));
+				desc+="**攻击范围**/_视野范围_:"+攻击范围()+"/"+视野范围()+"\n";
+				desc+="\n";
+				desc+="==攻击=="+"/"+"++防御++"+kw2(最小攻击()*Dungeon.难度攻击(this))+"~"+kw2(最大攻击()*Dungeon.难度攻击(this));
 				desc+="/"+kw2(最小防御()*Dungeon.难度防御(this))+"~"+kw2(最大防御()*Dungeon.难度防御(this));
 				desc+="\n";
-				desc+=" ## 元素抗性/魔抗 ## :"+Math.round(100*(1-(元素之戒.抗性(this))))+"%/"
-					  +kw2(最小魔抗())+"~"+kw2(最大魔抗());
-				desc+="\n\n";
-				desc+=" ** 攻击范围 ** / _视野范围_ :"+攻击范围()+"/"+视野范围()+"\n";
-				desc+=" ** 命中 ** "+"/"+" ## 闪避 ## :"+kw2(最小命中(null)*Dungeon.难度命中(this))+"~"
+				desc+="##元素抗性/魔抗##:"+Math.round(100*(1-(元素之戒.抗性(this))))+"%/"
+					  +kw2(最小魔抗())+"~"+kw2(最大魔抗())+"\n";
+				desc+="\n";
+				desc+="**命中**"+"/"+"##闪避##:"+kw2(最小命中(null)*Dungeon.难度命中(this))+"~"
 					  +kw2(最大命中(null)*Dungeon.难度命中(this));
 				desc+="/"+kw2(最小闪避(null)*Dungeon.难度闪避(this))+"~"
 					  +kw2(最大闪避(null)*Dungeon.难度闪避(this));
+
 				desc+="\n";
-				desc+="攻速/移速 :"+kw2(1f/攻击延迟())+"/"+kw2(移速())+"\n\n";//(水平移动||垂直移动)?移速()/2f:
-				desc+="_暴击率/暴击伤害_ :"+kw2(暴击率()*100)+"/"+kw2(暴击伤害()*100)+"%\n";
-				desc+="_击杀经验_ :"+Math.round(经验*Dungeon.难度经验(this))+"\n";
-				desc+="你大于此等级无经验和战利品 :"+(最大等级+2)+"\n";
+
+				desc+="攻速/移速:"+kw2(1f/攻击延迟())+"/"+kw2(移速())+"\n\n";//(水平移动||垂直移动)?移速()/2f:
+				desc+="_暴击率/暴击伤害_:"+kw2(暴击率()*100)+"/"+kw2(暴击伤害()*100)+"%\n";
+
+				desc+="\n";
+
+				desc+="_击杀经验_:"+Math.round(经验*Dungeon.难度经验(this))+"\n";
+				desc+="你大于此等级无经验和战利品:"+(最大等级+2)+"\n";
 
 			String 战利品="";
 			if(loot instanceof Item i){
@@ -1823,14 +1837,14 @@ public abstract class Mob extends Char{
 					战利品="随机药剂";
 				}
 			}
-			if(战利品.equals(""))战利品="无";
-			desc+="_战利品_ :"+战利品+"\n";
-			desc+="_掉落几率_ :"+kw2(lootChance()*Dungeon.难度掉率(this)*100)+"%";
+			if(!战利品.equals(""))
+			desc+="_战利品/掉落几率_ :"+战利品+"/"+kw2(lootChance()*Dungeon.难度掉率(this)*100)+"%";
 		}
 
+		//去掉块首空行，作为独立文本块显示
+		while (desc.startsWith("\n")) desc = desc.substring(1);
 		return desc;
 	}
-
 
 	@Override
 	public float 最大魔抗(){

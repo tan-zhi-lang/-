@@ -950,7 +950,26 @@ public abstract class Mob extends Char{
 		if(Dungeon.符文("你才是老鬼"))x+=0.25f;
 		return x;
 	}
+	@Override
+	public boolean cellIsPathable(int cell){
+		if(!Dungeon.level.passable[cell]){
+			if(flying||buff(Amok.class)!=null){
+				if(!Dungeon.level.avoid[cell]){
+					return false;
+				}
+			}else{
+				return false;
+			}
+		}
+		if(Char.hasProp(this,Char.Property.LARGE)&&!Dungeon.level.openSpace[cell]){
+			return false;
+		}
+		if(Actor.findChar(cell)!=null){
+			return false;
+		}
 
+		return true;
+	}
 	@Override
 	public void 受伤时(float dmg,Object 来源){
 		if(!是无敌(来源.getClass())){

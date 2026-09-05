@@ -6,6 +6,7 @@ import com.shatteredpixel.shatteredpixeldungeon.Dungeon;
 import com.shatteredpixel.shatteredpixeldungeon.GamesInProgress;
 import com.shatteredpixel.shatteredpixeldungeon.SPDSettings;
 import com.shatteredpixel.shatteredpixeldungeon.ShatteredPixelDungeon;
+import com.shatteredpixel.shatteredpixeldungeon.actors.Char;
 import com.shatteredpixel.shatteredpixeldungeon.actors.mobs.Mob;
 import com.shatteredpixel.shatteredpixeldungeon.items.scrolls.传送卷轴;
 import com.shatteredpixel.shatteredpixeldungeon.messages.Messages;
@@ -54,9 +55,9 @@ public class WndGame extends Window {
 				hide();
 				if(算法.isDebug()){
 						for(Mob m : new ArrayList<>(Dungeon.level.mobs)){
-		//					if(m.enemy==Dungeon.hero) {
+							if(m.alignment==Char.Alignment.ENEMY) {
 								m.受伤时(m.最大生命);
-		//					}
+							}
 						}
 						传送卷轴.teleportPreferringUnseen(Dungeon.hero);
 				}

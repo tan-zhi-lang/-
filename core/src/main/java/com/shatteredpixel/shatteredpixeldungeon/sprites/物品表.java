@@ -332,7 +332,7 @@ public class 物品表 {
         assignItemRect(铜钱剑, 16);
         assignItemRect(白带, 15,16);
         assignItemRect(SPEAR,16);
-        assignItemRect(臂铠, 16);
+        assignItemRect(臂铠, 9,16);
         assignItemRect(修理扳手,16);
         assignItemRect(金玫苦无, 15, 16);
         assignItemRect(碧蓝巨剑, 16);
@@ -370,7 +370,7 @@ public class 物品表 {
     static {
         
         assignItemRect(DAGGER,16);
-        assignItemRect(GLOVES, 16);
+        assignItemRect(GLOVES, 12,15);
         assignItemRect(HAND_AXE, 12, 14);
         assignItemRect(SHURIKEN, 12);
         assignItemRect(木棍,16,15);
@@ -410,7 +410,7 @@ public class 物品表 {
         assignItemRect(锏, 16);
         assignItemRect(SCIMITAR, 13, 16);
         assignItemRect(WHIP, 14);
-        assignItemRect(爪, 16);
+        assignItemRect(爪, 10);
         assignItemRect(KATANA, 15, 16);
         assignItemRect(BOOMERANG, 14);
         assignItemRect(狼筅, 16);
@@ -471,7 +471,7 @@ public class 物品表 {
         assignItemRect(WAR_HAMMER);
         assignItemRect(TRIDENT);
         assignItemRect(巨斧, 12, 16);
-        assignItemRect(GAUNTLETS, 16, 15);
+        assignItemRect(GAUNTLETS, 13, 15);
         
         assignItemRect(轮刃);
         assignItemRect(WAR_SCYTHE, 14, 16);
@@ -583,6 +583,8 @@ public class 物品表 {
     public static final int 燧石=WEP_TIER52+25;
     public static final int 蘑菇长矛=WEP_TIER52+26;
     public static final int 臭虎爪=WEP_TIER52+27;
+    public static final int 奇袭终刃=WEP_TIER52+28;
+    public static final int 无限宝石拳套=WEP_TIER52+29;
 
     static{
         assignItemRect(联合盾,15);
@@ -613,6 +615,8 @@ public class 物品表 {
         assignItemRect(燧石);
         assignItemRect(蘑菇长矛,15);
         assignItemRect(臭虎爪,16,15);
+        assignItemRect(奇袭终刃);
+        assignItemRect(无限宝石拳套,13,15);
 
 
     }

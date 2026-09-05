@@ -270,6 +270,7 @@ public class Assets {
 		public static final String MISS             = "sounds/hit/miss.mp3";
 		public static final String 攻击砍= "sounds/hit/攻击砍.mp3";
 		public static final String 镜刃        = "sounds/hit/镜刃.mp3";
+		public static final String 无限宝石拳套        = "sounds/hit/无限宝石拳套.mp3";
 		public static final String 攻击刺= "sounds/hit/攻击刺.mp3";
 		public static final String 攻击棍= "sounds/hit/攻击棍.mp3";
 		public static final String 攻击魔法= "sounds/hit/攻击魔法.mp3";
@@ -396,7 +397,9 @@ public class Assets {
 				心之钢,
 				坠星,
 				子弹落地,弹弓,换弹,霰弹枪换弹,狙击枪换弹,火炮换弹,手枪,冲锋枪,火炮,狙击枪,霰弹枪,
-				镜刃,布甲,皮甲,链甲,鳞甲,板甲,
+				镜刃,
+				无限宝石拳套,
+				布甲,皮甲,链甲,鳞甲,板甲,
 				鞭子,刺剑,巨剑,爪,
 				棍棒,锤打,盾牌,长枪,
 				HIT, MISS,

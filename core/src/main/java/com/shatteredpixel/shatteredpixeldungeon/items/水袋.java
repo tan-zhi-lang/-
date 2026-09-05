@@ -22,6 +22,7 @@ public class 水袋 extends Item {
 	private static final int MAX_VOLUME	= 20;
 
 	private static final String AC_DRINK	= "DRINK";
+	private static final String AC_DRINK_ALL	= "DRINK_ALL";
 	private static final String AC_合成	= "合成";
 
 	private static final float TIME_TO_DRINK = 1f;
@@ -62,6 +63,7 @@ public class 水袋 extends Item {
 		ArrayList<String> actions = super.actions( hero );
 		if (volume > 0) {
 			actions.add( AC_DRINK );
+			actions.add( AC_DRINK_ALL );
 		}
 		if (volume == MAX_VOLUME) {
 			actions.add( AC_合成 );
@@ -74,22 +76,28 @@ public class 水袋 extends Item {
 
 		super.execute( hero, action );
 
-		if (action.equals( AC_DRINK )) {
+		if (action.equals( AC_DRINK )||action.equals( AC_DRINK_ALL )) {
 
 			if (volume > 0) {
-				
-				float missingHealthPercent = 1f - (hero.生命 / (float)hero.最大生命);
 
-				//each drop is worth 5% of total health
-				float dropsNeeded = missingHealthPercent / 0.05f;
+				int dropsToConsume;
+				if (action.equals( AC_DRINK )) {
+					//普通喝水动作每次只喝当前水量的1/5
+					dropsToConsume = (int)Math.ceil(volume / 4f);
+				} else {
+					float missingHealthPercent = 1f - (hero.生命 / (float)hero.最大生命);
 
-				//we are getting extra heal value, scale back drops needed accordingly
-				if (dropsNeeded > 1.01f && VialOfBlood.delayBurstHealing()){
-					dropsNeeded /= VialOfBlood.totalHealMultiplier();
+					//each drop is worth 5% of total health
+					float dropsNeeded = missingHealthPercent / 0.05f;
+
+					//we are getting extra heal value, scale back drops needed accordingly
+					if (dropsNeeded > 1.01f && VialOfBlood.delayBurstHealing()){
+						dropsNeeded /= VialOfBlood.totalHealMultiplier();
+					}
+
+					//trimming off 0.01 drops helps with floating point errors
+					dropsToConsume = (int)Math.ceil(dropsNeeded - 0.01f);
 				}
-
-				//trimming off 0.01 drops helps with floating point errors
-				int dropsToConsume = (int)Math.ceil(dropsNeeded - 0.01f);
 				dropsToConsume = (int)GameMath.之内(1,dropsToConsume,volume);
 
 				if (Dewdrop.consumeDew(dropsToConsume, hero, true)){

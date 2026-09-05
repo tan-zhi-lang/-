@@ -11,7 +11,7 @@ public class 血姬 extends Weapon{
 		image = 物品表.血姬;
 		技能=new 连击();
 		tier = 1;
-		延迟= 0.5f;
+
 		流血= 0.15f;
 		专属=true;
 		

@@ -12,7 +12,6 @@ public class 指虎 extends Weapon{
 		image = 物品表.指虎;
 		hitSound = Assets.Sounds.攻击刺;
 
-		延迟=0.5f;
 		流血=0.15f;
 		
 		技能=new 连击();

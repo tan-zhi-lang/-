@@ -580,6 +580,8 @@ public class Generator {
 					燧石.class,//1.5
 
 					蘑菇长矛.class,//1.3
+					奇袭终刃.class,//1
+					无限宝石拳套.class,//1
 			};
 			WEP_T5.defaultProbs = new float[]{
 					//1
@@ -601,7 +603,7 @@ public class Generator {
 					//12
 					2,2,2,2,
 					2,2,2,2,
-					2,
+					2,2,2,
 											   };
 			WEP_T5.probs = WEP_T5.defaultProbs.clone();
 			

@@ -52,14 +52,14 @@ public class 武力之戒 extends Ring{
 	
 	public static float heromin(){
 		if(Dungeon.hero())
-		return 0.05f * Dungeon.hero.力量();
-		return 0.05f * 10;
+		return 0.1f * Dungeon.hero.力量();
+		return 1;
 	}
 	
 	public static float heromax(){
 		if(Dungeon.hero())
-		return Dungeon.hero.力量()-8.5f;
-		return 10-8.5f;
+		return Dungeon.hero.力量()-6;
+		return 4;
 	}
 	public static float max(){
 		int x=0;

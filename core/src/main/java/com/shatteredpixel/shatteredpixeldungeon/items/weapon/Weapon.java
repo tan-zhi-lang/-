@@ -393,7 +393,7 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	@Override
 	public float 最大攻击(int lvl) {
-		return augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1)))*伤害();
+		return Math.max(2,augment.damageFactor(最大+(5*(tier()+1) +lvl*(tier()+1)))*伤害());
 	}
 
 	@Override
@@ -418,7 +418,7 @@ abstract public class Weapon extends KindOfWeapon {
 	}
 
 	public float 延迟(){
-		float 伤害=this.延迟;
+		float 延迟=this.延迟;
 		return 延迟/速度收益;
 	}
 

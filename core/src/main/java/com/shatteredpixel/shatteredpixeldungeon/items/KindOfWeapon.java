@@ -155,6 +155,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 	public boolean 延迟自动转= true;
 	public boolean 拳套(){
 		if(this instanceof 致胜拳炮)return true;
+		if(this instanceof 无限宝石拳套)return true;
 		if(this instanceof 镶钉手套)return true;
 		if(this instanceof 爪)return true;
 		if(this instanceof 血姬)return true;
@@ -230,6 +231,7 @@ abstract public class KindOfWeapon extends EquipableItem {
 		if(this instanceof 镜刃)return true;
 		if(this instanceof 吸血刀)return true;
 		if(this instanceof 妖刀村正)return true;
+		if(this instanceof 奇袭终刃)return true;
 		if(长刀())return true;
 		return false;
 	}
@@ -361,13 +363,9 @@ abstract public class KindOfWeapon extends EquipableItem {
 		return false;
 	}
 	public boolean 双手(){
-		if(this instanceof 镶钉手套)return true;
-		if(this instanceof 血姬)return true;
-		if(this instanceof 白带)return true;
+
 		
 		if(this instanceof 臂铠)return true;
-		if(this instanceof 投掷手套)return true;
-		if(this instanceof 魔岩拳套)return true;
 
 		if(this instanceof 双刃)return true;
 		if(this instanceof 狼筅)return true;

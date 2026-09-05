@@ -16,7 +16,6 @@ public class 魔岩拳套 extends Weapon {
 		
 		tier = 4;
 		技能=new 连击();
-		延迟= 0.5f;
 	}
 	public static class Recipe extends com.shatteredpixel.shatteredpixeldungeon.items.Recipe.SimpleRecipe{
 
